@@ -1,562 +1,537 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#111827" />
-  <title>AI Career Expo Dashboard</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080e1b">
+  <meta name="description" content="AI Career Expo — 33명 참가자의 단계별 제출 현황을 한눈에 확인하는 라이브 대시보드">
+  <title>AI Career Expo | Live Progress Board</title>
   <style>
-    :root{
-      --bg:#f6f7fb;
-      --surface:#ffffff;
-      --surface-soft:#f9fafb;
-      --text:#111827;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --accent:#6d5dfc;
-      --accent-soft:#eeecff;
-      --accent-2:#0ea5a4;
-      --success:#15803d;
-      --warning:#b45309;
-      --shadow:0 18px 50px rgba(15,23,42,.08);
-      --radius:24px;
+    :root {
+      color-scheme: dark;
+      --bg:#080e1b; --bg-2:#0c1425; --surface:#111d31;
+      --stroke:#293951; --text:#eef4ff; --muted:#94a6c1;
+      --mint:#64f5bd; --amber:#ffd180; --off:#38485e;
+      --gap:9px; --cols:7; --rows:5;
     }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:Pretendard,"Noto Sans KR",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    *,*::before,*::after { box-sizing:border-box; }
+    html { height:100%; }
+    body {
+      margin:0; min-width:320px; min-height:100%; overflow:hidden;
+      background: radial-gradient(ellipse 53% 40% at 8% -10%,#172649 0%,transparent 77%),
+                  radial-gradient(ellipse 45% 35% at 90% 0%,#0d313b 0%,transparent 73%), var(--bg);
       color:var(--text);
-      background:
-        radial-gradient(circle at 8% 0%, rgba(109,93,252,.10), transparent 30rem),
-        radial-gradient(circle at 95% 20%, rgba(14,165,164,.09), transparent 28rem),
-        var(--bg);
-      min-height:100vh;
+      font-family:Pretendard,"Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
     }
-
-    a{color:inherit}
-    button,input,select{font:inherit}
-
-    .wrap{width:min(1240px,calc(100% - 32px));margin:0 auto}
-
-    /* =============================
-       상단 헤더
-       ============================= */
-    .topbar{
-      position:sticky;top:0;z-index:50;
-      background:rgba(246,247,251,.88);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid rgba(229,231,235,.9);
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible,input:focus-visible { outline:2px solid var(--mint);outline-offset:3px; }
+    .app {
+      height:100dvh; min-height:0; max-width:2260px; margin:0 auto;
+      padding:clamp(12px,1.25vw,24px) clamp(13px,1.6vw,30px) 11px;
+      display:flex; flex-direction:column; gap:clamp(8px,1.2vh,13px);
     }
-    .topbar-inner{
-      min-height:70px;
-      display:flex;align-items:center;justify-content:space-between;gap:20px;
+    .topbar { min-height:37px; display:flex; gap:16px; justify-content:space-between; align-items:center; }
+    .brand { display:flex; align-items:center; gap:11px; min-width:0; }
+    .brand-mark {
+      flex:none; display:grid;place-items:center; width:35px;height:35px;
+      border-radius:11px; font-size:13px; font-weight:950; letter-spacing:-.04em;
+      color:#071523; background:linear-gradient(140deg,#b8ffe0,var(--mint) 62%,#56c8d5);
+      box-shadow:0 0 27px #4de8ac2c;
     }
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
-    .brand-mark{
-      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
-      color:#fff;font-size:13px;font-weight:900;
-      background:linear-gradient(135deg,var(--accent),#4f46e5 55%,var(--accent-2));
-      box-shadow:0 10px 25px rgba(109,93,252,.24);
+    .brand-name { font-size:13px;font-weight:850;letter-spacing:.09em;white-space:nowrap; }
+    .brand-caption { font-size:10px; color:var(--muted); margin-top:2px; letter-spacing:.025em; }
+    .top-actions{display:flex;align-items:center;gap:12px;}
+    .live-pill{
+      display:flex; align-items:center; gap:7px; font-size:11px; font-weight:850;
+      color:#b7c4d6; border:1px solid #30425a; border-radius:99px; padding:8px 10px;
+      white-space:nowrap; background:#111d2f;
     }
-    .top-meta{font-size:13px;color:var(--muted);font-weight:700}
-
-    /* =============================
-       Hero
-       ============================= */
-    .hero{padding:72px 0 34px}
-    .hero-panel{
+    .live-pill .pulse { width:7px;height:7px;border-radius:100%;background:var(--amber);box-shadow:0 0 11px #ffd18077; }
+    .live-pill.connected .pulse { background:var(--mint);box-shadow:0 0 11px #64f5bd99; }
+    .icon-btn{
+      border:1px solid var(--stroke); color:#c5d5e9; background:#111c2d;
+      min-width:34px;height:34px;padding:0 9px;border-radius:10px;font-size:17px;
+    }
+    .icon-btn:hover { border-color:#52708f; background:#17263d; }
+    .intro {
+      display:grid; grid-template-columns:minmax(290px,1fr) minmax(570px,1.33fr);
+      align-items:center;gap:16px;min-height:90px;
+    }
+    .eyebrow { color:var(--mint);font-size:10px;letter-spacing:.17em;font-weight:900;text-transform:uppercase; }
+    .intro h1 { margin:7px 0 4px;letter-spacing:-.05em;font-size:clamp(22px,2.15vw,32px);font-weight:850;line-height:1.17; }
+    .intro h1 em {font-style:normal;color:var(--mint)}
+    .subtitle{font-size:11.5px;color:var(--muted);line-height:1.35;margin:0;}
+    .stats {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+    .stat {
+      height:83px; border:1px solid var(--stroke);border-radius:14px;
+      background:linear-gradient(155deg,#15243b,#101b2e);padding:12px 12px 10px;
       position:relative;overflow:hidden;
-      padding:42px;
-      border:1px solid rgba(255,255,255,.9);
-      border-radius:32px;
-      background:rgba(255,255,255,.78);
-      backdrop-filter:blur(14px);
-      box-shadow:var(--shadow);
     }
-    .hero-panel::after{
-      content:"";position:absolute;right:-90px;top:-100px;width:300px;height:300px;border-radius:50%;
-      background:linear-gradient(135deg,rgba(109,93,252,.17),rgba(14,165,164,.10));
-      filter:blur(4px);
+    .stat::after {content:"";position:absolute;right:-17px;top:-20px;width:66px;height:66px;background:#a3fbe309;border-radius:50%;}
+    .stat-top {font-size:10.5px;color:#9bb0cb;font-weight:750;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+    .stat-top .tiny {height:6px;width:6px;border-radius:50%;background:var(--mint);opacity:.8;}
+    .stat-value {font-size:clamp(21px,2.3vw,30px);font-weight:850;letter-spacing:-.055em;margin-top:6px;line-height:1;}
+    .stat-value span{font-size:13px;color:#7187a6;letter-spacing:0;font-weight:650;margin-left:3px;}
+    .stat-meter {height:3px;width:100%;background:#26354c;border-radius:5px;margin-top:8px;overflow:hidden;}
+    .stat-meter i {display:block;height:100%;width:0%;background:var(--mint);transition:width .45s ease;}
+    .boardbar {display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:36px;}
+    .board-label{display:flex;align-items:center;gap:12px;min-width:0;}
+    .board-label h2{font-size:15px;margin:0;letter-spacing:-.035em;font-weight:850;white-space:nowrap;}
+    .board-label .hint{font-size:10px;color:#8fa5bd;white-space:nowrap;}
+    .board-tools{display:flex;align-items:center;gap:10px;min-width:0;}
+    .board-count { color:#a5b7ce;font-size:11px;white-space:nowrap;font-variant-numeric:tabular-nums; }
+    .search {height:31px;display:flex;align-items:center;gap:6px;border:1px solid #2b3b55;border-radius:9px;background:#101c30;padding:0 10px;}
+    .search svg{width:13px;height:13px;flex:none;opacity:.62;}
+    .search input{width:115px;border:0;outline:0;color:#dce9fb;background:transparent;font-size:11px;}
+    .search input::placeholder{color:#7085a2;}
+    .board {
+      flex:1;min-height:0;display:grid;
+      grid-template-columns:repeat(var(--cols),minmax(0,1fr));
+      grid-template-rows:repeat(var(--rows),minmax(0,1fr));
+      gap:var(--gap);
     }
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;
-      background:#fff;border:1px solid var(--line);border-radius:999px;
-      padding:8px 12px;font-size:13px;font-weight:850;color:#4b5563;
+    .person-card {
+      border:1px solid #273950;border-radius:12px;overflow:hidden;
+      min-height:0; min-width:0;position:relative;
+      display:flex;flex-direction:column;
+      background:linear-gradient(#142238,#0e1a2d);
+      color:inherit;text-align:left;padding:0;
+      transition:border-color .18s ease,transform .18s ease,opacity .2s ease;
     }
-    .eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-    h1{font-size:clamp(36px,5.2vw,64px);line-height:1.03;letter-spacing:-.055em;margin:20px 0 16px;max-width:820px}
-    .hero-copy{font-size:17px;line-height:1.75;color:var(--muted);max-width:780px;margin:0}
-
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px;position:relative;z-index:2}
-    .stat{padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.9)}
-    .stat b{display:block;font-size:27px;letter-spacing:-.04em}
-    .stat span{display:block;margin-top:4px;color:var(--muted);font-size:13px;font-weight:750}
-
-    /* =============================
-       검색/필터
-       ============================= */
-    .controls{padding:26px 0 18px}
-    .control-panel{
-      display:grid;grid-template-columns:minmax(280px,1.35fr) repeat(2,minmax(150px,.6fr));gap:12px;
-      padding:14px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(15,23,42,.05)
+    .person-card:hover { border-color:#60bda5;transform:translateY(-2px);z-index:1; }
+    .person-card.dimmed{opacity:.18;}
+    .person-card.matched {border-color:var(--mint);box-shadow:0 0 0 1px #64f5bd70;}
+    .cover {
+      height:37%;max-height:105px;min-height:32px; flex:none;
+      position:relative;isolation:isolate;background:#21405e;
+      overflow:hidden;
     }
-    .control-panel input,.control-panel select{
-      width:100%;min-height:50px;border:1.5px solid #d1d5db;border-radius:14px;background:#fff;color:#111827;
-      padding:0 14px;font-size:15px;outline:none;
+    .cover::before{
+      content:"";position:absolute;inset:0;z-index:-1;
+      background:radial-gradient(ellipse at 84% 30%,#ffffff4b 0 9%,transparent 27%),
+        linear-gradient(115deg,var(--c1),var(--c2) 60%,var(--c3));
     }
-    .control-panel input:focus,.control-panel select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(109,93,252,.10)}
-
-    .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:18px 0 14px}
-    .section-head h2{margin:0;font-size:27px;letter-spacing:-.035em}
-    .section-head p{margin:6px 0 0;color:var(--muted);font-size:14px}
-    .count-label{font-size:14px;color:var(--muted);font-weight:800;white-space:nowrap}
-
-    /* =============================
-       참가자 카드
-       ============================= */
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding-bottom:70px}
-    .card{
-      position:relative;display:flex;flex-direction:column;min-height:420px;
-      border:1px solid rgba(229,231,235,.95);border-radius:24px;background:rgba(255,255,255,.94);
-      box-shadow:0 14px 38px rgba(15,23,42,.055);overflow:hidden;
-      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+    .cover::after {
+      content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0d192ae8 0%,#0d192a80 30%,#0c152300 100%);
+      z-index:0;
     }
-    .card:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(15,23,42,.09);border-color:#d8d4ff}
-    .card-cover{height:112px;background:linear-gradient(135deg,#eceaff,#eefcfb);position:relative}
-    .card-cover::after{
-      content:"";position:absolute;right:18px;top:18px;width:62px;height:62px;border-radius:20px;
-      background:linear-gradient(135deg,rgba(109,93,252,.25),rgba(14,165,164,.18));transform:rotate(14deg);
+    .cover-art {position:absolute; inset:0; width:100%;height:100%;object-fit:cover;object-position:center;z-index:-1;filter:saturate(.95);}
+    .cover-decoration{position:absolute;right:-13px;bottom:-33px;width:100px;height:100px;border-radius:34% 66% 70% 30%;transform:rotate(38deg);background:#ffffff23;z-index:-1;}
+    .cover-top{position:absolute;top:7px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;z-index:2;}
+    .person-id {font-size:9px;font-weight:900;letter-spacing:.09em;color:#eef9ff;text-shadow:0 1px 5px #0008;}
+    .done-badge {font-size:9px;font-weight:900;background:#70ffca;color:#07382d;border-radius:99px;padding:2px 6px;}
+    .person-name {
+      position:absolute;bottom:6px;left:10px;right:7px;z-index:2;
+      font-size:clamp(12px,1.03vw,17px);font-weight:900;line-height:1.12;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 7px #03111dbc;
     }
-    .card-body{padding:22px;display:flex;flex-direction:column;flex:1}
-    .profile-line{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .profile-id{font-size:12px;font-weight:900;color:#6d5dfc;background:var(--accent-soft);padding:6px 9px;border-radius:999px}
-    .track{font-size:12px;font-weight:850;color:#0f766e;background:#ecfdf5;padding:6px 9px;border-radius:999px}
-    .card h3{margin:17px 0 3px;font-size:24px;letter-spacing:-.04em}
-    .dept{font-size:14px;color:var(--muted);font-weight:750}
-    .headline{margin:16px 0 0;font-size:15px;line-height:1.62;color:#374151;min-height:50px}
-    .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
-    .tag{padding:7px 9px;border-radius:9px;background:#f3f4f6;color:#4b5563;font-size:12px;font-weight:800}
-    .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:auto;padding-top:22px}
-    .action{
-      min-height:44px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
-      text-decoration:none;font-size:13px;font-weight:900;background:#fff;transition:.15s ease;
+    .steps {flex:1;min-height:0;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));padding:4px 9px 5px;gap:1px;}
+    .step{display:flex;align-items:center;justify-content:space-between;min-width:0;gap:4px;line-height:1;}
+    .step-text {font-size:clamp(9px,.72vw,12px);font-weight:700;color:#90a2bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .step.on .step-text {color:#eefcf8;}
+    .step-mark {display:flex;align-items:center;gap:5px;flex:none;font-size:9px;font-weight:850;color:#536985;}
+    .light{width:8px;height:8px;border-radius:50%;background:#34475b;border:1px solid #526078;}
+    .step.on .step-mark {color:var(--mint)}
+    .step.on .light {background:#70ffc9;border-color:#a7ffdf;box-shadow:0 0 9px #51fbb5ab,0 0 0 2px #4df5b31c;}
+    .footer {
+      min-height:19px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+      font-size:10px;color:#7187a1;
     }
-    .action:hover{border-color:#b7b0ff;background:#f8f7ff}
-    .action.primary{background:#111827;color:#fff;border-color:#111827}
-    .action.primary:hover{background:#000}
-    .action.disabled{pointer-events:none;color:#9ca3af;background:#f9fafb;border-style:dashed}
-    .detail-btn{
-      width:100%;min-height:42px;margin-top:9px;border:0;border-radius:12px;background:#f5f3ff;color:#5b21b6;font-size:13px;font-weight:900;cursor:pointer
+    .legend{display:flex;gap:13px;align-items:center;white-space:nowrap;}
+    .legend span{display:flex;gap:5px;align-items:center;}
+    .legend .light{width:6px;height:6px;}
+    .legend .lit{background:var(--mint);border-color:#b3ffe5;box-shadow:0 0 6px #64f5bd;}
+    .footer-right{display:flex;gap:13px;align-items:center;white-space:nowrap;}
+    #syncStamp {font-variant-numeric:tabular-nums;}
+    .overlay {position:fixed;inset:0;z-index:100;background:#030812c9;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(7px);}
+    .overlay.open {display:flex;}
+    .modal {
+      width:min(470px,100%);max-height:min(90dvh,790px);overflow:auto;
+      border:1px solid #334968;border-radius:21px;background:#101d31;
+      box-shadow:0 35px 100px #0009;
     }
-
-    /* =============================
-       검색 결과 없음
-       ============================= */
-    .empty{display:none;padding:60px 20px;text-align:center;border:1px dashed #d1d5db;border-radius:22px;background:#fff;color:var(--muted);margin-bottom:70px}
-    .empty b{display:block;color:#111827;font-size:20px;margin-bottom:8px}
-
-    /* =============================
-       상세 모달
-       ============================= */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.48);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
-    .modal-backdrop.open{display:flex}
-    .modal{width:min(700px,100%);max-height:min(760px,90vh);overflow:auto;background:#fff;border-radius:26px;box-shadow:0 30px 90px rgba(15,23,42,.28);padding:26px}
-    .modal-top{display:flex;align-items:start;justify-content:space-between;gap:18px}
-    .modal h3{font-size:28px;margin:0;letter-spacing:-.04em}
-    .close{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px}
-    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
-    .detail-box{padding:16px;border:1px solid var(--line);border-radius:15px;background:#fafafa}
-    .detail-box.full{grid-column:1/-1}
-    .detail-box b{display:block;font-size:12px;color:#6b7280;margin-bottom:7px}
-    .detail-box span{font-size:14px;line-height:1.65;white-space:pre-wrap}
-    .modal-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
-
-    footer{border-top:1px solid var(--line);padding:28px 0 42px;color:#9ca3af;text-align:center;font-size:13px}
-
-    @media (max-width:980px){
-      .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .stats{grid-template-columns:repeat(2,1fr)}
-      .control-panel{grid-template-columns:1fr 1fr}
-      .control-panel input{grid-column:1/-1}
+    .modal-cover{height:155px;position:relative;overflow:hidden;background:linear-gradient(135deg,#335c6d,#402e68);}
+    .modal-cover img{width:100%;height:100%;object-fit:cover;}
+    .modal-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#101d31 2%,transparent 90%);}
+    .close {position:absolute;right:14px;top:14px;z-index:3;width:31px;height:31px;background:#091523ad;border:1px solid #ffffff4b;border-radius:10px;color:#fff;font-size:20px;}
+    .modal-content {padding:0 22px 22px;margin-top:-33px;position:relative;z-index:2;}
+    .modal-id {font-size:11px;letter-spacing:.09em;font-weight:900;color:var(--mint);}
+    .modal h3 {font-size:28px;letter-spacing:-.05em;margin:5px 0 10px;}
+    .detail-sub {font-size:12px;color:#9bafc7;margin:0 0 17px;}
+    .modal-step {padding:12px 13px;border:1px solid #2b3e57;border-radius:11px;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    .modal-step strong {font-size:13px;}
+    .modal-step small{color:#8599b1;font-size:11px;font-weight:800;}
+    .modal-step.on small{color:var(--mint)}
+    .modal-actions{display:grid;gap:8px;margin-top:17px;}
+    .result-link {text-decoration:none;display:flex;justify-content:space-between;padding:11px 13px;background:#192d41;border:1px solid #345a62;border-radius:10px;color:#cffff0;font-size:12px;font-weight:800;}
+    .result-link:hover{background:#224054;}
+    .muted-info{font-size:11px;color:#8398b1;line-height:1.5;margin:10px 0 0;}
+    .test-actions {margin-top:15px;padding-top:13px;border-top:1px solid #31445d;}
+    .test-actions p {font-size:11px;margin:0 0 9px;color:#f0cb85;}
+    .test-list{display:flex;flex-wrap:wrap;gap:6px;}
+    .test-btn{font-size:11px;background:#1c2a44;border:1px solid #384c68;border-radius:8px;padding:8px;color:#d6e5f5;}
+    .test-btn.on {background:#124339;border-color:#297761;color:#aaffd9;}
+    .error-note{color:#ffcea6!important;}
+    /* 7×5 compact board: small cover cards must keep names readable. */
+    @media (min-width:880px) and (max-width:1699px) {
+      .person-id{display:none;}
+      .cover-top{top:5px;right:6px;justify-content:flex-end;}
+      .person-name{left:9px;bottom:7px;font-size:clamp(12px,1.02vw,14px);}
     }
-    @media (max-width:640px){
-      .wrap{width:min(100% - 22px,1240px)}
-      .top-meta{display:none}
-      .hero{padding-top:38px}
-      .hero-panel{padding:26px 20px;border-radius:24px}
-      h1{font-size:38px}
-      .hero-copy{font-size:15px}
-      .stats{grid-template-columns:1fr 1fr;gap:9px}
-      .stat{padding:14px}.stat b{font-size:23px}
-      .control-panel{grid-template-columns:1fr}
-      .control-panel input{grid-column:auto}
-      .grid{grid-template-columns:1fr}
-      .section-head{align-items:flex-start;flex-direction:column}
-      .detail-grid{grid-template-columns:1fr}.detail-box.full{grid-column:auto}
+    @media (min-width:1700px) and (min-height:760px) {
+      :root{--cols:11;--rows:3;--gap:12px;}
+      .person-name{font-size:17px;}
+      .steps{padding:10px 11px;gap:5px;}
+      .step-text{font-size:12px;}
+      .step-mark{font-size:10px;}
+      .light{width:10px;height:10px;}
+      .cover-top{top:11px;left:13px;right:13px;}
+      .person-name{bottom:10px;left:13px;}
     }
-
-    @media (prefers-reduced-motion:reduce){
-      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+    @media (min-width:880px) and (max-height:720px){
+      .app{gap:7px;padding-top:9px;padding-bottom:6px;}
+      .intro{min-height:75px;}
+      .stat{height:70px;padding:8px 11px;}
+      .stat-value{margin-top:5px;font-size:23px;}
+      .stat-meter{margin-top:5px;}
+      .person-name{bottom:4px;}
+      .steps{padding:2px 7px 3px;}
     }
+    @media (max-width:1090px) and (min-width:880px){
+      .intro{grid-template-columns:minmax(230px,.75fr) minmax(515px,1.4fr);}
+      .brand-caption{display:none;}
+      .stat{padding:11px 8px;}
+      .stat-top{font-size:9px;}
+      .step-text{font-size:9px;}
+      .step-mark{font-size:8px;gap:2px;}
+      .steps{padding-left:6px;padding-right:5px;}
+    }
+    @media (max-width:879px),(max-height:639px) {
+      body{overflow:auto;}
+      .app{height:auto;min-height:100dvh;overflow:visible;}
+      .intro{grid-template-columns:1fr;gap:13px;}
+      .stats{grid-template-columns:repeat(4,1fr);}
+      .board{grid-template-columns:repeat(auto-fit,minmax(155px,1fr));grid-template-rows:none;flex:none;}
+      .person-card{min-height:147px;}
+      .cover{height:66px;max-height:none;}
+      .steps{padding:6px 9px;gap:3px;}
+      .step-text{font-size:11px;}
+      .board-label .hint{display:none;}
+    }
+    @media (max-width:620px){
+      .brand-name{font-size:11px;}
+      .brand-caption{display:none;}
+      .top-actions{gap:5px;}
+      .live-pill{font-size:10px;padding:6px 8px;}
+      .intro h1{font-size:24px;}
+      .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+      .stat{height:76px;}
+      .board{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+      .boardbar{gap:7px;}
+      .board-count{display:none;}
+      .search input{width:77px;}
+      .footer-right{display:none;}
+    }
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
   </style>
 </head>
-
 <body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
+  <div class="app">
+    <header class="topbar">
       <div class="brand">
-        <div class="brand-mark">AI</div>
-        <span>Career Expo Dashboard</span>
-      </div>
-      <div class="top-meta">제주관광대학교 · AI 커리어 리디자인 캠프</div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="wrap">
-        <div class="hero-panel">
-          <span class="eyebrow"><span class="eyebrow-dot"></span> 2026 AI Career Expo</span>
-          <h1>경험을 다시 발견하고,<br>가능성을 웹으로 연결합니다.</h1>
-          <p class="hero-copy">
-            참여자들의 커리어 포트폴리오와 사업 아이디어 결과물을 한곳에서 확인하는 종합 성과 대시보드입니다.
-            이름·학과·관심 분야로 검색하고 각 참여자의 노션 포트폴리오와 비즈니스 랜딩페이지를 바로 열어볼 수 있습니다.
-          </p>
-
-          <div class="stats" aria-label="성과 요약">
-            <div class="stat"><b id="statParticipants">0</b><span>참여자</span></div>
-            <div class="stat"><b id="statPortfolio">0</b><span>포트폴리오 연결</span></div>
-            <div class="stat"><b id="statLanding">0</b><span>랜딩페이지 연결</span></div>
-            <div class="stat"><b id="statDepartments">0</b><span>참여 학과</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="controls">
-      <div class="wrap">
-        <div class="control-panel">
-          <input id="searchInput" type="search" placeholder="이름, 학과, 키워드로 검색하세요" aria-label="참가자 검색" />
-          <select id="departmentFilter" aria-label="학과 필터">
-            <option value="all">전체 학과</option>
-          </select>
-          <select id="trackFilter" aria-label="분야 필터">
-            <option value="all">전체 분야</option>
-            <option value="취업">취업</option>
-            <option value="창업/프로젝트">창업/프로젝트</option>
-            <option value="복합">취업 + 창업</option>
-          </select>
-        </div>
-
-        <div class="section-head">
-          <div>
-            <h2>참여자 결과물</h2>
-            <p>카드를 선택하면 개인별 커리어 정보와 결과물 링크를 확인할 수 있습니다.</p>
-          </div>
-          <div class="count-label" id="resultCount">0명 표시 중</div>
-        </div>
-
-        <div class="grid" id="participantGrid"></div>
-        <div class="empty" id="emptyState">
-          <b>검색 결과가 없습니다.</b>
-          검색어나 필터를 다시 확인해주세요.
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- 상세보기 모달 -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal">
-      <div class="modal-top">
+        <div class="brand-mark" aria-hidden="true">AI</div>
         <div>
-          <div class="profile-id" id="modalId"></div>
-          <h3 id="modalTitle"></h3>
-          <div class="dept" id="modalDept"></div>
+          <div class="brand-name">AI CAREER EXPO <span style="color:#67f0bc">/</span> PROGRESS BOARD</div>
+          <div class="brand-caption">제주관광대학교 · AI 커리어 리디자인 캠프 2026</div>
         </div>
-        <button class="close" id="modalClose" type="button" aria-label="닫기">×</button>
       </div>
-      <div class="detail-grid" id="modalDetails"></div>
-      <div class="modal-links" id="modalLinks"></div>
+      <div class="top-actions">
+        <div class="live-pill" id="livePill" aria-live="polite"><i class="pulse"></i><span id="sourceLabel">데모 데이터</span></div>
+        <button class="icon-btn" id="reloadBtn" type="button" title="데이터 새로고침" aria-label="데이터 새로고침">↻</button>
+        <button class="icon-btn" id="fullscreenBtn" type="button" title="전체화면 전환" aria-label="전체화면 전환">⛶</button>
+      </div>
+    </header>
+
+    <section class="intro" aria-label="전체 제출 현황">
+      <div>
+        <div class="eyebrow">2026 LIVE SUBMISSION TRACKER</div>
+        <h1><em>33명</em>의 성장 여정,<br>한눈에 확인하세요.</h1>
+        <p class="subtitle">참가자별 3단계 제출 현황 · 카드 클릭 시 상세 정보</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 참여 인원</div><div class="stat-value" id="totalStat">33<span>명</span></div><div class="stat-meter"><i style="width:100%"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 커리어 제출</div><div class="stat-value" id="careerStat">0<span>/ 33</span></div><div class="stat-meter"><i id="careerMeter"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 사업 아이템 기획</div><div class="stat-value" id="ideaStat">0<span>/ 33</span></div><div class="stat-meter"><i id="ideaMeter"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 랜딩페이지 제출</div><div class="stat-value" id="landingStat">0<span>/ 33</span></div><div class="stat-meter"><i id="landingMeter"></i></div></div>
+      </div>
+    </section>
+
+    <div class="boardbar">
+      <div class="board-label">
+        <h2>참가자 제출 현황</h2>
+        <span class="hint">● 초록 불빛 = 제출 완료 &nbsp;·&nbsp; 카드를 눌러 결과물 확인</span>
+      </div>
+      <div class="board-tools">
+        <span class="board-count" id="boardCount">33 / 33명 표시</span>
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input id="searchInput" type="search" placeholder="이름 검색" aria-label="참가자 이름 검색">
+        </label>
+      </div>
     </div>
+
+    <main class="board" id="board" aria-label="33명 참가자 카드"></main>
+
+    <footer class="footer">
+      <div class="legend"><span><i class="light lit"></i> 제출 완료</span><span><i class="light"></i> 미제출</span><span>동일 참가자 재제출도 완료로 집계</span></div>
+      <div class="footer-right"><span id="syncStamp">데이터 연결 전</span><span>AI Career Redesign Camp</span></div>
+    </footer>
   </div>
 
-  <footer>
-    <div class="wrap">AI Career Redesign Camp · Integrated Expo Dashboard</div>
-  </footer>
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="detailName">
+    <article class="modal">
+      <div class="modal-cover" id="modalCover"><button type="button" id="closeBtn" class="close" aria-label="닫기">×</button></div>
+      <div class="modal-content">
+        <div class="modal-id" id="detailId"></div>
+        <h3 id="detailName"></h3>
+        <p class="detail-sub" id="detailSummary"></p>
+        <div id="detailSteps"></div>
+        <div class="modal-actions" id="detailLinks"></div>
+        <div id="testArea"></div>
+      </div>
+    </article>
+  </div>
 
   <script>
-    /* ========================================================================
-       ★★★ 운영자가 가장 자주 수정할 곳 ★★★
+    "use strict";
+    /* ============================================================
+       ① 실서비스로 바꿀 때는 두 곳만 먼저 수정하면 됩니다.
+       - SCRIPT_URL: Apps Script 배포 URL (Code.gs 참고)
+       - ROSTER_NAMES: 실제 참가자 이름 33명 (줄마다 한 명)
 
-       아래 PARTICIPANTS 배열에 참가자 정보를 한 명씩 추가하면 됩니다.
-       HTML 카드 코드를 직접 복사할 필요 없이 데이터 한 덩어리만 추가하면
-       카드 / 검색 / 필터 / 통계가 자동으로 생성됩니다.
+       Google Form의 참가자 ID에는 A001, A002, ... A033 사용
+       ▶ /exec URL을 연결하기 전까지는 '데모 데이터'입니다.
+       ============================================================ */
+    const CONFIG = {
+      SCRIPT_URL: "", // 예: "https://script.google.com/macros/s/배포ID/exec"
+      REFRESH_SECONDS: 60,
+      ROSTER_NAMES: `참가자 01
+참가자 02
+참가자 03
+참가자 04
+참가자 05
+참가자 06
+참가자 07
+참가자 08
+참가자 09
+참가자 10
+참가자 11
+참가자 12
+참가자 13
+참가자 14
+참가자 15
+참가자 16
+참가자 17
+참가자 18
+참가자 19
+참가자 20
+참가자 21
+참가자 22
+참가자 23
+참가자 24
+참가자 25
+참가자 26
+참가자 27
+참가자 28
+참가자 29
+참가자 30
+참가자 31
+참가자 32
+참가자 33`
+    };
 
-       [링크 입력 방법]
-       1) 인터넷 주소
-          notionUrl: "https://www.notion.so/..."
-          landingUrl: "https://..."
-
-       2) 이 HTML과 같은 폴더 안의 로컬 파일
-          resumeFile: "./files/A001_resume.pdf"
-          planFile: "./files/A001_business-plan.pdf"
-
-          폴더 예시:
-          dashboard/
-          ├─ career_expo_dashboard.html
-          └─ files/
-             ├─ A001_resume.pdf
-             └─ A001_business-plan.pdf
-
-       ※ Windows의 C:\\Users\\... 같은 절대경로는 웹에 업로드하면 작동하지 않습니다.
-          반드시 HTML 기준 상대경로(./files/파일명.pdf)를 권장합니다.
-
-       [참가자 추가 방법]
-       아래 샘플 한 덩어리를 복사한 뒤 값만 바꾸고 배열 안에 붙여넣으세요.
-       각 참가자 데이터 사이에는 쉼표(,)가 필요합니다.
-       ======================================================================== */
-
-    const PARTICIPANTS = [
-      {
-        id: "A001",
-        name: "김지훈",
-        department: "경영학과",
-        track: "복합",
-        headline: "복잡한 요구사항을 정리하고 현실적인 해결책을 만드는 서비스 기획자",
-        keywords: ["문제해결", "협업", "책임감", "서비스기획"],
-        career: "IT 중견기업 서비스 기획(PM) 경력",
-        interest: "핀테크 · B2B SaaS",
-        businessIdea: "B2B 조직의 요구사항을 쉽게 정리해주는 협업 지원 서비스",
-
-        /* 인터넷 링크가 아직 없다면 빈 문자열(\"\")로 두세요. */
-        notionUrl: "https://www.notion.so/",
-        landingUrl: "",
-
-        /* 로컬 파일 연결 예시. 실제 파일이 없으면 빈 문자열로 두세요. */
-        resumeFile: "",
-        planFile: ""
-      },
-
-      {
-        id: "A002",
-        name: "박수현",
-        department: "관광경영학과",
-        track: "취업",
-        headline: "현장 경험과 고객 응대 강점을 살려 관광 서비스 분야에 도전합니다.",
-        keywords: ["고객응대", "현장경험", "친화력"],
-        career: "관광·서비스 현장 경험",
-        interest: "관광 서비스 · 고객관리",
-        businessIdea: "",
-        notionUrl: "",
-        landingUrl: "",
-        resumeFile: "./files/A002_resume.pdf",
-        planFile: ""
-      },
-
-      {
-        id: "A003",
-        name: "이은정",
-        department: "호텔조리학과",
-        track: "창업/프로젝트",
-        headline: "생활 속 조리 경험을 지역 고객을 위한 작은 서비스 아이디어로 확장합니다.",
-        keywords: ["조리", "지역", "실행력", "생활밀착"],
-        career: "조리 및 식음 관련 경험",
-        interest: "로컬 푸드 · 소규모 외식",
-        businessIdea: "지역 식재료를 활용한 소규모 맞춤 식사 서비스",
-        notionUrl: "",
-        landingUrl: "https://example.com",
-        resumeFile: "",
-        planFile: "./files/A003_business-plan.pdf"
-      }
-
-      /* --------------------------------------------------------------------
-         ★ 참가자를 추가하려면 위 객체 한 덩어리를 복사해서 이 아래에 붙여넣으세요.
-
-         ,{
-           id: "A004",
-           name: "홍길동",
-           department: "관광경영학과",
-           track: "복합", // 취업 / 창업/프로젝트 / 복합 중 하나
-           headline: "한 줄 소개",
-           keywords: ["키워드1", "키워드2", "키워드3"],
-           career: "주요 경력 또는 경험",
-           interest: "관심 분야",
-           businessIdea: "사업 아이디어 한 줄",
-           notionUrl: "https://...",
-           landingUrl: "https://...",
-           resumeFile: "./files/A004_resume.pdf",
-           planFile: "./files/A004_business-plan.pdf"
-         }
-         -------------------------------------------------------------------- */
+    const STAGES = [
+      { key: "career", label: "커리어 제출", linkLabel: "커리어 결과물 열기" },
+      { key: "idea", label: "사업 아이템 기획", linkLabel: "사업 아이템 결과물 열기" },
+      { key: "landing", label: "랜딩페이지 제출", linkLabel: "랜딩페이지 열기" }
     ];
+    const PALETTES = [
+      ["#477d92","#6aa9a7","#daa47d"],["#594d8e","#8d7bb9","#eda28b"],
+      ["#316a81","#397fa0","#84b4c7"],["#7f576b","#b37d8d","#d4a585"],
+      ["#637b53","#8fab86","#c0ad70"],["#345767","#5f8491","#9caabb"],
+      ["#705e8e","#8a7fb7","#b48eac"],["#347d78","#5fa89c","#b4caab"]
+    ];
+    const ROSTER = CONFIG.ROSTER_NAMES.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)
+      .map((name,i)=>({id:`A${String(i+1).padStart(3,"0")}`,name}));
+    const IS_DEMO = !CONFIG.SCRIPT_URL.trim();
+    const $ = id => document.getElementById(id);
+    const nowTime = () => new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
+    const emptyProgress = () => ({career:false,idea:false,landing:false});
+    const state = Object.fromEntries(ROSTER.map((p,i)=>[
+      p.id,
+      IS_DEMO ? {
+        status:{career: i%7!==0, idea: i%5!==0 && i%3!==0, landing: i%4===0 || i%9===0},
+        links:{},image:""
+      } : {status:emptyProgress(),links:{},image:""}
+    ]));
+    let activeId = null;
+    let pendingScript = null;
+    let pendingTimeout = null;
+    let dataMode = IS_DEMO ? "demo" : "waiting";
 
-    /* ========================================================================
-       아래부터는 자동 동작 코드입니다.
-       특별한 기능 변경이 아니라면 수정하지 않아도 됩니다.
-       ======================================================================== */
-
-    const grid = document.getElementById("participantGrid");
-    const searchInput = document.getElementById("searchInput");
-    const departmentFilter = document.getElementById("departmentFilter");
-    const trackFilter = document.getElementById("trackFilter");
-    const resultCount = document.getElementById("resultCount");
-    const emptyState = document.getElementById("emptyState");
-
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    const modalClose = document.getElementById("modalClose");
-    const modalId = document.getElementById("modalId");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDept = document.getElementById("modalDept");
-    const modalDetails = document.getElementById("modalDetails");
-    const modalLinks = document.getElementById("modalLinks");
-
-    function hasValue(v){
-      return typeof v === "string" && v.trim() !== "";
+    function safeHttp(raw) {
+      try {const u=new URL(String(raw||""));return ["https:","http:"].includes(u.protocol) ? u.href : "";}
+      catch {return "";}
     }
-
-    function escapeHtml(value){
-      return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
+    function updateDataStatus(mode,detail="") {
+      dataMode = mode;
+      $("livePill").classList.toggle("connected",mode==="live");
+      $("sourceLabel").textContent = mode==="demo"?"데모 데이터" : mode==="live"?"실시간 연결" : mode==="loading"?"동기화 중" : mode==="error"?"연결 확인 필요":"연결 대기";
+      $("syncStamp").textContent = detail || (mode==="demo"?"시연용 상태 · 실제 제출과 무관":`확인 ${nowTime()}`);
+      $("syncStamp").classList.toggle("error-note",mode==="error");
     }
-
-    function buildDepartmentFilter(){
-      const departments = [...new Set(PARTICIPANTS.map(p => p.department).filter(Boolean))].sort();
-      departments.forEach(dept => {
-        const option = document.createElement("option");
-        option.value = dept;
-        option.textContent = dept;
-        departmentFilter.appendChild(option);
+    function render() {
+      const board=$("board");
+      const query=$("searchInput").value.trim().toLocaleLowerCase("ko-KR");
+      const frag=document.createDocumentFragment();
+      ROSTER.forEach((person,i)=>{
+        const data=state[person.id];
+        const completed=STAGES.every(s=>data.status[s.key]);
+        const matches=!query||person.name.toLocaleLowerCase("ko-KR").includes(query)||person.id.toLowerCase().includes(query);
+        const card=document.createElement("button");
+        card.type="button"; card.className="person-card";
+        card.dataset.id=person.id;
+        if(query) card.classList.add(matches?"matched":"dimmed");
+        const colors=PALETTES[i%PALETTES.length];
+        card.style.setProperty("--c1",colors[0]);card.style.setProperty("--c2",colors[1]);card.style.setProperty("--c3",colors[2]);
+        card.setAttribute("aria-label",`${person.name} - 커리어 ${data.status.career?"완료":"미제출"}, 사업 아이템 ${data.status.idea?"완료":"미제출"}, 랜딩페이지 ${data.status.landing?"완료":"미제출"}`);
+        const cover=document.createElement("div");cover.className="cover";
+        const decor=document.createElement("span");decor.className="cover-decoration";cover.appendChild(decor);
+        const imgSrc=safeHttp(data.image);
+        if(imgSrc){const img=document.createElement("img");img.className="cover-art";img.alt="";img.src=imgSrc;img.decoding="async";img.referrerPolicy="no-referrer";img.onerror=()=>img.remove();cover.appendChild(img);}
+        const top=document.createElement("div");top.className="cover-top";
+        const id=document.createElement("span");id.className="person-id";id.textContent=person.id;top.appendChild(id);
+        if(completed){const badge=document.createElement("span");badge.className="done-badge";badge.textContent="ALL DONE";top.appendChild(badge);}
+        cover.appendChild(top);
+        const name=document.createElement("div");name.className="person-name";name.textContent=person.name;cover.appendChild(name);
+        card.appendChild(cover);
+        const stepWrap=document.createElement("div");stepWrap.className="steps";
+        STAGES.forEach(s=>{
+          const on=!!data.status[s.key];const row=document.createElement("div");row.className=`step ${on?"on":""}`;
+          const label=document.createElement("span");label.className="step-text";label.textContent=s.label;
+          const mark=document.createElement("span");mark.className="step-mark";
+          const light=document.createElement("i");light.className="light";light.setAttribute("aria-hidden","true");
+          const word=document.createElement("span");word.textContent=on?"완료":"대기";
+          mark.append(light,word);row.append(label,mark);stepWrap.appendChild(row);
+        });
+        card.appendChild(stepWrap);
+        card.addEventListener("click",()=>openDetail(person.id));
+        frag.appendChild(card);
       });
+      board.replaceChildren(frag);
+      updateStats();
+      $("boardCount").textContent=`${ROSTER.length} / ${ROSTER.length}명 표시`;
     }
-
-    function updateStats(){
-      document.getElementById("statParticipants").textContent = PARTICIPANTS.length;
-      document.getElementById("statPortfolio").textContent = PARTICIPANTS.filter(p => hasValue(p.notionUrl)).length;
-      document.getElementById("statLanding").textContent = PARTICIPANTS.filter(p => hasValue(p.landingUrl)).length;
-      document.getElementById("statDepartments").textContent = new Set(PARTICIPANTS.map(p => p.department).filter(Boolean)).size;
+    function updateStats() {
+      const n=ROSTER.length;
+      $("totalStat").innerHTML=`${n}<span>명</span>`;
+      STAGES.forEach(s=>{
+        const count=ROSTER.filter(p=>state[p.id].status[s.key]).length;
+        $(s.key+"Stat").innerHTML=`${count}<span>/ ${n}</span>`;
+        $(s.key+"Meter").style.width=`${n?100*count/n:0}%`;
+      });
+      document.querySelector(".intro h1 em").textContent=`${n}명`;
     }
-
-    function makeLink(url,label,primary=false){
-      if(!hasValue(url)){
-        return `<span class="action disabled">${escapeHtml(label)} 준비중</span>`;
+    function openDetail(id) {
+      const p=ROSTER.find(x=>x.id===id);if(!p)return;
+      activeId=id; const d=state[id];
+      $("detailId").textContent=id;
+      $("detailName").textContent=p.name;
+      $("detailSummary").textContent=`3단계 중 ${STAGES.filter(s=>d.status[s.key]).length}단계 제출 완료`;
+      const cover=$("modalCover");cover.querySelector("img")?.remove();
+      const src=safeHttp(d.image);
+      if(src){const img=document.createElement("img");img.src=src;img.alt="제출된 대표 이미지";img.onerror=()=>img.remove();cover.prepend(img);}
+      const stepBox=$("detailSteps");stepBox.replaceChildren();
+      const linkBox=$("detailLinks");linkBox.replaceChildren();
+      STAGES.forEach(s=>{
+        const on=!!d.status[s.key];
+        const row=document.createElement("div");row.className=`modal-step ${on?"on":""}`;
+        const heading=document.createElement("strong");heading.textContent=s.label;
+        const val=document.createElement("small");val.textContent=on?"● 제출 완료":"○ 미제출";
+        row.append(heading,val);stepBox.appendChild(row);
+        const link=safeHttp(d.links?.[s.key]);
+        if(link){const a=document.createElement("a");a.className="result-link";a.href=link;a.target="_blank";a.rel="noopener noreferrer";a.textContent=s.linkLabel+" ↗";linkBox.appendChild(a);}
+      });
+      if(!linkBox.children.length){const el=document.createElement("p");el.className="muted-info";el.textContent="등록된 공개 결과물 링크가 없습니다. 제출 상태는 Google Form 응답 여부로 판단합니다.";linkBox.appendChild(el);}
+      const test=$("testArea");test.replaceChildren();
+      if(IS_DEMO){
+        const box=document.createElement("div");box.className="test-actions";
+        const hint=document.createElement("p");hint.textContent="데모 전용 · 클릭하여 불빛 켜기/끄기 (새로고침 시 초기화)";
+        const buttons=document.createElement("div");buttons.className="test-list";
+        STAGES.forEach(s=>{
+          const b=document.createElement("button");b.type="button";b.className=`test-btn ${d.status[s.key]?"on":""}`;
+          b.textContent=s.label;
+          b.addEventListener("click",()=>{d.status[s.key]=!d.status[s.key];render();openDetail(id);});
+          buttons.appendChild(b);
+        });
+        box.append(hint,buttons);test.appendChild(box);
       }
-      return `<a class="action ${primary ? "primary" : ""}" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`;
+      $("overlay").classList.add("open");$("closeBtn").focus();
     }
+    function closeDetail(){activeId=null;$("overlay").classList.remove("open");}
 
-    function renderCards(){
-      const q = searchInput.value.trim().toLowerCase();
-      const dept = departmentFilter.value;
-      const track = trackFilter.value;
-
-      const filtered = PARTICIPANTS.filter(p => {
-        const haystack = [
-          p.id,p.name,p.department,p.track,p.headline,p.career,p.interest,p.businessIdea,
-          ...(p.keywords || [])
-        ].join(" ").toLowerCase();
-
-        const searchOk = !q || haystack.includes(q);
-        const deptOk = dept === "all" || p.department === dept;
-        const trackOk = track === "all" || p.track === track;
-        return searchOk && deptOk && trackOk;
-      });
-
-      resultCount.textContent = `${filtered.length}명 표시 중`;
-      grid.innerHTML = "";
-      emptyState.style.display = filtered.length ? "none" : "block";
-
-      filtered.forEach(p => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-cover"></div>
-          <div class="card-body">
-            <div class="profile-line">
-              <span class="profile-id">${escapeHtml(p.id)}</span>
-              <span class="track">${escapeHtml(p.track)}</span>
-            </div>
-            <h3>${escapeHtml(p.name)}</h3>
-            <div class="dept">${escapeHtml(p.department)}</div>
-            <p class="headline">${escapeHtml(p.headline || "한 줄 소개 준비 중")}</p>
-            <div class="tags">
-              ${(p.keywords || []).slice(0,5).map(k => `<span class="tag">#${escapeHtml(k)}</span>`).join("")}
-            </div>
-            <div class="card-actions">
-              ${makeLink(p.notionUrl,"포트폴리오",true)}
-              ${makeLink(p.landingUrl,"사업 랜딩")}
-            </div>
-            <button class="detail-btn" type="button" data-id="${escapeHtml(p.id)}">상세정보 · 파일 보기</button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      document.querySelectorAll(".detail-btn").forEach(btn => {
-        btn.addEventListener("click", () => openDetail(btn.dataset.id));
-      });
-    }
-
-    function detailBox(label,value,full=false){
-      return `
-        <div class="detail-box ${full ? "full" : ""}">
-          <b>${escapeHtml(label)}</b>
-          <span>${escapeHtml(value || "미입력")}</span>
-        </div>
-      `;
-    }
-
-    function openDetail(id){
-      const p = PARTICIPANTS.find(x => x.id === id);
-      if(!p) return;
-
-      modalId.textContent = p.id;
-      modalTitle.textContent = p.name;
-      modalDept.textContent = `${p.department} · ${p.track}`;
-      modalDetails.innerHTML = [
-        detailBox("한 줄 소개",p.headline,true),
-        detailBox("주요 경력·경험",p.career,true),
-        detailBox("관심 분야",p.interest),
-        detailBox("핵심 키워드",(p.keywords || []).join(", ")),
-        detailBox("사업 아이디어",p.businessIdea || "해당 없음",true)
-      ].join("");
-
-      modalLinks.innerHTML = [
-        hasValue(p.notionUrl) ? `<a class="action primary" href="${escapeHtml(p.notionUrl)}" target="_blank" rel="noopener noreferrer">노션 포트폴리오 ↗</a>` : "",
-        hasValue(p.landingUrl) ? `<a class="action" href="${escapeHtml(p.landingUrl)}" target="_blank" rel="noopener noreferrer">사업 랜딩페이지 ↗</a>` : "",
-        hasValue(p.resumeFile) ? `<a class="action" href="${escapeHtml(p.resumeFile)}" target="_blank">이력서 파일 ↗</a>` : "",
-        hasValue(p.planFile) ? `<a class="action" href="${escapeHtml(p.planFile)}" target="_blank">사업계획서 파일 ↗</a>` : ""
-      ].filter(Boolean).join("");
-
-      if(!modalLinks.innerHTML.trim()){
-        modalLinks.innerHTML = `<span style="color:#9ca3af;font-size:13px;font-weight:700">연결된 결과물 파일 또는 링크가 아직 없습니다.</span>`;
+    // 서버 운영비 없이 Apps Script의 읽기 전용 JSONP 엔드포인트에서 현황을 가져옵니다.
+    // 신뢰하는 본인 소유 Apps Script URL만 등록하세요. 민감한 응답은 절대 공개하지 마세요.
+    window.__careerExpoReceive=function(payload){
+      if(!payload || payload.ok!==true || !Array.isArray(payload.participants)){
+        updateDataStatus("error","서버 데이터 형식 확인 필요");clearPending();return;
       }
-
-      modalBackdrop.classList.add("open");
-      document.body.style.overflow = "hidden";
+      // 실제 데이터로 완전 대체합니다. 응답에 없는 사람은 미제출로 표시됩니다.
+      ROSTER.forEach(p=>{state[p.id]={status:emptyProgress(),links:{},image:""};});
+      payload.participants.forEach(item=>{
+        if(!item || !Object.hasOwn(state,String(item.id||"")))return;
+        const id=String(item.id);
+        state[id]={
+          status:Object.fromEntries(STAGES.map(s=>[s.key,item.status?.[s.key]===true])),
+          links:Object.fromEntries(STAGES.map(s=>[s.key,safeHttp(item.links?.[s.key])])),
+          image:safeHttp(item.image)
+        };
+      });
+      render();
+      updateDataStatus("live",`마지막 동기화 ${nowTime()} · 1분마다 자동 갱신`);
+      if(activeId) openDetail(activeId);
+      clearPending();
+    };
+    function clearPending(){
+      if(pendingTimeout){clearTimeout(pendingTimeout);pendingTimeout=null;}
+      if(pendingScript){pendingScript.remove();pendingScript=null;}
     }
-
-    function closeModal(){
-      modalBackdrop.classList.remove("open");
-      document.body.style.overflow = "";
+    function refresh(){
+      if(IS_DEMO){updateDataStatus("demo");return;}
+      if(pendingScript)return;
+      updateDataStatus("loading","구글폼 제출 내역 동기화 중...");
+      const url=safeHttp(CONFIG.SCRIPT_URL);
+      if(!url){updateDataStatus("error","Apps Script URL 설정 오류");return;}
+      const script=document.createElement("script");pendingScript=script;script.async=true;
+      const src=new URL(url);src.searchParams.set("callback","__careerExpoReceive");src.searchParams.set("_",Date.now());
+      script.src=src.href;
+      script.onerror=()=>{clearPending();updateDataStatus("error","연결 실패 · Apps Script 공개 설정 확인");};
+      pendingTimeout=setTimeout(()=>{clearPending();updateDataStatus("error","연결 시간 초과 · 배포 URL 확인");},18000);
+      document.head.appendChild(script);
     }
-
-    searchInput.addEventListener("input",renderCards);
-    departmentFilter.addEventListener("change",renderCards);
-    trackFilter.addEventListener("change",renderCards);
-    modalClose.addEventListener("click",closeModal);
-    modalBackdrop.addEventListener("click",e => { if(e.target === modalBackdrop) closeModal(); });
-    document.addEventListener("keydown",e => { if(e.key === "Escape") closeModal(); });
-
-    buildDepartmentFilter();
-    updateStats();
-    renderCards();
+    $("searchInput").addEventListener("input",render);
+    $("closeBtn").addEventListener("click",closeDetail);
+    $("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))closeDetail();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetail();});
+    $("reloadBtn").addEventListener("click",refresh);
+    $("fullscreenBtn").addEventListener("click",()=>{
+      if(document.fullscreenElement){document.exitFullscreen?.();}
+      else {document.documentElement.requestFullscreen?.().catch(()=>{});}
+    });
+    render();updateDataStatus(IS_DEMO?"demo":"waiting");
+    if(!IS_DEMO){refresh();setInterval(refresh,Math.max(30,CONFIG.REFRESH_SECONDS)*1000);}
   </script>
 </body>
 </html>
