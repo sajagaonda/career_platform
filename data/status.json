@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-13T06:36:08.344Z",
+  "updatedAt": "2026-10-13T06:51:50.036Z",
   "roster": [
     {
       "id": "A001",
@@ -146,9 +146,9 @@
         "idea": "",
         "landing": "https://sajagaonda.github.io/career_platform/landings/A006/"
       },
-      "image": "",
-      "revision": "0da43f6a99e5469c2a8a075448cd5e14ff800a444369c6205e7ef66bd5dc58f1",
-      "publishedAt": "2026-10-13T05:55:23.862Z"
+      "image": "https://sajagaonda.github.io/career_platform/landings/A006/cover.png",
+      "revision": "4dae1ab365a003c37be26aa814ecae7780f1fd47fe3995b86afdcbd13509f38b",
+      "publishedAt": "2026-10-13T06:51:50.036Z"
     }
   },
   "formIgnoreBefore": ""
