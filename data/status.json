@@ -1,6 +1,62 @@
 {
   "version": 1,
-  "updatedAt": null,
-  "roster": [],
-  "participants": {}
+  "updatedAt": "2026-10-13T05:55:23.862Z",
+  "roster": [
+    {
+      "id": "A001",
+      "name": "테스트"
+    },
+    {
+      "id": "A002",
+      "name": "테스트일"
+    },
+    {
+      "id": "A003",
+      "name": "테스트이"
+    },
+    {
+      "id": "A004",
+      "name": "김민수"
+    },
+    {
+      "id": "A005",
+      "name": "강연우"
+    },
+    {
+      "id": "A006",
+      "name": "식곤증"
+    }
+  ],
+  "participants": {
+    "A005": {
+      "status": {
+        "career": false,
+        "idea": false,
+        "landing": true
+      },
+      "links": {
+        "career": "",
+        "idea": "",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A005/"
+      },
+      "image": "",
+      "revision": "6c8a4b6ba256918cdabb52fb89f44a28ec544b314ce23fbbacfaa44f2f923cb6",
+      "publishedAt": "2026-10-13T05:55:23.862Z"
+    },
+    "A006": {
+      "status": {
+        "career": false,
+        "idea": false,
+        "landing": true
+      },
+      "links": {
+        "career": "",
+        "idea": "",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A006/"
+      },
+      "image": "",
+      "revision": "0da43f6a99e5469c2a8a075448cd5e14ff800a444369c6205e7ef66bd5dc58f1",
+      "publishedAt": "2026-10-13T05:55:23.862Z"
+    }
+  }
 }
