@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080e1b">
-  <meta name="description" content="AI Career Expo — 관리자 승인 후 게시된 33명 참가자의 단계별 공개 현황">
+  <meta name="description" content="AI Career Expo — 관리자가 승인한 명단/결과물 33칸 전광판">
   <title>AI Career Expo | Live Progress Board</title>
   <style>
     :root {
@@ -92,6 +92,15 @@
       grid-template-rows:repeat(var(--rows),minmax(0,1fr));
       gap:var(--gap);
     }
+    /* 빈 명단 슬롯은 33칸 레이아웃을 유지하면서 아직 미등록임을 보여줍니다. */
+    .vacant-card {border:1px dashed #2a3a50;background:linear-gradient(#111c30,#0c1524);
+      opacity:.54;cursor:default;pointer-events:none;}
+    .vacant-card .cover {background:#1b2a3e;}
+    .vacant-card .cover::before {background:linear-gradient(135deg,#20394b,#1a2841);}
+    .vacant-card .cover::after {background:linear-gradient(0deg,#0b1426dc 0%,transparent 100%);}
+    .vacant-card .person-name {font-size:clamp(11px,.92vw,15px);color:#8da1b8;}
+    .vacant-card .step-text {color:#536881;}
+    .vacant-card .step-mark {color:#495c72;}
     .board-empty {
       grid-column:1/-1;align-self:center;justify-self:center;
       padding:30px 16px;text-align:center;color:var(--muted);font-size:14px;
@@ -360,11 +369,38 @@
       $("syncStamp").textContent = detail || `확인 ${nowTime()}`;
       $("syncStamp").classList.toggle("error-note",mode==="error");
     }
+    function makeVacantCard(slotId,index) {
+      const card=document.createElement('div');card.className='person-card vacant-card';
+      card.setAttribute('aria-label',`${slotId}: 미등록`);
+      const cover=document.createElement('div');cover.className='cover';
+      const top=document.createElement('div');top.className='cover-top';
+      const id=document.createElement('span');id.className='person-id';id.textContent=slotId;top.appendChild(id);
+      const name=document.createElement('div');name.className='person-name';name.textContent='명단 대기';
+      cover.append(top,name);card.appendChild(cover);
+      const steps=document.createElement('div');steps.className='steps';
+      STAGES.forEach(s=>{
+        const row=document.createElement('div');row.className='step';
+        const label=document.createElement('span');label.className='step-text';label.textContent=s.label;
+        const badge=document.createElement('span');badge.className='step-mark';
+        const light=document.createElement('i');light.className='light';
+        const word=document.createElement('span');word.textContent='대기';
+        badge.append(light,word);row.append(label,badge);steps.appendChild(row);
+      });
+      card.appendChild(steps);return card;
+    }
     function render() {
       const board=$("board");
       const query=$("searchInput").value.trim().toLocaleLowerCase("ko-KR");
       const frag=document.createDocumentFragment();
-      ROSTER.forEach((person,i)=>{
+      // PC에서는 33칸을 유지해 6명만 등록되어도 카드가 화면 세로로 늘어나지 않습니다.
+      // 모바일은 스크롤 부담을 피하기 위해 실제 참가자만 보여줍니다.
+      const desktopBoard=window.innerWidth>=880 && window.innerHeight>=640;
+      const highestId=ROSTER.reduce((max,p)=>Math.max(max,Number(p.id.slice(1))||0),0);
+      const displaySlots=desktopBoard ? Math.max(33,ROSTER.length,highestId) : ROSTER.length;
+      const byId=new Map(ROSTER.map(person=>[person.id,person]));
+      const displayPeople=desktopBoard ? Array.from({length:displaySlots},(_,i)=>byId.get(`A${String(i+1).padStart(3,'0')}`)||null) : ROSTER;
+      displayPeople.forEach((person,i)=>{
+        if(!person){frag.appendChild(makeVacantCard(`A${String(i+1).padStart(3,'0')}`,i));return;}
         const data=state[person.id];
         const completed=STAGES.every(s=>data.status[s.key]);
         const matches=!query||person.name.toLocaleLowerCase("ko-KR").includes(query)||person.id.toLowerCase().includes(query);
@@ -398,18 +434,19 @@
         card.addEventListener("click",()=>openDetail(person.id));
         frag.appendChild(card);
       });
-      if(!ROSTER.length){
+      if(!ROSTER.length&&!desktopBoard){
         const notice=document.createElement("div");
         notice.className="board-empty";
         notice.textContent="아직 공개된 참가자 명단이 없습니다. 관리자가 명단 게시를 승인하면 카드가 나타납니다.";
         frag.appendChild(notice);
       }
       board.replaceChildren(frag);
-      document.body.classList.toggle("many-participants",ROSTER.length>33);
+      document.body.classList.toggle("many-participants",desktopBoard&&displaySlots>33);
       const cols=window.innerWidth>=1700 && window.innerHeight>=760 ? 11 : 7;
-      document.documentElement.style.setProperty("--rows",String(Math.max(1,Math.ceil(ROSTER.length/cols))));
+      document.documentElement.style.setProperty('--rows',String(Math.max(1,Math.ceil(displaySlots/cols))));
       updateStats();
-      $("boardCount").textContent=`${ROSTER.length} / ${ROSTER.length}명 표시`;
+      $('boardCount').textContent=desktopBoard&&ROSTER.length<=33 ?
+        `${ROSTER.length}명 등록 · 33칸 전광판` : `${ROSTER.length}명 등록`;
     }
     function updateStats() {
       const n=ROSTER.length;
