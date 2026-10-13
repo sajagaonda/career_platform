@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080e1b">
-  <meta name="description" content="AI Career Expo — 33명 참가자의 단계별 제출 현황을 한눈에 확인하는 라이브 대시보드">
+  <meta name="description" content="AI Career Expo — 관리자 승인 후 게시된 33명 참가자의 단계별 공개 현황">
   <title>AI Career Expo | Live Progress Board</title>
   <style>
     :root {
@@ -248,7 +248,7 @@
         </div>
       </div>
       <div class="top-actions">
-        <div class="live-pill" id="livePill" aria-live="polite"><i class="pulse"></i><span id="sourceLabel">데모 데이터</span></div>
+        <div class="live-pill" id="livePill" aria-live="polite"><i class="pulse"></i><span id="sourceLabel">공개 데이터 대기</span></div>
         <button class="icon-btn" id="reloadBtn" type="button" title="데이터 새로고침" aria-label="데이터 새로고침">↻</button>
         <button class="icon-btn" id="fullscreenBtn" type="button" title="전체화면 전환" aria-label="전체화면 전환">⛶</button>
       </div>
@@ -256,7 +256,7 @@
 
     <section class="intro" aria-label="전체 제출 현황">
       <div>
-        <div class="eyebrow">2026 LIVE SUBMISSION TRACKER</div>
+        <div class="eyebrow">2026 PUBLISHED PROGRESS TRACKER</div>
         <h1><em>33명</em>의 성장 여정,<br>한눈에 확인하세요.</h1>
         <p class="subtitle">참가자별 3단계 제출 현황 · 카드 클릭 시 상세 정보</p>
       </div>
@@ -285,8 +285,8 @@
     <main class="board" id="board" aria-label="33명 참가자 카드"></main>
 
     <footer class="footer">
-      <div class="legend"><span><i class="light lit"></i> 제출 완료</span><span><i class="light"></i> 미제출</span><span>동일 참가자 재제출도 완료로 집계</span></div>
-      <div class="footer-right"><span id="syncStamp">데이터 연결 전</span><span>AI Career Redesign Camp</span></div>
+      <div class="legend"><span><i class="light lit"></i> 제출 완료</span><span><i class="light"></i> 미제출</span><span>재제출은 관리자 재게시 후 반영</span></div>
+      <div class="footer-right"><span id="syncStamp">공개 현황 확인 전</span><span>AI Career Redesign Camp</span></div>
     </footer>
   </div>
 
@@ -307,49 +307,15 @@
   <script>
     "use strict";
     /* ============================================================
-       ① 실서비스로 바꿀 때는 두 곳만 먼저 수정하면 됩니다.
-       - SCRIPT_URL: Apps Script 배포 URL (Code.gs 참고)
-       - ROSTER_NAMES: 실제 참가자 이름 33명 (줄마다 한 명)
-
-       Google Form의 참가자 ID에는 A001, A002, ... A033 사용
-       ▶ /exec URL을 연결하기 전까지는 '데모 데이터'입니다.
+       관리자 승인형 공개 대시보드: Google Forms/Sheets를 직접 조회하지 않습니다.
+       Google Apps Script의 게시 버튼이 수정한 /data/status.json만 읽습니다.
+       참가자 이름은 관리자 시트에서 입력하고 게시하면 status.json의 roster에서 읽습니다.
        ============================================================ */
     const CONFIG = {
-      SCRIPT_URL: "", // 예: "https://script.google.com/macros/s/배포ID/exec"
+      STATUS_URL: new URL("./data/status.json", document.baseURI).href,
       REFRESH_SECONDS: 60,
-      ROSTER_NAMES: `참가자 01
-참가자 02
-참가자 03
-참가자 04
-참가자 05
-참가자 06
-참가자 07
-참가자 08
-참가자 09
-참가자 10
-참가자 11
-참가자 12
-참가자 13
-참가자 14
-참가자 15
-참가자 16
-참가자 17
-참가자 18
-참가자 19
-참가자 20
-참가자 21
-참가자 22
-참가자 23
-참가자 24
-참가자 25
-참가자 26
-참가자 27
-참가자 28
-참가자 29
-참가자 30
-참가자 31
-참가자 32
-참가자 33`
+      // 이름은 게시된 status.json에서 자동으로 갱신합니다.
+      ROSTER_NAMES: Array.from({length:33},(_,i)=>`참가자 ${String(i+1).padStart(2,"0")}`).join("\n")
     };
 
     const STAGES = [
@@ -365,31 +331,22 @@
     ];
     const ROSTER = CONFIG.ROSTER_NAMES.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)
       .map((name,i)=>({id:`A${String(i+1).padStart(3,"0")}`,name}));
-    const IS_DEMO = !CONFIG.SCRIPT_URL.trim();
     const $ = id => document.getElementById(id);
     const nowTime = () => new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
     const emptyProgress = () => ({career:false,idea:false,landing:false});
-    const state = Object.fromEntries(ROSTER.map((p,i)=>[
-      p.id,
-      IS_DEMO ? {
-        status:{career: i%7!==0, idea: i%5!==0 && i%3!==0, landing: i%4===0 || i%9===0},
-        links:{},image:""
-      } : {status:emptyProgress(),links:{},image:""}
-    ]));
+    const emptyParticipant = () => ({status:emptyProgress(),links:{},image:""});
+    const state = Object.fromEntries(ROSTER.map(p=>[p.id,emptyParticipant()]));
     let activeId = null;
-    let pendingScript = null;
-    let pendingTimeout = null;
-    let dataMode = IS_DEMO ? "demo" : "waiting";
+    let refreshing = false;
 
     function safeHttp(raw) {
       try {const u=new URL(String(raw||""));return ["https:","http:"].includes(u.protocol) ? u.href : "";}
       catch {return "";}
     }
     function updateDataStatus(mode,detail="") {
-      dataMode = mode;
-      $("livePill").classList.toggle("connected",mode==="live");
-      $("sourceLabel").textContent = mode==="demo"?"데모 데이터" : mode==="live"?"실시간 연결" : mode==="loading"?"동기화 중" : mode==="error"?"연결 확인 필요":"연결 대기";
-      $("syncStamp").textContent = detail || (mode==="demo"?"시연용 상태 · 실제 제출과 무관":`확인 ${nowTime()}`);
+      $("livePill").classList.toggle("connected",mode==="published");
+      $("sourceLabel").textContent = mode==="published"?"공개 현황":mode==="loading"?"게시 데이터 확인 중":mode==="error"?"연결 확인 필요":"공개 데이터 대기";
+      $("syncStamp").textContent = detail || `확인 ${nowTime()}`;
       $("syncStamp").classList.toggle("error-note",mode==="error");
     }
     function render() {
@@ -461,66 +418,63 @@
         const heading=document.createElement("strong");heading.textContent=s.label;
         const val=document.createElement("small");val.textContent=on?"● 제출 완료":"○ 미제출";
         row.append(heading,val);stepBox.appendChild(row);
-        const link=safeHttp(d.links?.[s.key]);
+        const link=on?safeHttp(d.links?.[s.key]):"";
         if(link){const a=document.createElement("a");a.className="result-link";a.href=link;a.target="_blank";a.rel="noopener noreferrer";a.textContent=s.linkLabel+" ↗";linkBox.appendChild(a);}
       });
-      if(!linkBox.children.length){const el=document.createElement("p");el.className="muted-info";el.textContent="등록된 공개 결과물 링크가 없습니다. 제출 상태는 Google Form 응답 여부로 판단합니다.";linkBox.appendChild(el);}
-      const test=$("testArea");test.replaceChildren();
-      if(IS_DEMO){
-        const box=document.createElement("div");box.className="test-actions";
-        const hint=document.createElement("p");hint.textContent="데모 전용 · 클릭하여 불빛 켜기/끄기 (새로고침 시 초기화)";
-        const buttons=document.createElement("div");buttons.className="test-list";
-        STAGES.forEach(s=>{
-          const b=document.createElement("button");b.type="button";b.className=`test-btn ${d.status[s.key]?"on":""}`;
-          b.textContent=s.label;
-          b.addEventListener("click",()=>{d.status[s.key]=!d.status[s.key];render();openDetail(id);});
-          buttons.appendChild(b);
-        });
-        box.append(hint,buttons);test.appendChild(box);
-      }
+      if(!linkBox.children.length){const el=document.createElement("p");el.className="muted-info";el.textContent="등록된 공개 결과물 링크가 없습니다. 초록불은 관리자가 승인해 게시한 결과물 기준입니다.";linkBox.appendChild(el);}
+      $("testArea").replaceChildren();
       $("overlay").classList.add("open");$("closeBtn").focus();
     }
     function closeDetail(){activeId=null;$("overlay").classList.remove("open");}
 
-    // 서버 운영비 없이 Apps Script의 읽기 전용 JSONP 엔드포인트에서 현황을 가져옵니다.
-    // 신뢰하는 본인 소유 Apps Script URL만 등록하세요. 민감한 응답은 절대 공개하지 마세요.
-    window.__careerExpoReceive=function(payload){
-      if(!payload || payload.ok!==true || !Array.isArray(payload.participants)){
-        updateDataStatus("error","서버 데이터 형식 확인 필요");clearPending();return;
+    // GitHub Pages에 배포된 공개 상태만 읽습니다. 폼 제출을 직접 조회하지 않습니다.
+    async function refresh(){
+      if(refreshing)return;
+      refreshing=true;
+      updateDataStatus("loading","공개된 게시 현황 확인 중...");
+      try {
+        const url=new URL(CONFIG.STATUS_URL);
+        url.searchParams.set("_",Date.now().toString());
+        const response=await fetch(url.href,{cache:"no-store"});
+        if(!response.ok)throw new Error(`status.json HTTP ${response.status}`);
+        const payload=await response.json();
+        if(!payload || payload.version!==1 || !payload.participants ||
+           typeof payload.participants!=="object" || Array.isArray(payload.participants)){
+          throw new Error("status.json 형식이 올바르지 않습니다.");
+        }
+        // 이름도 승인된 공개 JSON에서만 읽습니다. 시트 이름을 고쳐도 승인 전에는 바뀌지 않습니다.
+        ROSTER.forEach((p,i)=>{p.name=`참가자 ${String(i+1).padStart(2,"0")}`;});
+        if(Array.isArray(payload.roster)) {
+          payload.roster.forEach(item=>{
+            const person=ROSTER.find(p=>p.id===item?.id);
+            if(person && typeof item.name==="string" && item.name.trim()) person.name=item.name.trim();
+          });
+        }
+        // 해당 ID가 공개 JSON에 없으면 3단계 모두 미게시로 취급합니다.
+        ROSTER.forEach(p=>{state[p.id]=emptyParticipant();});
+        for(const [id,item] of Object.entries(payload.participants)){
+          if(!Object.hasOwn(state,id) || !item || typeof item!=="object")continue;
+          const statuses=Object.fromEntries(STAGES.map(s=>[s.key,item.status?.[s.key]===true]));
+          state[id]={
+            status:statuses,
+            links:Object.fromEntries(STAGES.map(s=>[s.key,statuses[s.key]?safeHttp(item.links?.[s.key]):""])),
+            image:statuses.landing?safeHttp(item.image):""
+          };
+        }
+        render();
+        const updatedAt=typeof payload.updatedAt==="string"?new Date(payload.updatedAt):null;
+        const stamp=updatedAt && !Number.isNaN(updatedAt.getTime())?updatedAt.toLocaleString("ko-KR"):"아직 공개 없음";
+        updateDataStatus("published",`확인 ${nowTime()} · 최종 게시 ${stamp}`);
+        if(activeId)openDetail(activeId);
+      } catch(error) {
+        console.warn("AI Career Expo 게시 현황 로드 실패:",error);
+        // 네트워크 장애시 마지막 성공 상태를 유지합니다.
+        updateDataStatus("error","status.json 로드 실패 · GitHub Pages 배포 확인");
+      } finally {
+        refreshing=false;
       }
-      // 실제 데이터로 완전 대체합니다. 응답에 없는 사람은 미제출로 표시됩니다.
-      ROSTER.forEach(p=>{state[p.id]={status:emptyProgress(),links:{},image:""};});
-      payload.participants.forEach(item=>{
-        if(!item || !Object.hasOwn(state,String(item.id||"")))return;
-        const id=String(item.id);
-        state[id]={
-          status:Object.fromEntries(STAGES.map(s=>[s.key,item.status?.[s.key]===true])),
-          links:Object.fromEntries(STAGES.map(s=>[s.key,safeHttp(item.links?.[s.key])])),
-          image:safeHttp(item.image)
-        };
-      });
-      render();
-      updateDataStatus("live",`마지막 동기화 ${nowTime()} · 1분마다 자동 갱신`);
-      if(activeId) openDetail(activeId);
-      clearPending();
-    };
-    function clearPending(){
-      if(pendingTimeout){clearTimeout(pendingTimeout);pendingTimeout=null;}
-      if(pendingScript){pendingScript.remove();pendingScript=null;}
     }
-    function refresh(){
-      if(IS_DEMO){updateDataStatus("demo");return;}
-      if(pendingScript)return;
-      updateDataStatus("loading","구글폼 제출 내역 동기화 중...");
-      const url=safeHttp(CONFIG.SCRIPT_URL);
-      if(!url){updateDataStatus("error","Apps Script URL 설정 오류");return;}
-      const script=document.createElement("script");pendingScript=script;script.async=true;
-      const src=new URL(url);src.searchParams.set("callback","__careerExpoReceive");src.searchParams.set("_",Date.now());
-      script.src=src.href;
-      script.onerror=()=>{clearPending();updateDataStatus("error","연결 실패 · Apps Script 공개 설정 확인");};
-      pendingTimeout=setTimeout(()=>{clearPending();updateDataStatus("error","연결 시간 초과 · 배포 URL 확인");},18000);
-      document.head.appendChild(script);
-    }
+
     $("searchInput").addEventListener("input",render);
     $("closeBtn").addEventListener("click",closeDetail);
     $("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))closeDetail();});
@@ -530,8 +484,9 @@
       if(document.fullscreenElement){document.exitFullscreen?.();}
       else {document.documentElement.requestFullscreen?.().catch(()=>{});}
     });
-    render();updateDataStatus(IS_DEMO?"demo":"waiting");
-    if(!IS_DEMO){refresh();setInterval(refresh,Math.max(30,CONFIG.REFRESH_SECONDS)*1000);}
+    render();updateDataStatus("waiting","GitHub Pages의 게시 데이터 확인 전");
+    refresh();
+    setInterval(refresh,Math.max(30,CONFIG.REFRESH_SECONDS)*1000);
   </script>
 </body>
 </html>
