@@ -92,6 +92,10 @@
       grid-template-rows:repeat(var(--rows),minmax(0,1fr));
       gap:var(--gap);
     }
+    .board-empty {
+      grid-column:1/-1;align-self:center;justify-self:center;
+      padding:30px 16px;text-align:center;color:var(--muted);font-size:14px;
+    }
     .person-card {
       border:1px solid #273950;border-radius:12px;overflow:hidden;
       min-height:0; min-width:0;position:relative;
@@ -234,6 +238,14 @@
       .search input{width:77px;}
       .footer-right{display:none;}
     }
+    /* 33명을 넘어가면 각 카드의 최소 크기를 지키면서 세로 스크롤을 허용합니다. */
+    @media (min-width:880px) and (min-height:640px) {
+      body.many-participants {overflow:auto;}
+      body.many-participants .app {height:auto;min-height:100dvh;}
+      body.many-participants .board {
+        flex:none;grid-template-rows:none;grid-auto-rows:minmax(158px,auto);
+      }
+    }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
   </style>
 </head>
@@ -257,14 +269,14 @@
     <section class="intro" aria-label="전체 제출 현황">
       <div>
         <div class="eyebrow">2026 PUBLISHED PROGRESS TRACKER</div>
-        <h1><em>33명</em>의 성장 여정,<br>한눈에 확인하세요.</h1>
+        <h1><em>0명</em>의 성장 여정,<br>한눈에 확인하세요.</h1>
         <p class="subtitle">참가자별 3단계 제출 현황 · 카드 클릭 시 상세 정보</p>
       </div>
       <div class="stats">
-        <div class="stat"><div class="stat-top"><span class="tiny"></span> 참여 인원</div><div class="stat-value" id="totalStat">33<span>명</span></div><div class="stat-meter"><i style="width:100%"></i></div></div>
-        <div class="stat"><div class="stat-top"><span class="tiny"></span> 커리어 제출</div><div class="stat-value" id="careerStat">0<span>/ 33</span></div><div class="stat-meter"><i id="careerMeter"></i></div></div>
-        <div class="stat"><div class="stat-top"><span class="tiny"></span> 사업 아이템 기획</div><div class="stat-value" id="ideaStat">0<span>/ 33</span></div><div class="stat-meter"><i id="ideaMeter"></i></div></div>
-        <div class="stat"><div class="stat-top"><span class="tiny"></span> 랜딩페이지 제출</div><div class="stat-value" id="landingStat">0<span>/ 33</span></div><div class="stat-meter"><i id="landingMeter"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 참여 인원</div><div class="stat-value" id="totalStat">0<span>명</span></div><div class="stat-meter"><i style="width:100%"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 커리어 제출</div><div class="stat-value" id="careerStat">0<span>/ 0</span></div><div class="stat-meter"><i id="careerMeter"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 사업 아이템 기획</div><div class="stat-value" id="ideaStat">0<span>/ 0</span></div><div class="stat-meter"><i id="ideaMeter"></i></div></div>
+        <div class="stat"><div class="stat-top"><span class="tiny"></span> 랜딩페이지 제출</div><div class="stat-value" id="landingStat">0<span>/ 0</span></div><div class="stat-meter"><i id="landingMeter"></i></div></div>
       </div>
     </section>
 
@@ -274,7 +286,7 @@
         <span class="hint">● 초록 불빛 = 제출 완료 &nbsp;·&nbsp; 카드를 눌러 결과물 확인</span>
       </div>
       <div class="board-tools">
-        <span class="board-count" id="boardCount">33 / 33명 표시</span>
+        <span class="board-count" id="boardCount">0 / 0명 표시</span>
         <label class="search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
           <input id="searchInput" type="search" placeholder="이름 검색" aria-label="참가자 이름 검색">
@@ -282,7 +294,7 @@
       </div>
     </div>
 
-    <main class="board" id="board" aria-label="33명 참가자 카드"></main>
+    <main class="board" id="board" aria-label="참가자 카드"></main>
 
     <footer class="footer">
       <div class="legend"><span><i class="light lit"></i> 제출 완료</span><span><i class="light"></i> 미제출</span><span>재제출은 관리자 재게시 후 반영</span></div>
@@ -313,9 +325,7 @@
        ============================================================ */
     const CONFIG = {
       STATUS_URL: new URL("./data/status.json", document.baseURI).href,
-      REFRESH_SECONDS: 60,
-      // 이름은 게시된 status.json에서 자동으로 갱신합니다.
-      ROSTER_NAMES: Array.from({length:33},(_,i)=>`참가자 ${String(i+1).padStart(2,"0")}`).join("\n")
+      REFRESH_SECONDS: 60
     };
 
     const STAGES = [
@@ -329,13 +339,14 @@
       ["#637b53","#8fab86","#c0ad70"],["#345767","#5f8491","#9caabb"],
       ["#705e8e","#8a7fb7","#b48eac"],["#347d78","#5fa89c","#b4caab"]
     ];
-    const ROSTER = CONFIG.ROSTER_NAMES.split(/\r?\n/).map(s=>s.trim()).filter(Boolean)
-      .map((name,i)=>({id:`A${String(i+1).padStart(3,"0")}`,name}));
+    // 관리자 승인 후 status.json에 게시된 '실제 명단'만 카드로 표시합니다.
+    // 기존 고정 33명 대신 1명, 6명, 33명, 40명 등으로 자동 조정됩니다.
+    let ROSTER = [];
+    let state = {};
     const $ = id => document.getElementById(id);
     const nowTime = () => new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit"});
     const emptyProgress = () => ({career:false,idea:false,landing:false});
     const emptyParticipant = () => ({status:emptyProgress(),links:{},image:""});
-    const state = Object.fromEntries(ROSTER.map(p=>[p.id,emptyParticipant()]));
     let activeId = null;
     let refreshing = false;
 
@@ -387,7 +398,16 @@
         card.addEventListener("click",()=>openDetail(person.id));
         frag.appendChild(card);
       });
+      if(!ROSTER.length){
+        const notice=document.createElement("div");
+        notice.className="board-empty";
+        notice.textContent="아직 공개된 참가자 명단이 없습니다. 관리자가 명단 게시를 승인하면 카드가 나타납니다.";
+        frag.appendChild(notice);
+      }
       board.replaceChildren(frag);
+      document.body.classList.toggle("many-participants",ROSTER.length>33);
+      const cols=window.innerWidth>=1700 && window.innerHeight>=760 ? 11 : 7;
+      document.documentElement.style.setProperty("--rows",String(Math.max(1,Math.ceil(ROSTER.length/cols))));
       updateStats();
       $("boardCount").textContent=`${ROSTER.length} / ${ROSTER.length}명 표시`;
     }
@@ -442,16 +462,16 @@
            typeof payload.participants!=="object" || Array.isArray(payload.participants)){
           throw new Error("status.json 형식이 올바르지 않습니다.");
         }
-        // 이름도 승인된 공개 JSON에서만 읽습니다. 시트 이름을 고쳐도 승인 전에는 바뀌지 않습니다.
-        ROSTER.forEach((p,i)=>{p.name=`참가자 ${String(i+1).padStart(2,"0")}`;});
-        if(Array.isArray(payload.roster)) {
-          payload.roster.forEach(item=>{
-            const person=ROSTER.find(p=>p.id===item?.id);
-            if(person && typeof item.name==="string" && item.name.trim()) person.name=item.name.trim();
-          });
-        }
-        // 해당 ID가 공개 JSON에 없으면 3단계 모두 미게시로 취급합니다.
-        ROSTER.forEach(p=>{state[p.id]=emptyParticipant();});
+        // status.json의 roster 배열이 '공개된 참가자 목록'의 유일한 기준입니다.
+        // 미등록 빈 슬롯은 숨기고 실제 공개한 6명/40명만 표시합니다.
+        const rosterItems=Array.isArray(payload.roster)?payload.roster:[];
+        const seenIds=new Set();
+        ROSTER=rosterItems.filter(item=>{
+          if(!item || !/^A\d{3,}$/.test(String(item.id||"")) ||
+             typeof item.name!=="string" || !item.name.trim() || seenIds.has(item.id))return false;
+          seenIds.add(item.id);return true;
+        }).map(item=>({id:item.id,name:item.name.trim()}));
+        state=Object.fromEntries(ROSTER.map(p=>[p.id,emptyParticipant()]));
         for(const [id,item] of Object.entries(payload.participants)){
           if(!Object.hasOwn(state,id) || !item || typeof item!=="object")continue;
           const statuses=Object.fromEntries(STAGES.map(s=>[s.key,item.status?.[s.key]===true]));
@@ -465,7 +485,8 @@
         const updatedAt=typeof payload.updatedAt==="string"?new Date(payload.updatedAt):null;
         const stamp=updatedAt && !Number.isNaN(updatedAt.getTime())?updatedAt.toLocaleString("ko-KR"):"아직 공개 없음";
         updateDataStatus("published",`확인 ${nowTime()} · 최종 게시 ${stamp}`);
-        if(activeId)openDetail(activeId);
+        if(activeId && ROSTER.some(p=>p.id===activeId)) openDetail(activeId);
+        else if(activeId) closeDetail();
       } catch(error) {
         console.warn("AI Career Expo 게시 현황 로드 실패:",error);
         // 네트워크 장애시 마지막 성공 상태를 유지합니다.
@@ -476,6 +497,7 @@
     }
 
     $("searchInput").addEventListener("input",render);
+    window.addEventListener("resize",()=>render());
     $("closeBtn").addEventListener("click",closeDetail);
     $("overlay").addEventListener("click",e=>{if(e.target===$("overlay"))closeDetail();});
     document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDetail();});
