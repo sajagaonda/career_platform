@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080e1b">
-  <meta name="description" content="AI Career Expo — 관리자가 승인한 명단/결과물 33칸 전광판">
+  <meta name="description" content="AI Career Expo — 관리자가 승인한 명단/결과물 자동 배치 전광판">
   <title>AI Career Expo | Live Progress Board</title>
   <style>
     :root {
@@ -248,13 +248,18 @@
       .search input{width:77px;}
       .footer-right{display:none;}
     }
-    /* 33명을 넘어가면 각 카드의 최소 크기를 지키면서 세로 스크롤을 허용합니다. */
+    /* 34명 이상은 화면 크기에 맞춰 열·행을 자동 조절합니다.
+       카드 글자를 읽을 수 없을 만큼 작아지는 경우에만 스크롤합니다. */
     @media (min-width:880px) and (min-height:640px) {
-      body.many-participants {overflow:auto;}
-      body.many-participants .app {height:auto;min-height:100dvh;}
-      body.many-participants .board {
-        flex:none;grid-template-rows:none;grid-auto-rows:minmax(158px,auto);
+      body.board-scroll {overflow:auto;}
+      body.board-scroll .app {height:auto;min-height:100dvh;}
+      body.board-scroll .board {
+        flex:none;
+        grid-template-rows:none;
+        grid-auto-rows:minmax(108px,auto);
       }
+      body.board-compact .steps {padding:3px 7px 4px;gap:1px;}
+      body.board-compact .cover {max-height:78px;}
     }
     @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;}}
   </style>
@@ -394,6 +399,65 @@
       });
       card.appendChild(steps);return card;
     }
+    /* 참가자 수와 실제 카드 영역 크기로 열/행 자동 선정.
+       기본 33명은 기존 7×5 / 와이드 11×3 레이아웃을 그대로 사용합니다.
+       34명부터는 카드 전체가 한 화면에 들어오도록 계산하고,
+       화면이 너무 작거나 인원이 과도할 때만 가독성을 위해 스크롤합니다. */
+    function fitBoardToViewport(slotCount,desktopBoard){
+      const root=document.documentElement;
+      const body=document.body;
+      const board=$("board");
+      body.classList.remove("board-scroll","board-compact");
+      if(!desktopBoard){
+        root.style.removeProperty("--cols");
+        root.style.removeProperty("--rows");
+        return;
+      }
+      const wide=window.innerWidth>=1700 && window.innerHeight>=760;
+      const baseCols=wide?11:7;
+      const baseRows=wide?3:5;
+      root.style.setProperty("--cols",String(baseCols));
+      root.style.setProperty("--rows",String(baseRows));
+      if(slotCount<=33)return;
+
+      // 기본 33칸 구도로 우선 영역을 측정하고, 최소 카드 크기를 만족하는 조합만 사용.
+      const width=board.clientWidth;
+      const height=board.clientHeight;
+      const style=getComputedStyle(board);
+      const columnGap=parseFloat(style.columnGap)||9;
+      const rowGap=parseFloat(style.rowGap)||9;
+      const minWidth=115;  // 두 단계 상태와 이름을 읽을 수 있는 최소 너비
+      const minHeight=76;  // 이미지, 이름, 두 단계 상태를 표시할 최소 높이
+      const preferWidth=135;
+      const preferHeight=86;
+      const maxCols=Math.min(slotCount,20,Math.floor((width+columnGap)/(minWidth+columnGap)));
+      let best=null;
+      for(let cols=baseCols;cols<=maxCols;cols++){
+        const rows=Math.ceil(slotCount/cols);
+        const cellWidth=(width-(cols-1)*columnGap)/cols;
+        const cellHeight=(height-(rows-1)*rowGap)/rows;
+        if(cellWidth<minWidth || cellHeight<minHeight)continue;
+        // 가능한 큰 카드 + 기존 레이아웃에서 최소 변경을 선호합니다.
+        const wPenalty=Math.max(0,(preferWidth-cellWidth)/preferWidth);
+        const hPenalty=Math.max(0,(preferHeight-cellHeight)/preferHeight);
+        const score=2*wPenalty*wPenalty+2*hPenalty*hPenalty+
+          0.01*(cols-baseCols)+0.025*Math.max(0,rows-baseRows);
+        if(best===null || score<best.score)best={cols,rows,cellHeight,score};
+      }
+      if(best){
+        root.style.setProperty("--cols",String(best.cols));
+        root.style.setProperty("--rows",String(best.rows));
+        body.classList.toggle("board-compact",best.cellHeight<94);
+      } else {
+        // 인원이 너무 많거나 화면이 낮으면 억지 축소로 글자가 깨지지 않게 합니다.
+        const comfortableCols=Math.floor((width+columnGap)/(135+columnGap));
+        const cols=Math.max(baseCols,Math.min(20,comfortableCols));
+        root.style.setProperty("--cols",String(cols));
+        root.style.setProperty("--rows",String(Math.ceil(slotCount/cols)));
+        body.classList.add("board-scroll");
+      }
+    }
+
     function render() {
       const board=$("board");
       const query=$("searchInput").value.trim().toLocaleLowerCase("ko-KR");
@@ -401,10 +465,26 @@
       // PC에서는 33칸을 유지해 6명만 등록되어도 카드가 화면 세로로 늘어나지 않습니다.
       // 모바일은 스크롤 부담을 피하기 위해 실제 참가자만 보여줍니다.
       const desktopBoard=window.innerWidth>=880 && window.innerHeight>=640;
-      const highestId=ROSTER.reduce((max,p)=>Math.max(max,Number(p.id.slice(1))||0),0);
-      const displaySlots=desktopBoard ? Math.max(33,ROSTER.length,highestId) : ROSTER.length;
-      const byId=new Map(ROSTER.map(person=>[person.id,person]));
-      const displayPeople=desktopBoard ? Array.from({length:displaySlots},(_,i)=>byId.get(`A${String(i+1).padStart(3,'0')}`)||null) : ROSTER;
+      // 33명 이하: 기존 33칸 전광판과 가능한 한 기존 ID 위치를 유지합니다.
+      // 34명 이상: ID 번호에 빈칸이 있더라도 실제 등록 인원만 촘촘하게 표시합니다.
+      // (삭제된 ID로 인해 불필요한 50~100칸이 생기거나 참가자가 누락되는 현상 방지)
+      let displayPeople;
+      if(!desktopBoard || ROSTER.length>33){
+        displayPeople=ROSTER;
+      } else {
+        displayPeople=Array(33).fill(null);
+        const unplaced=[];
+        ROSTER.forEach(person=>{
+          const index=Number(person.id.slice(1))-1;
+          if(index>=0 && index<33 && displayPeople[index]===null)displayPeople[index]=person;
+          else unplaced.push(person);
+        });
+        let j=0;
+        for(let i=0;i<displayPeople.length&&j<unplaced.length;i++){
+          if(displayPeople[i]===null)displayPeople[i]=unplaced[j++];
+        }
+      }
+      const displaySlots=displayPeople.length;
       displayPeople.forEach((person,i)=>{
         if(!person){frag.appendChild(makeVacantCard(`A${String(i+1).padStart(3,'0')}`,i));return;}
         const data=state[person.id];
@@ -447,9 +527,7 @@
         frag.appendChild(notice);
       }
       board.replaceChildren(frag);
-      document.body.classList.toggle("many-participants",desktopBoard&&displaySlots>33);
-      const cols=window.innerWidth>=1700 && window.innerHeight>=760 ? 11 : 7;
-      document.documentElement.style.setProperty('--rows',String(Math.max(1,Math.ceil(displaySlots/cols))));
+      fitBoardToViewport(displaySlots,desktopBoard);
       updateStats();
       $('boardCount').textContent=desktopBoard&&ROSTER.length<=33 ?
         `${ROSTER.length}명 등록 · 33칸 전광판` : `${ROSTER.length}명 등록`;
