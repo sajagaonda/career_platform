@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-16T07:37:29.146Z",
+  "updatedAt": "2026-10-16T07:40:56.235Z",
   "roster": [
     {
       "id": "A001",
@@ -142,23 +142,23 @@
   "participants": {
     "A001": {
       "status": {
-        "notion": false,
+        "notion": true,
         "landing": true
       },
       "links": {
-        "notion": "",
+        "notion": "https://minjae7189.notion.site/1015-3fa8d6179dbc807a99fdc49812651533?source=copy_link",
         "landing": "https://sajagaonda.github.io/career_platform/landings/A001/index.html?v=e761e80d95c2c63a"
       },
       "image": "https://sajagaonda.github.io/career_platform/landings/A001/cover.png?v=69848b6fff57",
       "fileKeys": {
-        "html": "bba376ef20a741b3a879307d17b41104c2a118d9c9661548745e7705cffb5b45",
+        "html": "efc3f792e92524c78016a6dc0f9f70d342c0aaf604e4bb68bf02e2c2334d0ca9",
         "image": "69848b6fff57ccb135395d31899c7ff483c87e0b8fe6d554a4b90b8fd1c2a41d"
       },
       "contentHashes": {
         "html": "e761e80d95c2c63a406aaff20aa365c373806a35e4ad5fc921ab4bfc57af0666"
       },
-      "revision": "67048eb2fd8002e9ce0445036ad52179b62074225761d0b43b4cec2291c8e183",
-      "publishedAt": "2026-10-16T07:37:29.146Z"
+      "revision": "da177a730ae82e607a1a21c491f9e8c997a2907f06e08fc53707c28e58103510",
+      "publishedAt": "2026-10-16T07:40:56.235Z"
     }
   },
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
