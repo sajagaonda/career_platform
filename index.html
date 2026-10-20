@@ -758,7 +758,7 @@
       try {
         const u=new URL(String(raw||""));
         const host=u.hostname.toLowerCase();
-        return u.protocol==="https:" && (host==="notion.so" || host.endsWith(".notion.so") || host==="notion.site" || host.endsWith(".notion.site")) ? u.href : "";
+        return u.protocol==="https:" && (host==="notion.so" || host.endsWith(".notion.so") || host==="notion.site" || host.endsWith(".notion.site") || host==="notion.com" || host.endsWith(".notion.com")) ? u.href : "";
       } catch {return "";}
     }
     function updateDataStatus(mode,detail="") {
