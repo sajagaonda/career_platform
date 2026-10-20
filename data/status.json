@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-20T05:28:16.728Z",
+  "updatedAt": "2026-10-20T05:32:37.423Z",
   "roster": [
     {
       "id": "A001",
@@ -143,6 +143,27 @@
       "name": "테스트"
     }
   ],
-  "participants": {},
+  "participants": {
+    "A035": {
+      "status": {
+        "notion": false,
+        "landing": true
+      },
+      "links": {
+        "notion": "",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A035/index.html?v=e761e80d95c2c63a"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A035/cover.png?v=1c794b306383",
+      "fileKeys": {
+        "html": "64bf3c5e826c93d5102a94012f44de23e48a13ed32e6470f31e15521d46e85e8",
+        "image": "1c794b30638381c960d87542e5d6b578a19c39f9d132eae0f0482a132a336a3b"
+      },
+      "contentHashes": {
+        "html": "e761e80d95c2c63a406aaff20aa365c373806a35e4ad5fc921ab4bfc57af0666"
+      },
+      "revision": "c9c57e981b37815b060e5c5d37cd89880138cd9cb04a14d4652edf97e9346ca4",
+      "publishedAt": "2026-10-20T05:32:37.423Z"
+    }
+  },
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
 }
