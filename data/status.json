@@ -1,165 +1,148 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-16T07:47:49.846Z",
+  "updatedAt": "2026-10-20T05:28:16.728Z",
   "roster": [
     {
       "id": "A001",
-      "name": "테스트1"
+      "name": "김진영"
     },
     {
       "id": "A002",
-      "name": "테스트2"
+      "name": "김효진"
     },
     {
       "id": "A003",
-      "name": "테스트3"
+      "name": "나효은"
     },
     {
       "id": "A004",
-      "name": "테스트4"
+      "name": "임미희"
     },
     {
       "id": "A005",
-      "name": "테스트5"
+      "name": "지경옥"
     },
     {
       "id": "A006",
-      "name": "테스트6"
+      "name": "강여선"
     },
     {
       "id": "A007",
-      "name": "테스트7"
+      "name": "강인순"
     },
     {
       "id": "A008",
-      "name": "테스트8"
+      "name": "고연선"
     },
     {
       "id": "A009",
-      "name": "테스트9"
+      "name": "김명옥"
     },
     {
       "id": "A010",
-      "name": "테스트10"
+      "name": "김명희"
     },
     {
       "id": "A011",
-      "name": "테스트11"
+      "name": "김민정"
     },
     {
       "id": "A012",
-      "name": "테스트12"
+      "name": "김민희"
     },
     {
       "id": "A013",
-      "name": "테스트13"
+      "name": "김상현"
     },
     {
       "id": "A014",
-      "name": "테스트14"
+      "name": "김정순"
     },
     {
       "id": "A015",
-      "name": "테스트15"
+      "name": "김철수"
     },
     {
       "id": "A016",
-      "name": "테스트16"
+      "name": "박미용"
     },
     {
       "id": "A017",
-      "name": "테스트17"
+      "name": "양지원"
     },
     {
       "id": "A018",
-      "name": "테스트18"
+      "name": "이은희"
     },
     {
       "id": "A019",
-      "name": "테스트19"
+      "name": "조미영"
     },
     {
       "id": "A020",
-      "name": "테스트20"
+      "name": "최주희"
     },
     {
       "id": "A021",
-      "name": "테스트21"
+      "name": "현경희"
     },
     {
       "id": "A022",
-      "name": "테스트22"
+      "name": "현영선"
     },
     {
       "id": "A023",
-      "name": "테스트23"
+      "name": "홍서영"
     },
     {
       "id": "A024",
-      "name": "테스트24"
+      "name": "홍순옥"
     },
     {
       "id": "A025",
-      "name": "테스트25"
+      "name": "황은명"
     },
     {
       "id": "A026",
-      "name": "테스트26"
+      "name": "강경하"
     },
     {
       "id": "A027",
-      "name": "테스트27"
+      "name": "서향미"
     },
     {
       "id": "A028",
-      "name": "테스트28"
+      "name": "송윤정"
     },
     {
       "id": "A029",
-      "name": "테스트29"
+      "name": "안유창"
     },
     {
       "id": "A030",
-      "name": "테스트30"
+      "name": "유진영"
     },
     {
       "id": "A031",
-      "name": "테스트31"
+      "name": "한혜숙"
     },
     {
       "id": "A032",
-      "name": "테스트32"
+      "name": "권혁민"
     },
     {
       "id": "A033",
-      "name": "테스트33"
+      "name": "김매련"
     },
     {
       "id": "A034",
-      "name": "테스트34"
+      "name": "한상호"
+    },
+    {
+      "id": "A035",
+      "name": "테스트"
     }
   ],
-  "participants": {
-    "A001": {
-      "status": {
-        "notion": true,
-        "landing": true
-      },
-      "links": {
-        "notion": "https://minjae7189.notion.site/3fb8d6179dbc800fbd0af0e0dab9b61f?source=copy_link",
-        "landing": "https://sajagaonda.github.io/career_platform/landings/A001/index.html?v=e761e80d95c2c63a"
-      },
-      "image": "https://sajagaonda.github.io/career_platform/landings/A001/cover.png?v=69848b6fff57",
-      "fileKeys": {
-        "html": "955cd0f09ae0023584a4a2386207d84a94e37141cb7d279180402467d1b17dad",
-        "image": "69848b6fff57ccb135395d31899c7ff483c87e0b8fe6d554a4b90b8fd1c2a41d"
-      },
-      "contentHashes": {
-        "html": "e761e80d95c2c63a406aaff20aa365c373806a35e4ad5fc921ab4bfc57af0666"
-      },
-      "revision": "1240f193901de5d58a660c3c0cfb0eb2f22fafd85a1824f089e4f9839453cd41",
-      "publishedAt": "2026-10-16T07:47:49.846Z"
-    }
-  },
+  "participants": {},
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
 }
