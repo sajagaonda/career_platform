@@ -92,7 +92,7 @@
       grid-template-rows:repeat(var(--rows),minmax(0,1fr));
       gap:var(--gap);
     }
-    /* 빈 명단 슬롯은 33칸 레이아웃을 유지하면서 아직 미등록임을 보여줍니다. */
+    /* 이전 버전의 빈 카드 CSS는 호환을 위해 남겨 두었으며, 현재는 렌더링하지 않습니다. */
     .vacant-card {border:1px dashed #2a3a50;background:linear-gradient(#111c30,#0c1524);
       opacity:.54;cursor:default;pointer-events:none;}
     .vacant-card .cover {background:#1b2a3e;}
@@ -248,8 +248,7 @@
       .search input{width:77px;}
       .footer-right{display:none;}
     }
-    /* 34명 이상은 화면 크기에 맞춰 열·행을 자동 조절합니다.
-       카드 글자를 읽을 수 없을 만큼 작아지는 경우에만 스크롤합니다. */
+    /* 실제 인원 수에 관계없이, 한 화면에 가독성 있게 표시할 수 없을 때만 스크롤합니다. */
     @media (min-width:880px) and (min-height:640px) {
       body.board-scroll {overflow:auto;}
       body.board-scroll .app {height:auto;min-height:100dvh;}
@@ -844,6 +843,58 @@
     .test-btn {background:#0B3586;border-color:#4C92EC;color:#F3FAFF;}
     .test-btn.on {background:#315B16;border-color:#A4E84A;color:#E8FFB3;}
     .error-note {color:#FFDDA0!important;}
+
+    /* ===============================================================
+       참가자 명단 크기 자동 조절 / 상세 팝업 가독성 개선
+       기존 데이터, 색상 테마 및 링크 기능은 변경하지 않습니다.
+       =============================================================== */
+    @media (min-width:880px) and (min-height:640px) {
+      body.board-sparse .board {
+        width:100%;
+        margin-inline:auto;
+        align-content:center;
+        grid-template-rows:repeat(var(--rows),minmax(0,var(--sparse-row-height,210px)));
+      }
+      body.board-scroll .board {
+        grid-auto-rows:minmax(126px,auto);
+      }
+    }
+    body.modal-open {overflow:hidden!important;}
+    .overlay {padding:clamp(12px,2.8vw,32px);}
+    .modal {
+      width:min(720px,100%);
+      max-height:min(93dvh,920px);
+      border-radius:24px;
+      overscroll-behavior:contain;
+    }
+    .modal-cover {height:clamp(190px,25vh,265px);}
+    .close {width:42px;height:42px;font-size:25px;border-radius:12px;}
+    .modal-content {padding:0 clamp(22px,3.2vw,36px) 32px;margin-top:-40px;}
+    .modal h3 {font-size:clamp(30px,3vw,39px);line-height:1.15;margin:7px 0 12px;}
+    .detail-sub {font-size:14px;line-height:1.5;margin-bottom:23px;}
+    .modal-step {padding:16px 18px;border-radius:13px;margin-bottom:10px;}
+    .modal-step strong {font-size:15px;}
+    .modal-step small {font-size:13px;}
+    .modal-actions {gap:11px;margin-top:22px;}
+    .result-link {padding:15px 18px;border-radius:12px;font-size:14px;line-height:1.5;}
+    .muted-info {font-size:13px;line-height:1.6;}
+    @media (max-width:620px) {
+      .overlay {padding:10px;}
+      .modal {width:100%;max-height:94dvh;border-radius:18px;}
+      .modal-cover {height:clamp(145px,24vh,205px);}
+      .modal-content {padding:0 19px 23px;margin-top:-30px;}
+      .modal h3 {font-size:clamp(26px,7vw,32px);}
+      .detail-sub {font-size:12.5px;margin-bottom:17px;}
+      .modal-step {padding:13px 13px;gap:8px;}
+      .modal-step strong {font-size:13px;}
+      .modal-step small {font-size:11.5px;}
+      .result-link {padding:13px 14px;font-size:12.5px;}
+      .close {width:38px;height:38px;}
+    }
+    @media (max-height:520px) {
+      .modal-cover {height:125px;}
+      .modal-content {margin-top:-26px;}
+    }
   </style>
 </head>
 <body>
@@ -937,7 +988,7 @@
       ["#2250b5","#239add","#88d7a8"],["#3e36a3","#7761d9","#56c1ef"]
     ];
     // 관리자 승인 후 status.json에 게시된 '실제 명단'만 카드로 표시합니다.
-    // 기존 고정 33명 대신 1명, 6명, 33명, 40명 등으로 자동 조정됩니다.
+    // 실제 공개 명단의 인원에 따라 카드 개수와 배치가 모두 자동 조정됩니다.
     let ROSTER = [];
     let state = {};
     const $ = id => document.getElementById(id);
@@ -964,80 +1015,84 @@
       $("syncStamp").textContent = detail || `확인 ${nowTime()}`;
       $("syncStamp").classList.toggle("error-note",mode==="error");
     }
-    function makeVacantCard(slotId,index) {
-      const card=document.createElement('div');card.className='person-card vacant-card';
-      card.setAttribute('aria-label',`${slotId}: 미등록`);
-      const cover=document.createElement('div');cover.className='cover';
-      const top=document.createElement('div');top.className='cover-top';
-      const id=document.createElement('span');id.className='person-id';id.textContent=slotId;top.appendChild(id);
-      const name=document.createElement('div');name.className='person-name';name.textContent='명단 대기';
-      cover.append(top,name);card.appendChild(cover);
-      const steps=document.createElement('div');steps.className='steps';
-      STAGES.forEach(s=>{
-        const row=document.createElement('div');row.className='step';
-        const label=document.createElement('span');label.className='step-text';label.textContent=s.label;
-        const badge=document.createElement('span');badge.className='step-mark';
-        const light=document.createElement('i');light.className='light';
-        const word=document.createElement('span');word.textContent='대기';
-        badge.append(light,word);row.append(label,badge);steps.appendChild(row);
-      });
-      card.appendChild(steps);return card;
-    }
-    /* 참가자 수와 실제 카드 영역 크기로 열/행 자동 선정.
-       기본 33명은 기존 7×5 / 와이드 11×3 레이아웃을 그대로 사용합니다.
-       34명부터는 카드 전체가 한 화면에 들어오도록 계산하고,
-       화면이 너무 작거나 인원이 과도할 때만 가독성을 위해 스크롤합니다. */
-    function fitBoardToViewport(slotCount,desktopBoard){
+    /*
+       카드 개수 = 실제 공개된 참가자 수. 33개의 빈 슬롯을 만드는 방식은 사용하지 않습니다.
+       PC에서는 가용 너비/높이를 계산해 읽기 쉬운 열·행을 고르고,
+       화면에 무리해서 구겨 넣어야 하는 경우에만 세로 스크롤로 전환합니다.
+       모바일은 CSS 반응형 1~2열 자동 배치가 담당합니다.
+    */
+    function fitBoardToViewport(participantCount, desktopBoard) {
       const root=document.documentElement;
       const body=document.body;
       const board=$("board");
-      body.classList.remove("board-scroll","board-compact");
-      if(!desktopBoard){
-        root.style.removeProperty("--cols");
-        root.style.removeProperty("--rows");
+      body.classList.remove("board-scroll","board-compact","board-sparse");
+      board.style.removeProperty("max-width");
+      root.style.removeProperty("--cols");
+      root.style.removeProperty("--rows");
+      root.style.removeProperty("--sparse-row-height");
+      if(!desktopBoard)return;
+
+      if(participantCount===0){
+        root.style.setProperty("--cols","1");
+        root.style.setProperty("--rows","1");
         return;
       }
       const wide=window.innerWidth>=1700 && window.innerHeight>=760;
-      const baseCols=wide?11:7;
-      const baseRows=wide?3:5;
-      root.style.setProperty("--cols",String(baseCols));
-      root.style.setProperty("--rows",String(baseRows));
-      if(slotCount<=33)return;
-
-      // 기본 33칸 구도로 우선 영역을 측정하고, 최소 카드 크기를 만족하는 조합만 사용.
+      const preferredCols=wide?11:7;
+      const preferredRows=wide?3:5;
       const width=board.clientWidth;
       const height=board.clientHeight;
-      const style=getComputedStyle(board);
-      const columnGap=parseFloat(style.columnGap)||9;
-      const rowGap=parseFloat(style.rowGap)||9;
-      const minWidth=115;  // 두 단계 상태와 이름을 읽을 수 있는 최소 너비
-      const minHeight=76;  // 이미지, 이름, 두 단계 상태를 표시할 최소 높이
-      const preferWidth=135;
-      const preferHeight=86;
-      const maxCols=Math.min(slotCount,20,Math.floor((width+columnGap)/(minWidth+columnGap)));
+      const css=getComputedStyle(board);
+      const colGap=parseFloat(css.columnGap)||9;
+      const rowGap=parseFloat(css.rowGap)||9;
+      const minCardWidth=116;
+      const minCardHeight=84;
+
+      // 적은 인원이라면 가로로 한 줄을 길게 늘이는 대신 적당한 행 수로 배치.
+      const desiredRows=participantCount<=4?1:
+        participantCount<=12?2:
+        Math.min(preferredRows,Math.ceil(participantCount/preferredCols));
+      const targetRows=participantCount>preferredCols*preferredRows?
+        (wide?Math.ceil(participantCount/preferredCols):Math.ceil(participantCount/8)):
+        desiredRows;
+      const targetCols=Math.ceil(participantCount/targetRows);
+      const maxCols=Math.min(participantCount,24,
+        Math.floor((width+colGap)/(minCardWidth+colGap)));
       let best=null;
-      for(let cols=baseCols;cols<=maxCols;cols++){
-        const rows=Math.ceil(slotCount/cols);
-        const cellWidth=(width-(cols-1)*columnGap)/cols;
-        const cellHeight=(height-(rows-1)*rowGap)/rows;
-        if(cellWidth<minWidth || cellHeight<minHeight)continue;
-        // 가능한 큰 카드 + 기존 레이아웃에서 최소 변경을 선호합니다.
-        const wPenalty=Math.max(0,(preferWidth-cellWidth)/preferWidth);
-        const hPenalty=Math.max(0,(preferHeight-cellHeight)/preferHeight);
-        const score=2*wPenalty*wPenalty+2*hPenalty*hPenalty+
-          0.01*(cols-baseCols)+0.025*Math.max(0,rows-baseRows);
-        if(best===null || score<best.score)best={cols,rows,cellHeight,score};
+      for(let cols=1;cols<=maxCols;cols++){
+        const rows=Math.ceil(participantCount/cols);
+        const cardWidth=(width-(cols-1)*colGap)/cols;
+        const cardHeight=(height-(rows-1)*rowGap)/rows;
+        if(cardWidth<minCardWidth || cardHeight<minCardHeight)continue;
+
+        // 기존 전광판의 7열/11열 느낌을 살리면서, 빈 칸과 지나친 축소를 최소화합니다.
+        const unused=rows*cols-participantCount;
+        const narrow=Math.max(0,(145-cardWidth)/145);
+        const short=Math.max(0,(106-cardHeight)/106);
+        const tooTall=Math.max(0,(cardHeight-245)/245);
+        const score=0.085*Math.abs(rows-targetRows)+
+          0.03*Math.abs(cols-targetCols)+
+          0.22*unused/participantCount+
+          1.8*narrow*narrow+1.8*short*short+0.18*tooTall*tooTall;
+        if(best===null || score<best.score){best={cols,rows,cardHeight,score};}
       }
       if(best){
         root.style.setProperty("--cols",String(best.cols));
         root.style.setProperty("--rows",String(best.rows));
-        body.classList.toggle("board-compact",best.cellHeight<94);
-      } else {
-        // 인원이 너무 많거나 화면이 낮으면 억지 축소로 글자가 깨지지 않게 합니다.
-        const comfortableCols=Math.floor((width+columnGap)/(135+columnGap));
-        const cols=Math.max(baseCols,Math.min(20,comfortableCols));
+        body.classList.toggle("board-compact",best.cardHeight<108);
+        if(participantCount<=12){
+          // 1~12명일 때도 카드 한 장이 화면 전체를 차지하지 않도록 크기를 제한.
+          body.classList.add("board-sparse");
+          board.style.maxWidth=Math.min(width,best.cols*230+(best.cols-1)*colGap)+"px";
+          root.style.setProperty("--sparse-row-height",Math.min(210,best.cardHeight)+"px");
+        }
+      }else{
+        // 화면 내 가독성을 지킬 수 없을 때는 전체 페이지를 스크롤합니다.
+        const comfortableCols=Math.max(1,
+          Math.floor((width+colGap)/(150+colGap)));
+        const cols=Math.min(participantCount,20,comfortableCols);
         root.style.setProperty("--cols",String(cols));
-        root.style.setProperty("--rows",String(Math.ceil(slotCount/cols)));
+        root.style.setProperty("--rows",String(Math.ceil(participantCount/cols)));
         body.classList.add("board-scroll");
       }
     }
@@ -1046,31 +1101,10 @@
       const board=$("board");
       const query=$("searchInput").value.trim().toLocaleLowerCase("ko-KR");
       const frag=document.createDocumentFragment();
-      // PC에서는 33칸을 유지해 6명만 등록되어도 카드가 화면 세로로 늘어나지 않습니다.
-      // 모바일은 스크롤 부담을 피하기 위해 실제 참가자만 보여줍니다.
       const desktopBoard=window.innerWidth>=880 && window.innerHeight>=640;
-      // 33명 이하: 기존 33칸 전광판과 가능한 한 기존 ID 위치를 유지합니다.
-      // 34명 이상: ID 번호에 빈칸이 있더라도 실제 등록 인원만 촘촘하게 표시합니다.
-      // (삭제된 ID로 인해 불필요한 50~100칸이 생기거나 참가자가 누락되는 현상 방지)
-      let displayPeople;
-      if(!desktopBoard || ROSTER.length>33){
-        displayPeople=ROSTER;
-      } else {
-        displayPeople=Array(33).fill(null);
-        const unplaced=[];
-        ROSTER.forEach(person=>{
-          const index=Number(person.id.slice(1))-1;
-          if(index>=0 && index<33 && displayPeople[index]===null)displayPeople[index]=person;
-          else unplaced.push(person);
-        });
-        let j=0;
-        for(let i=0;i<displayPeople.length&&j<unplaced.length;i++){
-          if(displayPeople[i]===null)displayPeople[i]=unplaced[j++];
-        }
-      }
-      const displaySlots=displayPeople.length;
-      displayPeople.forEach((person,i)=>{
-        if(!person){frag.appendChild(makeVacantCard(`A${String(i+1).padStart(3,'0')}`,i));return;}
+      // 상태 데이터에서 실제 공개된 참가자만, 기존 roster 순서대로 표시합니다.
+      // 내부 ID가 중간에 비더라도 빈 카드를 만들지 않습니다.
+      ROSTER.forEach((person,i)=>{
         const data=state[person.id];
         const completed=STAGES.every(s=>data.status[s.key]);
         const matches=!query||person.name.toLocaleLowerCase("ko-KR").includes(query)||person.id.toLowerCase().includes(query);
@@ -1104,17 +1138,16 @@
         card.addEventListener("click",()=>openDetail(person.id));
         frag.appendChild(card);
       });
-      if(!ROSTER.length&&!desktopBoard){
+      if(!ROSTER.length){
         const notice=document.createElement("div");
         notice.className="board-empty";
         notice.textContent="아직 공개된 참가자 명단이 없습니다. 관리자가 명단 게시를 승인하면 카드가 나타납니다.";
         frag.appendChild(notice);
       }
       board.replaceChildren(frag);
-      fitBoardToViewport(displaySlots,desktopBoard);
+      fitBoardToViewport(ROSTER.length,desktopBoard);
       updateStats();
-      $('boardCount').textContent=desktopBoard&&ROSTER.length<=33 ?
-        `${ROSTER.length}명 등록 · 33칸 전광판` : `${ROSTER.length}명 등록`;
+      $('boardCount').textContent=`${ROSTER.length}명 등록`;
     }
     function updateStats() {
       const n=ROSTER.length;
@@ -1148,9 +1181,17 @@
       });
       if(!linkBox.children.length){const el=document.createElement("p");el.className="muted-info";el.textContent="등록된 공개 결과물 링크가 없습니다. 초록불은 관리자가 승인해 게시한 결과물 기준입니다.";linkBox.appendChild(el);}
       $("testArea").replaceChildren();
-      $("overlay").classList.add("open");$("closeBtn").focus();
+      $("overlay").classList.add("open");
+      document.body.classList.add("modal-open");
+      $("closeBtn").focus();
     }
-    function closeDetail(){activeId=null;$("overlay").classList.remove("open");}
+    function closeDetail(){
+      const previous=activeId;
+      activeId=null;
+      $("overlay").classList.remove("open");
+      document.body.classList.remove("modal-open");
+      if(previous)$("board").querySelector(`[data-id="${previous}"]`)?.focus({preventScroll:true});
+    }
 
     // GitHub Pages에 배포된 공개 상태만 읽습니다. 폼 제출을 직접 조회하지 않습니다.
     async function refresh(){
@@ -1168,7 +1209,7 @@
           throw new Error("status.json 형식이 올바르지 않습니다.");
         }
         // status.json의 roster 배열이 '공개된 참가자 목록'의 유일한 기준입니다.
-        // 미등록 빈 슬롯은 숨기고 실제 공개한 6명/40명만 표시합니다.
+        // 27명, 33명, 40명 등 실제 등록 인원만 카드로 표시합니다.
         const rosterItems=Array.isArray(payload.roster)?payload.roster:[];
         const seenIds=new Set();
         ROSTER=rosterItems.filter(item=>{
