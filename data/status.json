@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-23T12:47:24.879Z",
+  "updatedAt": "2026-10-23T13:18:16.078Z",
   "roster": [
     {
       "id": "A001",
@@ -109,8 +109,33 @@
     {
       "id": "A027",
       "name": "한상호"
+    },
+    {
+      "id": "A028",
+      "name": "테스트"
     }
   ],
-  "participants": {},
+  "participants": {
+    "A028": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/minjae7189/3fb8d6179dbc800fbd0af0e0dab9b61f?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A028/index.html?v=e761e80d95c2c63a"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A028/cover.png?v=f31c012d3006",
+      "fileKeys": {
+        "html": "fe04afd0e2c27c0a547035f1c6a02f0f2b2f950287eb20aec59605904b8e9cca",
+        "image": "f31c012d3006e196a7183778add94f5397a3ea1ada56cec919cc84023ad51adc"
+      },
+      "contentHashes": {
+        "html": "e761e80d95c2c63a406aaff20aa365c373806a35e4ad5fc921ab4bfc57af0666"
+      },
+      "revision": "051cb9ab8d3d739d72a1716a9cc3ffdebc323a5166a474631dba196f3c556df8",
+      "publishedAt": "2026-10-23T13:18:16.078Z"
+    }
+  },
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
 }
