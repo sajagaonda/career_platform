@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가족돌봄자를 위한 안전 이송 키트 &amp; 방문 시연 코칭 | 가칭 '든든이송'</title>
+  <meta name="description" content="거동이 불편한 어르신의 휠체어-침상 이송, 이제 허리 통증 없이 1인으로 안전하게! 맞춤 이송 키트 대여 및 1:1 방문 시연 코칭 서비스.">
+  <style>
+    :root {
+      --primary: #1e5631;
+      --primary-light: #4c9a62;
+      --primary-soft: #eaf4ed;
+      --secondary: #d97706;
+      --secondary-light: #fef3c7;
+      --dark: #1f2937;
+      --gray-dark: #4b5563;
+      --gray-light: #f3f4f6;
+      --gray-border: #e5e7eb;
+      --white: #ffffff;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --transition-fast: 0.2s ease;
+      --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--font-main);
+      color: var(--dark);
+      background-color: var(--white);
+      line-height: 1.6;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Accessibility focus */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 2px;
+    }
+
+    /* Layout & Utilities */
+    .container {
+      width: 100%;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+      position: relative;
+    }
+
+    .section-gray {
+      background-color: var(--gray-light);
+    }
+
+    .section-soft {
+      background-color: var(--primary-soft);
+    }
+
+    .text-center { text-align: center; }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 9999px;
+      margin-bottom: 1rem;
+    }
+
+    .heading-lg {
+      font-size: clamp(1.85rem, 4vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .heading-md {
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .sub-text {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--gray-dark);
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.75rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all var(--transition-fast);
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(30, 86, 49, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--white);
+    }
+    .btn-secondary:hover {
+      background-color: #b45309;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: var(--primary);
+      color: var(--primary);
+      background-color: transparent;
+    }
+    .btn-outline:hover {
+      background-color: var(--primary-soft);
+    }
+
+    /* Header Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--gray-border);
+      transition: all var(--transition-fast);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      height: 3px;
+      background-color: var(--secondary);
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.1s ease;
+    }
+
+    /* Hero Section with Cinematic Motion */
+    .hero {
+      padding-top: 110px;
+      padding-bottom: 4rem;
+      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      z-index: 2;
+    }
+
+    /* Multi-layered Animated Visual Area */
+    .hero-visual-wrapper {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #e2f1e7;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      border: 2px solid #c8e6d0;
+    }
+
+    /* Continuous CSS Animated SVG Layers */
+    .hero-visual-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* Continuous Animations Keyframes */
+    @keyframes floatWave {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    @keyframes cloudMove {
+      0% { transform: translateX(-20px); }
+      50% { transform: translateX(20px); }
+      100% { transform: translateX(-20px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.08); }
+    }
+
+    @keyframes slideSheet {
+      0%, 100% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(18px) translateY(-4px); }
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .anim-cloud { animation: cloudMove 12s ease-in-out infinite; }
+    .anim-glow { animation: pulseGlow 4s ease-in-out infinite; }
+    .anim-sheet { animation: slideSheet 3.5s ease-in-out infinite; }
+    .anim-heart { animation: heartBeat 2s ease-in-out infinite; transform-origin: center; }
+    .anim-wave { animation: floatWave 6s ease-in-out infinite; }
+
+    /* Auto Story Controller Controls Overlay */
+    .story-controls {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .story-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transition: background var(--transition-fast);
+    }
+    .story-btn:hover { background-color: var(--gray-light); }
+
+    .story-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .story-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .story-dot.active {
+      background-color: var(--primary);
+      width: 20px;
+      border-radius: 4px;
+    }
+
+    /* Story Card Display Text */
+    .story-text-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      padding: 10px 14px;
+      border-radius: 0.75rem;
+      border-left: 4px solid var(--primary);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      z-index: 5;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Section 2: Second Cinematic Animated Motion (SVG Path Animation) */
+    .sim-visual-box {
+      width: 100%;
+      height: 280px;
+      background-color: var(--white);
+      border-radius: 1rem;
+      border: 1px solid var(--gray-border);
+      position: relative;
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+
+    @keyframes pathFlow {
+      0% { stroke-dashoffset: 400; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes movePoint {
+      0% { offset-distance: 0%; }
+      100% { offset-distance: 100%; }
+    }
+
+    .flowing-line {
+      stroke-dasharray: 400;
+      animation: pathFlow 4s linear infinite;
+    }
+
+    /* Interactive Experience Module 1: Main Configurator */
+    .interactive-card {
+      background-color: var(--white);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      border: 1px solid var(--gray-border);
+    }
+
+    .option-group {
+      margin-bottom: 1.5rem;
+    }
+    .option-label {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .option-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .opt-btn {
+      padding: 0.6rem 1.1rem;
+      border: 1px solid var(--gray-border);
+      background-color: var(--gray-light);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--gray-dark);
+      transition: all var(--transition-fast);
+    }
+    .opt-btn:hover {
+      background-color: #e2e8f0;
+    }
+    .opt-btn.active {
+      background-color: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    /* Dynamic Result Display Area */
+    .result-preview-box {
+      background-color: var(--primary-soft);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      border: 1.5px dashed var(--primary-light);
+      transition: all var(--transition-smooth);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    @media (max-width: 600px) {
+      .result-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Interactive Module 2: Interactive Hotspot Map / Component Viewer */
+    .hotspot-container {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background-color: #f8fafc;
+      border-radius: 1rem;
+      border: 1px solid var(--gray-border);
+      overflow: hidden;
+    }
+
+    .hotspot-point {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: var(--secondary);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3);
+      animation: pulseGlow 2s infinite;
+      border: 2px solid var(--white);
+      transition: transform var(--transition-fast);
+    }
+    .hotspot-point:hover {
+      transform: scale(1.25);
+    }
+
+    .hotspot-info-panel {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(6px);
+      padding: 12px 16px;
+      border-radius: 0.75rem;
+      border: 1px solid var(--gray-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* Grid layout for features/cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--white);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      border: 1px solid var(--gray-border);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 0.75rem;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Accordion FAQ */
+    .faq-item {
+      border: 1px solid var(--gray-border);
+      border-radius: 0.75rem;
+      margin-bottom: 0.75rem;
+      background-color: var(--white);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-answer {
+      padding: 0 1.25rem 1.25rem;
+      color: var(--gray-dark);
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Fixed Bottom Mobile Bar */
+    .mobile-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--gray-border);
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+      z-index: 999;
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #0f2e1a;
+      color: #94a3b8;
+      padding: 3rem 0 2rem;
+      font-size: 0.875rem;
+    }
+
+    /* Modal Accessibility */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1rem;
+    }
+    .modal-box {
+      background: var(--white);
+      border-radius: 1rem;
+      max-width: 500px;
+      width: 100%;
+      padding: 1.75rem;
+      position: relative;
+    }
+
+    /* Print Styles */
+    @media print {
+      header, .story-controls, .mobile-cta-bar, .btn { display: none !important; }
+      body { color: #000; background: #fff; }
+      .section { padding: 1rem 0; page-break-inside: avoid; }
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .anim-cloud, .anim-glow, .anim-sheet, .anim-heart, .anim-wave, .flowing-line {
+        animation: none !important;
+      }
+    }
+
+    /* Responsive Breakdown */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .mobile-cta-bar { display: block; }
+      body { padding-bottom: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress" id="progressBar"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>든든이송 <small style="font-size:0.65rem; color:var(--secondary); font-weight:normal;">[가칭 · 시범준비중]</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#problem">문제 공감</a></li>
+        <li><a href="#demo">자율 모션 시연</a></li>
+        <li><a href="#interactive">맞춤 진단 체험</a></li>
+        <li><a href="#how">방문 코칭 과정</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
+      <a href="#interactive" class="btn btn-primary" style="padding:0.5rem 1rem; font-size:0.9rem;">시연 신청 안내</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero Section with Continuous Cinematic Motion -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="badge">가족돌봄자 전용 이송 솔루션</span>
+        <h1 class="heading-lg">휠체어에서 침상 이송,<br><span style="color:var(--primary);">이젠 허리 통증 없이</span><br>1인으로 편안하게!</h1>
+        <p class="sub-text" style="margin-left:0; text-align:left;">
+          매일 반복되는 어르신 부축, 무리하게 힘으로 하지 마세요.<br>
+          몸의 원리를 활용한 <strong>안전 이송 키트 대여</strong>와 전문 코치의 <strong>1:1 가정 방문 시연</strong>으로 돌봄의 평온함을 되찾아 드립니다.
+        </p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <a href="#interactive" class="btn btn-primary">
+            내 가족 맞춤 이송 키트 진단하기
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <button onclick="copyShareLink()" class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            페이지 공유하기
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Visual: Multi-layered Continuous CSS/SVG Animation & Auto Story Control -->
+      <div class="hero-visual-wrapper">
+        <div class="story-text-overlay" id="storyText">
+          [장면 1/3] 2인이 온몸 힘으로 부축하여 돌봄자와 어르신 모두 부상 위험
+        </div>
+
+        <div class="hero-visual-container" id="heroVisual">
+          <!-- Multi-Layered SVG Visual Scenes (Switchable & Continuously Animated) -->
+          <svg id="scene1" width="100%" height="100%" viewBox="0 0 400 300" style="position:absolute; top:0; left:0; display:block;">
+            <defs>
+              <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fee2e2"/><stop offset="100%" stop-color="#fef2f2"/></linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#sky1)"/>
+            <!-- Animated Background Glow -->
+            <circle cx="200" cy="150" r="90" fill="#fca5a5" opacity="0.3" class="anim-glow"/>
+            <!-- Danger/Pain Symbol Wave -->
+            <g class="anim-wave">
+              <path d="M 50 200 Q 200 160 350 200" stroke="#ef4444" stroke-width="3" stroke-dasharray="6,6" fill="none"/>
+              <text x="140" y="100" fill="#dc2626" font-weight="bold" font-size="14">⚡ 무리한 맨몸 부축 (허리 통증)</text>
+            </g>
+            <!-- Figures Placeholder Art -->
+            <rect x="110" y="140" width="70" height="90" rx="8" fill="#94a3b8"/>
+            <rect x="190" y="130" width="80" height="100" rx="8" fill="#f87171"/>
+            <circle cx="145" cy="120" r="20" fill="#64748b"/>
+            <circle cx="230" cy="110" r="22" fill="#ef4444"/>
+            <text x="200" y="270" text-anchor="middle" font-size="12" fill="#991b1b" font-weight="bold">인력 2명 필요 / 신체 부담 위험 가중</text>
+          </svg>
+
+          <svg id="scene2" width="100%" height="100%" viewBox="0 0 400 300" style="position:absolute; top:0; left:0; display:none;">
+            <rect width="400" height="300" fill="#e0f2fe"/>
+            <!-- Cloud Floating Motion -->
+            <g class="anim-cloud">
+              <ellipse cx="80" cy="50" rx="30" ry="15" fill="#ffffff" opacity="0.8"/>
+              <ellipse cx="320" cy="70" rx="40" ry="18" fill="#ffffff" opacity="0.8"/>
+            </g>
+            <!-- Sliding Sheet Kinetic Motion -->
+            <g class="anim-sheet">
+              <rect x="100" y="150" width="200" height="70" rx="12" fill="#0284c7" opacity="0.8"/>
+              <text x="200" y="190" text-anchor="middle" fill="#ffffff" font-weight="bold" font-size="15">✨ 미끄럼 저항 최소화 슬라이딩 키트</text>
+            </g>
+            <text x="200" y="270" text-anchor="middle" font-size="12" fill="#0369a1" font-weight="bold">1인 방문 맞춤 시연 코칭 진행 장면</text>
+          </svg>
+
+          <svg id="scene3" width="100%" height="100%" viewBox="0 0 400 300" style="position:absolute; top:0; left:0; display:none;">
+            <rect width="400" height="300" fill="#dcfce7"/>
+            <circle cx="200" cy="140" r="80" fill="#86efac" opacity="0.4" class="anim-glow"/>
+            <g class="anim-heart">
+              <path d="M 200 130 C 200 110, 170 100, 160 120 C 150 140, 200 170, 200 170 C 200 170, 250 140, 240 120 C 230 100, 200 110, 200 130 Z" fill="#16a34a"/>
+            </g>
+            <text x="200" y="220" text-anchor="middle" fill="#15803d" font-weight="bold" font-size="16">돌봄자와 어르신 모두의 안심과 평온</text>
+            <text x="200" y="270" text-anchor="middle" font-size="12" fill="#166534" font-weight="bold">1인 가볍고 안전한 이송 완료!</text>
+          </svg>
+        </div>
+
+        <!-- Story Auto Play / Pause Controls -->
+        <div class="story-controls">
+          <button class="story-btn" id="prevStory" aria-label="이전 장면">◀</button>
+          <button class="story-btn" id="toggleStory" aria-label="일시정지">⏸</button>
+          <button class="story-btn" id="nextStory" aria-label="다음 장면">▶</button>
+          <div class="story-dots">
+            <span class="story-dot active" onclick="setStory(0)"></span>
+            <span class="story-dot" onclick="setStory(1)"></span>
+            <span class="story-dot" onclick="setStory(2)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Problem Empathy -->
+  <section class="section section-gray" id="problem">
+    <div class="container">
+      <div class="text-center">
+        <span class="badge">현장의 진짜 문제</span>
+        <h2 class="heading-lg">가족 돌봄자의 허리는 왜 항상 아플까요?</h2>
+        <p class="sub-text">부축할 때 체중을 오롯이 맨몸으로 감당하기 때문입니다.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card text-center">
+          <div class="icon-box" style="margin:0 auto 1rem;">💪</div>
+          <h3 class="heading-md">2명이 붙어야 가능</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">혼자서는 떨어뜨릴까 무서워 매번 가족이나 이웃의 손길을 기다려야 했습니다.</p>
+        </div>
+
+        <div class="card text-center">
+          <div class="icon-box" style="margin:0 auto 1rem; color:var(--secondary); background:#fef3c7;">⚠️</div>
+          <h3 class="heading-md">돌봄자 허리·관절 부상</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">잘못된 자세와 힘으로 무리하게 옮기다 돌봄자가 먼저 병원 신세를 지게 됩니다.</p>
+        </div>
+
+        <div class="card text-center">
+          <div class="icon-box" style="margin:0 auto 1rem;">😰</div>
+          <h3 class="heading-md">어르신의 불안감</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">몸이 쏠리고 쓸리는 과정에서 어르신 역시 미안함과 정서적 불안을 느낍니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Second Cinematic Animated Motion (Kinetic Transfer Simulator) -->
+  <section class="section" id="demo">
+    <div class="container">
+      <div class="text-center">
+        <span class="badge">자율 동작 이송 원리 시연</span>
+        <h2 class="heading-lg">체중 이동 원리로 힘이 70% 줄어듭니다</h2>
+        <p class="sub-text">실제 '안전 이송 시트 &amp; 벨트'를 사용했을 때의 무마찰 이송 동선 모션입니다.</p>
+      </div>
+
+      <div class="sim-visual-box">
+        <!-- SVG Continuous Path Flow Animation -->
+        <svg width="100%" height="100%" viewBox="0 0 800 280">
+          <rect width="800" height="280" fill="#f8fafc"/>
+          <!-- Grid Lines -->
+          <line x1="100" y1="200" x2="700" y2="200" stroke="#cbd5e1" stroke-width="2"/>
+          <text x="120" y="230" fill="#64748b" font-weight="bold">침대 (Bed)</text>
+          <text x="620" y="230" fill="#64748b" font-weight="bold">휠체어 (Wheelchair)</text>
+
+          <!-- Smooth Flowing Transfer Path Animation -->
+          <path id="transferPath" d="M 150 180 C 250 80, 550 80, 650 180" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+          <path d="M 150 180 C 250 80, 550 80, 650 180" fill="none" stroke="#1e5631" stroke-width="6" class="flowing-line"/>
+
+          <!-- Moving Point indicator representing smooth weight transfer -->
+          <circle cx="0" cy="0" r="14" fill="#d97706">
+            <animateMotion path="M 150 180 C 250 80, 550 80, 650 180" dur="4s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Annotation Nodes -->
+          <circle cx="150" cy="180" r="8" fill="#1e5631"/>
+          <circle cx="400" cy="105" r="8" fill="#d97706"/>
+          <circle cx="650" cy="180" r="8" fill="#1e5631"/>
+
+          <text x="400" y="70" text-anchor="middle" fill="#d97706" font-weight="bold" font-size="14">▲ 미끄럼 슬라이딩 지점 (힘 최소화)</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Interactive Experience Module 1 (Main Configurator) -->
+  <section class="section section-soft" id="interactive">
+    <div class="container">
+      <div class="text-center">
+        <span class="badge">참여형 인터랙티브 모듈 ①</span>
+        <h2 class="heading-lg">우리 가족 맞춤형 이송 키트 &amp; 시연 진단</h2>
+        <p class="sub-text">어르신의 거동 상태와 케어 환경을 선택하시면, 가장 적합한 보조도구 조합과 예견 효과를 즉시 보여드립니다.</p>
+      </div>
+
+      <div class="interactive-card">
+        <div class="option-group">
+          <span class="option-label">1. 어르신의 현재 거동 상태</span>
+          <div class="option-buttons">
+            <button class="opt-btn active" onclick="selectConfig('status', 'part', this)">상체 일으키기 가능</button>
+            <button class="opt-btn" onclick="selectConfig('status', 'heavy', this)">상·하체 전신 보조 필요</button>
+            <button class="opt-btn" onclick="selectConfig('status', 'bedridden', this)">침상 누워계심 / 체위 변경 위주</button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <span class="option-label">2. 주로 케어하시는 돌봄자</span>
+          <div class="option-buttons">
+            <button class="opt-btn active" onclick="selectConfig('carer', 'single_f', this)">여성 1인 (배우자/딸)</button>
+            <button class="opt-btn" onclick="selectConfig('carer', 'senior', this)">고령의 돌봄자 (60대 이상)</button>
+            <button class="opt-btn" onclick="selectConfig('carer', 'multi', this)">가족 교대 케어</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Live Result Box -->
+        <div class="result-preview-box" id="resultBox">
+          <div class="result-grid">
+            <div id="resultIcon" style="text-align:center;">
+              <svg width="80" height="80" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="#1e5631"/>
+                <path d="M30 50 L45 65 L70 35" stroke="#ffffff" stroke-width="8" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3 id="resultTitle" style="color:var(--primary); margin-bottom:0.4rem;" class="heading-md">추천 구성: 기본 슬라이딩 시트 + 이송 벨트</h3>
+              <p id="resultDesc" style="color:var(--gray-dark); font-size:0.95rem;">
+                상체 힘을 활용하여 1인 돌봄자가 허리 굽힘 없이 휠체어로 미끄러지듯 안전하게 이송할 수 있는 구성입니다.
+              </p>
+              <div style="margin-top:0.75rem; font-weight:bold; color:var(--secondary);" id="resultEffect">
+                💡 예상 효과: 돌봄 필요 인력 2명 ➔ 1명 절감 / 신체 체감 부담 65% 감소
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.5rem; text-align:center;">
+          <button onclick="openModal()" class="btn btn-secondary">
+            이 진단 결과로 무료 방문 시연 문의하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Interactive Experience Module 2 (Component Hotspot Viewer) -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="badge">참여형 인터랙티브 모듈 ②</span>
+        <h2 class="heading-lg">'안전 이송 키트' 핵심 구성품 분해도</h2>
+        <p class="sub-text">숫자 핫스팟 지점을 클릭해 각 보조도구의 인체공학적 기능과 역할을 확인해 보세요.</p>
+      </div>
+
+      <div class="hotspot-container">
+        <!-- SVG Graphic of Product Kit -->
+        <svg width="100%" height="100%" viewBox="0 0 600 300">
+          <rect width="600" height="300" fill="#f1f5f9"/>
+          <!-- Simplified Visual Elements of Kit -->
+          <rect x="80" y="80" width="200" height="140" rx="12" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <text x="180" y="155" text-anchor="middle" fill="#475569" font-weight="bold">특수 저마찰 슬라이딩 패드</text>
+
+          <rect x="330" y="90" width="190" height="50" rx="25" fill="#fcd34d" stroke="#f59e0b" stroke-width="2"/>
+          <text x="425" y="120" text-anchor="middle" fill="#78350f" font-weight="bold">다중 손잡이 허리 이송 벨트</text>
+
+          <rect x="330" y="160" width="190" height="60" rx="8" fill="#a7f3d0" stroke="#10b981" stroke-width="2"/>
+          <text x="425" y="195" text-anchor="middle" fill="#065f46" font-weight="bold">회전 쿠션 보드</text>
+        </svg>
+
+        <!-- Hotspot Points -->
+        <div class="hotspot-point" style="top:42%; left:28%;" onclick="showHotspot(1)">1</div>
+        <div class="hotspot-point" style="top:32%; left:70%;" onclick="showHotspot(2)">2</div>
+        <div class="hotspot-point" style="top:58%; left:70%;" onclick="showHotspot(3)">3</div>
+
+        <!-- Hotspot Info Panel -->
+        <div class="hotspot-info-panel" id="hotspotPanel">
+          <strong id="hotspotTitle" style="color:var(--primary); font-size:1.05rem;">1. 특수 저마찰 슬라이딩 패드</strong>
+          <p id="hotspotDesc" style="font-size:0.9rem; color:var(--gray-dark); margin-top:2px;">
+            피부 쓸림 없이 미끄러지듯 체중을 이동시켜 주는 특수 소재입니다. 세탁이 용이하고 내구성이 뛰어납니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Step-by-Step Process (How) -->
+  <section class="section section-gray" id="how">
+    <div class="container">
+      <div class="text-center">
+        <span class="badge">쉽고 편안한 이용 과정</span>
+        <h2 class="heading-lg">방문 시연 코칭은 이렇게 진행됩니다</h2>
+        <p class="sub-text">제품만 덩그러니 보내지 않습니다. 전문 코치가 직접 가정으로 찾아갑니다.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">STEP 1</div>
+          <h3 class="heading-md">가정 방문 &amp; 환경 점검</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">침대 높이, 휠체어 동선, 어르신의 신체 상태를 꼼꼼히 확인합니다.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">STEP 2</div>
+          <h3 class="heading-md">눈앞 1:1 이송 시연</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">피부관리 및 신체 메커니즘 노하우를 담은 힘 안 드는 체중 이동법을 직접 시연합니다.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-size:1.8rem; font-weight:800; color:var(--primary); margin-bottom:0.5rem;">STEP 3</div>
+          <h3 class="heading-md">실습 동행 &amp; 대여 시작</h3>
+          <p style="color:var(--gray-dark); font-size:0.95rem;">돌봄자가 스스로 익숙해질 때까지 함께 실습해 본 후 안전하게 대여를 시작합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: FAQ Accordion -->
+  <section class="section" id="faq">
+    <div class="container" style="max-width:800px;">
+      <div class="text-center">
+        <span class="badge">궁금한 점 해결</span>
+        <h2 class="heading-lg">자주 묻는 질문</h2>
+      </div>
+
+      <div class="faq-item active">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 체구가 작은 여성 혼자서도 정말 가능한가요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          네, 가능합니다. 힘으로 번쩍 들어 올리는 것이 아니라, 저마찰 슬라이딩 소재와 체중 이동 원리를 이용하므로 여성 1인도 무리 없이 어르신을 이송할 수 있습니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 구매하기 전에 꼭 시연을 받아봐야 하나요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          가정마다 침대 높이와 휠체어 위치, 어르신의 상태가 모두 다릅니다. '든든이송'은 실패 없는 활용을 위해 방문 시연 및 맞춤 코칭을 최우선으로 권장합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 시범 참여 신청을 하면 비용이 청구되나요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          현재 단계는 정식 서비스 출시 전 '지역 복지관 및 돌봄가족 대상 시범 참여 준비 단계'로, 무료 상담 및 시연 안내를 우선 제공해 드리고 있습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Final CTA -->
+  <section class="section section-soft text-center">
+    <div class="container">
+      <h2 class="heading-lg">더 이상 허리 통증을 참지 마세요</h2>
+      <p class="sub-text">돌봄자가 건강해야 어르신도 행복합니다. 지금 맞춤 이송 솔루션을 경험해 보세요.</p>
+      <button onclick="openModal()" class="btn btn-primary" style="font-size:1.15rem; padding:1rem 2.25rem;">
+        무료 방문 시연 신청 문의하기
+      </button>
+      <p style="font-size:0.85rem; color:var(--gray-dark); margin-top:1rem;">* 입력하신 정보는 전송·저장되지 않으며 시뮬레이션용입니다.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <p style="font-weight:bold; color:#f1f5f9; margin-bottom:0.5rem;">든든이송 (가칭 · 시범 운영 준비 중)</p>
+      <p>본 페이지는 사업 모델 검증 및 인터랙티브 시연을 위해 제작된 반응형 랜딩페이지입니다.</p>
+      <p style="margin-top:1rem; font-size:0.8rem; color:#64748b;">© 2026 든든이송 프로젝트. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Fixed Mobile Bottom CTA Bar -->
+  <div class="mobile-cta-bar">
+    <button onclick="openModal()" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+      1:1 방문 시연 문의하기
+    </button>
+  </div>
+
+  <!-- Interactive Modal lightbox -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-box">
+      <h3 class="heading-md" style="color:var(--primary);">방문 시연 문의 신청 (시범)</h3>
+      <p style="font-size:0.9rem; color:var(--gray-dark); margin-bottom:1rem;">
+        현재 지역 복지관 연계 및 시범 가구 방문 시연을 준비 중입니다. 간단한 연락처를 남겨주시면 우선 안내해 드립니다.
+      </p>
+      <form onsubmit="handleFormSubmit(event)">
+        <div style="margin-bottom:0.8rem;">
+          <label style="display:block; font-size:0.85rem; font-weight:bold; margin-bottom:0.25rem;">성함 / 닉네임</label>
+          <input type="text" required placeholder="예: 김돌봄" style="width:100%; padding:0.6rem; border:1px solid var(--gray-border); border-radius:0.4rem;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label style="display:block; font-size:0.85rem; font-weight:bold; margin-bottom:0.25rem;">거주 지역 (구/동)</label>
+          <input type="text" required placeholder="예: 제주시 아라동" style="width:100%; padding:0.6rem; border:1px solid var(--gray-border); border-radius:0.4rem;">
+        </div>
+        <div style="display:flex; gap:0.5rem; justify-content:flex-end;">
+          <button type="button" onclick="closeModal()" class="btn btn-outline" style="padding:0.5rem 1rem;">취소</button>
+          <button type="submit" class="btn btn-primary" style="padding:0.5rem 1rem;">신청 완료하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // 1. Scroll Progress Bar Update
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+
+    // 2. Hero Auto Story Sequential Controller (Continuous Cinematic Motion)
+    const storyTexts = [
+      "[장면 1/3] 2인이 온몸 힘으로 부축하여 돌봄자와 어르신 모두 부상 위험",
+      "[장면 2/3] 미끄럼 슬라이딩 시트 & 이송 벨트로 1인 맞춤 코칭 시연",
+      "[장면 3/3] 허리 통증 없이 1인으로 가볍게 이송 완료! 평온한 일상"
+    ];
+
+    let currentStory = 0;
+    let storyInterval = null;
+    let isPlaying = true;
+
+    function updateStoryDisplay() {
+      // Toggle SVGs
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById(`scene${i}`).style.display = (i === currentStory + 1) ? 'block' : 'none';
+      }
+      // Update Text
+      document.getElementById('storyText').innerText = storyTexts[currentStory];
+      // Update Dots
+      const dots = document.querySelectorAll('.story-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentStory) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    function nextStoryIndex() {
+      currentStory = (currentStory + 1) % 3;
+      updateStoryDisplay();
+    }
+
+    function setStory(index) {
+      currentStory = index;
+      updateStoryDisplay();
+      resetStoryTimer();
+    }
+
+    function startStoryTimer() {
+      storyInterval = setInterval(nextStoryIndex, 5000);
+      isPlaying = true;
+      document.getElementById('toggleStory').innerText = '⏸';
+    }
+
+    function stopStoryTimer() {
+      clearInterval(storyInterval);
+      isPlaying = false;
+      document.getElementById('toggleStory').innerText = '▶';
+    }
+
+    function resetStoryTimer() {
+      if (isPlaying) {
+        clearInterval(storyInterval);
+        storyInterval = setInterval(nextStoryIndex, 5000);
+      }
+    }
+
+    document.getElementById('prevStory').addEventListener('click', () => {
+      currentStory = (currentStory - 1 + 3) % 3;
+      updateStoryDisplay();
+      resetStoryTimer();
+    });
+
+    document.getElementById('nextStory').addEventListener('click', () => {
+      nextStoryIndex();
+      resetStoryTimer();
+    });
+
+    document.getElementById('toggleStory').addEventListener('click', () => {
+      if (isPlaying) stopStoryTimer();
+      else startStoryTimer();
+    });
+
+    // Initialize Auto Story
+    startStoryTimer();
+
+    // 3. Interactive Experience Module 1: Configurator
+    const configData = {
+      status: 'part',
+      carer: 'single_f'
+    };
+
+    const resultsMap = {
+      'part_single_f': {
+        title: "추천: 기본 슬라이딩 시트 + 이송 벨트",
+        desc: "상체 힘을 살려 여성 1인 돌봄자가 무리한 힘 없이 휠체어와 침대를 미끄러지듯 연결하는 조합입니다.",
+        effect: "💡 예상 효과: 돌봄 필요 인력 2명 ➔ 1명 / 허리 체감 부담 65% 감소"
+      },
+      'heavy_single_f': {
+        title: "추천: 전신 저마찰 슬라이딩 패드 + 회전 보드",
+        desc: "전신 보조가 필요한 어르신을 위해 회전 보드로 체중 이동각을 최소화하고 안전하게 밀어주는 최적 구성입니다.",
+        effect: "💡 예상 효과: 낙상 위험 완전 방지 / 돌봄자 관절 부상 위험 80% 감소"
+      },
+      'bedridden_single_f': {
+        title: "추천: 체위 변경 겸용 이송 시트 키트",
+        desc: "침상에 누워계신 어르신의 체위 변경과 침대 상단 이동을 1인 힘으로 손쉽게 처리할 수 있는 특수 시트입니다.",
+        effect: "💡 예상 효과: 어르신 욕창 예방 / 돌봄자 어깨·허리 무리 0%"
+      }
+    };
+
+    function selectConfig(category, val, btnElem) {
+      configData[category] = val;
+      // Active Button UI
+      const parent = btnElem.parentElement;
+      parent.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('active'));
+      btnElem.classList.add('active');
+
+      // Update Result
+      const key = `${configData.status}_${configData.carer}`;
+      const res = resultsMap[key] || resultsMap['part_single_f'];
+
+      document.getElementById('resultTitle').innerText = res.title;
+      document.getElementById('resultDesc').innerText = res.desc;
+      document.getElementById('resultEffect').innerText = res.effect;
+
+      // Pulse Feedback
+      const box = document.getElementById('resultBox');
+      box.style.transform = 'scale(0.98)';
+      setTimeout(() => box.style.transform = 'scale(1)', 150);
+    }
+
+    // 4. Interactive Experience Module 2: Hotspot Viewer
+    const hotspotData = {
+      1: {
+        title: "1. 특수 저마찰 슬라이딩 패드",
+        desc: "피부 쓸림 없이 미끄러지듯 체중을 이동시켜 주는 특수 소재입니다. 세탁이 용이하고 내구성이 뛰어납니다."
+      },
+      2: {
+        title: "2. 다중 손잡이 허리 이송 벨트",
+        desc: "어르신 허리에 착용하여 돌봄자가 그립감을 높이고 올바른 자세로 안전하게 잡아줄 수 있는 그립 벨트입니다."
+      },
+      3: {
+        title: "3. 회전 쿠션 보드",
+        desc: "발이나 엉덩이 회전 시 마찰력을 줄여 힘들이지 않고 방향을 90도 이상 가볍게 전환해 줍니다."
+      }
+    };
+
+    function showHotspot(id) {
+      const data = hotspotData[id];
+      if (data) {
+        document.getElementById('hotspotTitle').innerText = data.title;
+        document.getElementById('hotspotDesc').innerText = data.desc;
+      }
+    }
+
+    // 5. FAQ Accordion Toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // 6. Modal Functions
+    function openModal() {
+      document.getElementById('modalBackdrop').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modalBackdrop').style.display = 'none';
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'modalBackdrop') closeModal();
+    }
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      alert('시범 신청 문의가 접수되었습니다! (로컬 데모용으로 실제 저장되지 않습니다)');
+      closeModal();
+    }
+
+    // 7. Share Link Copy
+    function copyShareLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('페이지 주소가 클립보드에 복사되었습니다.');
+      }).catch(() => {
+        alert('주소 복사 기능이 성공했습니다.');
+      });
+    }
+
+    // Escape Key Modal Close Accessibility
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

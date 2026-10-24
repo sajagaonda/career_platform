@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-24T04:00:48.767Z",
+  "updatedAt": "2026-10-24T06:14:00.694Z",
   "roster": [
     {
       "id": "A001",
@@ -32,11 +32,11 @@
     },
     {
       "id": "A008",
-      "name": "김상현"
+      "name": "김 상현"
     },
     {
       "id": "A009",
-      "name": "김정순"
+      "name": "김 정순"
     },
     {
       "id": "A010",
@@ -48,11 +48,11 @@
     },
     {
       "id": "A012",
-      "name": "양지원"
+      "name": "양 지원"
     },
     {
       "id": "A013",
-      "name": "이은희"
+      "name": "이 은희"
     },
     {
       "id": "A014",
@@ -571,6 +571,46 @@
       },
       "revision": "2d92a03265c8466c38a31cff84b4276ed9fd61bda5bd3f8d029fc554e407295f",
       "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A009": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://nutritious-parmesan-bcc.notion.site/505e5c806661828b9de8014d2c104f27",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A009/index.html?v=aa39c612e6518f36"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A009/cover.jpg?v=67bf7be1fd4f",
+      "fileKeys": {
+        "html": "7a923b672b7c5cc9c9c7be0552a98a2c42f49e802ebf670446dd6493bcc22d28",
+        "image": "67bf7be1fd4f544920a53ce8b7803f9a48a8393e61f149124e5d109c1e26391b"
+      },
+      "contentHashes": {
+        "html": "aa39c612e6518f36cf47ad453299ec33288759804471595ca666a92c2ffc053c"
+      },
+      "revision": "1ff4284c85343660693163dbfe7c83084e90d70495d5df1b50e1524bea80956a",
+      "publishedAt": "2026-10-24T06:14:00.694Z"
+    },
+    "A012": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://dirt-snowboard-dfb.notion.site/403284a5c2318031b6d0d5b4f3d9a12a?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A012/index.html?v=35100cabe44b1452"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A012/cover.jpg?v=de79885f0f32",
+      "fileKeys": {
+        "html": "0a68c8d18f9920d89af3fe0ae1c8d3960788a07722d36394df2b0ad31b4bb8c2",
+        "image": "de79885f0f328240c35e68474920c710f41abb453bcc11930078aba7d3b757b4"
+      },
+      "contentHashes": {
+        "html": "35100cabe44b1452f45d933d38b81920a3d4ba87d4fe7b10d811657e5b9c3300"
+      },
+      "revision": "1eff271d0870fa703bef2aead7c2c4236d7735e3998ae5b76b80a2c8d24a041f",
+      "publishedAt": "2026-10-24T06:14:00.694Z"
     }
   },
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
