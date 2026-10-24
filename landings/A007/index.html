@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다온 (가칭) - 자폐 아동 부모 맞춤형 행동 대처 1:1 가이드 & 코칭</title>
+  <meta name="description" content="자폐 아동 부모를 위한 1:1 맞춤형 행동 대처 및 2차 성징 전 반복 학습 교육 가이드">
+  
+  <style>
+    :root {
+      --bg-warm: #FAF8F5;
+      --bg-card: #FFFFFF;
+      --primary-teal: #1D5C58;
+      --primary-teal-light: #EBF4F3;
+      --accent-coral: #E06D53;
+      --accent-coral-soft: #FBF0ED;
+      --accent-amber: #D9822B;
+      --text-main: #2C3E3D;
+      --text-sub: #5C706E;
+      --text-muted: #8E9F9D;
+      --border-color: #E2E8E7;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-soft: 0 10px 30px rgba(29, 92, 88, 0.08);
+      --shadow-hover: 0 18px 40px rgba(29, 92, 88, 0.14);
+      --transition-smooth: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Accessibility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent-coral);
+      outline-offset: 3px;
+    }
+
+    /* Progress Bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-teal), var(--accent-coral));
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 900;
+      border-bottom: 1px solid var(--border-color);
+      transition: var(--transition-smooth);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-teal);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-tag {
+      font-size: 0.75rem;
+      background: var(--accent-coral-soft);
+      color: var(--accent-coral);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition-smooth);
+    }
+
+    nav a:hover {
+      color: var(--primary-teal);
+    }
+
+    .header-cta {
+      background: var(--primary-teal);
+      color: white !important;
+      padding: 10px 20px;
+      border-radius: 30px;
+      transition: var(--transition-smooth);
+    }
+
+    .header-cta:hover {
+      background: var(--accent-coral);
+      transform: translateY(-2px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--primary-teal);
+      cursor: pointer;
+    }
+
+    /* Global Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-primary {
+      background: var(--accent-coral);
+      color: white;
+      box-shadow: 0 6px 20px rgba(224, 109, 83, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: #c95940;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(224, 109, 83, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--primary-teal-light);
+      color: var(--primary-teal);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-teal);
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 140px 24px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 85vh;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--primary-teal-light);
+      color: var(--primary-teal);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--primary-teal);
+      margin-bottom: 20px;
+      word-break: keep-all;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-sub);
+      margin-bottom: 32px;
+      word-break: keep-all;
+    }
+
+    .hero-btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Cinematic Motion Canvas & Stage */
+    .hero-motion-container {
+      position: relative;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+
+    .hero-visual-stage {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: linear-gradient(180deg, #EBF4F3 0%, #FAF8F5 100%);
+    }
+
+    /* SVG Layer Animation */
+    .anim-cloud {
+      animation: floatCloud 22s linear infinite;
+    }
+
+    .anim-pulse {
+      animation: pulseGlow 3.5s ease-in-out infinite alternate;
+    }
+
+    .anim-float {
+      animation: floatSubtle 4s ease-in-out infinite alternate;
+    }
+
+    .anim-path {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: dashPath 6s linear infinite;
+    }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(-10%); }
+      100% { transform: translateX(110%); }
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.4; transform: scale(0.98); }
+      100% { opacity: 0.8; transform: scale(1.02); }
+    }
+
+    @keyframes floatSubtle {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+
+    @keyframes dashPath {
+      0% { stroke-dashoffset: 100; }
+      50% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -100; }
+    }
+
+    /* Motion Pause Control Button */
+    .motion-toggle-btn {
+      position: absolute;
+      bottom: 28px;
+      right: 28px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+      transition: var(--transition-smooth);
+    }
+
+    .motion-toggle-btn:hover {
+      background: var(--primary-teal);
+      color: white;
+    }
+
+    /* Cinematic Auto-Story Carousel */
+    .hero-story-bar {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--bg-warm);
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .story-text-container {
+      flex: 1;
+    }
+
+    .story-label {
+      font-size: 0.75rem;
+      color: var(--accent-coral);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .story-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-teal);
+    }
+
+    .story-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .story-btn {
+      background: white;
+      border: 1px solid var(--border-color);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: var(--transition-smooth);
+    }
+
+    .story-btn:hover {
+      background: var(--primary-teal);
+      color: white;
+    }
+
+    /* Sections Shared Styles */
+    section {
+      padding: 90px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+
+    .section-subtitle {
+      color: var(--accent-coral);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--primary-teal);
+      font-weight: 800;
+      word-break: keep-all;
+    }
+
+    /* Empathy & Problem Section */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      padding: 32px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition-smooth);
+    }
+
+    .problem-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary-teal-light);
+    }
+
+    .problem-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-coral-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--accent-coral);
+      font-size: 1.5rem;
+    }
+
+    .problem-card h3 {
+      font-size: 1.2rem;
+      color: var(--primary-teal);
+      margin-bottom: 12px;
+    }
+
+    .problem-card p {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Interactive Module A: 1:1 Coaching Simulator */
+    .interactive-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
+      margin-top: 40px;
+    }
+
+    .sim-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .sim-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      color: var(--primary-teal);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .option-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .opt-btn {
+      background: var(--bg-warm);
+      border: 2px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--text-main);
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition-smooth);
+    }
+
+    .opt-btn:hover {
+      border-color: var(--primary-teal);
+      background: var(--primary-teal-light);
+    }
+
+    .opt-btn.active {
+      border-color: var(--primary-teal);
+      background: var(--primary-teal);
+      color: white;
+    }
+
+    .sim-result-card {
+      background: var(--bg-warm);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      border: 2px dashed var(--primary-teal);
+      position: relative;
+    }
+
+    .sim-result-badge {
+      position: absolute;
+      top: -14px;
+      right: 24px;
+      background: var(--accent-coral);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .sim-result-title {
+      font-size: 1.3rem;
+      color: var(--primary-teal);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .sim-result-body {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+
+    .sim-preview-svg {
+      width: 100%;
+      height: 160px;
+      background: white;
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    /* Live Service Motion (Second Autonomous Motion) */
+    .live-motion-section {
+      background: linear-gradient(135deg, var(--primary-teal) 0%, #123C3A 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 60px 40px;
+      margin: 60px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .live-motion-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .live-motion-text h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    .live-motion-text p {
+      color: #C0D6D4;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .live-svg-box {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      padding: 24px;
+    }
+
+    /* Interactive Module B: Hotspot Diagram */
+    .hotspot-container {
+      position: relative;
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hotspot-stage {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background: var(--primary-teal-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .hotspot-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-coral);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(224, 109, 83, 0.3);
+      transition: var(--transition-smooth);
+      border: 2px solid white;
+    }
+
+    .hotspot-pin:hover, .hotspot-pin.active {
+      transform: scale(1.2);
+      background: var(--primary-teal);
+      box-shadow: 0 0 0 6px rgba(29, 92, 88, 0.3);
+    }
+
+    .hotspot-panel {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--accent-coral);
+    }
+
+    .hotspot-panel-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-teal);
+      margin-bottom: 6px;
+    }
+
+    .hotspot-panel-desc {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+    }
+
+    /* Founder / Team Section */
+    .team-box {
+      background: white;
+      border-radius: var(--radius-md);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .team-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: var(--primary-teal-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid var(--accent-coral-soft);
+      overflow: hidden;
+    }
+
+    .team-info h3 {
+      font-size: 1.4rem;
+      color: var(--primary-teal);
+      margin-bottom: 6px;
+    }
+
+    .team-role {
+      font-size: 0.9rem;
+      color: var(--accent-coral);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .team-bio {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-teal);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 24px 20px;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-icon {
+      transition: var(--transition-smooth);
+    }
+
+    /* Final CTA & Footer */
+    .final-cta {
+      text-align: center;
+      background: var(--primary-teal-light);
+      border-radius: var(--radius-lg);
+      padding: 60px 24px;
+      margin-bottom: 60px;
+    }
+
+    .final-cta h2 {
+      font-size: 2rem;
+      color: var(--primary-teal);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      color: var(--text-sub);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    footer {
+      background: var(--primary-teal);
+      color: #A0B8B5;
+      padding: 40px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+    }
+
+    /* Utility Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-md);
+      max-width: 500px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 110px;
+      }
+      .sim-container {
+        grid-template-columns: 1fr;
+      }
+      .live-motion-grid {
+        grid-template-columns: 1fr;
+      }
+      .team-box {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .team-avatar {
+        margin: 0 auto;
+      }
+      nav ul {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .interactive-section {
+        padding: 24px;
+      }
+    }
+
+    /* Prefers Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .anim-cloud, .anim-pulse, .anim-float, .anim-path {
+        animation: none !style;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div id="progress-bar" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        다온 <span class="logo-tag">가칭 · 시범 준비 중</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#empathy">고민 공감</a></li>
+          <li><a href="#interactive">맞춤 코칭 진단</a></li>
+          <li><a href="#solution">행동 대처 솔루션</a></li>
+          <li><a href="#roadmap">2차 성징 가이드</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="#interactive" class="btn header-cta">1:1 가이드 미리보기</a>
+      <button class="mobile-menu-btn" aria-label="메뉴 열기" id="menuToggleBtn">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-badge">자폐 아동 부모를 위한 1:1 맞춤 코칭</span>
+      <h1 class="hero-title">아이 치료는 받는데,<br>일상에서 대하는 방법은<br>어디서 배워야 할까요?</h1>
+      <p class="hero-subtitle">
+        교실 이탈, 돌발 행동, 2차 성징 전 행동 규칙 형성까지.<br>
+        3살 아이를 대하는 다정함과 인내심으로 부모님의 길잡이가 되어 드립니다.
+      </p>
+      <div class="hero-btn-group">
+        <a href="#interactive" class="btn btn-primary">우리 아이 대처 가이드 진단하기</a>
+        <button onclick="copyConsultText()" class="btn btn-secondary">문의 문구 복사하기</button>
+      </div>
+    </div>
+
+    <!-- Hero Visual Stage (Cinematic Autonomous Motion #1) -->
+    <div class="hero-motion-container">
+      <div class="hero-visual-stage" id="heroVisualStage">
+        <svg width="100%" height="100%" viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Atmosphere -->
+          <circle cx="200" cy="190" r="160" fill="#EBF4F3" class="anim-pulse"/>
+          
+          <!-- Cloud Motion (Layer 1) -->
+          <g class="anim-cloud">
+            <path d="M20 60 Q35 45 50 60 Q65 45 80 60 L80 75 L20 75 Z" fill="#FFFFFF" opacity="0.7"/>
+            <path d="M220 90 Q235 75 250 90 Q265 75 280 90 L280 105 L220 105 Z" fill="#FFFFFF" opacity="0.5"/>
+          </g>
+
+          <!-- Interactive Connection Path (Layer 2) -->
+          <path d="M 60 280 Q 200 120 340 280" stroke="#1D5C58" stroke-width="4" stroke-linecap="round" fill="none" class="anim-path"/>
+
+          <!-- Parent & Child SVG Scene (Layer 3) -->
+          <g class="anim-float" id="sceneObjects">
+            <!-- Parent Figure -->
+            <circle cx="150" cy="210" r="28" fill="#1D5C58"/>
+            <path d="M 120 280 Q 150 240 180 280 Z" fill="#1D5C58"/>
+            
+            <!-- Child Figure -->
+            <circle cx="230" cy="240" r="20" fill="#E06D53"/>
+            <path d="M 205 290 Q 230 260 255 290 Z" fill="#E06D53"/>
+            
+            <!-- Heart/Connection Bubble -->
+            <path d="M 190 170 Q 190 160 197 160 Q 205 160 205 170 Q 205 180 190 195 Q 175 180 175 170 Q 175 160 183 160 Q 190 160 190 170 Z" fill="#D9822B" class="anim-pulse"/>
+          </g>
+          
+          <!-- Floating Lego / Tool Icons -->
+          <rect x="70" y="160" width="24" height="16" rx="3" fill="#D9822B" class="anim-float"/>
+          <circle cx="310" cy="180" r="12" fill="#E06D53" class="anim-float"/>
+        </svg>
+
+        <button class="motion-toggle-btn" id="motionToggleBtn" onclick="toggleHeroMotion()">모션 일시정지</button>
+      </div>
+
+      <!-- Auto Story Carousel -->
+      <div class="hero-story-bar">
+        <div class="story-text-container">
+          <div class="story-label" id="storyLabel">STEP 1. 아이 상태 직면</div>
+          <div class="story-title" id="storyTitle">답답함에서 객관적 이해와 수용으로</div>
+        </div>
+        <div class="story-controls">
+          <button class="story-btn" onclick="prevStory()" aria-label="이전 스토리">◀</button>
+          <button class="story-btn" onclick="toggleStoryAuto()" id="storyAutoBtn" aria-label="자동 재생 정지">❚❚</button>
+          <button class="story-btn" onclick="nextStory()" aria-label="다음 스토리">▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Empathy / Problem Section -->
+  <section id="empathy">
+    <div class="section-header">
+      <div class="section-subtitle">Problem & Reality</div>
+      <h2 class="section-title">자폐 아동을 둔 부모님들의 절실한 고민</h2>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">💬</div>
+        <h3>대처법을 배울 곳의 부재</h3>
+        <p>아이를 위한 치료 기관은 많지만, 정작 가정과 일상에서 돌발 행동에 어떻게 대응해야 하는지 가르쳐주는 부모 가이드는 찾기 어렵습니다.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🏫</div>
+        <h3>학교/교실에서의 적응 부담</h3>
+        <p>교실 이탈, 수업 시간 행동으로 인해 담임선생님과 주변 아이들에게 미안함과 죄책감을 느끼며 부모의 마음은 무거워집니다.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🌱</div>
+        <h3>2차 성징 전 골든타임</h3>
+        <p>신체 변화와 성장이 시작되기 전, 기본적인 위생, 사회적 거리두기, 반복 행동 규칙을 미리 다져놓지 않으면 이후 더 큰 어려움이 생깁니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Module A: 1:1 Coaching Simulator -->
+  <section id="interactive">
+    <div class="section-header">
+      <div class="section-subtitle">Interactive Experience</div>
+      <h2 class="section-title">우리 아이 맞춤 대처 가이드 미리보기</h2>
+      <p style="color: var(--text-sub); margin-top: 12px;">아이의 상황을 선택하시면, 1:1 코칭에서 제공되는 맞춤형 대처 가이드 샘플을 즉시 확인하실 수 있습니다.</p>
+    </div>
+
+    <div class="interactive-section">
+      <div class="sim-container">
+        <!-- Input Controls -->
+        <div class="sim-form">
+          <div class="form-group">
+            <label>1. 자녀의 연령대 및 발달 단계</label>
+            <div class="option-grid">
+              <button class="opt-btn active" onclick="selectSimOption('age', 'pre2nd', this)">2차 성징 이전 (7~11세)</button>
+              <button class="opt-btn" onclick="selectSimOption('age', 'early', this)">유아/초등 저학년 (4~6세)</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>2. 가장 고민되는 돌발/일상 행동</label>
+            <div class="option-grid">
+              <button class="opt-btn active" onclick="selectSimOption('behavior', 'escape', this)">교실/자리 이탈</button>
+              <button class="opt-btn" onclick="selectSimOption('behavior', 'sensory', this)">감각 과승복 / 소란</button>
+              <button class="opt-btn" onclick="selectSimOption('behavior', 'routine', this)">특정 집착 및 순서 고수</button>
+              <button class="opt-btn" onclick="selectSimOption('behavior', 'hygiene', this)">신체 접촉 및 위생 습관</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>3. 부모님이 희망하는 지원 방향</label>
+            <div class="option-grid">
+              <button class="opt-btn active" onclick="selectSimOption('goal', 'reward', this)">놀이 보상 체계 설계</button>
+              <button class="opt-btn" onclick="selectSimOption('goal', 'school', this)">학교/교사 소통 가이드</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Result Card -->
+        <div class="sim-result-card" id="simResultCard">
+          <span class="sim-result-badge">1:1 맞춤 가이드 예시</span>
+          <div class="sim-result-title" id="resTitle">40분 수업 - 20분 놀이 보상 구조화</div>
+          
+          <div class="sim-preview-svg" id="resSvgContainer">
+            <!-- Dynamic SVG Icon render by JS -->
+          </div>
+
+          <div class="sim-result-body" id="resBody">
+            교실 이탈이 잦은 아동에게는 무작정 제지하기보다 '앉아있는 시간' 뒤에 확실한 '놀이 보상(잡아라 게임, 레고)'이 따른다는 예측 가능성을 제공합니다. 담임교사와 사전에 조율하여 차분히 자리에 앉아있을 수 있는 맞춤 교구를 배치합니다.
+          </div>
+
+          <div style="text-align: right;">
+            <button onclick="openModal()" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">이 가이드로 1:1 상담 신청하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Service Motion Section (Autonomous Motion #2) -->
+  <section id="solution">
+    <div class="live-motion-section">
+      <div class="live-motion-grid">
+        <div class="live-motion-text">
+          <h3>행동 대처가 선순환으로 바뀌는 과정</h3>
+          <p>
+            부모가 자녀의 상태를 객관적으로 직면하고, 맞춤형 보상 규칙을 적용하면 아이의 답답함이 줄어들고 자발적인 일상 행동 교정이 일어납니다.
+          </p>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; color: #E0F2F1;">
+            <li>✓ 억압이 아닌 예측 가능한 '놀이 보상' 적용</li>
+            <li>✓ 담임교사 및 주변 학생들과의 마찰 최소화</li>
+            <li>✓ 2차 성징 이전 올바른 일상/위생 규칙 정착</li>
+          </ul>
+        </div>
+
+        <div class="live-svg-box">
+          <svg width="100%" height="220" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Animated Progress Steps -->
+            <circle cx="50" cy="110" r="30" fill="#E06D53"/>
+            <text x="50" y="115" fill="white" font-weight="bold" text-anchor="middle" font-size="12">직면</text>
+
+            <path d="M 80 110 L 130 110" stroke="#D9822B" stroke-width="4" stroke-dasharray="6" class="anim-path"/>
+
+            <circle cx="160" cy="110" r="30" fill="#D9822B"/>
+            <text x="160" y="115" fill="white" font-weight="bold" text-anchor="middle" font-size="12">보상설계</text>
+
+            <path d="M 190 110 L 240 110" stroke="#E06D53" stroke-width="4" stroke-dasharray="6" class="anim-path"/>
+
+            <circle cx="270" cy="110" r="30" fill="#1D5C58" stroke="#FFFFFF" stroke-width="3" class="anim-pulse"/>
+            <text x="270" y="115" fill="white" font-weight="bold" text-anchor="middle" font-size="12">습관화</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Module B: Hotspot Diagram -->
+  <section id="roadmap">
+    <div class="section-header">
+      <div class="section-subtitle">2nd Puberty Guide Map</div>
+      <h2 class="section-title">2차 성징 전 반드시 다져야 할 3가지 포인트</h2>
+      <p style="color: var(--text-sub); margin-top: 8px;">각 숫자를 클릭하시면 해당 시기의 핵심 부모 가이드 내용을 확인하실 수 있습니다.</p>
+    </div>
+
+    <div class="hotspot-container">
+      <div class="hotspot-stage">
+        <svg width="100%" height="100%" viewBox="0 0 600 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 100 200 C 200 100, 400 300, 500 120" stroke="#1D5C58" stroke-width="6" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <div class="hotspot-pin active" style="top: 50%; left: 16%;" onclick="showHotspot(1, this)">1</div>
+        <div class="hotspot-pin" style="top: 65%; left: 52%;" onclick="showHotspot(2, this)">2</div>
+        <div class="hotspot-pin" style="top: 28%; left: 80%;" onclick="showHotspot(3, this)">3</div>
+      </div>
+
+      <div class="hotspot-panel" id="hotspotPanel">
+        <div class="hotspot-panel-title" id="hotspotTitle">POINT 1. 반복 학습을 통한 위생 및 신체 경계 교육</div>
+        <div class="hotspot-panel-desc" id="hotspotDesc">
+          신체적 변화가 오기 전, 자신의 몸을 보호하고 타인과의 적절한 물리적 거리를 유지하는 규칙을 일상 대화 속에서 자연스럽고 반복적으로 인지시킵니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder / Team Section -->
+  <section id="about">
+    <div class="section-header">
+      <div class="section-subtitle">Coach & Story</div>
+      <h2 class="section-title">진정성과 현장 경험으로 함께합니다</h2>
+    </div>
+
+    <div class="team-box">
+      <div class="team-avatar">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="40" r="25" fill="#1D5C58"/>
+          <path d="M 20 90 Q 50 60 80 90 Z" fill="#1D5C58"/>
+        </svg>
+      </div>
+      <div class="team-info">
+        <h3>김민희 코치</h3>
+        <div class="team-role">사회복지상담가 · 아동 행동 교정 코치</div>
+        <div class="team-bio">
+          "사회복지상담학을 전공하고 초등학교 현장에서 교실 이탈이 심했던 8살 자폐 아동을 전담 지원했습니다. 무작정 제지하기보다 아이의 답답함에 공감하며 놀이 보상과 레고 교구를 적용하여 수업 참여와 정돈 습관을 이끌어낸 경험이 있습니다.<br><br>
+          언제나 3살 아이를 대하는 다정한 마음과 인내심으로, 답답함 속에 있는 부모님들의 든든한 가이드가 되어 드리겠습니다."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq">
+    <div class="section-header">
+      <div class="section-subtitle">FAQ</div>
+      <h2 class="section-title">자주 묻는 질문</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 이미 아동 병원/치료실을 다니고 있는데 코칭이 필요한가요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          네, 치료실은 아동 본인의 치료에 집중하지만, '다온'은 일상생활 속에서 부모님이 직접 아이의 돌발 행동에 대처하고 가정 내 행동 규칙을 세우도록 돕는 부모 중심 1:1 맞춤 코칭입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 1:1 코칭은 어떤 방식으로 진행되나요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          개별 아이의 현재 연령, 자폐 특성, 가정 및 학교에서의 돌발 행동 상황을 사전 파악한 후, 1:1 맞춤 대면/비대면 상담을 통해 바로 적용 가능한 행동 보상 규칙 및 대화 가이드를 제공합니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 현재 시범 운영 단계인가요?
+          <span class="faq-icon">▼</span>
+        </button>
+        <div class="faq-answer">
+          네, 현재 자폐 아동 부모님들의 실제 니즈를 검증하고 더 정교한 가이드를 완성하기 위해 사전 가이드 신청 및 1:1 미팅을 시범 준비 중입니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section>
+    <div class="final-cta">
+      <h2>아이의 작은 변화, 부모의 올바른 대처에서 시작됩니다</h2>
+      <p>혼자 답답해하지 마시고, 1:1 맞춤 대처 가이드와 함께 아이와 부모 모두 행복한 일상을 만들어 가세요.</p>
+      <button onclick="openModal()" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 36px;">
+        시범 가이드 코칭 무료 신청하기
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>다온 (가칭)</strong> | 자폐 아동 부모 맞춤형 행동 대처 1:1 가이드 & 코칭</p>
+    <p style="margin-top: 8px;">본 서비스는 시범 참여 준비 및 수요 검증 단계의 서비스 기획안입니다.</p>
+    <p style="margin-top: 16px; font-size: 0.8rem;">© 2026 DAON. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal Component -->
+  <div class="modal-overlay" id="consultModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 style="color: var(--primary-teal); margin-bottom: 12px; font-size: 1.3rem;">1:1 맞춤 가이드 신청 안내</h3>
+      <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6;">
+        입력하신 정보는 서버로 전송되거나 저장되지 않는 로컬 시뮬레이션입니다.<br>
+        아래 버튼을 눌러 문의 내용을 복사하신 후 안내 받으실 수 있습니다.
+      </p>
+      <div style="background: var(--bg-warm); padding: 16px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; color: var(--text-main);">
+        [다온 1:1 가이드 문의]<br>
+        - 관심 분야: 자폐 아동 부모 대처 가이드<br>
+        - 신청 단계: 2차 성징 전 행동 규칙 & 놀이 보상 코칭
+      </div>
+      <button onclick="copyAndClose()" class="btn btn-primary" style="width: 100%;">문의 내용 복사 후 완료</button>
+    </div>
+  </div>
+
+  <!-- JavaScript logic -->
+  <script>
+    /* 1. Scroll Progress Indicator */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+    });
+
+    /* 2. Hero Motion Toggle Control */
+    let isHeroMotionRunning = true;
+    function toggleHeroMotion() {
+      const stage = document.getElementById('heroVisualStage');
+      const btn = document.getElementById('motionToggleBtn');
+      if (isHeroMotionRunning) {
+        stage.querySelectorAll('.anim-cloud, .anim-pulse, .anim-float, .anim-path').forEach(el => {
+          el.style.animationPlayState = 'paused';
+        });
+        btn.innerText = '모션 재생';
+        isHeroMotionRunning = false;
+      } else {
+        stage.querySelectorAll('.anim-cloud, .anim-pulse, .anim-float, .anim-path').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
+        btn.innerText = '모션 일시정지';
+        isHeroMotionRunning = true;
+      }
+    }
+
+    /* 3. Hero Story Auto Carousel */
+    const stories = [
+      { step: "STEP 1. 아이 상태 직면", title: "답답함에서 객관적 이해와 수용으로" },
+      { step: "STEP 2. 맞춤 보상 설계", title: "놀이가 보상이 되는 예측 가능한 규칙" },
+      { step: "STEP 3. 2차 성징 전 정착", title: "위생 습관과 신체 경계 반복 학습" }
+    ];
+    let currentStoryIdx = 0;
+    let storyTimer = null;
+    let isStoryAuto = true;
+
+    function updateStoryUI() {
+      document.getElementById('storyLabel').innerText = stories[currentStoryIdx].step;
+      document.getElementById('storyTitle').innerText = stories[currentStoryIdx].title;
+    }
+
+    function nextStory() {
+      currentStoryIdx = (currentStoryIdx + 1) % stories.length;
+      updateStoryUI();
+    }
+
+    function prevStory() {
+      currentStoryIdx = (currentStoryIdx - 1 + stories.length) % stories.length;
+      updateStoryUI();
+    }
+
+    function startStoryAuto() {
+      storyTimer = setInterval(nextStory, 6000);
+    }
+
+    function toggleStoryAuto() {
+      const btn = document.getElementById('storyAutoBtn');
+      if (isStoryAuto) {
+        clearInterval(storyTimer);
+        btn.innerText = '▶';
+        isStoryAuto = false;
+      } else {
+        startStoryAuto();
+        btn.innerText = '❚❚';
+        isStoryAuto = true;
+      }
+    }
+    startStoryAuto();
+
+    /* 4. Interactive Simulator Logic (Module A) */
+    const simState = {
+      age: 'pre2nd',
+      behavior: 'escape',
+      goal: 'reward'
+    };
+
+    const simDatabase = {
+      escape: {
+        title: "40분 수업 - 20분 놀이 보상 구조화 가이드",
+        body: "교실 이탈이 잦은 아동에게는 무작정 제지하기보다 '앉아있는 시간' 뒤에 확실한 '놀이 보상(잡아라 게임, 레고)'이 따른다는 예측 가능성을 제공합니다. 담임교사와 사전에 조율하여 차분히 자리에 앉아있을 수 있는 맞춤 교구를 배치합니다.",
+        svg: `<svg width="80" height="80" viewBox="0 0 100 100"><rect x="20" y="30" width="60" height="40" rx="6" fill="#1D5C58"/><path d="M 40 20 L 60 20" stroke="#E06D53" stroke-width="6"/><circle cx="50" cy="50" r="10" fill="#D9822B"/></svg>`
+      },
+      sensory: {
+        title: "감각 과승복 완화 및 마음 진정 유머 대처법",
+        body: "특정 자극에 자지러지거나 소란이 발생할 때, 아동이 좋아하는 유머 요소나 안정 자극 도구를 활용해 신속히 심리적 안정을 도모하는 부모 대처 가이드를 지도합니다.",
+        svg: `<svg width="80" height="80" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="#E06D53"/><path d="M 35 45 Q 50 60 65 45" stroke="white" stroke-width="5" fill="none"/></svg>`
+      },
+      routine: {
+        title: "순서 고수 아동을 위한 시각적 스케줄 보드",
+        body: "변화에 극심한 불안을 느끼는 자폐 아동을 위해, 하루 일과와 행동 순서를 사진/그림 카드로 시각화하여 순응도를 높이는 가정용 루틴 가이드입니다.",
+        svg: `<svg width="80" height="80" viewBox="0 0 100 100"><rect x="25" y="20" width="50" height="60" rx="4" fill="#D9822B"/><line x1="35" y1="35" x2="65" y2="35" stroke="white" stroke-width="4"/></svg>`
+      },
+      hygiene: {
+        title: "2차 성징 대비 신체 경계 & 위생 습관 반복 가이드",
+        body: "2차 성징 시작 전, 스스로 몸을 씻고 정리하는 규칙과 타인과의 신체적 거리를 유지하는 대화법을 부모가 일상에서 자연스럽게 반복 지도하도록 돕습니다.",
+        svg: `<svg width="80" height="80" viewBox="0 0 100 100"><path d="M 50 20 L 80 80 L 20 80 Z" fill="#1D5C58"/><circle cx="50" cy="55" r="12" fill="#FFFFFF"/></svg>`
+      }
+    };
+
+    function selectSimOption(category, value, btnEl) {
+      simState[category] = value;
+      
+      // UI button toggle inside group
+      const parentGroup = btnEl.closest('.form-group');
+      parentGroup.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+
+      renderSimResult();
+    }
+
+    function renderSimResult() {
+      const data = simDatabase[simState.behavior] || simDatabase['escape'];
+      document.getElementById('resTitle').innerText = data.title;
+      document.getElementById('resBody').innerText = data.body;
+      document.getElementById('resSvgContainer').innerHTML = data.svg;
+    }
+    renderSimResult();
+
+    /* 5. Hotspot Control Logic (Module B) */
+    const hotspotData = {
+      1: {
+        title: "POINT 1. 반복 학습을 통한 위생 및 신체 경계 교육",
+        desc: "신체적 변화가 오기 전, 자신의 몸을 보호하고 타인과의 적절한 물리적 거리를 유지하는 규칙을 일상 대화 속에서 자연스럽고 반복적으로 인지시킵니다."
+      },
+      2: {
+        title: "POINT 2. 학교 & 담임선생님과의 소통 채널 구축",
+        desc: "아이가 좋아하는 보상과 돌발 행동 시 진정되는 특성을 학교에 세심하게 공유하여 학급 마찰 없이 교실에 적응하도록 중재합니다."
+      },
+      3: {
+        title: "POINT 3. 의료/행동 치료 골든타임 연계",
+        desc: "아이의 현재 상태를 회피하지 않고 객관적으로 직면하여, 필요한 전문 의료 및 행동 치료를 적시에 시작할 수 있도록 안내합니다."
+      }
+    };
+
+    function showHotspot(num, pinEl) {
+      document.querySelectorAll('.hotspot-pin').forEach(p => p.classList.remove('active'));
+      pinEl.classList.add('active');
+      
+      const data = hotspotData[num];
+      document.getElementById('hotspotTitle').innerText = data.title;
+      document.getElementById('hotspotDesc').innerText = data.desc;
+    }
+
+    /* 6. FAQ Accordion */
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('active');
+    }
+
+    /* 7. Utility Copy & Modal */
+    function copyConsultText() {
+      const text = "[다온 1:1 맞춤 대처 가이드 문의]\n안녕하세요, 자폐 아동 부모 맞춤 코칭 시범 참여에 대해 문의드립니다.";
+      navigator.clipboard.writeText(text).then(() => {
+        alert("문의 문구가 클립보드에 복사되었습니다!");
+      }).catch(() => {
+        alert("복사 기능이 지원되지 않는 환경입니다.");
+      });
+    }
+
+    function openModal() {
+      document.getElementById('consultModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('consultModal').style.display = 'none';
+    }
+
+    function copyAndClose() {
+      copyConsultText();
+      closeModal();
+    }
+
+    /* 8. Mobile Menu Toggle */
+    document.getElementById('menuToggleBtn').addEventListener('click', () => {
+      const nav = document.querySelector('nav ul');
+      if (nav.style.display === 'flex') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+        nav.style.flexDirection = 'column';
+        nav.style.position = 'absolute';
+        nav.style.top = '60px';
+        nav.style.left = '0';
+        nav.style.width = '100%';
+        nav.style.background = 'white';
+        nav.style.padding = '20px';
+        nav.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+      }
+    });
+  </script>
+</body>
+</html>

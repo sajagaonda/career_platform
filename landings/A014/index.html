@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인생 기록 카페 — 이야기로 이어지는 우리 가족의 기억</title>
+    <meta name="description" content="디지털 기기 사용이 어색한 70대 시니어를 위한 대면 경청 소모임 & AI 미니 인생 기록집 제작 서비스">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        warm: {
+                            50: '#fdfbf7',
+                            100: '#f7f2e8',
+                            200: '#eee3cf',
+                            300: '#e1cdab',
+                            400: '#d0b080',
+                            500: '#bd9159',
+                            600: '#ab7847',
+                            700: '#8e5e3a',
+                            800: '#744c33',
+                            900: '#5e3f2c',
+                            950: '#332016',
+                        },
+                        sage: {
+                            50: '#f4f7f4',
+                            100: '#e3ebe3',
+                            500: '#688b68',
+                            700: '#405940',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        serif: ['MaruBuri', 'Nanum Myeongjo', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Typography Customization */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap');
+
+        .font-serif-kr {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        /* SVG & Layer Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1.5deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(0.98); }
+            50% { opacity: 0.7; transform: scale(1.03); }
+        }
+        @keyframes dashFlow {
+            to { stroke-dashoffset: -40; }
+        }
+        @keyframes orbitRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes rippleEffect {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        .animate-float {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        .animated-dash {
+            stroke-dasharray: 8 6;
+            animation: dashFlow 3s linear infinite;
+        }
+        .animate-orbit {
+            animation: orbitRotate 25s linear infinite;
+            transform-origin: center;
+        }
+
+        /* Reduced Motion Respect */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .animated-dash {
+                animation: none !important;
+            }
+        }
+
+        /* Focus States for Senior-Friendly Accessibility */
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 3px solid #ab7847;
+            outline-offset: 3px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f7f2e8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bd9159;
+            border-radius: 5px;
+        }
+
+        /* Print styles */
+        @media print {
+            header, footer, .no-print {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body class="bg-warm-50 text-warm-900 font-sans antialiased selection:bg-warm-200 selection:text-warm-900">
+
+    <!-- Scroll Progress Indicator Bar -->
+    <div id="scrollProgress" class="fixed top-0 left-0 h-1.5 bg-warm-600 z-50 transition-all duration-150 w-0" aria-hidden="true"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-warm-50/90 backdrop-blur-md border-b border-warm-200/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-full bg-warm-700 text-warm-50 flex items-center justify-center font-serif-kr font-bold text-xl shadow-md group-hover:scale-105 transition-transform">
+                    情
+                </div>
+                <div>
+                    <span class="font-serif-kr font-bold text-xl tracking-tight text-warm-900 block leading-none">인생 기록 카페</span>
+                    <span class="text-xs text-warm-600 tracking-wider font-sans">따뜻한 경청과 가족 소통의 공간</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 text-base font-medium text-warm-800">
+                <a href="#about" class="hover:text-warm-600 transition-colors py-2">소개</a>
+                <a href="#story-slides" class="hover:text-warm-600 transition-colors py-2">이야기 여정</a>
+                <a href="#interactive-preview" class="hover:text-warm-600 transition-colors py-2">맞춤 진단</a>
+                <a href="#memory-builder" class="hover:text-warm-600 transition-colors py-2">기록 체험</a>
+                <a href="#faq" class="hover:text-warm-600 transition-colors py-2">자주 하는 질문</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#interactive-preview" class="px-5 py-2.5 rounded-full bg-warm-700 hover:bg-warm-800 text-warm-50 font-medium shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 text-sm">
+                    미리 체험하기
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" type="button" class="md:hidden p-2.5 rounded-lg text-warm-800 hover:bg-warm-100 focus:outline-none" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileMenu">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Panel -->
+        <div id="mobileMenu" class="hidden md:hidden bg-warm-100/95 backdrop-blur-lg border-b border-warm-200 px-4 pt-3 pb-6 transition-all duration-300">
+            <nav class="flex flex-col gap-3 font-medium text-lg">
+                <a href="#about" class="mobile-nav-link py-2 px-3 rounded-md hover:bg-warm-200 text-warm-900">소개</a>
+                <a href="#story-slides" class="mobile-nav-link py-2 px-3 rounded-md hover:bg-warm-200 text-warm-900">이야기 여정</a>
+                <a href="#interactive-preview" class="mobile-nav-link py-2 px-3 rounded-md hover:bg-warm-200 text-warm-900">맞춤 진단</a>
+                <a href="#memory-builder" class="mobile-nav-link py-2 px-3 rounded-md hover:bg-warm-200 text-warm-900">기록 체험</a>
+                <a href="#faq" class="mobile-nav-link py-2 px-3 rounded-md hover:bg-warm-200 text-warm-900">자주 하는 질문</a>
+                <a href="#interactive-preview" class="mobile-nav-link mt-2 w-full text-center py-3 rounded-full bg-warm-700 text-warm-50 font-bold shadow-md">
+                    미리 체험하기
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECTION 1: HERO (Cinematic Animated Scene) -->
+        <section class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center justify-center overflow-hidden py-12 lg:py-20 bg-gradient-to-b from-warm-50 via-warm-100/50 to-warm-50">
+            <!-- Background Layered Atmospheric Vectors -->
+            <div class="absolute inset-0 pointer-events-none opacity-40">
+                <div class="absolute top-1/4 left-10 w-96 h-96 rounded-full bg-warm-200/60 filter blur-3xl animate-pulse-glow"></div>
+                <div class="absolute bottom-10 right-10 w-[30rem] h-[30rem] rounded-full bg-sage-100/70 filter blur-3xl animate-pulse-glow" style="animation-delay: 2s;"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                    
+                    <!-- Left Hero Content Text -->
+                    <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-warm-200/80 border border-warm-300 text-warm-800 text-sm font-semibold shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-warm-600 animate-ping"></span>
+                            <span>디지털이 낯선 부모님을 위한 따뜻한 맞춤 공간</span>
+                        </div>
+
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif-kr font-bold text-warm-950 leading-tight sm:leading-snug">
+                            스마트폰을 못 다루셔도 괜찮습니다.<br/>
+                            <span class="text-warm-700 underline decoration-warm-300 decoration-wavy underline-offset-8">말씀만 하세요</span>, 정성껏 다듬어 드릴게요.
+                        </h1>
+
+                        <p class="text-lg sm:text-xl text-warm-800 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            '인생 기록 카페'는 70대 어르신이 정다운 사람들과 차 한잔을 마시며 말하는 이야기를 
+                            전문 강사의 다정한 경청과 AI 기술로 정돈하여, 자녀와 손주에게 남기는 소중한 미니 인생 기록집으로 만들어 드립니다.
+                        </p>
+
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                            <a href="#interactive-preview" class="w-full sm:w-auto px-8 py-4 rounded-full bg-warm-700 hover:bg-warm-800 text-warm-50 font-bold text-lg shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2 group">
+                                <span>나의 이야기 타입 진단하기</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                </svg>
+                            </a>
+                            <a href="#story-slides" class="w-full sm:w-auto px-7 py-4 rounded-full bg-warm-100 hover:bg-warm-200 text-warm-900 border border-warm-300 font-semibold text-base transition-colors text-center">
+                                이야기 진행 순서 보기
+                            </a>
+                        </div>
+
+                        <!-- Motion Toggle Control for Accessibility -->
+                        <div class="pt-2 flex items-center justify-center lg:justify-start gap-3 text-xs text-warm-600">
+                            <button id="heroAnimationToggle" type="button" class="px-3 py-1 rounded bg-warm-200/60 hover:bg-warm-200 border border-warm-300 transition-colors flex items-center gap-1.5">
+                                <span id="toggleIcon">⏸</span> <span id="toggleText">움직임 일시정지</span>
+                            </button>
+                            <span>| 화면 시네마틱 모션 작동 중</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual: Dynamic Animated SVG Scene -->
+                    <div class="lg:col-span-6 relative">
+                        <div class="relative mx-auto max-w-lg lg:max-w-none rounded-3xl bg-gradient-to-b from-warm-100 to-warm-200/50 p-4 sm:p-6 border border-warm-300/80 shadow-2xl overflow-hidden">
+                            
+                            <!-- Main Hero SVG Visual -->
+                            <svg id="heroCinematicSvg" viewBox="0 0 600 500" class="w-full h-auto rounded-2xl shadow-inner bg-warm-50/90" aria-label="따뜻한 인생 기록 카페에서 어르신이 정겹게 이야기하고 AI 및 강사가 이를 미니 기록집으로 연출하는 시네마틱 그래픽">
+                                <defs>
+                                    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#fdfbf7"/>
+                                        <stop offset="100%" stop-color="#f2e6d3"/>
+                                    </linearGradient>
+                                    <linearGradient id="glowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#bd9159" stop-opacity="0.1"/>
+                                        <stop offset="50%" stop-color="#ab7847" stop-opacity="0.8"/>
+                                        <stop offset="100%" stop-color="#8e5e3a" stop-opacity="0.1"/>
+                                    </linearGradient>
+                                    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                                        <feDropShadow dx="2" dy="4" stdDeviation="4" flood-opacity="0.15"/>
+                                    </filter>
+                                </defs>
+
+                                <!-- Background Canvas -->
+                                <rect width="600" height="500" rx="16" fill="url(#warmBg)"/>
+                                
+                                <!-- Atmospheric Decorative Orbit Line -->
+                                <g class="animate-orbit" style="transform-origin: 300px 250px;">
+                                    <circle cx="300" cy="250" r="180" fill="none" stroke="#e1cdab" stroke-width="1.5" stroke-dasharray="6 8"/>
+                                    <circle cx="480" cy="250" r="8" fill="#bd9159" opacity="0.6"/>
+                                    <circle cx="120" cy="250" r="5" fill="#688b68" opacity="0.6"/>
+                                </g>
+
+                                <!-- Animated Flowing Memory Thread (Path) -->
+                                <path class="animated-dash" d="M 80 380 Q 200 150 300 260 T 520 180" fill="none" stroke="url(#glowLine)" stroke-width="4"/>
+
+                                <!-- Layer 1: Coffee Cup & Table (Foreground Left) -->
+                                <g class="animate-float" style="animation-delay: 0.5s;" filter="url(#shadow)">
+                                    <rect x="70" y="320" width="160" height="110" rx="12" fill="#e3ebe3"/>
+                                    <!-- Warm Steam Particles -->
+                                    <path d="M 120 310 Q 125 290 120 280" fill="none" stroke="#bd9159" stroke-width="2" opacity="0.7">
+                                        <animate attributeName="d" values="M 120 310 Q 125 290 120 280; M 120 310 Q 115 290 120 280; M 120 310 Q 125 290 120 280" dur="3s" repeatCount="indefinite"/>
+                                    </path>
+                                    <path d="M 135 315 Q 140 295 135 285" fill="none" stroke="#bd9159" stroke-width="2" opacity="0.5">
+                                        <animate attributeName="d" values="M 135 315 Q 130 295 135 285; M 135 315 Q 140 295 135 285; M 135 315 Q 130 295 135 285" dur="3.5s" repeatCount="indefinite"/>
+                                    </path>
+                                    <!-- Coffee Cup -->
+                                    <path d="M 110 330 L 140 330 L 135 355 C 135 360 115 360 115 355 Z" fill="#8e5e3a"/>
+                                    <path d="M 140 335 C 148 335 148 348 138 348" fill="none" stroke="#8e5e3a" stroke-width="2.5"/>
+                                    <text x="150" y="380" font-family="Nanum Myeongjo" font-size="14" fill="#405940" font-weight="bold">따뜻한 이야기 나눔</text>
+                                </g>
+
+                                <!-- Layer 2: Animated Senior Character Symbol & Voice Waves (Center) -->
+                                <g transform="translate(220, 140)" filter="url(#shadow)">
+                                    <circle cx="80" cy="80" r="65" fill="#f7f2e8" stroke="#d0b080" stroke-width="3"/>
+                                    <!-- Senior Silhouette Face/Avatar Graphic -->
+                                    <circle cx="80" cy="65" r="24" fill="#ab7847"/>
+                                    <path d="M 50 115 C 50 95 110 95 110 115 Z" fill="#744c33"/>
+                                    <circle cx="80" cy="55" r="26" fill="#eee3cf" opacity="0.7"/> <!-- Silver Hair Accent -->
+
+                                    <!-- Expanding Voice Waves (Signifying Talking) -->
+                                    <circle cx="80" cy="80" r="75" fill="none" stroke="#bd9159" stroke-width="2" opacity="0.4">
+                                        <animate attributeName="r" values="65;90;65" dur="2.5s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.6;0;0.6" dur="2.5s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="80" cy="80" r="85" fill="none" stroke="#688b68" stroke-width="1.5" opacity="0.3">
+                                        <animate attributeName="r" values="75;105;75" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+                                        <animate attributeName="opacity" values="0.5;0;0.5" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+
+                                <!-- Layer 3: AI Transformation & Memory Book (Right Floating) -->
+                                <g class="animate-float" style="animation-delay: 1.2s;" transform="translate(360, 260)" filter="url(#shadow)">
+                                    <rect x="0" y="0" width="180" height="150" rx="14" fill="#ffffff" stroke="#e1cdab" stroke-width="2"/>
+                                    <!-- Book Icon -->
+                                    <rect x="25" y="25" width="60" height="85" rx="4" fill="#8e5e3a"/>
+                                    <rect x="30" y="25" width="55" height="85" rx="2" fill="#fdfbf7"/>
+                                    <line x1="38" y1="40" x2="75" y2="40" stroke="#bd9159" stroke-width="2"/>
+                                    <line x1="38" y1="52" x2="75" y2="52" stroke="#d0b080" stroke-width="1.5"/>
+                                    <line x1="38" y1="62" x2="65" y2="62" stroke="#d0b080" stroke-width="1.5"/>
+                                    <circle cx="55" cy="85" r="10" fill="#688b68" opacity="0.3"/>
+                                    
+                                    <!-- Sparkles & Transformation Badges -->
+                                    <g transform="translate(100, 30)">
+                                        <rect x="0" y="0" width="65" height="26" rx="13" fill="#688b68"/>
+                                        <text x="32" y="17" font-family="sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="bold">AI 정돈</text>
+                                    </g>
+                                    <g transform="translate(100, 68)">
+                                        <rect x="0" y="0" width="65" height="26" rx="13" fill="#ab7847"/>
+                                        <text x="32" y="17" font-family="sans-serif" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="bold">가족 선물</text>
+                                    </g>
+                                </g>
+
+                                <!-- Floating Quote Capsule -->
+                                <g transform="translate(140, 50)" class="animate-float" style="animation-delay: 2s;">
+                                    <rect x="0" y="0" width="320" height="42" rx="21" fill="#ffffff" opacity="0.95" stroke="#cbd5e1" stroke-width="1" filter="url(#shadow)"/>
+                                    <text x="160" y="26" font-family="Nanum Myeongjo" font-size="14" fill="#5e3f2c" font-weight="bold" text-anchor="middle">"너희들에게 전하고 싶은 내 삶의 이야기..."</text>
+                                </g>
+                            </svg>
+
+                            <!-- Sub Floating Badge -->
+                            <div class="absolute bottom-6 left-6 right-6 bg-warm-900/90 backdrop-blur-md text-warm-100 p-3.5 rounded-xl text-xs sm:text-sm flex items-center justify-between shadow-lg border border-warm-700/50">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                    <span>실시간 대화 음성을 텍스트와 책자로 즉시 시각화</span>
+                                </div>
+                                <span class="text-warm-300 font-semibold">100% 대면 진행</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: EMPATHY & PROBLEM STATEMENT -->
+        <section id="about" class="py-16 lg:py-24 bg-warm-100/60 border-y border-warm-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto space-y-4">
+                    <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">공감과 발견</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif-kr font-bold text-warm-950">
+                        스마트폰 기능은 자꾸 바뀌는데,<br/>
+                        남기고 싶은 내 이야기는 어디에 적어야 할까요?
+                    </h2>
+                    <p class="text-warm-800 text-base sm:text-lg leading-relaxed">
+                        손으로 적는 일기는 분량이 방대해 정리가 힘들고, 블로그나 앱은 복잡해서 엄두가 나지 않습니다.
+                        정작 가족에게 전하고 싶은 귀한 경험과 지혜가 잊혀지고 있습니다.
+                    </p>
+                </div>
+
+                <!-- 3 Problem Comparison Grid Cards -->
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Problem Card 1 -->
+                    <div class="bg-warm-50 p-7 rounded-2xl border border-warm-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-xl bg-warm-200 text-warm-800 flex items-center justify-center font-bold text-xl mb-5 group-hover:scale-110 transition-transform">
+                            01
+                        </div>
+                        <h3 class="font-serif-kr font-bold text-xl text-warm-900 mb-2">복잡한 디지털 기기 장벽</h3>
+                        <p class="text-warm-700 text-sm leading-relaxed">
+                            키보드 자판 치기도 힘들고, 매번 업데이트되는 앱 화면 때문에 소중한 기록을 포기하게 됩니다.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-warm-200 text-xs font-semibold text-warm-600 flex items-center gap-1">
+                            <span>해결책:</span> <strong class="text-warm-800">100% 말로 전달하는 대면 소통</strong>
+                        </div>
+                    </div>
+
+                    <!-- Problem Card 2 -->
+                    <div class="bg-warm-50 p-7 rounded-2xl border border-warm-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-xl bg-warm-200 text-warm-800 flex items-center justify-center font-bold text-xl mb-5 group-hover:scale-110 transition-transform">
+                            02
+                        </div>
+                        <h3 class="font-serif-kr font-bold text-xl text-warm-900 mb-2">정리되지 않는 방대한 기록</h3>
+                        <p class="text-warm-700 text-sm leading-relaxed">
+                            수기 일기는 양이 너무 많아 자녀나 손주가 나중에 골라 읽기가 쉽지 않고 보관이 어렵습니다.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-warm-200 text-xs font-semibold text-warm-600 flex items-center gap-1">
+                            <span>해결책:</span> <strong class="text-warm-800">AI 요약 기반 미니 에세이 가공</strong>
+                        </div>
+                    </div>
+
+                    <!-- Problem Card 3 -->
+                    <div class="bg-warm-50 p-7 rounded-2xl border border-warm-200 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                        <div class="w-12 h-12 rounded-xl bg-warm-200 text-warm-800 flex items-center justify-center font-bold text-xl mb-5 group-hover:scale-110 transition-transform">
+                            03
+                        </div>
+                        <h3 class="font-serif-kr font-bold text-xl text-warm-900 mb-2">서먹해진 가족과의 대화</h3>
+                        <p class="text-warm-700 text-sm leading-relaxed">
+                            자녀들과 서로 바빠 깊은 삶의 이야기를 나눌 계기가 부족하고 소통이 단절되기 쉽습니다.
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-warm-200 text-xs font-semibold text-warm-600 flex items-center gap-1">
+                            <span>해결책:</span> <strong class="text-warm-800">가족에게 선물하는 미니 기록집</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: AUTO-PLAYING STORY SLIDESHOW (Cinematic Sequence) -->
+        <section id="story-slides" class="py-16 lg:py-24 bg-warm-50 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                    <div>
+                        <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">자동 스토리 시퀀스</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif-kr font-bold text-warm-950 mt-3">
+                            '인생 기록 카페'에서 일어나는 따뜻한 변화
+                        </h2>
+                    </div>
+
+                    <!-- Slide Controls -->
+                    <div class="flex items-center gap-3 mt-4 md:mt-0">
+                        <button id="slidePrevBtn" type="button" class="w-11 h-11 rounded-full bg-warm-200 hover:bg-warm-300 text-warm-900 flex items-center justify-center font-bold transition-colors" aria-label="이전 장면 보기">
+                            ←
+                        </button>
+                        <button id="slidePauseBtn" type="button" class="px-4 h-11 rounded-full bg-warm-200 hover:bg-warm-300 text-warm-900 font-medium text-sm transition-colors flex items-center gap-1.5" aria-label="자동 순환 일시정지">
+                            <span id="slidePauseIcon">⏸</span> <span id="slidePauseText">정지</span>
+                        </button>
+                        <button id="slideNextBtn" type="button" class="w-11 h-11 rounded-full bg-warm-200 hover:bg-warm-300 text-warm-900 flex items-center justify-center font-bold transition-colors" aria-label="다음 장면 보기">
+                            →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Story Slideshow Container -->
+                <div class="relative bg-warm-100 rounded-3xl p-6 sm:p-10 border border-warm-300 shadow-xl overflow-hidden min-h-[420px] flex items-center">
+                    
+                    <!-- Progress Indicators -->
+                    <div class="absolute top-6 left-6 right-6 flex gap-2 z-20">
+                        <div class="h-1.5 flex-1 bg-warm-300 rounded-full overflow-hidden">
+                            <div id="slideProgress0" class="h-full bg-warm-700 transition-all duration-300 w-0"></div>
+                        </div>
+                        <div class="h-1.5 flex-1 bg-warm-300 rounded-full overflow-hidden">
+                            <div id="slideProgress1" class="h-full bg-warm-700 transition-all duration-300 w-0"></div>
+                        </div>
+                        <div class="h-1.5 flex-1 bg-warm-300 rounded-full overflow-hidden">
+                            <div id="slideProgress2" class="h-full bg-warm-700 transition-all duration-300 w-0"></div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE CONTENT PANELS (Swapped via JS) -->
+                    <!-- Slide 1 -->
+                    <div id="storySlide0" class="story-slide-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full transition-opacity duration-700">
+                        <div class="lg:col-span-6 space-y-4 pt-6">
+                            <span class="inline-block text-xs font-bold text-warm-50 bg-warm-700 px-3 py-1 rounded-full">1단계 : 편안한 대면 대화</span>
+                            <h3 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950">
+                                찻잔을 사이에 두고,<br/>선생님과 따뜻하게 눈을 맞춥니다
+                            </h3>
+                            <p class="text-warm-800 leading-relaxed text-base">
+                                전문 경청 강사가 준비한 '인생 질문 카드'를 바탕으로 어린 시절 기억부터 
+                                열심히 살아온 젊은 날의 이야기를 편안하게 주고받습니다. 기기 조작은 전혀 신경 쓰실 필요가 없습니다.
+                            </p>
+                            <div class="bg-warm-50 p-4 rounded-xl border border-warm-200 text-sm text-warm-900 font-serif-kr italic">
+                                "기억이 가물가물했는데, 준비된 질문에 답하다 보니 참 많은 일들이 떠올랐어요."
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <svg viewBox="0 0 450 280" class="w-full h-auto rounded-2xl bg-warm-50 border border-warm-200 shadow-inner" aria-label="경청 강사와 시니어가 따뜻한 차를 마시며 대화하는 그래픽">
+                                <rect width="450" height="280" rx="12" fill="#fdfbf7"/>
+                                <circle cx="225" cy="140" r="100" fill="#f7f2e8"/>
+                                <path d="M 140 200 C 140 140 210 140 210 200 Z" fill="#744c33"/>
+                                <circle cx="175" cy="130" r="28" fill="#ab7847"/>
+                                <path d="M 240 200 C 240 140 310 140 310 200 Z" fill="#405940"/>
+                                <circle cx="275" cy="130" r="28" fill="#688b68"/>
+                                <circle cx="225" cy="170" r="16" fill="#bd9159"/> <!-- Tea cup -->
+                                <path d="M 180 100 Q 225 70 270 100" fill="none" stroke="#bd9159" stroke-width="2" stroke-dasharray="4 4" class="animated-dash"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div id="storySlide1" class="story-slide-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full transition-opacity duration-700">
+                        <div class="lg:col-span-6 space-y-4 pt-6">
+                            <span class="inline-block text-xs font-bold text-warm-50 bg-warm-700 px-3 py-1 rounded-full">2단계 : AI + 전문 가공</span>
+                            <h3 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950">
+                                음성 녹음이 정갈한 에세이로<br/>아름답게 가공됩니다
+                            </h3>
+                            <p class="text-warm-800 leading-relaxed text-base">
+                                나누신 이야기 녹음본을 AI 도구(Gemini)와 강사가 함께 다듬어, 방대한 말을 명확하고 감동적인 
+                                미니 글귀와 문단으로 가공합니다. 사진을 더해 한 권의 에세이 포맷을 완성합니다.
+                            </p>
+                            <div class="bg-warm-50 p-4 rounded-xl border border-warm-200 text-sm text-warm-900 font-serif-kr italic">
+                                "두서없이 말했는데도, 핵심 가치와 마음이 정갈하게 글에 반영되었어요."
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <svg viewBox="0 0 450 280" class="w-full h-auto rounded-2xl bg-warm-50 border border-warm-200 shadow-inner" aria-label="AI 음성 가공 및 텍스트 전환 그래픽">
+                                <rect width="450" height="280" rx="12" fill="#fdfbf7"/>
+                                <rect x="50" y="50" width="150" height="180" rx="8" fill="#e3ebe3"/>
+                                <line x1="70" y1="80" x2="170" y2="80" stroke="#405940" stroke-width="3"/>
+                                <line x1="70" y1="105" x2="150" y2="105" stroke="#688b68" stroke-width="2"/>
+                                <line x1="70" y1="125" x2="160" y2="125" stroke="#688b68" stroke-width="2"/>
+                                <path d="M 210 140 L 250 140" stroke="#bd9159" stroke-width="3" marker-end="url(#arrow)"/>
+                                <rect x="260" y="50" width="140" height="180" rx="8" fill="#8e5e3a"/>
+                                <rect x="268" y="55" width="124" height="170" rx="6" fill="#ffffff"/>
+                                <text x="330" y="140" font-family="Nanum Myeongjo" font-size="16" fill="#744c33" text-anchor="middle" font-weight="bold">인생 기록집</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div id="storySlide2" class="story-slide-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full transition-opacity duration-700">
+                        <div class="lg:col-span-6 space-y-4 pt-6">
+                            <span class="inline-block text-xs font-bold text-warm-50 bg-warm-700 px-3 py-1 rounded-full">3단계 : 가족과 소통 선물</span>
+                            <h3 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950">
+                                자녀와 손주에게 전달되어<br/>깊은 감동과 대화를 만들어냅니다
+                            </h3>
+                            <p class="text-warm-800 leading-relaxed text-base">
+                                완성된 디지털 책자 및 미니 출판물은 자녀의 스마트폰으로 전달됩니다.
+                                "우리 부모님에게 이런 멋진 삶의 철학이 있었구나"를 깨달으며 가족 간의 정이 끈끈해집니다.
+                            </p>
+                            <div class="bg-warm-50 p-4 rounded-xl border border-warm-200 text-sm text-warm-900 font-serif-kr italic">
+                                "딸에게 전달했더니 읽고 눈물을 흘리며 전화를 걸어왔습니다."
+                            </div>
+                        </div>
+                        <div class="lg:col-span-6">
+                            <svg viewBox="0 0 450 280" class="w-full h-auto rounded-2xl bg-warm-50 border border-warm-200 shadow-inner" aria-label="완성된 기록집을 자녀가 읽고 소통하는 그래픽">
+                                <rect width="450" height="280" rx="12" fill="#fdfbf7"/>
+                                <circle cx="225" cy="140" r="90" fill="#eee3cf"/>
+                                <path d="M 225 70 Q 225 140 180 180" fill="none" stroke="#bd9159" stroke-width="3"/>
+                                <path d="M 225 70 Q 225 140 270 180" fill="none" stroke="#bd9159" stroke-width="3"/>
+                                <circle cx="225" cy="70" r="16" fill="#ab7847"/> <!-- Heart element -->
+                                <text x="225" y="75" font-family="sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">情</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SECOND LIVE ANIMATED DEMO (Interactive Process Flow) -->
+        <section class="py-16 lg:py-20 bg-warm-100/40 border-y border-warm-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">실시간 가공 시연</span>
+                    <h2 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950 mt-3">
+                        대화 음성이 인생 에세이가 되는 과정
+                    </h2>
+                    <p class="text-warm-700 text-sm mt-2">아래 단계를 클릭하시면 실제 AI 가공 및 디자인 변화를 보실 수 있습니다.</p>
+                </div>
+
+                <!-- Interactive Step Selector Buttons -->
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button type="button" onclick="setProcessStep(1)" id="procBtn1" class="proc-step-btn px-5 py-2.5 rounded-full bg-warm-700 text-warm-50 font-bold text-sm shadow-md transition-all">
+                        1단계: 음성 녹음
+                    </button>
+                    <button type="button" onclick="setProcessStep(2)" id="procBtn2" class="proc-step-btn px-5 py-2.5 rounded-full bg-warm-200 text-warm-800 hover:bg-warm-300 font-medium text-sm transition-all">
+                        2단계: AI 자막 및 요약
+                    </button>
+                    <button type="button" onclick="setProcessStep(3)" id="procBtn3" class="proc-step-btn px-5 py-2.5 rounded-full bg-warm-200 text-warm-800 hover:bg-warm-300 font-medium text-sm transition-all">
+                        3단계: 감성 레이아웃 완성
+                    </button>
+                </div>
+
+                <!-- Live Process Display Panel -->
+                <div class="max-w-4xl mx-auto bg-warm-50 rounded-2xl p-6 sm:p-8 border border-warm-300 shadow-lg grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div class="md:col-span-5 space-y-3">
+                        <div id="procBadge" class="text-xs font-bold text-warm-700 bg-warm-200 px-3 py-1 rounded-full inline-block">현재 진행 중</div>
+                        <h3 id="procTitle" class="text-xl font-serif-kr font-bold text-warm-950">말씀하시는 음성을 또박또박 수집합니다</h3>
+                        <p id="procDesc" class="text-warm-800 text-sm leading-relaxed">
+                            "내가 젊었을 때는 말이지, 가족을 위해 자갈밭도 마다하지 않고 달렸어..." 어르신의 목소리가 고성능 마이크를 통해 편안하게 기록됩니다.
+                        </p>
+                    </div>
+
+                    <div class="md:col-span-7 bg-warm-100 rounded-xl p-5 border border-warm-200 min-h-[200px] flex items-center justify-center">
+                        <div id="procVisual" class="w-full text-center space-y-3">
+                            <!-- SVG Waveforms / Text Output -->
+                            <svg viewBox="0 0 300 80" class="w-full h-20 mx-auto">
+                                <path d="M 10 40 Q 30 10 50 40 T 90 40 T 130 40 T 170 40 T 210 40 T 250 40 T 290 40" fill="none" stroke="#bd9159" stroke-width="3" class="animated-dash"/>
+                            </svg>
+                            <span class="text-xs text-warm-600 block font-mono">[음성 파형 수집 중... 100% 대면 진행]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: MAIN INTERACTIVE PREVIEW WIZARD (Interactive Feature 1) -->
+        <section id="interactive-preview" class="py-16 lg:py-24 bg-warm-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                    <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">참여형 맞춤 진단</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif-kr font-bold text-warm-950">
+                        우리 부모님에게 꼭 맞는 '인생 기록 주제' 찾기
+                    </h2>
+                    <p class="text-warm-800 text-base">
+                        아래 2가지 상황을 선택하시면, 부모님에게 추천하는 기록 테마와 결과물 예시를 미리 확인하실 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto bg-warm-100/90 rounded-3xl p-6 sm:p-10 border border-warm-300 shadow-xl">
+                    
+                    <!-- Selection Form Options -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        
+                        <!-- Option 1: Senior Interest Focus -->
+                        <div>
+                            <label for="seniorInterest" class="block text-sm font-bold text-warm-900 mb-2">1. 부모님이 가장 자주 하시는 말씀이나 관심사</label>
+                            <select id="seniorInterest" class="w-full p-3.5 rounded-xl bg-warm-50 border border-warm-300 text-warm-900 font-medium focus:ring-2 focus:ring-warm-600 focus:outline-none">
+                                <option value="youth">젊은 시절 고생했던 이야기와 보람</option>
+                                <option value="family">자녀들과 손주들에게 전하고 싶은 당부</option>
+                                <option value="hobby">평생 지켜온 나만의 취미와 삶의 철학</option>
+                            </select>
+                        </div>
+
+                        <!-- Option 2: Family Communication Goal -->
+                        <div>
+                            <label for="familyGoal" class="block text-sm font-bold text-warm-900 mb-2">2. 자녀분들이 기대하는 선물 결과물</label>
+                            <select id="familyGoal" class="w-full p-3.5 rounded-xl bg-warm-50 border border-warm-300 text-warm-900 font-medium focus:ring-2 focus:ring-warm-600 focus:outline-none">
+                                <option value="ebook">모바일로 늘 읽을 수 있는 '디지털 에세이'</option>
+                                <option value="photo">사진과 글이 담긴 '손에 잡히는 미니 책자'</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- Dynamic Interactive Result Display Card -->
+                    <div id="wizardResultCard" class="bg-warm-50 rounded-2xl p-6 sm:p-8 border border-warm-300 shadow-md transition-all duration-300">
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            
+                            <!-- Dynamic Visual Output -->
+                            <div class="w-full md:w-1/3 text-center">
+                                <div id="wizardResultVisual" class="w-32 h-44 mx-auto bg-warm-700 text-warm-50 rounded-xl p-4 shadow-lg flex flex-col justify-between transform rotate-1 transition-transform">
+                                    <span class="text-xs font-serif-kr block opacity-80">인생 기록집</span>
+                                    <div class="my-auto">
+                                        <div class="w-8 h-8 rounded-full bg-warm-300 text-warm-900 mx-auto flex items-center justify-center font-bold text-xs mb-1">
+                                            熱
+                                        </div>
+                                        <span id="wizardVisualTitle" class="text-sm font-serif-kr font-bold block">나의 청춘 회고록</span>
+                                    </div>
+                                    <span class="text-[10px] opacity-75">인생 기록 카페</span>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Text Output -->
+                            <div class="w-full md:w-2/3 space-y-3">
+                                <span class="text-xs font-bold text-warm-700 bg-warm-200 px-3 py-1 rounded-full">추천 맞춤 프로그램</span>
+                                <h3 id="wizardResultTitle" class="text-xl font-serif-kr font-bold text-warm-950">"나의 뜨거웠던 청춘과 가족의 역사"</h3>
+                                <p id="wizardResultDesc" class="text-warm-800 text-sm leading-relaxed">
+                                    힘든 시절을 이겨낸 어르신의 끈기와 지혜를 중심 테마로 다룹니다. 자녀들에게 가장 큰 자부심을 선사하는 모바일 디지털 에세이로 완성됩니다.
+                                </p>
+                                
+                                <div class="pt-2 flex flex-wrap gap-2 text-xs text-warm-700 font-medium">
+                                    <span class="bg-warm-200 px-2.5 py-1 rounded">예상 소요: 주 1회 (총 3회 모임)</span>
+                                    <span class="bg-warm-200 px-2.5 py-1 rounded">가공 형태: AI 가공 + 전문 교정</span>
+                                </div>
+
+                                <div class="pt-3">
+                                    <a href="#pilot-cta" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-warm-700 hover:bg-warm-800 text-warm-50 font-bold text-sm shadow-md transition-all">
+                                        <span>이 테마로 시범 참여 문의하기</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <p class="text-center text-xs text-warm-600 mt-4">* 입력하신 선택값은 저장되지 않으며, 현장에서 어르신과의 대화를 통해 유연하게 변경됩니다.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 6: INTERACTIVE MEMORY BUILDER / TAB SLIDER (Interactive Feature 2) -->
+        <section id="memory-builder" class="py-16 lg:py-24 bg-warm-100/60 border-t border-warm-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">인터랙티브 대화 질문 미리보기</span>
+                    <h2 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950 mt-3">
+                        어르신의 마음을 열어주는 '질문 카테고리'
+                    </h2>
+                    <p class="text-warm-800 text-sm mt-2">탭을 클릭하여 어떤 이야기가 기록물로 바뀌는지 직접 체험해 보세요.</p>
+                </div>
+
+                <!-- Tab Selector -->
+                <div class="flex justify-center gap-2 sm:gap-4 mb-8 overflow-x-auto pb-2">
+                    <button type="button" onclick="setMemoryTab('childhood')" id="tabBtnChildhood" class="memory-tab-btn px-5 py-3 rounded-2xl bg-warm-700 text-warm-50 font-bold text-sm shadow-md transition-all whitespace-nowrap">
+                        🌱 어린 시절 & 고향
+                    </button>
+                    <button type="button" onclick="setMemoryTab('wedding')" id="tabBtnWedding" class="memory-tab-btn px-5 py-3 rounded-2xl bg-warm-200 text-warm-800 hover:bg-warm-300 font-medium text-sm transition-all whitespace-nowrap">
+                        💍 결혼 & 자녀 양육
+                    </button>
+                    <button type="button" onclick="setMemoryTab('wisdom')" id="tabBtnWisdom" class="memory-tab-btn px-5 py-3 rounded-2xl bg-warm-200 text-warm-800 hover:bg-warm-300 font-medium text-sm transition-all whitespace-nowrap">
+                        💌 자녀에게 남기는 당부
+                    </button>
+                </div>
+
+                <!-- Interactive Tab Display Card -->
+                <div class="max-w-3xl mx-auto bg-warm-50 rounded-2xl p-6 sm:p-8 border border-warm-300 shadow-md">
+                    <div id="memoryTabContent" class="space-y-4">
+                        <!-- Loaded dynamically via JS -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-warm-200 text-warm-800 flex items-center justify-center font-bold shrink-0">Q</div>
+                            <div>
+                                <h4 class="font-serif-kr font-bold text-lg text-warm-950">"어릴 적 가장 즐거웠던 기억이나 고향의 모습은 어땠나요?"</h4>
+                                <p class="text-warm-800 text-sm mt-2 leading-relaxed">
+                                    어르신들의 따뜻한 옛 추억을 끌어내어 편안하게 대화를 시작하는 대표적인 질문입니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action inside Card -->
+                    <div class="mt-6 pt-4 border-t border-warm-200 flex justify-between items-center text-xs text-warm-600">
+                        <span>경청 강사가 자연스럽게 대화를 이끌어 드립니다.</span>
+                        <button type="button" onclick="copySampleQuestion()" class="px-3 py-1.5 rounded-lg bg-warm-200 hover:bg-warm-300 text-warm-900 font-semibold transition-colors">
+                            질문 문구 복사하기
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 7: PILOT & TEAM (PSST Grounded Transparency) -->
+        <section class="py-16 lg:py-24 bg-warm-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left: Team & Founder Story -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">운영자 소개</span>
+                        <h2 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950">
+                            15년의 경청 노하우와<br/>진정성으로 함께합니다
+                        </h2>
+                        <p class="text-warm-800 leading-relaxed text-base">
+                            사회복지상담을 전공하고 15년간 강사로 활동하며 수많은 중장년·시니어 어르신들의 이야기에 귀를 기울여 왔습니다.
+                            10년간의 지역 단체 활동 경험을 바탕으로, 어르신이 가장 편안하게 마음을 열 수 있는 온화한 환경을 만듭니다.
+                        </p>
+                        
+                        <div class="bg-warm-100 p-5 rounded-2xl border border-warm-200 space-y-2">
+                            <h4 class="font-bold text-warm-900 text-sm">운영자의 핵심 역량</h4>
+                            <ul class="text-xs sm:text-sm text-warm-800 space-y-1.5 list-disc list-inside">
+                                <li>사회복지상담 전공 및 15년 프리랜서 교육 진행</li>
+                                <li>경청 기반 커뮤니티 관리 및 지역 네트워크 소통 능력</li>
+                                <li>Gemini, 미리캔버스, 캡컷 등 디지털 도구 가공 기술</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right: Pilot Readiness State -->
+                    <div class="lg:col-span-6 bg-warm-100 rounded-3xl p-6 sm:p-8 border border-warm-300 shadow-lg space-y-5">
+                        <div class="flex items-center gap-2 text-warm-800 font-bold text-sm">
+                            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                            <span>현재 시범 참여 모임 준비 중입니다</span>
+                        </div>
+                        <h3 class="text-xl font-serif-kr font-bold text-warm-950">
+                            1~2주 내 소규모 테스트 모임 진행 예정
+                        </h3>
+                        <p class="text-warm-800 text-sm leading-relaxed">
+                            정식 서비스 출시 전, 소수의 시니어분들과 자녀분들을 모시고 소규모 1:1 대면 인터뷰 및 
+                            기록집 가공 시범 운영을 준비하고 있습니다. 사전 문의를 주시면 가장 먼저 안내해 드립니다.
+                        </p>
+
+                        <div class="pt-2">
+                            <div class="text-xs text-warm-600 space-y-1 mb-4">
+                                <div>• 모임 장소: 지역 지정 카페 또는 오프라인 협력 공간</div>
+                                <div>• 비용 안내: 시범 운영 단계로 최소의 제작 실비로 진행됩니다.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: FAQ ACCORDION -->
+        <section id="faq" class="py-16 lg:py-24 bg-warm-100/60 border-t border-warm-200">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center mb-12">
+                    <span class="text-warm-700 font-bold text-sm tracking-wider uppercase bg-warm-200 px-3 py-1 rounded-full">궁금한 점 해소</span>
+                    <h2 class="text-2xl sm:text-3xl font-serif-kr font-bold text-warm-950 mt-3">
+                        자주 하는 질문 (FAQ)
+                    </h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-warm-50 rounded-2xl border border-warm-300 overflow-hidden transition-all">
+                        <button type="button" onclick="toggleFaq(1)" class="w-full p-5 text-left font-serif-kr font-bold text-lg text-warm-950 flex justify-between items-center gap-4 hover:bg-warm-100/50">
+                            <span>Q. 부모님이 스마트폰이나 컴퓨터를 전혀 못 다루시는데 괜찮나요?</span>
+                            <span id="faqIcon1" class="text-xl font-sans text-warm-600 transition-transform">+</span>
+                        </button>
+                        <div id="faqAnswer1" class="hidden px-5 pb-5 text-warm-800 text-sm leading-relaxed border-t border-warm-200/60 pt-3">
+                            네, 전혀 걱정하지 않으셔도 됩니다! 어르신은 몸만 오셔서 차를 마시며 대화만 나누시면 됩니다. 모든 디지털 기록, 녹음, AI 정리, 편집 작업은 경청 강사와 시스템이 100% 전담하여 처리해 드립니다.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-warm-50 rounded-2xl border border-warm-300 overflow-hidden transition-all">
+                        <button type="button" onclick="toggleFaq(2)" class="w-full p-5 text-left font-serif-kr font-bold text-lg text-warm-950 flex justify-between items-center gap-4 hover:bg-warm-100/50">
+                            <span>Q. 모임은 어디서 어떻게 진행되나요?</span>
+                            <span id="faqIcon2" class="text-xl font-sans text-warm-600 transition-transform">+</span>
+                        </button>
+                        <div id="faqAnswer2" class="hidden px-5 pb-5 text-warm-800 text-sm leading-relaxed border-t border-warm-200/60 pt-3">
+                            지역 내 조용하고 접근성이 좋은 오프라인 협력 카페나 공간에서 소규모 1:1 또는 소그룹 형태로 진행됩니다. 어르신의 건강이나 이동 편의를 고려하여 일정을 맞추어 드립니다.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-warm-50 rounded-2xl border border-warm-300 overflow-hidden transition-all">
+                        <button type="button" onclick="toggleFaq(3)" class="w-full p-5 text-left font-serif-kr font-bold text-lg text-warm-950 flex justify-between items-center gap-4 hover:bg-warm-100/50">
+                            <span>Q. 완성된 미니 인생 기록집은 어떤 형태로 전달되나요?</span>
+                            <span id="faqIcon3" class="text-xl font-sans text-warm-600 transition-transform">+</span>
+                        </button>
+                        <div id="faqAnswer3" class="hidden px-5 pb-5 text-warm-800 text-sm leading-relaxed border-t border-warm-200/60 pt-3">
+                            자녀나 손주가 모바일 스마트폰에서 읽기 쉬운 형태의 '디지털 전자책(PDF/웹링크)'으로 기본 전달되며, 희망하실 경우 소장용 미니 인쇄 책자로 제작하여 선물 형태로 전달해 드립니다.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="bg-warm-50 rounded-2xl border border-warm-300 overflow-hidden transition-all">
+                        <button type="button" onclick="toggleFaq(4)" class="w-full p-5 text-left font-serif-kr font-bold text-lg text-warm-950 flex justify-between items-center gap-4 hover:bg-warm-100/50">
+                            <span>Q. 개인적인 이야기나 음성이 외부에 유출되진 않나요?</span>
+                            <span id="faqIcon4" class="text-xl font-sans text-warm-600 transition-transform">+</span>
+                        </button>
+                        <div id="faqAnswer4" class="hidden px-5 pb-5 text-warm-800 text-sm leading-relaxed border-t border-warm-200/60 pt-3">
+                            어르신과 나누는 모든 대화 내용 및 음성 데이터는 가족 간 소통 목적으로만 사용되며, 정리가 끝난 후 안전하게 관리 및 철저히 비공개 처리됩니다.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 9: FINAL CTA & LOCAL ACTION -->
+        <section id="pilot-cta" class="py-16 lg:py-24 bg-gradient-to-br from-warm-800 via-warm-900 to-warm-950 text-warm-50 relative overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-8">
+                
+                <span class="inline-block text-xs font-bold text-warm-900 bg-warm-200 px-4 py-1.5 rounded-full">
+                    시범 참여 및 사전 안내 신청
+                </span>
+
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif-kr font-bold leading-tight">
+                    세상에 오고 가며 남는 것은<br/>
+                    <span class="text-warm-300">사랑하는 가족과의 기억</span>입니다
+                </h2>
+
+                <p class="text-warm-200 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+                    부모님의 소중한 삶의 이야기를 더 늦기 전에 정갈한 기록으로 남겨보세요.
+                    아래 버튼을 눌러 안내 문구를 복사하시거나 페이지를 인쇄하여 가족들과 함께 이야기해 보세요.
+                </p>
+
+                <!-- Action Buttons Area -->
+                <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button type="button" onclick="copyInquiryText()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-warm-200 hover:bg-warm-300 text-warm-950 font-bold text-lg shadow-xl transition-all transform hover:-translate-y-1">
+                        📋 사전 문의 내용 복사하기
+                    </button>
+                    <button type="button" onclick="window.print()" class="w-full sm:w-auto px-7 py-4 rounded-full bg-warm-800 hover:bg-warm-700 text-warm-100 border border-warm-600 font-semibold text-base transition-colors">
+                        🖨️ 이 안내 페이지 인쇄하기
+                    </button>
+                </div>
+
+                <div id="copyToast" class="hidden text-xs text-emerald-300 font-semibold pt-2">
+                    ✓ 문의 안내 문구가 클립보드에 복사되었습니다! 카카오톡이나 문자메시지에 붙여넣어 사용하세요.
+                </div>
+
+                <p class="text-xs text-warm-400">
+                    * 입력하시는 정보는 외부 서버로 전송되지 않는 로컬 모의 체험 페이지입니다.
+                </p>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-warm-950 text-warm-400 py-12 border-t border-warm-800 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-warm-800 pb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-warm-700 text-warm-50 flex items-center justify-center font-serif-kr font-bold text-sm">
+                        情
+                    </div>
+                    <span class="font-serif-kr font-bold text-lg text-warm-200">인생 기록 카페 (가칭)</span>
+                </div>
+                <div class="text-xs text-warm-400 text-center md:text-right">
+                    <span>대표 기획자: 조미영 | 시니어 대면 스토리텔링 및 가족 연결 서비스</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+                <p>© 2026 인생 기록 카페. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#about" class="hover:text-warm-200">서비스 소개</a>
+                    <a href="#faq" class="hover:text-warm-200">FAQ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT: LOGIC & INTERACTION -->
+    <script>
+        // 1. SCROLL PROGRESS INDICATOR
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // 2. MOBILE MENU TOGGLE
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+            mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // 3. HERO CINEMATIC ANIMATION TOGGLE (ACCESSIBILITY)
+        let isHeroAnimated = true;
+        const heroSvg = document.getElementById('heroCinematicSvg');
+        const toggleBtn = document.getElementById('heroAnimationToggle');
+        const toggleIcon = document.getElementById('toggleIcon');
+        const toggleText = document.getElementById('toggleText');
+
+        toggleBtn.addEventListener('click', () => {
+            isHeroAnimated = !isHeroAnimated;
+            if (!isHeroAnimated) {
+                heroSvg.classList.add('aria-hidden');
+                toggleIcon.textContent = '▶';
+                toggleText.textContent = '움직임 재생';
+                // Stop animations by class
+                document.querySelectorAll('.animate-float, .animate-orbit, .animated-dash').forEach(el => {
+                    el.style.animationPlayState = 'paused';
+                });
+            } else {
+                heroSvg.classList.remove('aria-hidden');
+                toggleIcon.textContent = '⏸';
+                toggleText.textContent = '움직임 일시정지';
+                document.querySelectorAll('.animate-float, .animate-orbit, .animated-dash').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+            }
+        });
+
+        // 4. AUTO-PLAYING STORY SLIDESHOW LOGIC
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let slideInterval = null;
+        let isSlidePlaying = true;
+
+        function showSlide(index) {
+            currentSlide = index;
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = document.getElementById(`storySlide${i}`);
+                const progress = document.getElementById(`slideProgress${i}`);
+                if (i === index) {
+                    slide.classList.remove('hidden');
+                    progress.style.width = '100%';
+                } else {
+                    slide.classList.add('hidden');
+                    progress.style.width = '0%';
+                }
+            }
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(prev);
+        }
+
+        function startSlideTimer() {
+            if (slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 6000); // 6 seconds per scene
+            isSlidePlaying = true;
+            document.getElementById('slidePauseIcon').textContent = '⏸';
+            document.getElementById('slidePauseText').textContent = '정지';
+        }
+
+        function stopSlideTimer() {
+            if (slideInterval) clearInterval(slideInterval);
+            isSlidePlaying = false;
+            document.getElementById('slidePauseIcon').textContent = '▶';
+            document.getElementById('slidePauseText').textContent = '재생';
+        }
+
+        document.getElementById('slideNextBtn').addEventListener('click', () => {
+            nextSlide();
+            if (isSlidePlaying) startSlideTimer();
+        });
+
+        document.getElementById('slidePrevBtn').addEventListener('click', () => {
+            prevSlide();
+            if (isSlidePlaying) startSlideTimer();
+        });
+
+        document.getElementById('slidePauseBtn').addEventListener('click', () => {
+            if (isSlidePlaying) {
+                stopSlideTimer();
+            } else {
+                startSlideTimer();
+            }
+        });
+
+        // Start slideshow on load
+        showSlide(0);
+        startSlideTimer();
+
+        // 5. SECOND LIVE ANIMATED PROCESS DEMO
+        function setProcessStep(step) {
+            const badge = document.getElementById('procBadge');
+            const title = document.getElementById('procTitle');
+            const desc = document.getElementById('procDesc');
+            const visual = document.getElementById('procVisual');
+
+            document.querySelectorAll('.proc-step-btn').forEach(btn => {
+                btn.classList.remove('bg-warm-700', 'text-warm-50');
+                btn.classList.add('bg-warm-200', 'text-warm-800');
+            });
+
+            document.getElementById(`procBtn${step}`).classList.remove('bg-warm-200', 'text-warm-800');
+            document.getElementById(`procBtn${step}`).classList.add('bg-warm-700', 'text-warm-50');
+
+            if (step === 1) {
+                badge.textContent = "1단계 : 음성 수집";
+                title.textContent = "말씀하시는 음성을 또박또박 수집합니다";
+                desc.textContent = '"내가 젊었을 때는 말이지, 가족을 위해 자갈밭도 마다하지 않고 달렸어..." 어르신의 목소리가 고성능 마이크를 통해 편안하게 기록됩니다.';
+                visual.innerHTML = `
+                    <svg viewBox="0 0 300 80" class="w-full h-20 mx-auto">
+                        <path d="M 10 40 Q 30 10 50 40 T 90 40 T 130 40 T 170 40 T 210 40 T 250 40 T 290 40" fill="none" stroke="#bd9159" stroke-width="3" class="animated-dash"/>
+                    </svg>
+                    <span class="text-xs text-warm-600 block font-mono">[음성 파형 수집 중... 100% 대면 진행]</span>
+                `;
+            } else if (step === 2) {
+                badge.textContent = "2단계 : AI 요약 가공";
+                title.textContent = "AI가 대화의 핵심 메시지를 다듬습니다";
+                desc.textContent = '방대한 대화 중 자녀에게 전하고 싶은 깊은 울림의 가치와 경험을 골라내어 명확한 문장 단락으로 정돈합니다.';
+                visual.innerHTML = `
+                    <div class="bg-warm-50 p-4 rounded-lg border border-warm-300 text-left space-y-2">
+                        <div class="text-xs text-warm-600 font-bold">[Gemini AI 요약 결과]</div>
+                        <p class="text-xs text-warm-900 font-serif-kr">"어려운 시절에도 포기하지 않았던 근면함이 우리 가족을 지켜낸 가장 큰 힘이었습니다."</p>
+                    </div>
+                `;
+            } else if (step === 3) {
+                badge.textContent = "3단계 : 기록집 완성";
+                title.textContent = "가족에게 선물할 모바일 책자로 완성됩니다";
+                desc.textContent = '따뜻한 감성의 폰트와 레이아웃이 적용되어 자녀의 스마트폰에서 읽을 수 있는 한 권의 디지털 인생 기록집이 완성됩니다.';
+                visual.innerHTML = `
+                    <div class="inline-block bg-warm-700 text-warm-50 px-6 py-3 rounded-xl shadow-md text-sm font-serif-kr font-bold">
+                        📖 모바일 에세이 '나의 청춘 회고' 완성
+                    </div>
+                `;
+            }
+        }
+
+        // 6. INTERACTIVE PREVIEW WIZARD LOGIC (FEATURE 1)
+        const seniorInterest = document.getElementById('seniorInterest');
+        const familyGoal = document.getElementById('familyGoal');
+        const wizardVisualTitle = document.getElementById('wizardVisualTitle');
+        const wizardResultTitle = document.getElementById('wizardResultTitle');
+        const wizardResultDesc = document.getElementById('wizardResultDesc');
+
+        function updateWizardResult() {
+            const interest = seniorInterest.value;
+            const goal = familyGoal.value;
+
+            if (interest === 'youth') {
+                wizardVisualTitle.textContent = "나의 청춘 회고록";
+                wizardResultTitle.textContent = '"나의 뜨거웠던 청춘과 역사의 기억"';
+                wizardResultDesc.textContent = '힘든 시절을 이겨낸 어르신의 끈기와 지혜를 중심 테마로 다룹니다. 자녀들에게 큰 자부심을 선사합니다.';
+            } else if (interest === 'family') {
+                wizardVisualTitle.textContent = "사랑하는 자녀에게";
+                wizardResultTitle.textContent = '"너희들에게 전하고 싶은 내 삶의 지혜"';
+                wizardResultDesc.textContent = '자녀 양육 과정의 보람과 남기고 싶은 삶의 철학을 다룹니다. 서먹했던 가족 소통을 회복시킵니다.';
+            } else {
+                wizardVisualTitle.textContent = "나만의 삶과 철학";
+                wizardResultTitle.textContent = '"내가 사랑했던 나의 일과 취미 이야기"';
+                wizardResultDesc.textContent = '어르신이 평생 즐겨온 취미, 여가, 나만의 가치관을 다루어 삶의 존엄성을 높여 드립니다.';
+            }
+
+            if (goal === 'photo') {
+                wizardResultDesc.textContent += ' (추가 손에 잡히는 미니 인쇄 책자 패키지 추천)';
+            }
+        }
+
+        seniorInterest.addEventListener('change', updateWizardResult);
+        familyGoal.addEventListener('change', updateWizardResult);
+
+        // 7. MEMORY BUILDER TAB LOGIC (FEATURE 2)
+        function setMemoryTab(type) {
+            const content = document.getElementById('memoryTabContent');
+            
+            document.querySelectorAll('.memory-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-warm-700', 'text-warm-50');
+                btn.classList.add('bg-warm-200', 'text-warm-800');
+            });
+
+            if (type === 'childhood') {
+                document.getElementById('tabBtnChildhood').classList.remove('bg-warm-200', 'text-warm-800');
+                document.getElementById('tabBtnChildhood').classList.add('bg-warm-700', 'text-warm-50');
+                content.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-warm-200 text-warm-800 flex items-center justify-center font-bold shrink-0">Q</div>
+                        <div>
+                            <h4 class="font-serif-kr font-bold text-lg text-warm-950">"어릴 적 가장 즐거웠던 기억이나 고향의 모습은 어땠나요?"</h4>
+                            <p class="text-warm-800 text-sm mt-2 leading-relaxed">
+                                어르신들의 따뜻한 옛 추억을 끌어내어 편안하게 대화를 시작하는 대표적인 질문입니다.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'wedding') {
+                document.getElementById('tabBtnWedding').classList.remove('bg-warm-200', 'text-warm-800');
+                document.getElementById('tabBtnWedding').classList.add('bg-warm-700', 'text-warm-50');
+                content.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-warm-200 text-warm-800 flex items-center justify-center font-bold shrink-0">Q</div>
+                        <div>
+                            <h4 class="font-serif-kr font-bold text-lg text-warm-950">"자녀들을 키우면서 가장 보람찼거나 울컥했던 순간은 언제인가요?"</h4>
+                            <p class="text-warm-800 text-sm mt-2 leading-relaxed">
+                                부모로서의 헌신과 자녀에 대한 깊은 사랑을 담아내는 감동적인 질문입니다.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'wisdom') {
+                document.getElementById('tabBtnWisdom').classList.remove('bg-warm-200', 'text-warm-800');
+                document.getElementById('tabBtnWisdom').classList.add('bg-warm-700', 'text-warm-50');
+                content.innerHTML = `
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-warm-200 text-warm-800 flex items-center justify-center font-bold shrink-0">Q</div>
+                        <div>
+                            <h4 class="font-serif-kr font-bold text-lg text-warm-950">"앞으로 세상을 살아갈 자녀와 손주들에게 꼭 해주고 싶은 한 마디는?"</h4>
+                            <p class="text-warm-800 text-sm mt-2 leading-relaxed">
+                                가문 대대로 남길 수 있는 어르신만의 인생 지혜와 당부를 담아냅니다.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function copySampleQuestion() {
+            const text = "어릴 적 가장 즐거웠던 기억이나 고향의 모습은 어땠나요?";
+            navigator.clipboard.writeText(text).then(() => {
+                alert("질문 문구가 복사되었습니다.");
+            }).catch(() => {
+                document.execCommand('copy');
+            });
+        }
+
+        // 8. FAQ ACCORDION TOGGLE
+        function toggleFaq(index) {
+            const answer = document.getElementById(`faqAnswer${index}`);
+            const icon = document.getElementById(`faqIcon${index}`);
+            
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.textContent = '−';
+            } else {
+                answer.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // 9. COPY INQUIRY TEXT (LOCAL ACTION)
+        function copyInquiryText() {
+            const inquiryText = "[인생 기록 카페 시범 참여 문의]\n\n안녕하세요, 부모님의 인생 이야기 기록 및 미니 에세이 제작 서비스 시범 참여에 관심이 있어 문의드립니다.\n\n- 신청자 성함:\n- 연락처:\n- 부모님 연세:";
+            
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(inquiryText).then(() => {
+                    showToast();
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = inquiryText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showToast() {
+            const toast = document.getElementById('copyToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마음Connection | 돌봄 현장을 위한 업무 가이드라인 & 감정 소통 코칭</title>
+  <meta name="description" content="오너와 동료 간의 불통으로 지친 요양·복지 현장에 명확한 업무 가이드라인과 따뜻한 대화 코칭을 제공합니다.">
+  <style>
+    /* CSS 변수 (디자인 토큰) */
+    :root {
+      --primary: #2C6E63;
+      --primary-hover: #20534B;
+      --secondary: #E8A87C;
+      --secondary-light: #FDF3EC;
+      --accent: #E27D60;
+      --bg-main: #FAFAF7;
+      --bg-card: #FFFFFF;
+      --text-main: #2D3748;
+      --text-muted: #718096;
+      --text-light: #A0AEC0;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 32px rgba(44, 110, 99, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 3px;
+    }
+
+    /* Skip Nav */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--primary);
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 10000;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      background-color: rgba(250, 250, 247, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-badge {
+      font-size: 0.7rem;
+      background: var(--secondary-light);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-main);
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--primary); }
+
+    .btn-header {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .btn-header:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.1s linear;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 96px 0;
+      position: relative;
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px auto;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      background: rgba(44, 110, 99, 0.08);
+      padding: 4px 12px;
+      border-radius: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Image Wrapper with Fallback Styling */
+    .img-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background-color: #E2E8F0;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .img-box:hover img {
+      transform: scale(1.03);
+    }
+
+    .img-fallback-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      display: none;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      background: linear-gradient(180deg, #FAFAF7 0%, #F4F6F0 100%);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content { z-index: 2; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-title span.highlight {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #fff;
+      padding: 16px 32px;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      box-shadow: var(--shadow-md);
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      background-color: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 16px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: #F7FAFC;
+      border-color: var(--text-light);
+    }
+
+    /* Hero Cinematic Visual Wrap */
+    .hero-visual-wrap {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-visual-header {
+      height: 40px;
+      background: #F7FAFC;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+
+    .hero-visual-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .story-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ctrl-btn {
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      background: #EDF2F7;
+      border-radius: 4px;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .ctrl-btn:hover { background: #E2E8F0; }
+
+    .hero-stage {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      background: #FAFAF7;
+      overflow: hidden;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene-layer.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .scene-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.85);
+    }
+
+    .scene-overlay-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(-30px); }
+      50% { transform: translateX(30px); }
+      100% { transform: translateX(-30px); }
+    }
+
+    @keyframes pulseHeart {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes nodeGlow {
+      0%, 100% { opacity: 0.5; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    .anim-cloud { animation: floatCloud 8s ease-in-out infinite; }
+    .anim-pulse { transform-origin: center; animation: pulseHeart 2.5s ease-in-out infinite; }
+    .anim-glow { transform-origin: center; animation: nodeGlow 3s ease-in-out infinite; }
+
+    .scene-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .scene-caption-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .story-indicators {
+      display: flex;
+      gap: 6px;
+    }
+
+    .ind-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #CBD5E0;
+      transition: all 0.3s;
+    }
+
+    .ind-dot.active {
+      background: var(--primary);
+      width: 20px;
+      border-radius: 10px;
+    }
+
+    /* SECTION: EMPATHY & PROBLEM */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .problem-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .problem-img-wrap {
+      height: 180px;
+      position: relative;
+    }
+
+    .problem-card-body {
+      padding: 24px;
+      flex: 1;
+    }
+
+    .problem-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .problem-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* SECTION: SECOND AUTOMOTION (Live Simulation Scene) */
+    .sim-section {
+      background: #2C6E63;
+      color: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .sim-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .sim-text h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .sim-text p {
+      font-size: 1.05rem;
+      color: #E2E8F0;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .sim-stage-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: relative;
+    }
+
+    #simCanvas {
+      width: 100%;
+      height: 320px;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
+    /* SECTION: INTERACTIVE EXPERIENCE MODULE 1 (Diagnosis) */
+    .interactive-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .quiz-btn {
+      background: #F8FAFC;
+      border: 2px solid var(--border-color);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quiz-btn:hover {
+      border-color: var(--primary);
+      background: #F0F7F5;
+    }
+
+    .quiz-btn.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .quiz-btn .badge {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .result-display-box {
+      background: #F4F6F0;
+      border-radius: var(--radius-md);
+      padding: 32px;
+      border: 1px solid rgba(44, 110, 99, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.4s ease;
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .result-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .result-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .res-img-box {
+      height: 200px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* SECTION: INTERACTIVE MODULE 2 (Before & After Slider with Real Visuals) */
+    .ba-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 440px;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      user-select: none;
+    }
+
+    .ba-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ba-before {
+      background: #FFF5F5;
+      color: #FFFFFF;
+      z-index: 1;
+    }
+
+    .ba-after {
+      background: #F0FFF4;
+      color: #FFFFFF;
+      z-index: 2;
+      width: 50%;
+      overflow: hidden;
+      border-right: 4px solid var(--primary);
+    }
+
+    .ba-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ba-overlay-dark {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 1;
+    }
+
+    .ba-content-box {
+      position: relative;
+      z-index: 2;
+      min-width: 700px;
+      max-width: 700px;
+      padding: 40px;
+    }
+
+    .ba-content-box h4 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .ba-content-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    .ba-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: var(--primary);
+      z-index: 10;
+      cursor: ew-resize;
+    }
+
+    .ba-handle-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: #FFFFFF;
+      border: 2px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    /* SECTION: GALLERY & SCENARIO CARDS (Expanded Visuals) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .gallery-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .gallery-img-box {
+      height: 180px;
+    }
+
+    .gallery-card-body {
+      padding: 20px;
+    }
+
+    .gallery-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--primary);
+    }
+
+    .gallery-card-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* SECTION: TEAM & STORY */
+    .team-box {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      border: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .team-avatar-box {
+      height: 280px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .team-info h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .team-role {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .team-bio {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .tag-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag-item {
+      font-size: 0.8rem;
+      background: #EDF2F7;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* SECTION: FAQ Accordion */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+
+    .faq-item:hover { box-shadow: var(--shadow-sm); }
+
+    .faq-header {
+      width: 100%;
+      padding: 20px 24px;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #FAFAF7;
+    }
+
+    .faq-content {
+      padding: 0 24px 20px 24px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+
+    /* CTA SECTION & FOOTER */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 80px 24px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 80px;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 36px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer {
+      background: #1A202C;
+      color: #A0AEC0;
+      padding: 60px 0 40px 0;
+      font-size: 0.85rem;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-bottom: 1px solid #2D3748;
+      padding-bottom: 32px;
+      margin-bottom: 32px;
+    }
+
+    .footer-notice {
+      background: rgba(255,255,255,0.05);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 992px) {
+      .hero-grid, .sim-container, .team-box { grid-template-columns: 1fr; }
+      .team-avatar-box { height: 220px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .section { padding: 60px 0; }
+      .hero-visual-wrap { height: 380px; }
+      .result-body { grid-template-columns: 1fr; }
+      .ba-container { height: 360px; }
+      .ba-content-box { min-width: 100%; max-width: 100%; padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Accessible Skip Navigation -->
+  <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        마음Connection
+        <span class="logo-badge">시범 서비스 가설 검증중</span>
+      </a>
+      <nav aria-label="메인 메뉴">
+        <ul class="nav-menu">
+          <li><a href="#problem" class="nav-link">현장의 고충</a></li>
+          <li><a href="#simulation" class="nav-link">모션 시연</a></li>
+          <li><a href="#experience" class="nav-link">소통 진단</a></li>
+          <li><a href="#comparison" class="nav-link">변화 비교</a></li>
+          <li><a href="#scenarios" class="nav-link">적용 사례</a></li>
+          <li><a href="#team" class="nav-link">프로젝트 소개</a></li>
+          <li><a href="#faq" class="nav-link">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+      <button class="btn-header" onclick="copyContactNotice()">시범 모임 참여 문의</button>
+    </div>
+  </header>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Main Content -->
+  <main id="main-content">
+
+    <!-- HERO SECTION (Cinematic Motion + Photography) -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            요양·복지 현장 맞춤형 소통 솔루션
+          </div>
+          <h1 class="hero-title">
+            불통과 감정 오해를 넘어,<br>
+            <span class="highlight">스스로 알아서 일하는</span><br>
+            따뜻한 일터를 만듭니다
+          </h1>
+          <p class="hero-sub">
+            오너의 지시 전달 오류와 동료 간의 말 바꾸기로 지치셨나요?<br>
+            명확한 서면 가이드라인과 1:1 대화 코칭으로 편안한 직장을 만듭니다.
+          </p>
+          <div class="hero-actions">
+            <a href="#experience" class="btn-primary">
+              소통 유연성 직접 진단하기
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#comparison" class="btn-secondary">변화 전후 비교 보기</a>
+          </div>
+        </div>
+
+        <!-- Cinematic Motion Hero Wrap -->
+        <div class="hero-visual-wrap" aria-label="시네마틱 소통 흐름 자율 모션 시각화">
+          <div class="hero-visual-header">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="hero-visual-title">LIVE STORY: 현장 소통의 변화 과정</div>
+            <div class="story-controls">
+              <button class="ctrl-btn" id="storyPrevBtn" aria-label="이전 장면">이전</button>
+              <button class="ctrl-btn" id="storyPauseBtn" aria-label="일시정지/재생">정지</button>
+              <button class="ctrl-btn" id="storyNextBtn" aria-label="다음 장면">다음</button>
+            </div>
+          </div>
+
+          <div class="hero-stage">
+            <!-- Scene 1: Problem Scene with High-Quality Photo -->
+            <div class="scene-layer active" id="scene1">
+              <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80" alt="고민하는 복지 현장 근무자" class="scene-bg-img" onerror="this.style.display='none'">
+              <svg class="scene-overlay-svg" viewBox="0 0 400 300" fill="none">
+                <circle cx="200" cy="150" r="80" stroke="#FF5F56" stroke-width="2" stroke-dasharray="6 6" class="anim-glow"/>
+                <circle cx="140" cy="140" r="20" fill="rgba(229,62,62,0.8)"/>
+                <text x="140" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF">오너</text>
+                <circle cx="260" cy="140" r="20" fill="rgba(229,62,62,0.8)"/>
+                <text x="260" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#FFF">근무자</text>
+                <path d="M160 140 L240 140" stroke="#FF5F56" stroke-width="3" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+
+            <!-- Scene 2: Solution Scene with Real Interaction Photo -->
+            <div class="scene-layer" id="scene2">
+              <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=800&q=80" alt="차분히 대화 나누는 돌봄 종사자들" class="scene-bg-img" onerror="this.style.display='none'">
+              <svg class="scene-overlay-svg" viewBox="0 0 400 300" fill="none">
+                <rect x="70" y="50" width="260" height="170" rx="12" fill="rgba(255,255,255,0.85)" stroke="#319795" stroke-width="2"/>
+                <rect x="90" y="80" width="220" height="26" rx="6" fill="#E6FFFA" class="anim-glow"/>
+                <text x="105" y="97" font-size="11" fill="#234E52" font-weight="bold">✓ 업무 확인 체크리스트 서면 작성</text>
+                <rect x="90" y="115" width="220" height="26" rx="6" fill="#E6FFFA" class="anim-glow" style="animation-delay:0.5s;"/>
+                <text x="105" y="132" font-size="11" fill="#234E52" font-weight="bold">✓ 1:1 공감 대화 코칭 진행</text>
+                <circle cx="200" cy="180" r="16" fill="#319795" class="anim-pulse"/>
+                <path d="M194 180 L198 184 L206 175" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- Scene 3: Expectation Scene with Warm Caregiver Photo -->
+            <div class="scene-layer" id="scene3">
+              <img src="https://images.unsplash.com/photo-1576765608612-0709468682c4?auto=format&fit=crop&w=800&q=80" alt="어르신과 따뜻하게 웃는 요양보호사" class="scene-bg-img" onerror="this.style.display='none'">
+              <svg class="scene-overlay-svg" viewBox="0 0 400 300" fill="none">
+                <circle cx="200" cy="150" r="90" fill="rgba(240,255,244,0.4)" stroke="#38A169" stroke-width="3"/>
+                <circle cx="150" cy="120" r="22" fill="rgba(104,211,145,0.9)"/>
+                <text x="150" y="125" text-anchor="middle" font-size="11" fill="#1A4D2E" font-weight="bold">신뢰</text>
+                <circle cx="250" cy="120" r="22" fill="rgba(104,211,145,0.9)"/>
+                <text x="250" y="125" text-anchor="middle" font-size="11" fill="#1A4D2E" font-weight="bold">존중</text>
+              </svg>
+            </div>
+
+            <div class="scene-caption">
+              <span class="scene-caption-text" id="sceneCaptionText">SCENE 1: 지시 불명확과 기억 오차로 발생하는 마찰</span>
+              <div class="story-indicators">
+                <span class="ind-dot active" id="dot0"></span>
+                <span class="ind-dot" id="dot1"></span>
+                <span class="ind-dot" id="dot2"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: EMPATHY / PROBLEM (Photo Cards) -->
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Problem Statement</span>
+          <h2 class="section-title">요양·복지 현장에서 반복되는 소통의 답답함</h2>
+          <p class="section-desc">지속적인 돌봄을 제공해야 하는 현장에서 가장 큰 스트레스는 '대화의 막힘'입니다.</p>
+        </div>
+
+        <div class="problem-grid">
+          <div class="problem-card">
+            <div class="problem-img-wrap img-box">
+              <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="업무 지시 오해로 고뇌하는 현장" onerror="this.style.display='none'">
+            </div>
+            <div class="problem-card-body">
+              <h3>말 바꾸기 및 기억 불일치</h3>
+              <p>원장님의 지시 사항이 상황에 따라 변하거나 이전에 했던 말을 기억하지 못해 중간 근무자만 난감해집니다.</p>
+            </div>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-img-wrap img-box">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="감정적 마찰로 지친 대화" onerror="this.style.display='none'">
+            </div>
+            <div class="problem-card-body">
+              <h3>감정적인 마찰과 소모</h3>
+              <p>명확한 기준이 없다 보니 오해가 생겼을 때 대화가 상호 비난으로 번지고 마음의 상처만 쌓입니다.</p>
+            </div>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-img-wrap img-box">
+              <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80" alt="수동적 태도로 일하는 근무자" onerror="this.style.display='none'">
+            </div>
+            <div class="problem-card-body">
+              <h3>수동적인 업무 태도 고착</h3>
+              <p>"어차피 말이 달라질 텐데"라는 생각에 스스로 판단해 적극적으로 일하기보다 눈치만 보게 됩니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: SECOND AUTOMOTION (Live Simulation Scene) -->
+    <section class="section sim-section" id="simulation">
+      <div class="container sim-container">
+        <div class="sim-text">
+          <span class="section-tag" style="background:rgba(255,255,255,0.15); color:#FFF;">Simulated Visual</span>
+          <h2>대화의 물꼬가 터질 때<br>조직의 신뢰 파동이 시작됩니다</h2>
+          <p>HTML5 Canvas 기술로 실시간 연산되는 소통 신뢰 파동 그래프입니다. 가이드라인과 1:1 대화 코칭이 도입됨에 따라 소음(오해)은 감소하고 신뢰 네트워크가 점차 안정화됩니다.</p>
+          <div style="display:flex; gap:16px;">
+            <div style="background:rgba(255,255,255,0.1); padding:12px 20px; border-radius:12px;">
+              <div style="font-size:0.8rem; opacity:0.8;">오해 유발 지수</div>
+              <div style="font-size:1.4rem; font-weight:800; color:#FEB2B2;" id="simNoiseVal">High</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.1); padding:12px 20px; border-radius:12px;">
+              <div style="font-size:0.8rem; opacity:0.8;">조직 안정성</div>
+              <div style="font-size:1.4rem; font-weight:800; color:#68D391;" id="simStabVal">Improving</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-stage-box">
+          <canvas id="simCanvas"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: INTERACTIVE MODULE 1 (Diagnosis Tool + Dynamic Image) -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Interactive Tool 01</span>
+          <h2>우리 일터 소통 상태 간이 진단</h2>
+          <p class="section-desc">현재 겪고 계신 가장 큰 소통 어려움을 선택하시면, 최적화된 업무 가이드 가안을 즉시 확인하실 수 있습니다.</p>
+        </div>
+
+        <div class="interactive-card">
+          <div class="quiz-options">
+            <button class="quiz-btn selected" onclick="selectQuiz(0)">
+              <span>1. 오너의 지시 말 바꾸기</span>
+              <span class="badge">"전에 내가 언제 그랬어?"</span>
+            </button>
+            <button class="quiz-btn" onclick="selectQuiz(1)">
+              <span>2. 신입 동료의 업무 적응 지연</span>
+              <span class="badge">"어떻게 가르쳐야 할지..."</span>
+            </button>
+            <button class="quiz-btn" onclick="selectQuiz(2)">
+              <span>3. 대화 시 감정 격화 및 불통</span>
+              <span class="badge">"말만 하면 싸우게 돼요"</span>
+            </button>
+          </div>
+
+          <div class="result-display-box" id="resultDisplay">
+            <div class="result-header">
+              <span class="result-title" id="resTitle">맞춤 처방: 3단계 서면 업무 체크리스트 도입</span>
+              <span style="font-size:0.85rem; color:var(--text-muted);">실시간 로컬 솔루션 생성</span>
+            </div>
+            <div class="result-body">
+              <div>
+                <h4 style="font-size:1rem; font-weight:700; margin-bottom:8px;" id="resSub">권장 해결 접근법</h4>
+                <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.6;" id="resDesc">
+                  구두로 전달되는 업무 지시를 당일 구체적인 항목으로 체크리스트화하여 서면 또는 공유 보드로 확인합니다. 오너의 기억 유실에 대비한 정중한 기록 공유 체계를 구축합니다.
+                </p>
+                <div style="margin-top:16px; background:#FFFFFF; padding:16px; border-radius:12px; border:1px solid var(--border-color);">
+                  <div style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-bottom:8px;">미리보는 실행 체크리스트 샘플</div>
+                  <ul style="font-size:0.85rem; color:var(--text-main); display:flex; flex-direction:column; gap:6px; list-style:none;" id="resList">
+                    <li>[ ] 1. 주요 요구사항 서면 당일 확인</li>
+                    <li>[ ] 2. 변경 가능 사항 사전 명시</li>
+                    <li>[ ] 3. 퇴근 전 공유 보드 서명 체크</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="res-img-box img-box">
+                <img id="resImg" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80" alt="진단 결과 맞춤 현장 가이드" onerror="this.style.display='none'">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: INTERACTIVE MODULE 2 (Before & After Slider with Photos) -->
+    <section class="section" id="comparison" style="background:#F4F6F0;">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Interactive Tool 02</span>
+          <h2>슬라이더를 움직여 변화를 확인하세요</h2>
+          <p class="section-desc">소통 가이드라인 도입 전과 후, 일터의 분위기가 어떻게 바뀌는지 직접 드래그해보세요.</p>
+        </div>
+
+        <div class="ba-container" id="baContainer">
+          <!-- BEFORE LAYER WITH PHOTO -->
+          <div class="ba-layer ba-before">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1000&q=80" alt="도입 전 답답하고 지친 회의" class="ba-bg-img" onerror="this.style.display='none'">
+            <div class="ba-overlay-dark"></div>
+            <div class="ba-content-box">
+              <h4>BEFORE: 가이드라인 도입 전</h4>
+              <ul>
+                <li>❌ "말이 계속 달라져서 일을 두 번 하게 돼요"</li>
+                <li>❌ 오해로 인해 서로 눈치 보고 답답한 침묵 지속</li>
+                <li>❌ 신입 선생님이 일에 적응하지 못하고 조기 퇴사</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- AFTER LAYER WITH PHOTO -->
+          <div class="ba-layer ba-after" id="baAfter">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80" alt="도입 후 활짝 웃으며 협력하는 현장" class="ba-bg-img" onerror="this.style.display='none'">
+            <div class="ba-overlay-dark" style="background:rgba(35, 78, 82, 0.55);"></div>
+            <div class="ba-content-box">
+              <h4>AFTER: 마음Connection 코칭 도입 후</h4>
+              <ul>
+                <li>✅ "서면 체크리스트로 일 지시가 명확해졌어요"</li>
+                <li>✅ 따뜻한 공감 대화로 오해가 당일에 풀어짐</li>
+                <li>✅ 각자 할 일을 알아서 척척 해내는 편안한 일터</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- HANDLE -->
+          <div class="ba-handle" id="baHandle">
+            <div class="ba-handle-btn">◀ ▶</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: GALLERY / SCENARIOS (Rich Visuals) -->
+    <section class="section" id="scenarios">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Use Cases</span>
+          <h2>소통 코칭이 실제로 적용되는 현장 순간</h2>
+          <p class="section-desc">요양보호사, 간호조무사, 시설 원장님이 한 마음으로 일하는 장면입니다.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <div class="gallery-img-box img-box">
+              <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80" alt="신입 근무자 현장 적응" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-card-body">
+              <div class="gallery-card-title">신입 선생님 온보딩</div>
+              <div class="gallery-card-text">눈높이에 맞춘 차근차근 업무 지도와 칭찬으로 두려움을 자신감으로 바꿉니다.</div>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img-box img-box">
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="오너와 근무자의 차 한 잔 대화" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-card-body">
+              <div class="gallery-card-title">차 한 잔의 1:1 대화 코칭</div>
+              <div class="gallery-card-text">감정이 격해지기 전, 따뜻한 차와 함께 오해를 정돈하는 차분한 소통을 이끕니다.</div>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img-box img-box">
+              <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80" alt="서면 업무 체크리스트 공유" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-card-body">
+              <div class="gallery-card-title">명확한 업무 체크리스트</div>
+              <div class="gallery-card-text">말 바꾸기 없이 당일 할 일을 한눈에 파악하고 각자 솔선수범하게 돕습니다.</div>
+            </div>
+          </div>
+
+          <div class="gallery-card">
+            <div class="gallery-img-box img-box">
+              <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80" alt="어르신 케어에 집중하는 현장" onerror="this.style.display='none'">
+            </div>
+            <div class="gallery-card-body">
+              <div class="gallery-card-title">어르신 케어 몰입 환경</div>
+              <div class="gallery-card-text">사람 간 스트레스가 줄어들어 진정성 있는 돌봄 서비스에 마음을 쏟을 수 있습니다.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: TEAM & STORY -->
+    <section class="section" id="team">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">Founder & Story</span>
+          <h2>현장을 누구보다 잘 아는 준비된 파트너</h2>
+          <p class="section-desc">직접 돌봄 현장에서 동료들과 함께 발맞추며 깨달은 진정한 소통의 가치를 전합니다.</p>
+        </div>
+
+        <div class="team-box">
+          <div class="team-avatar-box img-box">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=80" alt="박미용 대표 프로필 사진" onerror="this.style.display='none'">
+          </div>
+          <div class="team-info">
+            <h3>박미용 대표</h3>
+            <div class="team-role">제주관광대학교 사회복지과 졸업 | 간호조무사 · 요양보호사 자격 보유</div>
+            <p class="team-bio">
+              심인요양원에서 요양보호사로 근무하며 신입 동료들의 현장 적응을 도왔습니다. 오너와의 소통 막힘으로 고통받는 동료들의 마음을 깊이 공감하고, 낮은 자세의 겸손과 따뜻한 대화로 현장 오해를 풀어내는 소통 코칭을 준비하고 있습니다.
+            </p>
+            <div class="tag-group">
+              <span class="tag-item">#공감소통</span>
+              <span class="tag-item">#신입온보딩지원</span>
+              <span class="tag-item">#배려와겸손</span>
+              <span class="tag-item">#자기성찰</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FAQ Accordion -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-tag">FAQ</span>
+          <h2>자주 묻는 질문</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+              Q. 서비스는 정식 판매 중인가요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-content">
+                현재 본 서비스는 현장 소통 가설을 검증하고 주변 동료들의 의견을 수집하는 **시범 운영 준비 단계**입니다. 정식 출시 전 소규모 모임을 통해 무료 피드백 코칭을 진행하고 있습니다.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+              Q. 오너(원장님)가 대화에 응하지 않으면 어떻게 하나요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-content">
+                원장님과의 직접 대립을 피하고, 근무자 스스로 지시 사항을 정중하게 서면 기록으로 전달·확인하는 '자발적 업무 확인 체계'부터 차근차근 적용하도록 안내해 드립니다.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-header" onclick="toggleFaq(this)">
+              Q. 개인정보나 현장 이야기가 외부로 유출될 염려는 없나요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-content">
+                모든 상담과 코칭 내용은 철저히 익명으로 처리되며, 본 웹사이트에서 입력하신 진단 데이터 또한 서버로 전송되지 않고 사용자의 브라우저 내에서만 즉시 처리됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <div class="container">
+      <section class="cta-section">
+        <h2>대화로 풀어가는 더 나은 일터,<br>지금 작게 시작해보세요</h2>
+        <p>혼자 답답해하지 마세요. 작고 명확한 서면 체크리스트와 따뜻한 공감 대화가 변화의 시작이 됩니다.</p>
+        <button class="btn-primary" style="background:#FFFFFF; color:var(--primary); margin:0 auto;" onclick="copyContactNotice()">
+          시범 코칭 모임 문의 내용 복사하기
+        </button>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-container">
+        <div>
+          <strong style="color:#FFF; font-size:1.1rem;">마음Connection</strong>
+          <p style="margin-top:8px;">돌봄 현장을 위한 업무 가이드라인 & 감정 소통 코칭 프로젝트</p>
+        </div>
+        <div class="footer-notice">
+          ※ 본 페이지는 사업 아이템 가설 검증 및 시범 참여 안내를 위한 사이트입니다.<br>
+          입력하신 정보는 서버에 저장되지 않으며 로컬 브라우저에서 안전하게 실행됩니다.
+        </div>
+      </div>
+      <div style="text-align:center; color:#718096; font-size:0.8rem;">
+        &copy; 2026 마음Connection. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Section -->
+  <script>
+    /* 1. Global Scroll Progress Bar */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    /* 2. Autonomous Hero Story Carousel (Cinema Motion) */
+    const scenes = [
+      { id: 'scene1', caption: 'SCENE 1: 지시 불명확과 기억 오차로 발생하는 마찰' },
+      { id: 'scene2', caption: 'SCENE 2: 업무 체크리스트 및 1:1 대화 코칭 도입' },
+      { id: 'scene3', caption: 'SCENE 3: 존중과 신뢰가 회복된 편안한 일터 완성' }
+    ];
+    let currentSceneIdx = 0;
+    let storyInterval = null;
+    let isPaused = false;
+
+    function updateStoryScene(index) {
+      scenes.forEach((sc, idx) => {
+        const el = document.getElementById(sc.id);
+        const dot = document.getElementById('dot' + idx);
+        if (idx === index) {
+          el.classList.add('active');
+          dot.classList.add('active');
+        } else {
+          el.classList.remove('active');
+          dot.classList.remove('active');
+        }
+      });
+      document.getElementById('sceneCaptionText').textContent = scenes[index].caption;
+      currentSceneIdx = index;
+    }
+
+    function startStoryTimer() {
+      if (storyInterval) clearInterval(storyInterval);
+      storyInterval = setInterval(() => {
+        if (!isPaused) {
+          let nextIdx = (currentSceneIdx + 1) % scenes.length;
+          updateStoryScene(nextIdx);
+        }
+      }, 5000);
+    }
+
+    document.getElementById('storyNextBtn').addEventListener('click', () => {
+      let nextIdx = (currentSceneIdx + 1) % scenes.length;
+      updateStoryScene(nextIdx);
+    });
+
+    document.getElementById('storyPrevBtn').addEventListener('click', () => {
+      let prevIdx = (currentSceneIdx - 1 + scenes.length) % scenes.length;
+      updateStoryScene(prevIdx);
+    });
+
+    document.getElementById('storyPauseBtn').addEventListener('click', (e) => {
+      isPaused = !isPaused;
+      e.target.textContent = isPaused ? '재생' : '정지';
+    });
+
+    startStoryTimer();
+
+    /* 3. Second Autonomous Canvas Motion (Simulation) */
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+    let step = 0;
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = 320;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function drawSimulation() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const width = canvas.width;
+      const height = canvas.height;
+      step += 0.03;
+
+      // Disruption Noise Wave
+      ctx.beginPath();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgba(254, 178, 178, 0.6)';
+      for (let x = 0; x < width; x += 10) {
+        let y = height / 2 + Math.sin(x * 0.02 + step) * 30 * Math.sin(step * 0.5);
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Stabilized Trust Wave
+      ctx.beginPath();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(104, 211, 145, 0.85)';
+      for (let x = 0; x < width; x += 10) {
+        let y = height / 2 + Math.cos(x * 0.015 + step) * 18;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Moving Nodes
+      for (let i = 0; i < 5; i++) {
+        let nx = (width / 6) * (i + 1) + Math.sin(step + i) * 12;
+        let ny = height / 2 + Math.cos(step * 0.8 + i) * 18;
+        ctx.beginPath();
+        ctx.arc(nx, ny, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#2C6E63';
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(drawSimulation);
+    }
+    drawSimulation();
+
+    /* 4. Interactive Module 1: Quiz / Diagnosis with Dynamic Photo Change */
+    const quizData = [
+      {
+        title: "맞춤 처방: 3단계 서면 업무 체크리스트 도입",
+        sub: "지시 오류 및 기억차이 보완",
+        desc: "구두로 전달되는 업무 지시를 당일 구체적인 항목으로 체크리스트화하여 서면으로 확인합니다. 원장님의 기억 유실에 대비한 정중한 서면 기록 체계를 구축합니다.",
+        items: ["[ ] 1. 주요 요구사항 당일 서면 작성", "[ ] 2. 변동 가능 조건 사전 메모", "[ ] 3. 퇴근 전 체크리스트 상호 확인"],
+        img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        title: "맞춤 처방: 신입 동료 1:1 온보딩 가이드",
+        sub: "업무 적응 및 자신감 향상",
+        desc: "신입 요양보호사가 현장에 빠르게 적응하도록 차근차근 눈높이에 맞춰 업무를 지하시고 따뜻한 칭찬 메시지를 전달하는 소통 방식입니다.",
+        items: ["[ ] 1. 일일 업무 우선순위 안내", "[ ] 2. 1:1 멘토링 질의응답 시간", "[ ] 3. 격려 및 적응 피드백 제공"],
+        img: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80"
+      },
+      {
+        title: "맞춤 처방: 공감 기반 감정 소통 대화 코칭",
+        sub: "감정 마찰 예방 및 오해 해소",
+        desc: "비난하지 않는 대화법을 통해 서로의 어려움을 먼저 경청하고, 각자의 할 일을 알아서 솔선수범하도록 마음을 여는 대화 코칭입니다.",
+        items: ["[ ] 1. 상대방 입장 먼저 들어주기", "[ ] 2. 감정적 언어 대신 사실 중심 대화", "[ ] 3. 차 한 잔 나누며 오해 해소하기"],
+        img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80"
+      }
+    ];
+
+    function selectQuiz(index) {
+      const btns = document.querySelectorAll('.quiz-btn');
+      btns.forEach((b, i) => {
+        if (i === index) b.classList.add('selected');
+        else b.classList.remove('selected');
+      });
+
+      const data = quizData[index];
+      document.getElementById('resTitle').textContent = data.title;
+      document.getElementById('resSub').textContent = data.sub;
+      document.getElementById('resDesc').textContent = data.desc;
+      document.getElementById('resImg').src = data.img;
+
+      const listEl = document.getElementById('resList');
+      listEl.innerHTML = '';
+      data.items.forEach(it => {
+        const li = document.createElement('li');
+        li.textContent = it;
+        listEl.appendChild(li);
+      });
+    }
+
+    /* 5. Interactive Module 2: Before & After Slider */
+    const baContainer = document.getElementById('baContainer');
+    const baAfter = document.getElementById('baAfter');
+    const baHandle = document.getElementById('baHandle');
+    let isDraggingBA = false;
+
+    function setSliderPos(x) {
+      const rect = baContainer.getBoundingClientRect();
+      let pos = x - rect.left;
+      if (pos < 0) pos = 0;
+      if (pos > rect.width) pos = rect.width;
+      const percentage = (pos / rect.width) * 100;
+      baAfter.style.width = percentage + '%';
+      baHandle.style.left = percentage + '%';
+    }
+
+    baHandle.addEventListener('mousedown', () => isDraggingBA = true);
+    window.addEventListener('mouseup', () => isDraggingBA = false);
+    window.addEventListener('mousemove', (e) => {
+      if (!isDraggingBA) return;
+      setSliderPos(e.clientX);
+    });
+
+    baHandle.addEventListener('touchstart', () => isDraggingBA = true);
+    window.addEventListener('touchend', () => isDraggingBA = false);
+    window.addEventListener('touchmove', (e) => {
+      if (!isDraggingBA) return;
+      setSliderPos(e.touches[0].clientX);
+    });
+
+    /* 6. FAQ Accordion Toggle */
+    function toggleFaq(buttonEl) {
+      const item = buttonEl.parentElement;
+      const body = item.querySelector('.faq-body');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-body').style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    }
+
+    /* 7. Action Function */
+    function copyContactNotice() {
+      const noticeText = "[마음Connection] 요양·복지 현장 소통 가이드라인 및 시범 코칭 모임 참여를 신청합니다.";
+      navigator.clipboard.writeText(noticeText).then(() => {
+        alert("시범 모임 참여 문의 문구가 클립보드에 복사되었습니다!\n원하시는 연락처나 안내 채널에 붙여넣어 전달해주시면 됩니다.");
+      }).catch(() => {
+        alert("문의 문구: " + noticeText);
+      });
+    }
+  </script>
+</body>
+</html>

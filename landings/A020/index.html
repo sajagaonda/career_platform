@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동반 케어 교실 | 자폐 아동과 부모의 마음을 잇는 1:1 맞춤 신체·정서 케어</title>
+  <meta name="description" content="자폐 아동의 스트레스 해소와 부모님의 깊은 이해를 돕는 주 1회 부모 동반 1:1 맞춤형 신체·놀이 케어 서비스 (시범 운영 준비 중)">
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & CSS VARIABLES
+       ========================================================================== */
+    :root {
+      --primary: #2B5B84;
+      --primary-hover: #1E4262;
+      --primary-light: #EBF3FA;
+      --accent: #E87A5D;
+      --accent-hover: #D66345;
+      --accent-light: #FDF0ED;
+      --secondary: #6B9AC4;
+      --bg-main: #FAF9F6;
+      --bg-card: #FFFFFF;
+      --bg-alt: #F2F5F8;
+      --text-main: #2C3E50;
+      --text-muted: #627D98;
+      --text-light: #829AB1;
+      --border: #E2E8F0;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --shadow-sm: 0 2px 8px rgba(43, 91, 132, 0.06);
+      --shadow-md: 0 8px 24px rgba(43, 91, 132, 0.08);
+      --shadow-lg: 0 16px 36px rgba(43, 91, 132, 0.12);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --max-width: 1200px;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      word-break: keep-all;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .section-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1rem;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      transition: var(--transition);
+      text-align: center;
+      min-height: 48px;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(232, 122, 93, 0.35);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232, 122, 93, 0.45);
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: #DDEBF7;
+      color: var(--primary-hover);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    /* Accessibility Focus */
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: var(--transition);
+      padding: 1rem 0;
+      background-color: rgba(250, 249, 246, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-tag {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      z-index: 1001;
+      transition: width 0.1s ease;
+    }
+
+    /* ==========================================================================
+       HERO SECTION (Cinematic Motion & Dynamic Scene)
+       ========================================================================== */
+    .hero {
+      padding-top: 8rem;
+      padding-bottom: 4rem;
+      position: relative;
+      background: linear-gradient(180deg, var(--bg-main) 0%, var(--bg-alt) 100%);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 560px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+      display: inline-block;
+    }
+
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Cinematic Motion Frame */
+    .hero-visual-frame {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background-color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* Autonomous Layered Animation Canvas/SVG Wrapper */
+    .hero-motion-canvas {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .motion-controls-overlay {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
+
+    .motion-ctrl-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+
+    .motion-ctrl-btn:hover {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    /* Slide Indicators */
+    .slide-indicators {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: var(--transition);
+    }
+
+    .slide-dot.active {
+      width: 20px;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+    }
+
+    /* ==========================================================================
+       EMPATHY / PROBLEM SECTION
+       ========================================================================== */
+    .problem-section {
+      padding: 5rem 0;
+      background-color: var(--bg-main);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .problem-card-box {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+    }
+
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .problem-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .problem-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #FEE2E2;
+      color: #EF4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: bold;
+    }
+
+    .problem-text h4 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .problem-text p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       AUTOMATED SERVICE DEMO (Cinematic Motion 2)
+       ========================================================================== */
+    .demo-section {
+      padding: 5rem 0;
+      background-color: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .demo-wrapper {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .demo-steps-indicator {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .demo-step-item {
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border);
+      background: var(--bg-main);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .demo-step-item.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateX(8px);
+    }
+
+    .demo-step-item h4 {
+      color: var(--primary);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .demo-step-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .demo-canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      background: #F8FAFC;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* ==========================================================================
+       INTERACTIVE EXPERIENCE 1: Interactive Diagnostic & Custom Preview
+       ========================================================================== */
+    .interactive-section {
+      padding: 5rem 0;
+      background-color: var(--bg-main);
+    }
+
+    .interactive-card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .interactive-header {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .interactive-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      padding: 2.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .input-label {
+      display: block;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+    }
+
+    .option-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pill-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--border);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .pill-btn:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .pill-btn.selected {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(232, 122, 93, 0.3);
+    }
+
+    .preview-result-box {
+      background: linear-gradient(135deg, var(--bg-alt) 0%, #EBF3FA 100%);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      border: 1px dashed var(--secondary);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .result-badge-tag {
+      align-self: flex-start;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-title {
+      font-size: 1.25rem;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .result-curriculum-list {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .result-curriculum-item {
+      font-size: 0.875rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-curriculum-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE EXPERIENCE 2: Before / After Interaction (Material/Environment)
+       ========================================================================== */
+    .slider-section {
+      padding: 5rem 0;
+      background-color: var(--bg-alt);
+    }
+
+    .interactive-slider-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 420px;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--border);
+    }
+
+    .slider-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-layer.before {
+      background-color: #E2E8F0;
+      color: var(--text-main);
+    }
+
+    .slider-layer.after {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      width: 50%;
+      overflow: hidden;
+      border-right: 3px solid var(--accent);
+      z-index: 2;
+    }
+
+    .slider-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background-color: var(--accent);
+      z-index: 10;
+      cursor: ew-resize;
+      transform: translateX(-50%);
+    }
+
+    .handle-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background-color: #FFFFFF;
+      border: 3px solid var(--accent);
+      border-radius: 50%;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       TEAM & FOUNDER (Authentic Story)
+       ========================================================================== */
+    .team-section {
+      padding: 5rem 0;
+      background-color: var(--bg-main);
+    }
+
+    .team-box {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .founder-avatar-box {
+      width: 100%;
+      height: 280px;
+      background-color: var(--primary-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .founder-info h3 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .founder-title {
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .founder-quote {
+      font-size: 1.05rem;
+      color: var(--text-main);
+      line-height: 1.7;
+      font-style: italic;
+      background-color: var(--bg-main);
+      padding: 1.25rem;
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 1.25rem;
+    }
+
+    .founder-history {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .history-tag {
+      font-size: 0.85rem;
+      padding: 0.35rem 0.75rem;
+      background-color: var(--bg-alt);
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    /* ==========================================================================
+       FAQ ACCORDION
+       ========================================================================== */
+    .faq-section {
+      padding: 5rem 0;
+      background-color: var(--bg-alt);
+    }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: none;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-toggle-icon {
+      transition: var(--transition);
+    }
+
+    /* ==========================================================================
+       FINAL CTA & FOOTER
+       ========================================================================== */
+    .cta-section {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary) 0%, #1E4262 100%);
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+
+    .cta-desc {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .notice-text {
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin-top: 1rem;
+    }
+
+    .footer {
+      padding: 2.5rem 0;
+      background-color: #1A2634;
+      color: #9FB3C8;
+      font-size: 0.875rem;
+      border-top: 1px solid #2C3E50;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* ==========================================================================
+       MEDIA QUERIES (Responsive Design)
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .hero-grid, .problem-grid, .demo-wrapper, .interactive-body, .team-box {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .team-box {
+        text-align: center;
+      }
+
+      .founder-avatar-box {
+        width: 180px;
+        height: 200px;
+        margin: 0 auto;
+      }
+
+      .founder-quote {
+        text-align: left;
+      }
+
+      .founder-history {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-list {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .hero-visual-frame {
+        height: 380px;
+      }
+
+      .interactive-body {
+        padding: 1.5rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* Reduced Motion Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      .header, .hero-btns, .motion-controls-overlay, .interactive-section, .cta-section {
+        display: none !important;
+      }
+      body {
+        background: #FFFFFF;
+        color: #000000;
+      }
+      .container {
+        max-width: 100%;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="동반 케어 교실 홈">
+        <span>동반 케어 교실</span>
+        <span class="logo-tag">시범 준비 중</span>
+      </a>
+      <nav aria-label="메인 메뉴">
+        <ul class="nav-list">
+          <li><a href="#empathy" class="nav-link">특수아동과 부모</a></li>
+          <li><a href="#demo" class="nav-link">교실 둘러보기</a></li>
+          <li><a href="#interactive" class="nav-link">맞춤 미리보기</a></li>
+          <li><a href="#founder" class="nav-link">코치 소개</a></li>
+          <li><a href="#faq" class="nav-link">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION: Autonomous Cinematic Motion -->
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge">주 1회 부모 동반 1:1 신체·정서 케어</span>
+          <h1 class="hero-title">
+            자폐 아이의 마음을 고요히 열고, <span>부모님의 깊은 이해</span>를 돕습니다
+          </h1>
+          <p class="hero-desc">
+            억압하지 않고 아이가 스스로 진정될 때까지 인내하며 기다립니다. 
+            부드러운 유도·배드민턴 신체 놀이로 스트레스를 해소하고 아이의 진짜 마음을 경험해보세요.
+          </p>
+          <div class="hero-btns">
+            <a href="#interactive" class="btn btn-primary">우리 아이 맞춤 프로그램 미리보기</a>
+            <button class="btn btn-outline" onclick="copyConsultText()">안내 내용 복사하기</button>
+          </div>
+        </div>
+
+        <!-- Dynamic Visual Frame: Autonomous Layered Animated SVG Scene -->
+        <div class="hero-visual-frame" aria-label="자폐 아동과 부모, 코치가 함께 교감하는 신체 놀이 장면 모션">
+          <div class="hero-motion-canvas" id="heroCanvas">
+            <!-- Scene SVG (Built-in Vector Art) -->
+            <svg width="100%" height="100%" viewBox="0 0 500 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#EBF3FA"/>
+                  <stop offset="100%" stop-color="#FAF9F6"/>
+                </linearGradient>
+                <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              <!-- Background Layer -->
+              <rect width="500" height="480" fill="url(#skyGrad)"/>
+              
+              <!-- Floating Soft Clouds (Layer 1 Animation) -->
+              <g id="cloudGroup" filter="url(#softGlow)" opacity="0.6">
+                <path class="animated-cloud" d="M50,80 Q70,60 90,80 Q110,60 130,80 Q140,100 120,110 L60,110 Z" fill="#FFFFFF"/>
+                <path class="animated-cloud-slow" d="M320,120 Q340,100 360,120 Q380,100 400,120 Q410,140 390,150 L330,150 Z" fill="#FFFFFF"/>
+              </g>
+
+              <!-- Safe Play Mat / Environment (Middle Layer) -->
+              <ellipse cx="250" cy="380" rx="210" ry="60" fill="#E2E8F0" opacity="0.7"/>
+              <ellipse cx="250" cy="380" rx="180" ry="50" fill="#EBF3FA"/>
+
+              <!-- Soft Play Materials (Interactive Elements) -->
+              <g id="softItems">
+                <!-- Soft Foam Cushion Ball (Autonomous Floating Bounce) -->
+                <circle id="bouncingBall" cx="180" cy="320" r="22" fill="#E87A5D" opacity="0.9"/>
+                <!-- Soft Feather Feather Shuttlecock -->
+                <path id="shuttlecock" d="M310,290 L325,260 L335,290 Z" fill="#6B9AC4"/>
+                <circle cx="322" cy="292" r="8" fill="#2B5B84"/>
+              </g>
+
+              <!-- Character Visual Layer (Representation of Child, Parent, Coach) -->
+              <!-- Coach / Guide Figure (Hwang Eun-myung Coach Persona) -->
+              <g id="coachFigure" transform="translate(100, 220)">
+                <!-- Body -->
+                <path d="M40,90 Q40,40 60,30 Q80,40 80,90 Z" fill="#2B5B84"/>
+                <!-- Head -->
+                <circle cx="60" cy="20" r="16" fill="#FCD34D"/>
+                <!-- Arm / Gentle Gesture -->
+                <path id="coachArm" d="M75,50 Q100,45 110,60" stroke="#2B5B84" stroke-width="8" stroke-linecap="round" fill="none"/>
+              </g>
+
+              <!-- Child Figure (Autistic Child in Calming Motion) -->
+              <g id="childFigure" transform="translate(220, 250)">
+                <!-- Body -->
+                <path d="M30,70 Q30,35 45,28 Q60,35 60,70 Z" fill="#E87A5D"/>
+                <!-- Head -->
+                <circle cx="45" cy="18" r="13" fill="#FCD34D"/>
+                <!-- Arms holding soft toy -->
+                <path id="childArm" d="M35,45 Q20,50 30,60" stroke="#E87A5D" stroke-width="6" stroke-linecap="round" fill="none"/>
+              </g>
+
+              <!-- Parent Figure (Participating Together) -->
+              <g id="parentFigure" transform="translate(300, 210)">
+                <!-- Body -->
+                <path d="M40,100 Q40,45 60,35 Q80,45 80,100 Z" fill="#6B9AC4"/>
+                <!-- Head -->
+                <circle cx="60" cy="22" r="16" fill="#FCD34D"/>
+                <!-- Gentle Hand toward Child -->
+                <path d="M45,55 Q25,60 15,65" stroke="#6B9AC4" stroke-width="7" stroke-linecap="round" fill="none"/>
+              </g>
+
+              <!-- Heart / Empathy Connection Particles -->
+              <g id="connectionParticles">
+                <circle class="particle p1" cx="230" cy="220" r="4" fill="#E87A5D" opacity="0.8"/>
+                <circle class="particle p2" cx="260" cy="200" r="6" fill="#6B9AC4" opacity="0.6"/>
+                <circle class="particle p3" cx="280" cy="230" r="3" fill="#2B5B84" opacity="0.7"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Motion Play / Pause Control Panel -->
+          <div class="motion-controls-overlay">
+            <button class="motion-ctrl-btn" id="motionToggleBtn" aria-label="모션 일시정지">⏸</button>
+            <div class="slide-indicators" id="heroSlideDots">
+              <span class="slide-dot active"></span>
+              <span class="slide-dot"></span>
+              <span class="slide-dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPATHY & PROBLEM SECTION -->
+    <section class="problem-section" id="empathy">
+      <div class="container">
+        <h2 class="section-title">아이도, 부모님도 지치지 않도록</h2>
+        <p class="section-subtitle">
+          말과 표현이 서툰 자폐 아이들의 돌발 행동 뒤에는 가감 없는 스트레스가 숨어있습니다.
+        </p>
+
+        <div class="problem-grid">
+          <div class="problem-card-box">
+            <span class="badge" style="background:#FEE2E2; color:#EF4444;">아이의 시선</span>
+            <h3 style="font-size:1.4rem; color:var(--primary); margin-bottom:1rem;">"스트레스를 해소할 안전한 창구가 없어요"</h3>
+            <div class="problem-list">
+              <div class="problem-item">
+                <div class="problem-icon">!</div>
+                <div class="problem-text">
+                  <h4>답답함과 소음의 누적</h4>
+                  <p>감정을 신체나 언어로 조절하기 어려워 마음속 답답함이 쌓일 때 돌발 행동이 발생합니다.</p>
+                </div>
+              </div>
+              <div class="problem-item">
+                <div class="problem-icon">!</div>
+                <div class="problem-text">
+                  <h4>그냥 방치되거나 조용히 참아야 하는 현실</h4>
+                  <p>주변에 피해를 줄까 봐 아이의 에너지 발산을 차단하고 무조건 억누르기를 강요받습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="problem-card-box">
+            <span class="badge" style="background:#FEF3C7; color:#D97706;">부모님의 시선</span>
+            <h3 style="font-size:1.4rem; color:var(--primary); margin-bottom:1rem;">"집과 학교에서의 아이 행동 차이가 답답해요"</h3>
+            <div class="problem-list">
+              <div class="problem-item">
+                <div class="problem-icon">?</div>
+                <div class="problem-text">
+                  <h4>아이의 진짜 상태를 관찰할 기회 부재</h4>
+                  <p>학교나 전문 기관에 맡겨둘 뿐, 아이가 어느 순간에 편안해하는지 직접 확인할 기회가 적습니다.</p>
+                </div>
+              </div>
+              <div class="problem-item">
+                <div class="problem-icon">?</div>
+                <div class="problem-text">
+                  <h4>자녀 행동에 대한 오해와 지침</h4>
+                  <p>아이의 행동 원인을 올바르게 이해하지 못해 자책하거나 부모-자녀 간 유대감이 약해집니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTOMATED SERVICE DEMO (Cinematic Motion 2) -->
+    <section class="demo-section" id="demo">
+      <div class="container">
+        <h2 class="section-title">동반 케어 교실의 3단계 맞춤 진행</h2>
+        <p class="section-subtitle">
+          주 1회, 2~5세 발달 수준에 맞춘 부드러운 교구와 1:1 신체 교감으로 변화가 시작됩니다.
+        </p>
+
+        <div class="demo-wrapper">
+          <div class="demo-steps-indicator" id="demoStepIndicators">
+            <div class="demo-step-item active" data-step="0">
+              <h4><span>01. 맞춤 감각 적응 & 그림 놀이</span> <small style="font-size:0.8rem; color:var(--accent);">자동 진행 중</small></h4>
+              <p>억압 없이 부드러운 소재의 그림 놀이와 감각 교구로 마음의 경계를 허뭅니다.</p>
+            </div>
+            <div class="demo-step-item" data-step="1">
+              <h4><span>02. 1:1 부모 동반 신체 발산</span></h4>
+              <p>안전 매트 위에서 유도·배드민턴 응용 신체 활동으로 누적된 에너지를 발산합니다.</p>
+            </div>
+            <div class="demo-step-item" data-step="2">
+              <h4><span>03. 호흡 정돈 & 부모 자녀 관찰</span></h4>
+              <p>아이가 안정되는 과정을 부모님이 함께 보며 자녀의 진짜 행동 양식을 이해합니다.</p>
+            </div>
+          </div>
+
+          <!-- Dynamic SVG Canvas for Step Demo -->
+          <div class="demo-canvas-wrapper" id="demoCanvasWrapper">
+            <svg id="demoSvg" width="100%" height="100%" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="380" fill="#F8FAFC"/>
+              <!-- Step 1 Art: Drawing / Texture -->
+              <g id="demoScene0" class="demo-scene" opacity="1">
+                <rect x="50" y="60" width="300" height="240" rx="16" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+                <circle cx="150" cy="180" r="40" fill="#FDE68A" opacity="0.8"/>
+                <path d="M120,200 Q180,120 250,190" stroke="#E87A5D" stroke-width="8" stroke-linecap="round" fill="none"/>
+                <text x="200" y="330" text-anchor="middle" fill="#2B5B84" font-weight="bold" font-size="14">부드러운 교구와 표현 놀이</text>
+              </g>
+              <!-- Step 2 Art: Soft Body Exercise -->
+              <g id="demoScene1" class="demo-scene" opacity="0">
+                <rect x="40" y="240" width="320" height="60" rx="30" fill="#DBEAFE"/>
+                <circle cx="140" cy="200" r="25" fill="#2B5B84"/>
+                <circle cx="260" cy="200" r="20" fill="#E87A5D"/>
+                <path d="M140,200 L260,200" stroke="#6B9AC4" stroke-width="4" stroke-dasharray="6,6"/>
+                <text x="200" y="330" text-anchor="middle" fill="#2B5B84" font-weight="bold" font-size="14">1:1 부모 동반 맞춤 신체 활동</text>
+              </g>
+              <!-- Step 3 Art: Peaceful Calm & Parent Bonding -->
+              <g id="demoScene2" class="demo-scene" opacity="0">
+                <circle cx="200" cy="170" r="90" fill="#EBF3FA"/>
+                <path d="M170,170 Q200,140 230,170" stroke="#E87A5D" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <text x="200" y="330" text-anchor="middle" fill="#2B5B84" font-weight="bold" font-size="14">안정 도달 및 자녀 깊이 이해</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE EXPERIENCE 1: Diagnostic & Custom Preview -->
+    <section class="interactive-section" id="interactive">
+      <div class="container">
+        <h2 class="section-title">우리 아이 맞춤 프로그램 설계 체험</h2>
+        <p class="section-subtitle">
+          아동의 상태와 부모님의 고민을 선택하시면, 추천 신체 활동과 교감 구성을 즉시 확인하실 수 있습니다.
+        </p>
+
+        <div class="interactive-card">
+          <div class="interactive-header">
+            <h3 style="font-size:1.5rem;">맞춤 구성 시뮬레이터</h3>
+            <p style="font-size:0.95rem; opacity:0.9;">* 입력하신 정보는 저장되거나 외부로 전송되지 않습니다.</p>
+          </div>
+
+          <div class="interactive-body">
+            <div class="interactive-inputs">
+              <!-- Question 1 -->
+              <div class="input-group">
+                <label class="input-label">1. 아동의 주된 스트레스 표현 방식</label>
+                <div class="option-pills" id="optGroup1">
+                  <button class="pill-btn selected" data-value="sobbing">몸을 흔들거나 조용히 위축됨</button>
+                  <button class="pill-btn" data-value="active">소리를 지르거나 에너지가 분출됨</button>
+                  <button class="pill-btn" data-value="refuse">등교 및 외부 활동 강력 거부</button>
+                </div>
+              </div>
+
+              <!-- Question 2 -->
+              <div class="input-group">
+                <label class="input-label">2. 부모님이 가장 바라는 변화</label>
+                <div class="option-pills" id="optGroup2">
+                  <button class="pill-btn selected" data-value="understand">집/학교에서의 행동 이유 원인 파악</button>
+                  <button class="pill-btn" data-value="calm">아이가 스스로 진정할 수 있는 대처법</button>
+                  <button class="pill-btn" data-value="bond">부모와 자녀 간의 즐거운 신체 교감</button>
+                </div>
+              </div>
+
+              <!-- Question 3 -->
+              <div class="input-group">
+                <label class="input-label">3. 아동의 신체 활동 선호도</label>
+                <div class="option-pills" id="optGroup3">
+                  <button class="pill-btn selected" data-value="soft">부드러운 매트/그림 감각 놀이</button>
+                  <button class="pill-btn" data-value="racket">셔틀콕/공을 활용한 가벼운 도구 놀이</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Preview Result Box -->
+            <div class="preview-result-box" id="previewResultBox">
+              <div>
+                <span class="result-badge-tag">추천 맞춤 구성</span>
+                <h4 class="result-title" id="resTitle">부드러운 감각 매트 & 호흡 정돈 프로그램</h4>
+                <p class="result-desc" id="resDesc">
+                  위축되기 쉬운 아동을 위해 자극이 적은 폭신한 소재의 매트 위에서 그림 놀이와 느린 신체 스트레칭을 진행합니다. 부모님은 아이의 정서 변화를 곁에서 함께 관찰합니다.
+                </p>
+
+                <div class="result-curriculum-list" id="resCurriculum">
+                  <div class="result-curriculum-item">✓ 주 1회 50분 (부모-자녀 동반 참여)</div>
+                  <div class="result-curriculum-item">✓ 안전이 검증된 부드러운 폼 교구 사용</div>
+                  <div class="result-curriculum-item">✓ 아이 진정을 위한 인내 중심 맞춤 케어</div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" style="width:100%;" onclick="copyConsultText()">
+                이 구성으로 시범 참여 신청 문의하기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE EXPERIENCE 2: Interactive Before / After Slider -->
+    <section class="slider-section">
+      <div class="container">
+        <h2 class="section-title">자극 없이 안전한 전용 교구 환경</h2>
+        <p class="section-subtitle">
+          일반 체육 도구와 달리, 2~5세 발달 수준에 맞춘 부드러운 소재만을 사용하여 돌발 상황에서도 안전합니다.
+        </p>
+
+        <!-- Before / After Interactive Slider -->
+        <div class="interactive-slider-container" id="sliderContainer">
+          <!-- Before Layer (Hard / General Environment) -->
+          <div class="slider-layer before">
+            <div style="text-align:center; padding:2rem;">
+              <span style="background:#EF4444; color:#FFF; padding:0.3rem 0.8rem; border-radius:4px; font-weight:bold;">기존 일반 환경</span>
+              <h3 style="margin-top:1rem; color:var(--primary);">딱딱한 일반 체육 도구 및 자극적인 소음</h3>
+              <p style="margin-top:0.5rem; color:var(--text-muted);">부상의 위험과 강한 시청각 자극으로 아동이 쉽게 위축되거나 스트레스를 받습니다.</p>
+            </div>
+          </div>
+
+          <!-- After Layer (Soft Safe Environment) -->
+          <div class="slider-layer after" id="afterLayer">
+            <div style="width:800px; text-align:center; padding:2rem; position:absolute; left:0;">
+              <span style="background:var(--primary); color:#FFF; padding:0.3rem 0.8rem; border-radius:4px; font-weight:bold;">동반 케어 교실 환경</span>
+              <h3 style="margin-top:1rem; color:var(--primary);">부드러운 폼 소재 & 감각 보호 안전 매트</h3>
+              <p style="margin-top:0.5rem; color:var(--text-muted);">아이가 아무리 강하게 움직여도 다치지 않으며, 마음 놓고 에너지를 발산할 수 있습니다.</p>
+            </div>
+          </div>
+
+          <!-- Interactive Handle -->
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-circle">↔</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER & TEAM (Authentic Story) -->
+    <section class="team-section" id="founder">
+      <div class="container">
+        <div class="team-box">
+          <div class="founder-avatar-box">
+            <!-- Inline Vector Portrait of Coach Hwang Eun-myung -->
+            <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#2B5B84"/>
+              <circle cx="50" cy="38" r="18" fill="#FCD34D"/>
+              <path d="M22,82 C22,60 38,52 50,52 C62,52 78,60 78,82 Z" fill="#E87A5D"/>
+            </svg>
+          </div>
+
+          <div class="founder-info">
+            <h3>황은명 대표 코치</h3>
+            <p class="founder-title">제주관광대학교 사회복지상담과 | 온성학교 봉사 및 안전 케어 경험</p>
+            <blockquote class="founder-quote">
+              "특수학교 통학버스 안에서 아이가 소란을 피우고 힘들어할 때, 제가 배운 최고의 대처는 조급해하지 않고 아이 스스로 안정을 찾을 때까지 끝까지 참고 기다려주는 것이었습니다. 아이들을 향한 진심 어린 인내로 부모님과 아이의 마음을 이어드리겠습니다."
+            </blockquote>
+            <div class="founder-history">
+              <span class="history-tag">특수학교 밀착 돌봄 경험</span>
+              <span class="history-tag">유도 / 배드민턴 스포츠 관심</span>
+              <span class="history-tag">사회복지상담 전공</span>
+              <span class="history-tag">위기 관리 및 안전 수칙 준수</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <h2 class="section-title">자주 묻는 질문</h2>
+        <p class="section-subtitle">시범 서비스 참여와 관련하여 부모님들께서 궁금해하시는 점들을 모았습니다.</p>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 수업 비용은 정말 무료인가요?</span>
+              <span class="faq-toggle-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              네, 본 프로그램은 현재 시범 검증 단계로 참가 학부모님과 아동에게 별도의 수업료를 받지 않고 진행될 예정입니다. (추후 지자체 및 재단 지원 사업 연계 계획)
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 부모가 반드시 함께 참석해야 하나요?</span>
+              <span class="faq-toggle-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              네, 본 교실의 핵심 가치는 단순 아이 돌봄이 아닌 부모님이 아이의 상태를 직접 관찰하고 깊이 이해하는 데 있습니다. 따라서 주 1회 부모 동반 참여를 원칙으로 합니다.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Q. 아이의 돌발 행동이 심한데 괜찮을까요?</span>
+              <span class="faq-toggle-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              걱정하지 않으셔도 됩니다. 온성학교 등 특수교육 현장에서 많은 돌발 상황을 경험한 코치가 1:1로 밀착하여 아이의 페이스에 맞춰 인내심 있게 기다려드립니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="cta-section">
+      <div class="container cta-content">
+        <h2 class="cta-title">우리 아이의 마음을 이해하는 첫 걸음</h2>
+        <p class="cta-desc">
+          시범 운영 참여 안내 문구를 복사하시거나, 사전 참여 문의를 남겨주세요.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="copyConsultText()">시범 참여 안내 내용 복사하기</button>
+          <a href="#interactive" class="btn btn-outline" style="color:#FFF; border-color:#FFF;">맞춤 구성 시뮬레이터 다시하기</a>
+        </div>
+        <p class="notice-text">* 본 서비스는 현재 시범 검증 준비 단계이며, 입력하신 데이터는 저장되지 않습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <p style="font-weight:bold; color:#FFF;">동반 케어 교실 (시범 운영 준비 중)</p>
+        <p style="font-size:0.8rem; margin-top:0.25rem;">대표: 황은명 | 전공: 제주관광대학교 사회복지상담과</p>
+      </div>
+      <div>
+        <p style="font-size:0.8rem;">© 2026 동반 케어 교실. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+     JAVASCRIPT: Autonomous Motion, Interactions, Controls & Accessibility
+     ========================================================================== -->
+  <script>
+    // 1. Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navList = document.querySelector('.nav-list');
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = navList.style.display === 'flex';
+      navList.style.display = isExpanded ? 'none' : 'flex';
+      if (!isExpanded) {
+        navList.style.flexDirection = 'column';
+        navList.style.position = 'absolute';
+        navList.style.top = '100%';
+        navList.style.left = '0';
+        navList.style.width = '100%';
+        navList.style.background = '#FAF9F6';
+        navList.style.padding = '1rem';
+        navList.style.borderBottom = '1px solid #E2E8F0';
+      }
+    });
+
+    // 3. Autonomous Hero Cinematic Motion Engine (Canvas / JS Animation Loops)
+    let motionActive = true;
+    let animFrameId = null;
+    let heroStep = 0;
+
+    const ball = document.getElementById('bouncingBall');
+    const childArm = document.getElementById('childArm');
+    const coachArm = document.getElementById('coachArm');
+    const motionToggleBtn = document.getElementById('motionToggleBtn');
+
+    function animateHeroScene(timestamp) {
+      if (!motionActive) return;
+
+      // Continuous autonomous floating bounce
+      const bounceY = Math.sin(timestamp / 400) * 12;
+      const armMove = Math.cos(timestamp / 500) * 8;
+
+      if (ball) ball.setAttribute('transform', `translate(0, ${bounceY})`);
+      if (childArm) childArm.setAttribute('transform', `rotate(${armMove}, 35, 45)`);
+      if (coachArm) coachArm.setAttribute('transform', `rotate(${-armMove / 2}, 75, 50)`);
+
+      animFrameId = requestAnimationFrame(animateHeroScene);
+    }
+
+    // Start motion loop
+    animFrameId = requestAnimationFrame(animateHeroScene);
+
+    // Toggle Motion Button
+    motionToggleBtn.addEventListener('click', () => {
+      motionActive = !motionActive;
+      motionToggleBtn.textContent = motionActive ? '⏸' : '▶';
+      if (motionActive) {
+        animFrameId = requestAnimationFrame(animateHeroScene);
+      } else {
+        cancelAnimationFrame(animFrameId);
+      }
+    });
+
+    // 4. Automated Step Demo Engine (Cinematic Motion 2)
+    let currentDemoStep = 0;
+    const demoSteps = document.querySelectorAll('.demo-step-item');
+    const demoScenes = document.querySelectorAll('.demo-scene');
+
+    function setDemoStep(stepIndex) {
+      currentDemoStep = stepIndex;
+      demoSteps.forEach((item, idx) => {
+        if (idx === stepIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      demoScenes.forEach((scene, idx) => {
+        scene.style.transition = 'opacity 0.5s ease';
+        scene.style.opacity = (idx === stepIndex) ? '1' : '0';
+      });
+    }
+
+    // Auto cycle steps every 5 seconds
+    let demoInterval = setInterval(() => {
+      let nextStep = (currentDemoStep + 1) % demoSteps.length;
+      setDemoStep(nextStep);
+    }, 5000);
+
+    // Manual click on demo step
+    demoSteps.forEach((stepItem) => {
+      stepItem.addEventListener('click', function() {
+        clearInterval(demoInterval);
+        const stepIdx = parseInt(this.getAttribute('data-step'));
+        setDemoStep(stepIdx);
+      });
+    });
+
+    // 5. Interactive Experience 1: Custom Program Predictor
+    const predictorData = {
+      sobbing: {
+        title: "부드러운 감각 매트 & 호흡 정돈 프로그램",
+        desc: "위축되기 쉬운 아동을 위해 자극이 적은 폭신한 소재의 매트 위에서 그림 놀이와 느린 신체 스트레칭을 진행합니다. 부모님은 아이의 정서 변화를 곁에서 함께 관찰합니다."
+      },
+      active: {
+        title: "1:1 소프트 유도·신체 에너자이저 프로그램",
+        desc: "에너지가 넘치는 아동을 위해 안전한 폼 자재 위에서 밀기, 구르기 등 유도 응용 활동으로 에너지를 건강하게 발산시킵니다. 부모님이 함께 참여하여 신체 교감을 나눕니다."
+      },
+      refuse: {
+        title: "점진적 적응 그림·감각 탐색 프로그램",
+        desc: "거부감이 강한 아동을 위해 강요 없는 탐색 시간을 가집니다. 부드러운 폼 교구와 그림 도구로 천천히 마음의 문을 열 수 있도록 코치가 인내심 있게 기다립니다."
+      }
+    };
+
+    function updatePredictorResult() {
+      const selectedOpt1 = document.querySelector('#optGroup1 .pill-btn.selected').getAttribute('data-value');
+      const resTitle = document.getElementById('resTitle');
+      const resDesc = document.getElementById('resDesc');
+
+      if (predictorData[selectedOpt1]) {
+        resTitle.textContent = predictorData[selectedOpt1].title;
+        resDesc.textContent = predictorData[selectedOpt1].desc;
+      }
+    }
+
+    // Add click listeners to option pills
+    document.querySelectorAll('.option-pills').forEach(group => {
+      group.addEventListener('click', (e) => {
+        if (e.target.classList.contains('pill-btn')) {
+          group.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('selected'));
+          e.target.classList.add('selected');
+          updatePredictorResult();
+        }
+      });
+    });
+
+    // 6. Interactive Experience 2: Before/After Slider Engine
+    const sliderContainer = document.getElementById('sliderContainer');
+    const afterLayer = document.getElementById('afterLayer');
+    const sliderHandle = document.getElementById('sliderHandle');
+    let isDragging = false;
+
+    function setSliderPosition(x) {
+      const rect = sliderContainer.getBoundingClientRect();
+      let offsetX = x - rect.left;
+      if (offsetX < 0) offsetX = 0;
+      if (offsetX > rect.width) offsetX = rect.width;
+
+      const percentage = (offsetX / rect.width) * 100;
+      afterLayer.style.width = percentage + '%';
+      sliderHandle.style.left = percentage + '%';
+    }
+
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      setSliderPosition(e.clientX);
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      setSliderPosition(e.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch events for mobile
+    sliderContainer.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      setSliderPosition(e.touches[0].clientX);
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      setSliderPosition(e.touches[0].clientX);
+    });
+
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // 7. FAQ Accordion Toggle
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const faqItem = button.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+        if (!isActive) {
+          faqItem.classList.add('active');
+        }
+      });
+    });
+
+    // 8. Clipboard Copy Helper (Action Function)
+    function copyConsultText() {
+      const textToCopy = "[동반 케어 교실 시범 참여 문의]\n안녕하세요, 자폐 아동 주 1회 부모 동반 맞춤 신체·정서 케어 시범 수업 관련하여 문의드립니다.";
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("안내 문구가 클립보드에 복사되었습니다.\n원하시는 메시지 창에 붙여넣어 문의해 주세요.");
+      }).catch(() => {
+        alert("복사 기능이 지원되지 않는 환경입니다. 직접 문의 내용을 작성해 주세요.");
+      });
+    }
+  </script>
+</body>
+</html>

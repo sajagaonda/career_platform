@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>이음복지 | 차상위 장애인 가정을 위한 찾아가는 맞춤형 복지 혜택 안내</title>
+  <meta name="description" content="50대 보호자분들도 누구나 쉽고 명확하게! 주거 개보수부터 일상 돌봄까지, 찾아가는 맞춤형 복지 혜택을 큰 글씨와 실제 사진, 한눈에 보이는 그래프로 안내해 드립니다.">
+  <style>
+    /* --------------------------------------------------
+       [웹뷰 최적화 & 50대 맞춤 시니어 고대비 디자인 토큰]
+       -------------------------------------------------- */
+    :root {
+      --primary: #1E3A8A;        /* 신뢰와 안전의 블루 */
+      --primary-light: #2563EB;  /* 선명한 포인트 블루 */
+      --secondary: #0D9488;      /* 따뜻한 틸/에메랄드 */
+      --accent: #D97706;         /* 가독성 높은 딥 골드 */
+      --bg-light: #F8FAFC;       /* 눈이 편안한 밝은 배경 */
+      --bg-card: #FFFFFF;        /* 카드 배경 */
+      --text-main: #0F172A;      /* 초고대비 텍스트 */
+      --text-muted: #334155;     /* 시니어 가독성 선명한 설명 텍스트 */
+      --border: #CBD5E1;         /* 명확한 구분선 */
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 18px rgba(15,23,42,0.1);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+    }
+
+    /* --------------------------------------------------
+       [기본 리셋 & 웹뷰 바운스 방지]
+       -------------------------------------------------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent; /* 터치 피드백 잔상 제거 */
+    }
+    html {
+      scroll-behavior: smooth;
+      font-size: 18px; /* 시니어 기준 기본 글자 크기 */
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.75;
+      overflow-x: hidden;
+      word-break: keep-all;
+      /* iOS Notch 영역 대응 */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .container {
+      width: 100%;
+      max-width: 680px; /* 모바일 및 웹뷰 가독성 최적 폭 */
+      margin: 0 auto;
+      padding: 0 1.2rem;
+    }
+
+    /* 시니어 친화형 대형 버튼 */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      padding: 1.1rem 1.5rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      min-height: 62px;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      border: 2px solid var(--primary);
+    }
+    .btn-accent {
+      background: var(--accent);
+      color: #ffffff;
+      border: 2px solid var(--accent);
+    }
+    .btn-secondary {
+      background: #E2E8F0;
+      color: var(--text-main);
+      border: 2px solid #CBD5E1;
+    }
+
+    /* 고대비 배지 */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      background-color: #DBEAFE;
+      color: #1E40AF;
+      font-weight: 800;
+      font-size: 0.95rem;
+      border-radius: 9999px;
+      margin-bottom: 0.8rem;
+      border: 1px solid #BFDBFE;
+    }
+
+    /* --------------------------------------------------
+       [WEBVIEW APP HEADER]
+       -------------------------------------------------- */
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo span {
+      color: var(--secondary);
+    }
+    .header-call-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #FEF3C7;
+      border: 2px solid #FCD34D;
+      padding: 0.5rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-weight: 900;
+      color: #92400E;
+      font-size: 1rem;
+    }
+    .scroll-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent);
+      width: 0%;
+    }
+
+    /* --------------------------------------------------
+       [SECTIONS]
+       -------------------------------------------------- */
+    section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+    }
+    .section-header h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+    .section-header p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+      font-weight: 600;
+    }
+
+    /* --------------------------------------------------
+       [HERO SECTION]
+       -------------------------------------------------- */
+    .hero-section {
+      padding-top: 2.5rem;
+      padding-bottom: 3.5rem;
+      background: linear-gradient(180deg, #EFF6FF 0%, #F8FAFC 100%);
+    }
+    .hero-content h1 {
+      font-size: 2.3rem;
+      line-height: 1.3;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+    .hero-content h1 span {
+      color: var(--accent);
+      background: linear-gradient(to top, #FEF3C7 40%, transparent 40%);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+      line-height: 1.7;
+      font-weight: 600;
+    }
+    .hero-photo-frame {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 3px solid #FFFFFF;
+      margin-bottom: 1.8rem;
+    }
+    .hero-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-photo-badge {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 0.8rem;
+      right: 0.8rem;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(6px);
+      color: #FFFFFF;
+      padding: 0.9rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .hero-photo-badge div {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .hero-photo-badge p {
+      font-size: 0.9rem;
+      color: #CBD5E1;
+      margin-top: 0.2rem;
+    }
+
+    /* --------------------------------------------------
+       [GRAPHIC SECTION: 데이터 시각화 차트]
+       -------------------------------------------------- */
+    .graph-box {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 1.8rem 1.4rem;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.8rem;
+    }
+    .graph-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .bar-track {
+      width: 100%;
+      height: 26px;
+      background: #E2E8F0;
+      border-radius: 13px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--primary-light);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      color: #FFF;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+    .bar-fill.highlight {
+      background: var(--accent);
+    }
+
+    /* 원형 차트 */
+    .pie-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 1.2rem auto;
+    }
+    .pie-center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--secondary);
+    }
+
+    /* --------------------------------------------------
+       [INTERACTIVE MODULE 1: 맞춤 혜택 진단]
+       -------------------------------------------------- */
+    .finder-box {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 1.8rem 1.2rem;
+      box-shadow: var(--shadow-md);
+      border: 3px solid var(--primary-light);
+    }
+    .finder-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.4rem;
+    }
+    .finder-group label {
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: var(--primary);
+    }
+    .select-custom {
+      width: 100%;
+      padding: 1.1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: 3px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #FFF;
+      color: var(--text-main);
+      outline: none;
+    }
+    .select-custom:focus {
+      border-color: var(--primary-light);
+    }
+    .finder-result-card {
+      background: var(--primary);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      padding: 1.6rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .finder-result-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #FDE047;
+      margin-bottom: 0.6rem;
+    }
+    .finder-result-desc {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: #F1F5F9;
+      margin-bottom: 1.2rem;
+    }
+    .finder-photo-preview {
+      width: 100%;
+      height: 160px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.3);
+      margin-bottom: 1.2rem;
+    }
+    .finder-photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --------------------------------------------------
+       [STORY CAROUSEL]
+       -------------------------------------------------- */
+    .story-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 1.6rem 1.2rem;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .story-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-top: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .story-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 600;
+      margin-bottom: 1.4rem;
+    }
+    .story-photo-frame {
+      width: 100%;
+      height: 220px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      margin-bottom: 1.4rem;
+    }
+    .story-photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .story-controls {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .story-nav-btn {
+      flex: 1;
+      padding: 0.9rem;
+      border-radius: var(--radius-sm);
+      background: #F1F5F9;
+      border: 2px solid var(--border);
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      text-align: center;
+    }
+    .story-nav-btn:active {
+      background: var(--primary);
+      color: #FFF;
+    }
+
+    /* --------------------------------------------------
+       [BEFORE / AFTER COMPARISON]
+       -------------------------------------------------- */
+    .comp-card {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      background: #FFFFFF;
+      margin-bottom: 1.4rem;
+    }
+    .comp-card.after {
+      border-color: var(--secondary);
+    }
+    .comp-tag {
+      padding: 0.7rem;
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.1rem;
+      color: #FFF;
+    }
+    .comp-tag.before-bg { background: #64748B; }
+    .comp-tag.after-bg { background: var(--secondary); }
+    .comp-img {
+      height: 200px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .comp-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .comp-text {
+      padding: 1.2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* --------------------------------------------------
+       [FAQ ACCORDION]
+       -------------------------------------------------- */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .accordion-item {
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .accordion-header {
+      width: 100%;
+      padding: 1.3rem 1.2rem;
+      text-align: left;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion-content {
+      padding: 0 1.2rem 1.3rem 1.2rem;
+      color: var(--text-muted);
+      display: none;
+      font-size: 1.1rem;
+      line-height: 1.65;
+      font-weight: 600;
+    }
+    .accordion-item.active .accordion-content {
+      display: block;
+    }
+    .accordion-item.active .accordion-header {
+      border-bottom: 2px solid var(--border);
+      background: #EFF6FF;
+    }
+
+    /* --------------------------------------------------
+       [CTA PHONE CARD]
+       -------------------------------------------------- */
+    .cta-section {
+      background: linear-gradient(135deg, #1E3A8A 0%, #0F172A 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 4rem 0;
+      border-bottom: none;
+    }
+    .phone-call-card {
+      background: #FEF3C7;
+      border: 3px solid #F59E0B;
+      color: #78350F;
+      padding: 1.8rem 1.2rem;
+      border-radius: var(--radius-md);
+      margin-top: 1.5rem;
+      margin-bottom: 1.8rem;
+    }
+    .phone-call-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #B45309;
+      margin: 0.4rem 0;
+      display: block;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0F172A;
+      color: #94A3B8;
+      padding: 2.5rem 0;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 스티키 네비게이션 헤더 (웹뷰 상단바) -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" fill="#1E3A8A" />
+          <path d="M10 16C10 12.6863 12.6863 10 16 10C19.3137 10 22 12.6863 22 16" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="16" cy="20" r="3" fill="#0D9488" />
+        </svg>
+        이음<span>복지</span>
+      </div>
+      <a href="tel:1588-0000" class="header-call-btn">
+        📞 무료상담
+      </a>
+    </div>
+    <div class="scroll-progress" id="scrollProgress"></div>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="badge">
+          <span>★</span> 차상위 장애인 가정 전용 맞춤 안내
+        </div>
+        <h1>몰라서 놓쳤던 복지 혜택,<br><span>전문가가 직접 찾아갑니다</span></h1>
+        
+        <!-- 실사 고화질 이미지 -->
+        <div class="hero-photo-frame">
+          <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80" alt="따뜻한 표정으로 상담하는 사회복지 전문가">
+          <div class="hero-photo-badge">
+            <div>🤝 "가족의 마음으로 찾아갑니다"</div>
+            <p>1:1 가정 방문 및 맞춤형 지원 절차 안내</p>
+          </div>
+        </div>
+
+        <p>어려운 서류와 신청 절차 때문에 막막하셨나요? 주택 문턱 제거부터 일상 돌봄까지, 전문가가 직접 찾아가 1:1로 친절하게 안내해 드립니다.</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <a href="#finder" class="btn btn-primary">👉 우리 집 혜택 바로 찾기</a>
+          <a href="tel:1588-0000" class="btn btn-accent">📞 전화로 무료 상담하기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAPHIC SECTION: 복지 정보 실태조사 -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <div class="badge">복지 정보 실태조사</div>
+          <h2>왜 많은 분들이 혜택을 놓칠까요?</h2>
+          <p>정부 지원 제도가 있어도 10명 중 7명은 몰라서 신청을 못 하고 계십니다.</p>
+        </div>
+
+        <!-- 바 차트 -->
+        <div class="graph-box">
+          <div class="graph-title">
+            <span>📊</span> 복지 혜택을 신청하지 못하는 이유
+          </div>
+          <div class="bar-group">
+            <div class="bar-item">
+              <div class="bar-label">
+                <span>신청 방법을 몰라서</span>
+                <span style="color:var(--accent);">68%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill highlight" style="width: 68%;">68%</div>
+              </div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-label">
+                <span>서류 제출 절차가 너무 복잡해서</span>
+                <span>18%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 18%;">18%</div>
+              </div>
+            </div>
+
+            <div class="bar-item">
+              <div class="bar-label">
+                <span>주민센터 방문이 힘들어서</span>
+                <span>14%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 14%;">14%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 원형 차트 (만족도) -->
+        <div class="graph-box" style="text-align: center;">
+          <div class="graph-title" style="justify-content: center;">
+            <span>❤️</span> 방문 상담 후 가정 만족도
+          </div>
+          
+          <div class="pie-container">
+            <svg width="160" height="160" viewBox="0 0 36 36">
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#E2E8F0" stroke-width="4"/>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#0D9488" stroke-width="4" stroke-dasharray="96, 100"/>
+            </svg>
+            <div class="pie-center-text">96%</div>
+          </div>
+          <p style="font-size: 1.1rem; font-weight: 800; color: var(--primary);">"주거 환경이 좋아지고 마음이 편안해졌습니다"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE MODULE 1: 맞춤 혜택 진단 -->
+    <section id="finder" style="background: #EFF6FF;">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge">쉬운 맞춤 진단</div>
+          <h2>우리 집에 필요한 혜택 찾기</h2>
+          <p>아래에서 해당하는 상황을 선택해 보세요.</p>
+        </div>
+
+        <div class="finder-box">
+          <div class="finder-group">
+            <label for="targetSelect">1. 돌봄 대상자 선택</label>
+            <select id="targetSelect" class="select-custom">
+              <option value="child">차상위 장애 아동 / 청소년</option>
+              <option value="adult">차상위 성인 장애인</option>
+              <option value="elderly">돌봄이 필요한 어르신 가정</option>
+            </select>
+          </div>
+
+          <div class="finder-group">
+            <label for="needSelect">2. 가장 시급한 도움</label>
+            <select id="needSelect" class="select-custom">
+              <option value="housing">집안 문턱 제거 및 주거 개보수</option>
+              <option value="daily">식사 및 위생 일상생활 돌봄</option>
+              <option value="voucher">지자체 지원 바우처 신청 대행</option>
+            </select>
+          </div>
+
+          <!-- 진단 결과 카드 -->
+          <div class="finder-result-card">
+            <div style="font-size: 1rem; font-weight: 800; color: #FCD34D; margin-bottom: 0.4rem;">[추천 지원 서비스]</div>
+            <h3 class="finder-result-title" id="resTitle">장애아동 맞춤 주거개선 패키지</h3>
+            
+            <div class="finder-photo-preview">
+              <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80" alt="안전한 보살핌을 받는 실사 사진" id="resImg">
+            </div>
+
+            <p class="finder-result-desc" id="resDesc">문턱 제거, 욕실 안전바 설치 등 지자체 주택 개보수 지원금 연계와 함께 전문가가 가정을 직접 방문하여 서류 작성을 도와드립니다.</p>
+            
+            <a href="tel:1588-0000" class="btn btn-accent">📞 이 내용으로 무료 전화 상담</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY CAROUSEL: 3단계 방문 과정 -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <div class="badge">현장 안내 과정</div>
+          <h2>이음복지가 찾아가는 3단계 과정</h2>
+          <p>어려운 절차 없이 가만히 계셔도 차근차근 도와드립니다.</p>
+        </div>
+
+        <div class="story-card">
+          <span style="background: var(--primary); color: #fff; padding: 0.4rem 0.9rem; border-radius: 6px; font-weight: 800; font-size: 0.95rem;" id="storyStepBadge">1단계: 가정 방문</span>
+          <h3 class="story-title" id="storyTitle">"따뜻한 마음으로 직접 찾아갑니다"</h3>
+          
+          <div class="story-photo-frame">
+            <img src="https://images.unsplash.com/photo-1581579438747-1dc8d1e0736f?auto=format&fit=crop&w=800&q=80" alt="가정 방문 상담 장면" id="storyImg">
+          </div>
+
+          <p class="story-desc" id="storyDesc">전담 상담사가 가정을 방문하여 어떤 부분이 불편하신지 이야기를 경청하고, 집안의 위험 요소를 세심하게 살핍니다.</p>
+
+          <div class="story-controls">
+            <button class="story-nav-btn" id="prevStory">◀ 이전 단계</button>
+            <button class="story-nav-btn" id="nextStory">다음 단계 ▶</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 주거 환경 개보수 Before/After -->
+    <section style="background: #F1F5F9;">
+      <div class="container">
+        <div class="section-header">
+          <div class="badge">실제 주거 개선 사례</div>
+          <h2>이렇게 집이 안전하게 바뀝니다</h2>
+          <p>문턱과 미끄러운 바닥 때문에 다칠 위험을 없애드립니다.</p>
+        </div>
+
+        <!-- Before -->
+        <div class="comp-card">
+          <div class="comp-tag before-bg">⚠️ 개선 전 (위험한 상태)</div>
+          <div class="comp-img">
+            <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="문턱이 높고 위험한 기존 방 환경">
+          </div>
+          <div class="comp-text">
+            높은 문턱과 미끄러운 바닥으로 인해 이동이 불편하고 낙상 위험이 컸던 환경
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="comp-card after">
+          <div class="comp-tag after-bg">✨ 개선 후 (안전한 보금자리)</div>
+          <div class="comp-img">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="안전바와 평평한 바닥 시공이 완료된 안전한 방">
+          </div>
+          <div class="comp-text">
+            문턱을 완벽히 제거하고 안전 손잡이를 설치하여 스스로 안전하게 이동할 수 있게 된 집
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <div class="badge">자주 묻는 질문</div>
+          <h2>궁금하신 내용을 확인해 보세요</h2>
+        </div>
+
+        <div class="accordion">
+          <div class="accordion-item active">
+            <button class="accordion-header">
+              Q1. 방문 상담을 받으면 돈을 내야 하나요?
+              <span>▼</span>
+            </button>
+            <div class="accordion-content">
+              아닙니다! 차상위 장애인 가정을 위한 맞춤 상담 및 신청 안내는 100% 무료로 진행됩니다.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header">
+              Q2. 공문서나 서류 작성을 잘 못하는데 괜찮나요?
+              <span>▼</span>
+            </button>
+            <div class="accordion-content">
+              네, 전혀 걱정하지 않으셔도 됩니다. 전담 안내사가 서류 준비부터 주민센터 신청 접수까지 옆에서 직접 다 도와드립니다.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header">
+              Q3. 집 고치는 공사 비용은 지원되나요?
+              <span>▼</span>
+            </button>
+            <div class="accordion-content">
+              지자체 및 정부 바우처 사업 연계를 통해 차상위 계층 자격 요건 충족 시 지원금으로 공사비가 지원됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 50대 전용 무료 상담 전화 연결 카드 -->
+    <section class="cta-section">
+      <div class="container">
+        <h2 style="font-size: 2rem; font-weight: 900;">복지 혜택,<br>더 이상 몰라서 놓치지 마세요</h2>
+        <p style="font-size: 1.15rem; opacity: 0.9; margin-top: 0.6rem;">전화 한 통이면 친절한 전담 상담사가 집으로 찾아갑니다.</p>
+
+        <div class="phone-call-card">
+          <div style="font-size: 1.1rem; font-weight: 800;">📞 무료 상담 전화 연결</div>
+          <a href="tel:1588-0000" class="phone-call-number">1588-0000</a>
+          <div style="font-size: 1rem; font-weight: 700;">(평일 09:00 ~ 18:00 / 통화료 무료)</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+          <a href="tel:1588-0000" class="btn btn-accent">📞 누르면 바로 전화 연결됩니다</a>
+          <button class="btn btn-secondary" onclick="copyContactInfo()">📋 상담 문자 내용 복사하기</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="font-weight: 900; color: #fff; font-size: 1.2rem; margin-bottom: 0.4rem;">이음복지</div>
+      <p>차상위 장애인 가정을 위한 찾아가는 맞춤형 복지 정보 안내 서비스</p>
+      <p style="font-size: 0.85rem; margin-top: 0.8rem; opacity: 0.6;">© 2026 이음복지. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* 스크롤 진행바 */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    /* 맞춤 혜택 진단 선택 로직 */
+    const targetSelect = document.getElementById('targetSelect');
+    const needSelect = document.getElementById('needSelect');
+
+    const finderResults = {
+      "child-housing": {
+        title: "장애아동 맞춤 주거개선 패키지",
+        desc: "문턱 제거, 욕실 안전바 설치 등 지자체 주택 개보수 지원금 연계와 함께 전문가가 가정을 직접 방문하여 서류 작성을 도와드립니다.",
+        img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80"
+      },
+      "child-daily": {
+        title: "장애아동 일상 밀착 돌봄 지원",
+        desc: "돌봄 공백 방지를 위한 식사, 위생 케어 및 정서적 소통 서비스를 지자체 복지 바우처와 연계하여 제공해 드립니다.",
+        img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=600&q=80"
+      },
+      "child-voucher": {
+        title: "복지 바우처 원스톱 신청 대행",
+        desc: "복잡하고 어려운 지자체 바우처 신청 서류를 전문가가 방문하여 대신 작성하고 제출까지 무료로 도와드립니다.",
+        img: "https://images.unsplash.com/photo-1581579438747-1dc8d1e0736f?auto=format&fit=crop&w=600&q=80"
+      },
+      "adult-housing": {
+        title: "성인 장애인 자립주택 안전 시공",
+        desc: "휠체어 통행로 확보 및 낙상 방지 안전 손잡이 시공 등 안전한 자립 생활을 위한 집안 개보수를 연계합니다.",
+        img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
+      }
+    };
+
+    function updateFinder() {
+      const key = `${targetSelect.value}-${needSelect.value}`;
+      const res = finderResults[key] || finderResults["child-housing"];
+      
+      document.getElementById('resTitle').textContent = res.title;
+      document.getElementById('resDesc').textContent = res.desc;
+      document.getElementById('resImg').src = res.img;
+    }
+
+    targetSelect.addEventListener('change', updateFinder);
+    needSelect.addEventListener('change', updateFinder);
+
+    /* 3단계 방문 과정 스토리 */
+    const storyData = [
+      {
+        badge: "1단계: 가정 방문",
+        title: '"따뜻한 마음으로 직접 찾아갑니다"',
+        desc: "전담 상담사가 가정을 방문하여 어떤 부분이 불편하신지 이야기를 경청하고, 집안의 위험 요소를 세심하게 살핍니다.",
+        img: "https://images.unsplash.com/photo-1581579438747-1dc8d1e0736f?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        badge: "2단계: 맞춤 혜택 연결",
+        title: '"어려운 서류 작성을 대신해 드립니다"',
+        desc: "지자체 주택 개보수 지원금 및 일상 돌봄 바우처 중 우리 집에 딱 맞는 혜택을 찾아 복잡한 서류를 정리해 드립니다.",
+        img: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        badge: "3단계: 주거 개선 & 돌봄",
+        title: '"안전하고 편안한 보금자리 완성"',
+        desc: "문턱 제거 공사 완료 및 일상 케어 서비스가 시작되어 장애 아동과 가족분들이 안전하고 행복하게 생활하게 됩니다.",
+        img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    let currentStory = 0;
+
+    function renderStory(index) {
+      const data = storyData[index];
+      document.getElementById('storyStepBadge').textContent = data.badge;
+      document.getElementById('storyTitle').textContent = data.title;
+      document.getElementById('storyDesc').textContent = data.desc;
+      document.getElementById('storyImg').src = data.img;
+    }
+
+    document.getElementById('prevStory').addEventListener('click', () => {
+      currentStory = (currentStory - 1 + storyData.length) % storyData.length;
+      renderStory(currentStory);
+    });
+
+    document.getElementById('nextStory').addEventListener('click', () => {
+      currentStory = (currentStory + 1) % storyData.length;
+      renderStory(currentStory);
+    });
+
+    /* FAQ 아코디언 */
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+
+        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    /* 문의내용 클립보드 복사 */
+    function copyContactInfo() {
+      const textToCopy = "[이음복지 상담 신청] 차상위 장애인 가정 맞춤 혜택 방문 상담을 신청합니다. (무료전화: 1588-0000)";
+      
+      const tempElem = document.createElement('textarea');
+      tempElem.value = textToCopy;
+      document.body.appendChild(tempElem);
+      tempElem.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempElem);
+
+      alert("상담 문의 내용이 복사되었습니다!\n문자나 전화 상담 시 전달해 주세요.");
+    }
+  </script>
+</body>
+</html>

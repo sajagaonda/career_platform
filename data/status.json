@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-23T13:21:45.215Z",
+  "updatedAt": "2026-10-24T04:00:48.767Z",
   "roster": [
     {
       "id": "A001",
@@ -111,6 +111,467 @@
       "name": "한상호"
     }
   ],
-  "participants": {},
+  "participants": {
+    "A001": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://forest-sing-ca9.notion.site/bcf7a37fc2578352973b011455b0b48f?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A001/index.html?v=385743b467b747d7"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A001/cover.jpg?v=899d9f89a10a",
+      "fileKeys": {
+        "html": "eb3129e61b7eb1459150f026514412dd3aed8bfa7d39afaccbae0190706b3733",
+        "image": "899d9f89a10a6b5209d6c8708ffb09be48e71882117896b8733a30b67333953d"
+      },
+      "contentHashes": {
+        "html": "385743b467b747d79b2f7d33f3ef1e60ab4b844247a3b5db5da9a6e937885c72"
+      },
+      "revision": "57121fcbf6bd257bf10ddb408124eb5ac32242a90aeff7438c4f705281ed66dd",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A002": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/135c73d454238285858601dd49fc1ffb?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A002/index.html?v=0039f639d22c3b9b"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A002/cover.jpg?v=dd720cb8e1d1",
+      "fileKeys": {
+        "html": "d610ced9ab3d4f2195861c243426ad7fbadc12000c47ef821ed36384f67f238d",
+        "image": "dd720cb8e1d1c0532ae46a8123336836bec3f93b8c0041bfd748743abee81352"
+      },
+      "contentHashes": {
+        "html": "0039f639d22c3b9b5beca8922a8e2041859d74bb207fbbcb9ab73eaaa6585efc"
+      },
+      "revision": "3154ac77fcca0f64e82523c3be06dfe258e2821b1f5781973a45a456dd830a68",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A003": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/be86b2d2c25d8398a2a901400f29d5dc?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A003/index.html?v=e7f79b1f95c9a405"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A003/cover.jpg?v=204586dfbcd9",
+      "fileKeys": {
+        "html": "c9c548bc1f82c5e74a04556ce1978594109727c86a035e1ef1944f42809c5302",
+        "image": "204586dfbcd9bd760a50580796a835c5ba29e16e7bc5788b66e493c969f4c05a"
+      },
+      "contentHashes": {
+        "html": "e7f79b1f95c9a405c252293fe8d0f8e9fde7dcd108df88646825f3d38fe40196"
+      },
+      "revision": "631f6860728494ee8c697e23a7baabf5837551500351298d629246a39c095285",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A004": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/de4db689c55583b1aec701e2bfcc4928?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A004/index.html?v=528fad11a3594545"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A004/cover.jpg?v=d1cf0d66524c",
+      "fileKeys": {
+        "html": "203a12dcccf9810ce2201c70f4bba2e0f1134e3ef1fac1cef5640eae4a2fa304",
+        "image": "d1cf0d66524ce0d3e693abb6dff5bcd53c57506777566370635c70068a4dd536"
+      },
+      "contentHashes": {
+        "html": "528fad11a3594545d1c1970f5e9061a4acbf35ab84b21795628683faf39c2901"
+      },
+      "revision": "de9df909d135c7a62d2539c417ee3a50bab0ce3a83bec3332397ed615344df26",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A005": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/4a4453aacd49838d9f9001a6adf6ef55",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A005/index.html?v=25991bfbc4cfe5d8"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A005/cover.png?v=91ed890bc6c1",
+      "fileKeys": {
+        "html": "6fbdbbdbff21f4c498e194d77f2ceec4b7669a0390667b9e4b096eb74f91059f",
+        "image": "91ed890bc6c1c91ca14050f499e2688dd93b71f8ce64afda291b971f96e4dc7e"
+      },
+      "contentHashes": {
+        "html": "25991bfbc4cfe5d8022fc64fb0d2f74687b9cbf9ee90f79e6b22bd451255c8a7"
+      },
+      "revision": "b37431d10ea9d71dc319e4850e5db4c92e7faa9919ace1390779f78aa9447b17",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A006": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://lace-turner-552.notion.site/f6959c99f7ce820dad66815cb46205c3?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A006/index.html?v=fff20dd095e388ce"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A006/cover.png?v=956275c0d2b9",
+      "fileKeys": {
+        "html": "8a1bd323a53ed2ca5747fcf7fed6d399b2272abc690c6cee40c1757bf5f88f00",
+        "image": "956275c0d2b90dfba92ea025adda653adaae96209ce5d549d24561a0d0553fb0"
+      },
+      "contentHashes": {
+        "html": "fff20dd095e388cea5823448279f93c26ed42f9e1cc08ea44ed957b9cc7baa0c"
+      },
+      "revision": "b8476f25ffb1698ceac55d28f3a1786106cc544551a367e7121f585aff52a582",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A007": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/f88f9abb646d83c58e34017c39f8c9fa",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A007/index.html?v=9b5ec5e5625e32eb"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A007/cover.jpg?v=255ffcd644a4",
+      "fileKeys": {
+        "html": "1632d1edb4603b8a3a54a3463b75c6f0845f805476d78e95ee21235b40cd9cdf",
+        "image": "255ffcd644a4e928b0e9ad4584c4e44768e4803243c4b4b8482d7fae1fe8bf40"
+      },
+      "contentHashes": {
+        "html": "9b5ec5e5625e32eb7166c41363ee04936a759c0c3eecceae24a509f319ae134a"
+      },
+      "revision": "9c56a2cebc931906220b09927b6edcecc0dcc28804c328ee8c842d8e2defbaad",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A010": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://cypress-wandflower-d8c.notion.site/40311bb2f9a080fd8dcecedbe90e67ef?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A010/index.html?v=5b87da8bf402acde"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A010/cover.jpg?v=50a5e75ef12e",
+      "fileKeys": {
+        "html": "97f899164f8f4587e1333ecdbb2354b132d50d2434b6736f7858a42f95d59ee0",
+        "image": "50a5e75ef12ea2828ca665ea1584f47787bb167f0aa9703a5df8e4b1e4531035"
+      },
+      "contentHashes": {
+        "html": "5b87da8bf402acdedf08e55a2f442485ddd0910bf4404585ecb42a4d34ee3d63"
+      },
+      "revision": "00a0bab2c5df5119b44e526a03ebaad60c732a70394cba4966eeb59cceb3c2fe",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A011": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://dune-smelt-a8c.notion.site/403438f9b2928065a743fd4233123245",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A011/index.html?v=a6558dd1cbafd4ef"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A011/cover.jpg?v=fe81e9ba2c17",
+      "fileKeys": {
+        "html": "2d70fbf7bd2da63a76d740fd2ef9e12fb4cd355c2698330f58141890b0f31e05",
+        "image": "fe81e9ba2c178f17b046d7bbe95382173b59d311fb9ce52f41072f390c1f4e98"
+      },
+      "contentHashes": {
+        "html": "a6558dd1cbafd4eff168aca87ba9ab9e94f981819dcc3c9e8ef1ff8e2f2d5826"
+      },
+      "revision": "e229a5c8e1dbb7aad8d1d9e5425f5e59411ce93dc8df5a604af3cf43e7d07b26",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A014": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/fb977da7746e828fbef181c175b488ea?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A014/index.html?v=320bb22ff321a38b"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A014/cover.jpg?v=eca8372a4429",
+      "fileKeys": {
+        "html": "a84a4406adc322dce6a9e0f262bf3683c14f3ecdb7f2916d5ef9acbaf7b55921",
+        "image": "eca8372a442984287c41f6a230d7a022c85f3069b74c72b12d90fcc97f9552d6"
+      },
+      "contentHashes": {
+        "html": "320bb22ff321a38b06d4c9208212b30425f165ee66f217d0d67c1bae943bb928"
+      },
+      "revision": "bb16b20e51dbc38630503110c9cd8eb200c453a60cac9f23cd5890750f2010ce",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A015": {
+      "status": {
+        "notion": false,
+        "landing": true
+      },
+      "links": {
+        "notion": "",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A015/index.html?v=1b48e3c16aa0e2f6"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A015/cover.png?v=e8027aa84e13",
+      "fileKeys": {
+        "html": "c8d0ddb0f2fae6d02e09406c8a00814d116ece3d217099f705a55dca71efea32",
+        "image": "e8027aa84e13075bc3bc70600a55808c200ac32019659c2b677516859f0adcac"
+      },
+      "contentHashes": {
+        "html": "1b48e3c16aa0e2f6d458325a9956a4256112b602cb32446290c2e39bff8a75b7"
+      },
+      "revision": "c971095a0c83c6938e0f5b588a4ce6f787b2a2f4315236b53df5c73ef0cf22f8",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A016": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://truthful-sight-43f.notion.site/4038606c2bb580a6b158e4ce58705548",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A016/index.html?v=3e744696e4f92b46"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A016/cover.jpg?v=c4e1f7bbfe5c",
+      "fileKeys": {
+        "html": "aad6cc0255c2098b6e8bce61dd3c808e667b666ec4614888034b08a24ff25d11",
+        "image": "c4e1f7bbfe5c2b7c12e1b0a6404239620ca169381b6f8c5fdd21e8a4d255ac56"
+      },
+      "contentHashes": {
+        "html": "3e744696e4f92b46d791b414a0128176c98a120a0033b6011366c5654d603fa3"
+      },
+      "revision": "f56d72b1be13819ff0a2822539a32cb9d1542ab14528a0052a611f6b7242a8fe",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A017": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://efficacious-venom-52e.notion.site/c34a5aa69c258207886981bd4a02a76c?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A017/index.html?v=32e67644ab78faad"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A017/cover.jpg?v=06c7c70b99f4",
+      "fileKeys": {
+        "html": "e0ed37270b54aa3fedbb894a99679a643ccd24fd50d89e3519b37e5947146afa",
+        "image": "06c7c70b99f437d9fe6cb5d5b1c13581ef1f0c63d46172a6bf96b184ae1f0d5a"
+      },
+      "contentHashes": {
+        "html": "32e67644ab78faadb08d69e81583b7625ab31e2f1457060d2581e7567235bcc9"
+      },
+      "revision": "de173c07d1fc1d6d0f69a922b778210f37b5bd30b14668cc89c26c12d0938155",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A018": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/c19514417f6883759dd701e35bb60cd5",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A018/index.html?v=6461c6bffd2fd65f"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A018/cover.png?v=796ae4a22b38",
+      "fileKeys": {
+        "html": "27e19886fc15e77564cb05bd8a5ee3b848323bae4652c8949fa7dc4e80b950b5",
+        "image": "796ae4a22b384ff48b3096d84596573153f4752b1f4528a8e122ac96dcac9cdf"
+      },
+      "contentHashes": {
+        "html": "6461c6bffd2fd65f0464e94368aa392b9966321a82349b09b29782035397dc91"
+      },
+      "revision": "cbbc8c6a4c2593cafa2d678840f41558717f16985aedf201dfda0096b6baab6b",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A019": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://colorful-ptarmigan-661.notion.site/403cbc8b126e803c984bdaa24cfa586c?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A019/index.html?v=2c6a4f9d5e9413cf"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A019/cover.jpg?v=5677c9f48e5b",
+      "fileKeys": {
+        "html": "7a2e1b7c786bb172018458ee33517f424b561c08e8754c2090025a847936aacc",
+        "image": "5677c9f48e5b12fd987b8b96d0fc6670445838500ad5bed85eb048cd9ae1cede"
+      },
+      "contentHashes": {
+        "html": "2c6a4f9d5e9413cf7dc820db3c98ad8d7ec38b7fa9694a27f3f60ba803f71a55"
+      },
+      "revision": "a1747822de996d84e907d4b638bb8b8141e3303b61afa10740acba66bb5b3269",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A020": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://grizzled-dracopelta-111.notion.site/d09323234dd18399bc4d814e36b11cfc?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A020/index.html?v=198c5e6bc29a290d"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A020/cover.jpg?v=3f64963513cd",
+      "fileKeys": {
+        "html": "bb75bb703c6c0380b86f1c075f92c5d9f56bb6a065a181ec3a245f8a2f2012c5",
+        "image": "3f64963513cd2cf64f73f4f3b41a045bb34775af5de4d786b1499a77c91dc91b"
+      },
+      "contentHashes": {
+        "html": "198c5e6bc29a290df4419cd487e12f0b83b83722e7e2a303c7065ccead08edd5"
+      },
+      "revision": "720f25adbd11ba539199389a833b0cbe203717020f290e2d9df05d30d04fb876",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A021": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/321604f88d4982b9b08f01f85b1595a4?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A021/index.html?v=c942196f48767a7a"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A021/cover.png?v=02933e59b369",
+      "fileKeys": {
+        "html": "37e98dce3f7fe7e29203eeb808406681623126f50f9db1c085c123e70b6968c5",
+        "image": "02933e59b3692a1f878dd48a980a830bce575097d89e61449b1148706e9f7d6c"
+      },
+      "contentHashes": {
+        "html": "c942196f48767a7a879e91c69579088c990842221f7df9bd89b7ac9434e041e3"
+      },
+      "revision": "600db448c4f8008355230944b87787926476c5e37ac5f42911ccc081b20593fa",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A022": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/93b17e4715eb82148d0a01e5239dfb03?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A022/index.html?v=38aa77f290b88005"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A022/cover.png?v=ff097dc69696",
+      "fileKeys": {
+        "html": "c826433ba5af49851aa851528d1dd7304a5bc702ef09d4177cad42cbb754d66e",
+        "image": "ff097dc69696fdcc554a965e3b0f0b347125ad7ad3a8b17f6268548e6f4959f2"
+      },
+      "contentHashes": {
+        "html": "38aa77f290b88005f3388bac658800e2ec1ee73c0dc4458a0baa3beba7c56f47"
+      },
+      "revision": "e976998083426cd69aee30bb7a9f5169b97a5dabdffab222638e7495e3dbf7b6",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A023": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/37f34a47678982f689ca811169ae4ccc?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A023/index.html?v=749827d0f694655e"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A023/cover.jpg?v=7fc2c920e394",
+      "fileKeys": {
+        "html": "4c1e370cf37beeff1986d6f28aae32d1ea76ff75b1024813742cced22ec8575e",
+        "image": "7fc2c920e3949f8cb892016b6eb4a9f2f772bb188ab5ee785b5cf7ae0b997226"
+      },
+      "contentHashes": {
+        "html": "749827d0f694655e072a1561cf1eabd835d92341e7f3bb649d8566abb5fe892d"
+      },
+      "revision": "84ff0c3d4280723a2a070f05a1a2bdec3b9e43076596d98f23874d8d9dc0bd64",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A024": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://hungry-guava-363.notion.site/fc7d093b07bb8225b892812d7d2a76b2?pvs=143",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A024/index.html?v=0e571fda0d983a50"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A024/cover.png?v=3abfb661342a",
+      "fileKeys": {
+        "html": "67f26603c11040c63d0f10d232cbf9c712109da9accd13fee63089e6eddffba8",
+        "image": "3abfb661342a7ad058471a3284a29a4053f9ac11ce0ba68d566e15fc01e38180"
+      },
+      "contentHashes": {
+        "html": "0e571fda0d983a50b533096fba39b60bae3614c03f28e04ac23c9b8616b8e8c9"
+      },
+      "revision": "dcf69a4dce70fc46c9793ab927c94af3c72e77047a87d5e747343dcf264a5bb5",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A025": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://silk-source-566.notion.site/3748c4f74f1083079dc20182e74f61f3?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A025/index.html?v=144b4cf2b66bbfc3"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A025/cover.jpg?v=3a716fc0d3cf",
+      "fileKeys": {
+        "html": "d8c954929da7403c98069728b928027cabda59df1ce4c5d2c02b6828870100ae",
+        "image": "3a716fc0d3cfb32be521b93f189da037ec0df25a8c4d075d50ac1093dd14e4e5"
+      },
+      "contentHashes": {
+        "html": "144b4cf2b66bbfc3465403af339f73678358c85f707bc0ca87a4324d9beafe37"
+      },
+      "revision": "0915b519a9b1cd827bb5dda7057a8d9a65ea9784d4b05325bb008a5199a9cb36",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A026": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/6ebceab5b2408372af4801a69da687f9?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A026/index.html?v=5bdd39db1c9047fd"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A026/cover.jpg?v=f72d30280676",
+      "fileKeys": {
+        "html": "81d977390c13833cc73d48078ef0a40242114b153d6e5b88ddc9e3e5dafa2bd4",
+        "image": "f72d302806764c1c04cdd208377a4923fe7aec8e05d83eb836babd6fb944b5e5"
+      },
+      "contentHashes": {
+        "html": "5bdd39db1c9047fdb29f6097ddaf0b563f120698c0f1c8eb349f752c51ee7622"
+      },
+      "revision": "d008066c36adeee22de829d81bdf43e7191ec9608c9aa96c69984d4f40169158",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    },
+    "A027": {
+      "status": {
+        "notion": true,
+        "landing": true
+      },
+      "links": {
+        "notion": "https://app.notion.com/p/AI-403428919910807f84d0d4bdba4be043?source=copy_link",
+        "landing": "https://sajagaonda.github.io/career_platform/landings/A027/index.html?v=0c688e7099608988"
+      },
+      "image": "https://sajagaonda.github.io/career_platform/landings/A027/cover.jpg?v=686f33101005",
+      "fileKeys": {
+        "html": "d7989c0a95d8bcef0a3188d9c0d60ef790cee10259305f87f11d8391ebec7087",
+        "image": "686f33101005b5db6dc0d05673f6558c4ab66b38c0de140eab40b58b91ce2943"
+      },
+      "contentHashes": {
+        "html": "0c688e70996089884e2fd46e68ac305b4c8c862a9e8702823775429c2a3e6e18"
+      },
+      "revision": "2d92a03265c8466c38a31cff84b4276ed9fd61bda5bd3f8d029fc554e407295f",
+      "publishedAt": "2026-10-24T04:00:48.767Z"
+    }
+  },
   "formIgnoreBefore": "2026-10-15T06:09:58.671Z"
 }

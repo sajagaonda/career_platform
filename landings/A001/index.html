@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>다문화 여성 실전 서비스 한국어 & 안전·에티켓 교육 프로그램 | 가칭</title>
+  <meta name="description" content="배움과 자립의 열정을 가진 다문화 여성을 위해 서비스직 실전 한국어, 손님 대응 에티켓, 생활·재난 안전상식을 종합 교육하는 맞춤형 프로그램입니다.">
+  <style>
+    :root {
+      --primary: #2b5b84;
+      --primary-dark: #1d3d5a;
+      --primary-light: #e8f1f8;
+      --accent: #e06d53;
+      --accent-hover: #c8573d;
+      --secondary: #5a9e87;
+      --bg-main: #fcfbf9;
+      --bg-card: #ffffff;
+      --text-main: #22252a;
+      --text-sub: #555e68;
+      --text-muted: #88929d;
+      --border: #e2e7ec;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 24px rgba(43,91,132,0.08);
+      --shadow-lg: 0 16px 36px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      word-break: keep-all;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul, ol { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Accessibility Focus Styles */
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container {
+      position: fixed; top: 0; left: 0; width: 100%; height: 4px;
+      background: transparent; z-index: 1000;
+    }
+    .progress-bar {
+      height: 100%; background: var(--accent); width: 0%;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Global Layout Component */
+    .container {
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+    }
+    .section-padding { padding: 5rem 0; }
+
+    .section-header {
+      text-align: center; max-width: 760px; margin: 0 auto 3.5rem auto;
+    }
+    .badge {
+      display: inline-block; padding: 0.35rem 0.9rem; background: var(--primary-light);
+      color: var(--primary); font-size: 0.875rem; font-weight: 700; border-radius: 50px;
+      margin-bottom: 1rem; border: 1px solid rgba(43,91,132,0.15);
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--primary-dark);
+      font-weight: 800; line-height: 1.3; margin-bottom: 1rem;
+    }
+    .section-desc { font-size: 1.1rem; color: var(--text-sub); }
+
+    /* Header & Nav */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 900;
+      background: rgba(252, 251, 249, 0.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border); transition: all 0.3s;
+    }
+    .nav-container {
+      display: flex; justify-content: space-between; align-items: center; height: 70px;
+    }
+    .logo {
+      font-size: 1.2rem; font-weight: 800; color: var(--primary-dark); display: flex; align-items: center; gap: 0.5rem;
+    }
+    .logo span.highlight { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; align-items: center; }
+    .nav-links a { font-weight: 600; color: var(--text-sub); transition: color 0.2s; font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--primary); }
+    .cta-btn-sm {
+      padding: 0.6rem 1.2rem; background: var(--accent); color: #fff; border-radius: 50px;
+      font-weight: 700; font-size: 0.9rem; transition: background 0.2s, transform 0.2s;
+    }
+    .cta-btn-sm:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+    /* Mobile Nav Toggle */
+    .mobile-toggle { display: none; font-size: 1.5rem; color: var(--primary-dark); }
+
+    /* Hero Section */
+    .hero {
+      padding-top: 130px; padding-bottom: 4rem; position: relative; overflow: hidden;
+      background: linear-gradient(180deg, rgba(232,241,248,0.5) 0%, rgba(252,251,249,1) 100%);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 900; color: var(--primary-dark);
+      line-height: 1.25; margin-bottom: 1.2rem;
+    }
+    .hero-text p {
+      font-size: 1.15rem; color: var(--text-sub); margin-bottom: 2rem; line-height: 1.7;
+    }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .btn-primary {
+      padding: 1rem 2rem; background: var(--accent); color: #fff; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 1.05rem; box-shadow: var(--shadow-md); transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    .btn-secondary {
+      padding: 1rem 1.8rem; background: #fff; color: var(--primary); border: 2px solid var(--primary-light);
+      border-radius: var(--radius-sm); font-weight: 700; font-size: 1.05rem; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--primary-light); }
+
+    .hero-notice {
+      display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--text-muted);
+    }
+    .hero-notice-icon { color: var(--secondary); font-weight: bold; }
+
+    /* Hero Cinematic Motion Container */
+    .hero-visual {
+      position: relative; width: 100%; height: 420px; border-radius: var(--radius-md);
+      overflow: hidden; box-shadow: var(--shadow-lg); background: #1a2a3a;
+      border: 4px solid #fff;
+    }
+    .hero-svg-bg { width: 100%; height: 100%; display: block; }
+
+    /* SVG Keyframe Motion Elements */
+    @keyframes floatCloud1 { 0% { transform: translateX(-10%); } 100% { transform: translateX(110%); } }
+    @keyframes floatCloud2 { 0% { transform: translateX(100%); } 100% { transform: translateX(-20%); } }
+    @keyframes pulseHeart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+    @keyframes moveRoute { 0% { stroke-dashoffset: 1000; } 100% { stroke-dashoffset: 0; } }
+    @keyframes nodeGlow { 0%, 100% { fill: #ffffff; r: 8; } 50% { fill: #e06d53; r: 12; } }
+
+    .cloud-1 { animation: floatCloud1 35s linear infinite; }
+    .cloud-2 { animation: floatCloud2 45s linear infinite; }
+    .pulse-elem { transform-origin: center; animation: pulseHeart 3s ease-in-out infinite; }
+    .route-line { stroke-dasharray: 1000; animation: moveRoute 8s linear infinite; }
+    .node-1 { animation: nodeGlow 3s ease-in-out infinite; }
+    .node-2 { animation: nodeGlow 3s ease-in-out infinite 1s; }
+    .node-3 { animation: nodeGlow 3s ease-in-out infinite 2s; }
+
+    /* Cinematic Motion Controls Overlay */
+    .motion-control-bar {
+      position: absolute; bottom: 12px; right: 12px; background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(5px); color: #fff; padding: 6px 12px; border-radius: 30px;
+      display: flex; align-items: center; gap: 8px; font-size: 0.8rem; z-index: 10;
+    }
+    .motion-btn {
+      color: #fff; font-size: 0.9rem; padding: 2px 6px; border-radius: 4px; background: rgba(255,255,255,0.2);
+    }
+    .motion-btn:hover { background: rgba(255,255,255,0.4); }
+
+    /* Auto Story Slider Section */
+    .story-section { background: #fff; }
+    .story-card {
+      background: var(--bg-main); border-radius: var(--radius-md); border: 1px solid var(--border);
+      padding: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;
+      box-shadow: var(--shadow-sm); min-height: 380px;
+    }
+    .story-visual-box {
+      width: 100%; height: 280px; border-radius: var(--radius-sm); overflow: hidden;
+      position: relative; background: #eef4f8;
+    }
+    .story-visual-box svg { width: 100%; height: 100%; object-fit: cover; }
+    .story-content h3 {
+      font-size: 1.5rem; color: var(--primary-dark); margin-bottom: 1rem; font-weight: 800;
+    }
+    .story-content p { color: var(--text-sub); font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.7; }
+    .story-controls {
+      display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem;
+    }
+    .story-indicators { display: flex; gap: 8px; }
+    .indicator-dot {
+      width: 12px; height: 12px; border-radius: 50%; background: var(--border); transition: all 0.3s;
+    }
+    .indicator-dot.active { background: var(--accent); width: 28px; border-radius: 10px; }
+
+    /* Interactive Section 1: Main Custom Diagnostic & Simulator */
+    .interactive-main { background: var(--primary-light); }
+    .sim-container {
+      background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-md);
+      padding: 2.5rem; display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.5rem;
+    }
+    .sim-controls h3 { font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 1rem; font-weight: 800; }
+    .sim-group { margin-bottom: 1.5rem; }
+    .sim-label { display: block; font-weight: 700; margin-bottom: 0.6rem; color: var(--text-main); font-size: 0.95rem; }
+    .sim-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .sim-opt-btn {
+      padding: 0.6rem 1rem; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600; color: var(--text-sub); background: #fff; transition: all 0.2s;
+    }
+    .sim-opt-btn.active {
+      border-color: var(--primary); background: var(--primary); color: #fff;
+    }
+
+    /* Simulation Preview Dynamic Output Box */
+    .sim-output {
+      background: var(--bg-main); border-radius: var(--radius-sm); border: 1px solid var(--border);
+      padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .sim-output-badge {
+      align-self: flex-start; background: var(--secondary); color: #fff; padding: 0.3rem 0.8rem;
+      border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 1rem;
+    }
+    .sim-output-title { font-size: 1.4rem; color: var(--primary-dark); font-weight: 800; margin-bottom: 0.8rem; }
+    .sim-output-desc { font-size: 1rem; color: var(--text-sub); margin-bottom: 1.5rem; line-height: 1.6; }
+    .sim-visual-box {
+      width: 100%; height: 160px; background: #fff; border-radius: var(--radius-sm); border: 1px dashed var(--border);
+      margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+
+    /* Interactive Section 2: Interactive Before/After Compare Slider & Hotspots */
+    .interactive-secondary { background: #fff; }
+    .tool-tabs { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+    .tool-tab-btn {
+      padding: 0.8rem 1.8rem; font-weight: 700; font-size: 1rem; border-radius: 50px;
+      background: var(--bg-main); border: 1px solid var(--border); color: var(--text-sub); transition: all 0.2s;
+    }
+    .tool-tab-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; }
+
+    /* Compare Slider Component */
+    .compare-container {
+      position: relative; width: 100%; max-width: 800px; height: 380px; margin: 0 auto;
+      border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-md); border: 3px solid #fff;
+    }
+    .compare-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .compare-img svg { width: 100%; height: 100%; object-fit: cover; }
+    .compare-overlay {
+      position: absolute; top: 0; left: 0; width: 50%; height: 100%; overflow: hidden;
+      border-right: 3px solid var(--accent); background: #fff;
+    }
+    .compare-slider-input {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; z-index: 30;
+    }
+
+    /* Hotspot Component */
+    .hotspot-container {
+      position: relative; width: 100%; max-width: 800px; height: 380px; margin: 0 auto;
+      border-radius: var(--radius-md); overflow: hidden; background: #233445; box-shadow: var(--shadow-md);
+    }
+    .hotspot-bg-svg { width: 100%; height: 100%; opacity: 0.8; }
+    .hotspot-dot {
+      position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--accent);
+      color: #fff; font-weight: bold; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transform: translate(-50%, -50%); box-shadow: 0 0 0 6px rgba(224,109,83,0.3);
+      transition: all 0.2s; z-index: 10;
+    }
+    .hotspot-dot:hover, .hotspot-dot.active { transform: translate(-50%, -50%) scale(1.25); background: var(--primary); }
+    .hotspot-popover {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); padding: 1.2rem; border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg); border: 1px solid var(--border); z-index: 20;
+    }
+
+    /* Problem / Solution Grid Cards */
+    .card-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--bg-card); border-radius: var(--radius-md); padding: 2rem;
+      border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-sm); background: var(--primary-light);
+      color: var(--primary); display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem; font-weight: bold;
+    }
+    .feature-card h3 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 0.8rem; font-weight: 700; }
+    .feature-card p { color: var(--text-sub); font-size: 0.98rem; line-height: 1.6; }
+
+    /* Team / Profile Section */
+    .profile-card {
+      background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border);
+      padding: 2.5rem; display: grid; grid-template-columns: 240px 1fr; gap: 2.5rem; align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .profile-img-box {
+      width: 100%; height: 240px; border-radius: var(--radius-sm); overflow: hidden; background: #e8f1f8;
+    }
+    .profile-img-box svg { width: 100%; height: 100%; object-fit: cover; }
+    .profile-info h3 { font-size: 1.6rem; color: var(--primary-dark); margin-bottom: 0.3rem; font-weight: 800; }
+    .profile-role { color: var(--accent); font-weight: 700; font-size: 1rem; margin-bottom: 1.2rem; }
+    .profile-bio { color: var(--text-sub); font-size: 1rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .badge-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tag {
+      padding: 0.3rem 0.8rem; background: var(--bg-main); border: 1px solid var(--border);
+      border-radius: 4px; font-size: 0.85rem; color: var(--text-sub); font-weight: 600;
+    }
+
+    /* FAQ Accordion Section */
+    .faq-container { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 1rem; overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; padding: 1.2rem 1.5rem; text-align: left; font-weight: 700;
+      font-size: 1.05rem; color: var(--primary-dark); display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-question::after { content: '+'; font-size: 1.4rem; color: var(--accent); transition: transform 0.2s; }
+    .faq-item.active .faq-question::after { transform: rotate(45deg); }
+    .faq-answer {
+      padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--text-sub); line-height: 1.7; font-size: 0.98rem;
+    }
+    .faq-item.active .faq-answer { padding: 0 1.5rem 1.5rem 1.5rem; max-height: 250px; }
+
+    /* Action & Modal Section */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #fff; text-align: center; border-radius: var(--radius-lg); padding: 4rem 2rem;
+      box-shadow: var(--shadow-lg); margin-bottom: 5rem;
+    }
+    .cta-banner h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 1.2rem; font-weight: 800; }
+    .cta-banner p { font-size: 1.15rem; color: rgba(255,255,255,0.85); max-width: 650px; margin: 0 auto 2.2rem auto; }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark); color: rgba(255,255,255,0.7); padding: 3.5rem 0 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem;
+    }
+    .footer-content { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .footer-brand { max-width: 400px; }
+    .footer-brand h4 { color: #fff; font-size: 1.1rem; margin-bottom: 0.8rem; font-weight: 800; }
+
+    /* Reduced Motion Accessibility Overrides */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .motion-control-bar { display: none; }
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .hero-grid, .sim-container, .profile-card, .story-card { grid-template-columns: 1fr; }
+      .hero-visual { height: 340px; }
+      .profile-img-box { height: 200px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none; position: absolute; top: 70px; left: 0; width: 100%; background: #fff;
+        flex-direction: column; padding: 1.5rem; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-md);
+      }
+      .nav-links.active { display: flex; }
+      .mobile-toggle { display: block; }
+      .compare-container, .hotspot-container { height: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Scroll Progress Bar -->
+  <div class="progress-bar-container" aria-hidden="true">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent);"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <span>당당한 <span class="highlight">자립</span> 에듀 [가칭]</span>
+      </a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="메뉴 열기/닫기">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">프로그램 소개</a>
+        <a href="#story">체험 스토리</a>
+        <a href="#simulator">맞춤 시뮬레이터</a>
+        <a href="#compare">교육 전후 비교</a>
+        <a href="#instructor">강사 소개</a>
+        <a href="#faq">자주 묻는 질문</a>
+        <a href="#apply" class="cta-btn-sm">수요조사 참여하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION with Cinematic SVG Motion -->
+    <section class="hero" id="about">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <span class="badge">지자체·복지관 시범 위탁 사업 준비 중</span>
+          <h1>다문화 여성의 당당한 취업과 자립을 위한 맞춤 에듀</h1>
+          <p>
+            단순 기초 한국어를 넘어 <strong>실전 서비스 직업 한국어, 손님 대응 에티켓, 소방 및 재난 안전상식</strong>까지 종합 교육합니다. 내국인 못지않은 매너와 실력으로 직장에서 인정받으세요.
+          </p>
+          <div class="btn-group">
+            <a href="#simulator" class="btn-primary">
+              나의 맞춤 교육 과정 보기
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#apply" class="btn-secondary">수요조사 참여 (1분)</a>
+          </div>
+          <div class="hero-notice">
+            <span class="hero-notice-icon">✓</span>
+            <span>본 페이지의 모든 정보는 사전 수요 검증 및 시범 사업 제안용입니다.</span>
+          </div>
+        </div>
+
+        <!-- Hero Cinematic Motion Graphic -->
+        <div class="hero-visual" aria-label="시네마틱 교육 로드맵 모션 그래픽">
+          <svg class="hero-svg-bg" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Layer -->
+            <rect width="600" height="400" fill="#1e3040"/>
+            <path d="M0 300 Q150 250 300 320 T600 280 L600 400 L0 400 Z" fill="#2b4257" opacity="0.7"/>
+            <path d="M0 340 Q200 300 400 360 T600 330 L600 400 L0 400 Z" fill="#152330"/>
+
+            <!-- Moving Cloud Layers -->
+            <g class="cloud-1" opacity="0.3">
+              <path d="M50 80 Q65 60 85 65 Q100 50 120 65 Q135 60 145 75 Q155 90 130 95 Q110 100 50 95 Z" fill="#ffffff"/>
+            </g>
+            <g class="cloud-2" opacity="0.2">
+              <path d="M350 120 Q365 100 385 105 Q400 90 420 105 Q435 100 445 115 Q455 130 430 135 L350 135 Z" fill="#ffffff"/>
+            </g>
+
+            <!-- Dynamic Animated Learning Path Line -->
+            <path class="route-line" d="M 80 280 C 180 180, 220 320, 320 200 C 400 100, 480 220, 520 120" stroke="#e06d53" stroke-width="4" stroke-dasharray="8 8" fill="none"/>
+
+            <!-- Interactive Milestone Nodes -->
+            <g transform="translate(80, 280)">
+              <circle class="node-1" r="10" fill="#ffffff"/>
+              <text x="-20" y="30" fill="#ffffff" font-size="12" font-weight="bold">1. 실전 한국어</text>
+            </g>
+            <g transform="translate(320, 200)">
+              <circle class="node-2" r="10" fill="#ffffff"/>
+              <text x="-25" y="30" fill="#ffffff" font-size="12" font-weight="bold">2. 서비스 에티켓</text>
+            </g>
+            <g transform="translate(520, 120)">
+              <circle class="node-3" r="10" fill="#ffffff"/>
+              <text x="-30" y="-20" fill="#ffffff" font-size="12" font-weight="bold">3. 안전·당당한 자립</text>
+            </g>
+
+            <!-- Character Silhouette Graphic -->
+            <g class="pulse-elem" transform="translate(300, 140)">
+              <circle cx="0" cy="0" r="28" fill="#e06d53" opacity="0.2"/>
+              <circle cx="0" cy="0" r="20" fill="#e06d53"/>
+              <path d="M-6 -2 L0 4 L8 -6" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </g>
+          </svg>
+
+          <!-- Motion Controls Overlay -->
+          <div class="motion-control-bar">
+            <span>자율 시네마틱 모션</span>
+            <button class="motion-btn" id="toggleHeroMotion" aria-label="모션 일시정지/재생">❚❚ 정지</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Automatic Story Sequence Slider -->
+    <section class="section-padding story-section" id="story">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">교육 성장 스토리</span>
+          <h2 class="section-title">소외에서 인정받는 일터 전문가로</h2>
+          <p class="section-desc">다문화 아내가 겪는 고민부터 교육을 통해 자신감을 얻는 실제 변화 과정입니다.</p>
+        </div>
+
+        <div class="story-card" id="storyCard">
+          <div class="story-visual-box" id="storyVisual">
+            <!-- Dynamic SVG inserted via JS -->
+          </div>
+          <div class="story-content">
+            <span class="badge" id="storyStepBadge">STEP 1</span>
+            <h3 id="storyTitle">소통과 문화 차이로 인한 망설임</h3>
+            <p id="storyDesc">취업을 원하지만 손님 대응 시 한국어 표현이 서툴거나 서비스 매너를 몰라 무시당할까봐 선뜻 용기를 내기 어려웠습니다.</p>
+            <div class="story-controls">
+              <div class="story-indicators" id="storyIndicators">
+                <span class="indicator-dot active"></span>
+                <span class="indicator-dot"></span>
+                <span class="indicator-dot"></span>
+              </div>
+              <div style="display:flex; gap:0.5rem;">
+                <button class="motion-btn" id="prevStoryBtn" style="background:var(--primary); padding:6px 12px; color:#fff;">이전</button>
+                <button class="motion-btn" id="nextStoryBtn" style="background:var(--primary); padding:6px 12px; color:#fff;">다음</button>
+                <button class="motion-btn" id="pauseStoryBtn" style="background:var(--accent); padding:6px 12px; color:#fff;">일시정지</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION 1: Main Custom Diagnostic Simulator -->
+    <section class="section-padding interactive-main" id="simulator">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">참여형 인터랙션 1</span>
+          <h2 class="section-title">나에게 꼭 필요한 맞춤 교육 시뮬레이션</h2>
+          <p class="section-desc">현재 희망 직종과 가장 필요한 교육 분야를 선택해 보세요. 즉시 추천 커리큘럼과 기대 효과가 변화합니다.</p>
+        </div>
+
+        <div class="sim-container">
+          <div class="sim-controls">
+            <h3>옵션 선택하기</h3>
+            <div class="sim-group">
+              <label class="sim-label">1. 취업 희망 직종</label>
+              <div class="sim-options" id="targetJobOpts">
+                <button class="sim-opt-btn active" data-job="cafe">식음료/카페</button>
+                <button class="sim-opt-btn" data-job="store">유통/마트/매장</button>
+                <button class="sim-opt-btn" data-job="care">아동/어르신 돌봄</button>
+              </div>
+            </div>
+
+            <div class="sim-group">
+              <label class="sim-label">2. 가장 보완하고 싶은 부분</label>
+              <div class="sim-options" id="targetFocusOpts">
+                <button class="sim-opt-btn active" data-focus="etiquette">손님 응대 에티켓</button>
+                <button class="sim-opt-btn" data-focus="safety">소방 & 안전 대처상식</button>
+                <button class="sim-opt-btn" data-focus="korean">실전 직업 한국어</button>
+              </div>
+            </div>
+
+            <div style="margin-top: 2rem;">
+              <button class="btn-primary" id="resetSimBtn" style="width:100%; justify-content:center;">선택 초기화 및 다시하기</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Output Result Box -->
+          <div class="sim-output">
+            <div>
+              <span class="sim-output-badge" id="resBadge">추천 모듈 A</span>
+              <h4 class="sim-output-title" id="resTitle">카페 실전 응대 & 친절 에티켓 코스</h4>
+              <p class="sim-output-desc" id="resDesc">
+                카페 및 매장에서 정중하게 주문을 받고 손님의 클레임에 완곡하게 대처하는 한국어 표현 및 친절 매너 중심 교육입니다.
+              </p>
+            </div>
+
+            <div class="sim-visual-box" id="resVisual">
+              <!-- SVG Visual generated dynamically -->
+            </div>
+
+            <a href="#apply" class="btn-secondary" style="text-align:center; display:block;" id="resCta">이 코스로 수요조사 신청하기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SECTION 2: Interactive Before/After Compare & Hotspots -->
+    <section class="section-padding interactive-secondary" id="compare">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">참여형 인터랙션 2</span>
+          <h2 class="section-title">교육 전과 후의 놀라운 변화 미리보기</h2>
+          <p class="section-desc">슬라이더를 움직이거나 주요 포인트를 클릭해 교육 후 직장 현장에서 달라지는 모습을 확인하세요.</p>
+        </div>
+
+        <div class="tool-tabs">
+          <button class="tool-tab-btn active" data-tab="compare">슬라이더로 전/후 비교</button>
+          <button class="tool-tab-btn" data-tab="hotspot">핵심 학습 포인트 핫스팟</button>
+        </div>
+
+        <!-- Tab 1: Compare Slider -->
+        <div class="tool-panel active" id="comparePanel">
+          <div class="compare-container">
+            <!-- After Visual (Background) -->
+            <div class="compare-img">
+              <svg viewBox="0 0 800 380" width="100%" height="100%">
+                <rect width="800" height="380" fill="#2b5b84"/>
+                <text x="400" y="150" fill="#ffffff" font-size="28" font-weight="bold" text-anchor="middle">교육 후: 당당함 & 전문적인 응대</text>
+                <text x="400" y="200" fill="#e8f1f8" font-size="18" text-anchor="middle">"어서 오세요! 안내해 드리겠습니다." (정확한 매너와 안전 지식)</text>
+                <circle cx="400" cy="270" r="35" fill="#e06d53"/>
+                <path d="M385 270 L395 280 L415 260" stroke="#fff" stroke-width="4" fill="none"/>
+              </svg>
+            </div>
+            <!-- Before Visual (Overlay Cut) -->
+            <div class="compare-overlay" id="compareOverlay">
+              <svg viewBox="0 0 800 380" width="800" height="380">
+                <rect width="800" height="380" fill="#6c757d"/>
+                <text x="400" y="150" fill="#ffffff" font-size="28" font-weight="bold" text-anchor="middle">교육 전: 소통 주저함 & 불안</text>
+                <text x="400" y="200" fill="#f8f9fa" font-size="18" text-anchor="middle">"손님 대응이 두렵고 갑작스러운 소방/재난 상황이 무서워요."</text>
+                <circle cx="400" cy="270" r="35" fill="#343a40"/>
+                <text x="400" y="278" fill="#fff" font-size="24" text-anchor="middle">?</text>
+              </svg>
+            </div>
+            <input type="range" min="0" max="100" value="50" class="compare-slider-input" id="compareSlider" aria-label="교육 전후 시각 비교 슬라이더">
+          </div>
+        </div>
+
+        <!-- Tab 2: Interactive Hotspots -->
+        <div class="tool-panel" id="hotspotPanel">
+          <div class="hotspot-container">
+            <svg class="hotspot-bg-svg" viewBox="0 0 800 380">
+              <rect width="800" height="380" fill="#152330"/>
+              <text x="400" y="50" fill="#ffffff" font-size="20" font-weight="bold" text-anchor="middle">실전 서비스 현장 종합 교육 요소</text>
+              <line x1="100" y1="200" x2="700" y2="200" stroke="#2b4257" stroke-width="4"/>
+            </svg>
+
+            <div class="hotspot-dot active" style="top: 35%; left: 25%;" data-title="실전 서비스 한국어" data-desc="주문받기, 계산 안내, 친절한 완곡 어법 등 현장 필수 표현을 반복 훈련합니다.">1</div>
+            <div class="hotspot-dot" style="top: 60%; left: 50%;" data-title="손님 대응 에티켓" data-desc="용모와 미소, 바른 자세, 컴플레인 손님을 차분하게 안내하는 응대 매너를 배웁니다.">2</div>
+            <div class="hotspot-dot" style="top: 35%; left: 75%;" data-title="소방 & 안전 대처상식" data-desc="매장 내 소화기 사용법, 우천/폭설 시 안전 대처, 비상 탈출 안내 상식을 함께 교육합니다.">3</div>
+
+            <div class="hotspot-popover" id="hotspotPopover">
+              <h4 id="popTitle" style="color:var(--primary-dark); font-size:1.1rem; font-weight:800; margin-bottom:0.4rem;">1. 실전 서비스 한국어</h4>
+              <p id="popDesc" style="color:var(--text-sub); font-size:0.95rem;">주문받기, 계산 안내, 친절한 완곡 어법 등 현장 필수 표현을 반복 훈련합니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Key Features & Solutions -->
+    <section class="section-padding" style="background:var(--bg-main);">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">차별화된 교육 솔루션</span>
+          <h2 class="section-title">왜 이 프로그램이어야 할까요?</h2>
+          <p class="section-desc">단순 수료에 그치지 않고, 현장에서 당당히 인정받을 수 있도록 돕는 3가지 핵심 축입니다.</p>
+        </div>
+
+        <div class="card-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🗣️</div>
+            <h3>실전 서비스 한국어</h3>
+            <p>외운 문장이 아닌 실제 매장에서 바로 쓸 수 있는 손님 응대어, 기분 좋은 인사법, 상황별 어휘를 유쾌하게 배웁니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>손님 대응 에티켓</h3>
+            <p>내국인 못지않은 세련된 서비스 매너와 정중한 컴플레인 대처법을 습득하여 직장 내 불이익과 무시를 예방합니다.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧯</div>
+            <h3>소방 & 재난 안전상식</h3>
+            <p>소화기 위치 및 사용법, 우천·폭설·장마 등 갑작스러운 상황 발생 시 안전하게 대처하는 실생활 필수 상식을 습득합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Instructor Profile -->
+    <section class="section-padding" id="instructor" style="background:#fff;">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">강사 소개</span>
+          <h2 class="section-title">진정성과 다년간의 현장 경험을 갖춘 멘토</h2>
+        </div>
+
+        <div class="profile-card">
+          <div class="profile-img-box">
+            <svg viewBox="0 0 240 240" fill="none">
+              <rect width="240" height="240" fill="#e8f1f8"/>
+              <circle cx="120" cy="90" r="45" fill="#2b5b84"/>
+              <path d="M40 210 C40 150 80 150 120 150 C160 150 200 150 200 210 Z" fill="#2b5b84"/>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <h3>강여선 대표 강사</h3>
+            <div class="profile-role">다문화가정 멘토 & 교육 전문가</div>
+            <p class="profile-bio">
+              "배움의 열정을 가진 다문화 여성들이 직장에서 당당하게 인정받고 자립할 수 있도록 돕겠습니다. 2년여 간의 다문화가정 한국어 지도 경험과 상담·교육 노하우로 따뜻하고 실용적인 교육을 제공합니다."
+            </p>
+            <div class="badge-tags">
+              <span class="tag">중등학교 정교사 2급</span>
+              <span class="tag">평생교육사 2급</span>
+              <span class="tag">한국어 지도사 (2년)</span>
+              <span class="tag">웃음치료사 1급</span>
+              <span class="tag">국민연금공단 10년 상담</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FAQ Accordion -->
+    <section class="section-padding" id="faq" style="background:var(--bg-main);">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge">FAQ</span>
+          <h2 class="section-title">자주 묻는 질문</h2>
+        </div>
+
+        <div class="faq-container">
+          <div class="faq-item active">
+            <button class="faq-question" aria-expanded="true">Q. 교육 비용은 개인이 부담하나요?</button>
+            <div class="faq-answer">
+              본 프로그램은 지방자치단체, 다문화가족지원센터, 복지관 등의 정책 지원 사업 및 위탁 운영 예산 활용을 목표로 기획 중입니다. 사전 수요조사 참가는 전액 무료입니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Q. 한국어 실력이 아직 기초 수준인데 수강할 수 있나요?</button>
+            <div class="faq-answer">
+              네, 가능합니다. 웃음치료와 동화구연 방식 등 쉽고 유쾌한 시각·체험형 수업 방식으로 구성되어 기초 수준이라도 부담 없이 시작할 수 있습니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Q. 수요조사는 어떻게 활용되나요?</button>
+            <div class="faq-answer">
+              수집된 소중한 의견은 실제 지자체 및 복지관 교육 프로그램 개설 제안서의 핵심 수요 검증 근거로 활용됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Final Action & Demand Survey Modal Launcher -->
+    <section class="container" id="apply">
+      <div class="cta-banner">
+        <h2>당당한 자립의 첫걸음, 수요조사에 동참해 주세요</h2>
+        <p>1분의 간단한 설문 참여가 지역 지자체 및 복지관의 맞춤형 무료 교육 프로그램 개설을 당기는 큰 힘이 됩니다.</p>
+        <button class="btn-primary" id="openSurveyModalBtn" style="background:#fff; color:var(--primary-dark); font-size:1.1rem; padding:1.2rem 2.5rem;">
+          수요조사 참여하기 (1분 소요)
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Demand Survey Modal Window -->
+  <div class="sr-only" id="modalOverlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); z-index:1000; display:none; align-items:center; justify-content:center;">
+    <div style="background:#fff; width:90%; max-width:550px; border-radius:var(--radius-md); padding:2.5rem; position:relative; box-shadow:var(--shadow-lg);">
+      <button id="closeModalBtn" style="position:absolute; top:1rem; right:1.5rem; font-size:1.8rem; color:var(--text-sub);">&times;</button>
+      <h3 style="font-size:1.5rem; color:var(--primary-dark); margin-bottom:0.8rem; font-weight:800;">교육 프로그램 사전 수요조사</h3>
+      <p style="color:var(--text-sub); font-size:0.95rem; margin-bottom:1.5rem;">* 본 입력 내용은 브라우저 로컬 시뮬레이션용이며 외부로 전송되거나 저장되지 않습니다.</p>
+
+      <form id="surveyForm" onsubmit="event.preventDefault();">
+        <div style="margin-bottom:1.2rem;">
+          <label style="display:block; font-weight:700; margin-bottom:0.4rem;">1. 참가자 구분</label>
+          <select id="userRole" style="width:100%; padding:0.8rem; border:1px solid var(--border); border-radius:var(--radius-sm);">
+            <option>다문화 여성 (취업 희망자)</option>
+            <option>다문화가정 가족 (배우자/시부모)</option>
+            <option>복지관 / 지자체 관계자</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:1.2rem;">
+          <label style="display:block; font-weight:700; margin-bottom:0.4rem;">2. 가장 개설되었으면 하는 교육 분야</label>
+          <label style="display:block; font-size:0.95rem; margin-bottom:0.3rem;"><input type="checkbox" checked> 손님 응대 & 서비스 직업 에티켓</label>
+          <label style="display:block; font-size:0.95rem; margin-bottom:0.3rem;"><input type="checkbox" checked> 실전 서비스 직업 한국어</label>
+          <label style="display:block; font-size:0.95rem;"><input type="checkbox"> 소방 및 재난 안전 대처상식</label>
+        </div>
+
+        <button type="submit" id="submitSurveyBtn" class="btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">
+          수요조사 제출 시뮬레이션 완료
+        </button>
+      </form>
+
+      <div id="surveyResultMsg" style="display:none; text-align:center; padding:1.5rem 0;">
+        <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎉</div>
+        <h4 style="color:var(--primary-dark); font-size:1.3rem; margin-bottom:0.5rem; font-weight:800;">의견이 소중히 반영되었습니다!</h4>
+        <p style="color:var(--text-sub); font-size:0.95rem;">지자체 위탁 프로그램 개설 제안서에 소중한 통계로 활용하겠습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <h4>다문화 여성 실전 서비스 한국어 & 안전·에티켓 교육 [가칭]</h4>
+        <p>본 웹사이트는 사회복지상담 및 다문화 교육 경험을 기반으로 한 정책 위탁 교육 사업 아이템 검증용 랜딩페이지입니다.</p>
+      </div>
+      <div>
+        <p style="font-weight:700; color:#fff; margin-bottom:0.5rem;">문의 및 안내</p>
+        <p>전화: 미확인 (지자체/복지관 협의 예정)</p>
+        <p>이메일: 직접 입력 예정</p>
+      </div>
+    </div>
+    <div class="container" style="border-top:1px solid rgba(255,255,255,0.05); padding-top:1.5rem; text-align:center;">
+      <p>&copy; 2026 다문화 당당한 자립 에듀. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic for Motion & Interactivity -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Scroll Progress Bar Update
+      window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('progressBar').style.width = scrolled + '%';
+      });
+
+      // 2. Mobile Nav Toggle
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navLinks = document.getElementById('navLinks');
+      mobileToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+
+      // 3. Hero Motion Pause/Play Toggle
+      let heroMotionActive = true;
+      const toggleHeroMotionBtn = document.getElementById('toggleHeroMotion');
+      const routeLine = document.querySelector('.route-line');
+
+      toggleHeroMotionBtn.addEventListener('click', function() {
+        heroMotionActive = !heroMotionActive;
+        if (!heroMotionActive) {
+          routeLine.style.animationPlayState = 'paused';
+          toggleHeroMotionBtn.textContent = '▶ 재생';
+        } else {
+          routeLine.style.animationPlayState = 'running';
+          toggleHeroMotionBtn.textContent = '❚❚ 정지';
+        }
+      });
+
+      // 4. Automatic Story Sequence Slider Data & Controller
+      const storyData = [
+        {
+          step: "STEP 1",
+          title: "소통과 문화 차이로 인한 망설임",
+          desc: "취업을 원하지만 손님 대응 시 한국어 표현이 서툴거나 서비스 매너를 몰라 무시당할까봐 선뜻 용기를 내기 어려웠습니다.",
+          svg: `<svg viewBox="0 0 400 280"><rect width="400" height="280" fill="#e2e7ec"/><circle cx="200" cy="120" r="40" fill="#88929d"/><text x="200" y="210" font-size="18" fill="#555e68" text-anchor="middle" font-weight="bold">두려움과 소통의 장벽</text></svg>`
+        },
+        {
+          step: "STEP 2",
+          title: "유쾌하고 실용적인 맞춤 교육",
+          desc: "동화구연과 웃음치료 방식을 접목하여 실전 서비스 한국어, 인삿말, 손님 응대 에티켓, 소방 안전 대처를 재미있게 익힙니다.",
+          svg: `<svg viewBox="0 0 400 280"><rect width="400" height="280" fill="#e8f1f8"/><circle cx="200" cy="120" r="40" fill="#2b5b84"/><text x="200" y="210" font-size="18" fill="#1d3d5a" text-anchor="middle" font-weight="bold">즐거운 실전 현장 체득</text></svg>`
+        },
+        {
+          step: "STEP 3",
+          title: "일터에서 인정받는 당당한 전문가",
+          desc: "내국인 못지않은 친절한 어투와 세련된 에티켓으로 고객과 동료에게 당당히 인정받으며 자립 기반을 마련합니다.",
+          svg: `<svg viewBox="0 0 400 280"><rect width="400" height="280" fill="#fdebe7"/><circle cx="200" cy="120" r="40" fill="#e06d53"/><text x="200" y="210" font-size="18" fill="#c8573d" text-anchor="middle" font-weight="bold">당당한 자립과 자신감</text></svg>`
+        }
+      ];
+
+      let currentStoryIdx = 0;
+      let storyTimer = null;
+      let isStoryPaused = false;
+
+      function renderStory(idx) {
+        const item = storyData[idx];
+        document.getElementById('storyStepBadge').textContent = item.step;
+        document.getElementById('storyTitle').textContent = item.title;
+        document.getElementById('storyDesc').textContent = item.desc;
+        document.getElementById('storyVisual').innerHTML = item.svg;
+
+        const dots = document.querySelectorAll('#storyIndicators .indicator-dot');
+        dots.forEach((dot, i) => {
+          if (i === idx) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+      }
+
+      function startStoryTimer() {
+        if (storyTimer) clearInterval(storyTimer);
+        storyTimer = setInterval(() => {
+          if (!isStoryPaused) {
+            currentStoryIdx = (currentStoryIdx + 1) % storyData.length;
+            renderStory(currentStoryIdx);
+          }
+        }, 5000);
+      }
+
+      document.getElementById('prevStoryBtn').addEventListener('click', () => {
+        currentStoryIdx = (currentStoryIdx - 1 + storyData.length) % storyData.length;
+        renderStory(currentStoryIdx);
+      });
+
+      document.getElementById('nextStoryBtn').addEventListener('click', () => {
+        currentStoryIdx = (currentStoryIdx + 1) % storyData.length;
+        renderStory(currentStoryIdx);
+      });
+
+      const pauseStoryBtn = document.getElementById('pauseStoryBtn');
+      pauseStoryBtn.addEventListener('click', () => {
+        isStoryPaused = !isStoryPaused;
+        pauseStoryBtn.textContent = isStoryPaused ? '재생' : '일시정지';
+      });
+
+      renderStory(0);
+      startStoryTimer();
+
+      // 5. Main Custom Diagnostic Simulator Logic
+      let currentJob = 'cafe';
+      let currentFocus = 'etiquette';
+
+      const simMatrix = {
+        'cafe-etiquette': {
+          badge: "추천 모듈 A1",
+          title: "카페 음료 응대 & 손님 친절 에티켓 코스",
+          desc: "주문받기, 메뉴 추천, 컴플레인 완곡 대처 등 카페 현장에 특화된 바른 어투와 친절 매너를 익힙니다.",
+          svg: `<svg viewBox="0 0 300 120" width="100%" height="100%"><rect width="300" height="120" fill="#e8f1f8"/><text x="150" y="65" font-size="16" fill="#2b5b84" font-weight="bold" text-anchor="middle">☕ 카페 서비스 응대 모듈</text></svg>`
+        },
+        'cafe-safety': {
+          badge: "추천 모듈 A2",
+          title: "매장 내 소방 & 우천/폭설 안전 대처 코스",
+          desc: "카페 매장 내 소화기 위치, 비상구 안내, 기상 악화 시 바닥 미끄럼 방지 등 안전 관리 상식을 배웁니다.",
+          svg: `<svg viewBox="0 0 300 120" width="100%" height="100%"><rect width="300" height="120" fill="#fdebe7"/><text x="150" y="65" font-size="16" fill="#e06d53" font-weight="bold" text-anchor="middle">🧯 매장 안전관리 모듈</text></svg>`
+        },
+        'store-korean': {
+          badge: "추천 모듈 B1",
+          title: "유통/마트 실전 계산 & 바른 어휘 한국어",
+          desc: "바코드 계산, 상품 위치 안내, 할인가 설명 등 마트/매장 근무 시 필수 직업 한국어를 연습합니다.",
+          svg: `<svg viewBox="0 0 300 120" width="100%" height="100%"><rect width="300" height="120" fill="#e2f0d9"/><text x="150" y="65" font-size="16" fill="#385723" font-weight="bold" text-anchor="middle">🛒 매장 실전 한국어 모듈</text></svg>`
+        }
+      };
+
+      function updateSimulator() {
+        const key = `${currentJob}-${currentFocus}`;
+        const data = simMatrix[key] || {
+          badge: "맞춤 종합 추천 모듈",
+          title: "서비스 직업 한국어 & 종합 안전 에티켓 코스",
+          desc: "선택하신 희망 직무와 보완점에 맞춰 실전 한국어 어휘, 손님 응대 매너, 안전 대처법을 통합 제공합니다.",
+          svg: `<svg viewBox="0 0 300 120" width="100%" height="100%"><rect width="300" height="120" fill="#e8f1f8"/><text x="150" y="65" font-size="16" fill="#2b5b84" font-weight="bold" text-anchor="middle">🎓 종합 자립 맞춤 모듈</text></svg>`
+        };
+
+        document.getElementById('resBadge').textContent = data.badge;
+        document.getElementById('resTitle').textContent = data.title;
+        document.getElementById('resDesc').textContent = data.desc;
+        document.getElementById('resVisual').innerHTML = data.svg;
+      }
+
+      document.querySelectorAll('#targetJobOpts .sim-opt-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#targetJobOpts .sim-opt-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentJob = this.getAttribute('data-job');
+          updateSimulator();
+        });
+      });
+
+      document.querySelectorAll('#targetFocusOpts .sim-opt-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('#targetFocusOpts .sim-opt-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          currentFocus = this.getAttribute('data-focus');
+          updateSimulator();
+        });
+      });
+
+      document.getElementById('resetSimBtn').addEventListener('click', function() {
+        currentJob = 'cafe'; currentFocus = 'etiquette';
+        document.querySelectorAll('.sim-opt-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('#targetJobOpts .sim-opt-btn[data-job="cafe"]').classList.add('active');
+        document.querySelector('#targetFocusOpts .sim-opt-btn[data-focus="etiquette"]').classList.add('active');
+        updateSimulator();
+      });
+
+      // 6. Interactive Tool Tabs (Slider vs Hotspots)
+      document.querySelectorAll('.tool-tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.tool-tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+          const tabKey = this.getAttribute('data-tab');
+          document.getElementById(tabKey + 'Panel').classList.add('active');
+        });
+      });
+
+      // Compare Slider Input Control
+      const compareSlider = document.getElementById('compareSlider');
+      const compareOverlay = document.getElementById('compareOverlay');
+      compareSlider.addEventListener('input', function(e) {
+        compareOverlay.style.width = e.target.value + '%';
+      });
+
+      // Hotspot Interactivity
+      document.querySelectorAll('.hotspot-dot').forEach(dot => {
+        dot.addEventListener('click', function() {
+          document.querySelectorAll('.hotspot-dot').forEach(d => d.classList.remove('active'));
+          this.classList.add('active');
+          document.getElementById('popTitle').textContent = this.getAttribute('data-title');
+          document.getElementById('popDesc').textContent = this.getAttribute('data-desc');
+        });
+      });
+
+      // 7. FAQ Accordion Toggle
+      document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', function() {
+          const item = this.parentElement;
+          const isActive = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+          if (!isActive) {
+            item.classList.add('active');
+            this.setAttribute('aria-expanded', 'true');
+          } else {
+            this.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // 8. Demand Survey Modal Logic
+      const modalOverlay = document.getElementById('modalOverlay');
+      const openModalBtn = document.getElementById('openSurveyModalBtn');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const surveyForm = document.getElementById('surveyForm');
+      const surveyResultMsg = document.getElementById('surveyResultMsg');
+
+      openModalBtn.addEventListener('click', function() {
+        modalOverlay.style.display = 'flex';
+        modalOverlay.classList.remove('sr-only');
+      });
+
+      closeModalBtn.addEventListener('click', function() {
+        modalOverlay.style.display = 'none';
+        modalOverlay.classList.add('sr-only');
+      });
+
+      document.getElementById('submitSurveyBtn').addEventListener('click', function() {
+        surveyForm.style.display = 'none';
+        surveyResultMsg.style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>

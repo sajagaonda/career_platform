@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>찾아가는 맞춤형 이동식 재활·체형교정 버스 서비스 (가칭)</title>
+  <meta name="description" content="센터 방문이 힘든 어르신 및 대정읍 학부모·자녀를 위한 찾아가는 이동식 재활·체형교정 서비스">
+  <style>
+    :root {
+      --primary: #1b4d3e;
+      --primary-light: #2c7a63;
+      --accent: #d97706;
+      --accent-light: #f59e0b;
+      --bg-main: #f8faf9;
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --border: #e5e7eb;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: var(--font-stack);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    /* Accessibility Focus styles */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Layout Components */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header & Nav */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: white !important;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-light) !important;
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      height: 3px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Hero Section with Cinema Motion */
+    .hero {
+      padding-top: 130px;
+      padding-bottom: 80px;
+      background: linear-gradient(135deg, #f0f7f4 0%, #e6f0ec 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+      font-weight: 800;
+    }
+
+    .hero-content p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      word-break: keep-all;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px rgba(27, 77, 62, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: #f0f7f4;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Cinematic Canvas Container */
+    .hero-visual-container {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    /* SVG Cinematic Layers */
+    .cinematic-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    /* Multi-layer Continuous Animation Effects */
+    @keyframes moveBus {
+      0% { transform: translateX(-10px) translateY(0px); }
+      50% { transform: translateX(10px) translateY(-4px); }
+      100% { transform: translateX(-10px) translateY(0px); }
+    }
+
+    @keyframes pulseWave {
+      0% { transform: scale(0.95); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(0.95); opacity: 0.3; }
+    }
+
+    @keyframes floatCloud {
+      0% { transform: translateX(-50px); }
+      100% { transform: translateX(450px); }
+    }
+
+    .anim-bus { animation: moveBus 4s ease-in-out infinite; }
+    .anim-pulse { animation: pulseWave 3s ease-in-out infinite; transform-origin: center; }
+    .anim-cloud { animation: floatCloud 25s linear infinite; }
+
+    /* Interactive Story Carousel Section */
+    .story-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+    }
+
+    .section-tag {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .story-card-wrapper {
+      background: var(--bg-main);
+      border-radius: 16px;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .story-display {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      min-height: 320px;
+    }
+
+    .story-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .story-indicators {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .indicator.active {
+      background: var(--primary);
+      width: 30px;
+      border-radius: 6px;
+    }
+
+    .control-btns {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      background: white;
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Section 2: Live Service Motion (SVG Path Drawing) */
+    .motion-preview-section {
+      padding: 80px 0;
+      background: #0f2d24;
+      color: white;
+      position: relative;
+    }
+
+    .motion-preview-section .section-title {
+      color: white;
+    }
+
+    .route-canvas-container {
+      width: 100%;
+      height: 350px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Interactive Module A: Customization Simulation */
+    .sim-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .sim-form {
+      background: var(--bg-main);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .option-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .option-btn {
+      padding: 0.8rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      color: var(--text-muted);
+    }
+
+    .option-btn.selected {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .sim-result-card {
+      background: var(--bg-main);
+      border-radius: 16px;
+      padding: 2rem;
+      border: 2px solid var(--primary-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .result-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    /* Interactive Module B: Interactive Hotspot Map / Visual Comparison */
+    .interactive-b-section {
+      padding: 80px 0;
+      background: var(--bg-main);
+    }
+
+    .hotspot-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hotspot-pin {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .hotspot-pin:hover {
+      transform: scale(1.2);
+    }
+
+    .hotspot-info-panel {
+      margin-top: 1.5rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    /* FAQ Accordion */
+    .faq-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .accordion {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      width: 100%;
+      padding: 1.2rem 1.5rem;
+      background: white;
+      border: none;
+      text-align: left;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .accordion-content {
+      padding: 0 1.5rem 1.2rem 1.5rem;
+      display: none;
+      color: var(--text-muted);
+      background: white;
+    }
+
+    .accordion-item.open .accordion-content {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 50px 0 30px 0;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Motion Accessibility Support */
+    @media (prefers-reduced-motion: reduce) {
+      .anim-bus, .anim-pulse, .anim-cloud {
+        animation: none !important;
+      }
+      * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .hero-grid, .story-display, .sim-grid, .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .hero-visual-container {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        제주 이동재활 버스 <span class="logo-badge">시범 준비중</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#story">서비스 소개</a></li>
+        <li><a href="#motion">동선 미리보기</a></li>
+        <li><a href="#simulate">맞춤 체험</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
+      <a href="#simulate" class="nav-cta">무료 시범체험 신청</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION with Cinematic Motion -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>아픈 몸으로 이동하지 마세요.<br>원하는 장소로 찾아가는 1:1 재활버스가 갑니다.</h1>
+        <p>제주도 내 노인회관·복지관 어르신 및 대정읍 영어교육도시 학부모·자녀를 위한 맞춤형 출장 체형교정 & 재활 케어 서비스입니다.</p>
+        <div class="hero-actions">
+          <a href="#simulate" class="btn btn-primary">내 맞춤 코스 체험하기</a>
+          <button id="pauseMotionBtn" class="btn btn-secondary" aria-label="움직임 일시정지">
+            <span id="pauseBtnIcon">⏸</span> 모션 일시정지
+          </button>
+        </div>
+      </div>
+
+      <!-- Autonomous Motion Visual Layer -->
+      <div class="hero-visual-container" id="heroVisual">
+        <!-- SVG Vector Cinematic Scene -->
+        <svg class="cinematic-layer" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="제주 자연 속을 달리는 이동식 재활버스 일러스트">
+          <!-- Background: Hallasan & Sky -->
+          <rect width="500" height="400" fill="#eef7f4"/>
+          <path d="M 0 280 Q 250 180 500 280 L 500 400 L 0 400 Z" fill="#c3e5d8"/>
+          <path d="M 50 290 Q 280 200 500 310 L 500 400 L 0 400 Z" fill="#9bd1be"/>
+
+          <!-- Animated Clouds -->
+          <g class="anim-cloud">
+            <ellipse cx="40" cy="80" rx="30" ry="12" fill="white" opacity="0.8"/>
+            <ellipse cx="60" cy="75" rx="20" ry="15" fill="white" opacity="0.8"/>
+          </g>
+
+          <!-- Road -->
+          <path d="M 0 350 Q 250 330 500 360 L 500 400 L 0 400 Z" fill="#475569"/>
+          <path d="M 0 375 Q 250 355 500 385" stroke="#f59e0b" stroke-width="4" stroke-dasharray="15,15"/>
+
+          <!-- Pulse Wave Target (Destination) -->
+          <circle class="anim-pulse" cx="380" cy="320" r="35" fill="rgba(217, 119, 6, 0.2)"/>
+          <circle class="anim-pulse" cx="380" cy="320" r="15" fill="var(--accent)"/>
+          <text x="380" y="275" text-anchor="middle" fill="var(--primary)" font-weight="bold" font-size="14">도착 예정: 영어교육도시 / 복지관</text>
+
+          <!-- Bus Object moving continuously -->
+          <g class="anim-bus">
+            <!-- Bus Body -->
+            <rect x="120" y="290" width="140" height="65" rx="12" fill="var(--primary)"/>
+            <rect x="220" y="300" width="30" height="30" rx="4" fill="#93c5fd"/>
+            <rect x="175" y="300" width="35" height="20" rx="2" fill="#e2e8f0"/>
+            <rect x="135" y="300" width="30" height="20" rx="2" fill="#e2e8f0"/>
+            <!-- Wheels -->
+            <circle cx="155" cy="355" r="14" fill="#1e293b"/>
+            <circle cx="155" cy="355" r="6" fill="#94a3b8"/>
+            <circle cx="230" cy="355" r="14" fill="#1e293b"/>
+            <circle cx="230" cy="355" r="6" fill="#94a3b8"/>
+            <!-- Medical Cross Badge -->
+            <circle cx="148" cy="332" r="8" fill="white"/>
+            <path d="M 148 327 L 148 337 M 143 332 L 153 332" stroke="var(--accent)" stroke-width="3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY CAROUSEL SECTION (5s Auto Sequence) -->
+  <section class="story-section" id="story">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Service Experience</span>
+        <h2 class="section-title">불편한 이동 없이, 집 앞에서 만나는 재활</h2>
+      </div>
+
+      <div class="story-card-wrapper">
+        <div class="story-display" id="storyDisplay">
+          <!-- JS Dynamic Story Injected Here -->
+        </div>
+
+        <div class="story-controls">
+          <div class="story-indicators" id="storyIndicators">
+            <span class="indicator active" onclick="setStory(0)"></span>
+            <span class="indicator" onclick="setStory(1)"></span>
+            <span class="indicator" onclick="setStory(2)"></span>
+          </div>
+          <div class="control-btns">
+            <button class="icon-btn" onclick="prevStory()" aria-label="이전 스토리">◀</button>
+            <button class="icon-btn" id="storyPlayPause" onclick="toggleStoryAuto()" aria-label="일시정지">⏸</button>
+            <button class="icon-btn" onclick="nextStory()" aria-label="다음 스토리">▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LIVE SERVICE MOTION (Continuous Route Drawing) -->
+  <section class="motion-preview-section" id="motion">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag" style="color: var(--accent-light);">Live Operation Route</span>
+        <h2 class="section-title">제주 전역 순회 버스 운행 시뮬레이션</h2>
+        <p style="color: #94a3b8;">복지관 순회부터 개별 맞춤 가정 방문까지 실시간으로 진행되는 동선입니다.</p>
+      </div>
+
+      <div class="route-canvas-container">
+        <svg width="100%" height="100%" viewBox="0 0 800 350" preserveAspectRatio="xMidYMid meet">
+          <!-- Route Path Animation -->
+          <path id="routePath" d="M 100 250 Q 250 100 400 200 T 700 150" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+          <path d="M 100 250 Q 250 100 400 200 T 700 150" fill="none" stroke="var(--accent-light)" stroke-width="6" stroke-dasharray="12,12">
+            <animate attributeName="stroke-dashoffset" from="100" to="0" dur="5s" repeatCount="indefinite" />
+          </path>
+
+          <!-- Nodes -->
+          <circle cx="100" cy="250" r="12" fill="var(--accent)"/>
+          <text x="100" y="285" fill="white" text-anchor="middle" font-size="12">서귀포 대정읍</text>
+
+          <circle cx="400" cy="200" r="12" fill="var(--primary-light)"/>
+          <text x="400" y="235" fill="white" text-anchor="middle" font-size="12">노인회관·복지관</text>
+
+          <circle cx="700" cy="150" r="12" fill="var(--accent)"/>
+          <text x="700" y="185" fill="white" text-anchor="middle" font-size="12">제주 시내/가정</text>
+
+          <!-- Moving Pin -->
+          <circle cx="0" cy="0" r="8" fill="white">
+            <animateMotion path="M 100 250 Q 250 100 400 200 T 700 150" dur="8s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE MODULE A: Interactive Customization -->
+  <section class="sim-section" id="simulate">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Simulation</span>
+        <h2 class="section-title">나에게 필요한 맞춤 재활코스 찾아보기</h2>
+        <p>상황과 대상을 선택하시면 가장 최적화된 출장 프로그램 구성을 보여드립니다.</p>
+      </div>
+
+      <div class="sim-grid">
+        <!-- Input Form -->
+        <div class="sim-form">
+          <div class="form-group">
+            <label>1. 서비스 대상자를 선택해주세요</label>
+            <div class="option-selector">
+              <button class="option-btn selected" onclick="selectSimTarget('senior', this)">어르신 / 경로당</button>
+              <button class="option-btn" onclick="selectSimTarget('family', this)">학부모 / 자녀</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>2. 가장 집중하고 싶은 부위</label>
+            <div class="option-selector">
+              <button class="option-btn selected" onclick="selectSimArea('neck', this)">목/경추 견인</button>
+              <button class="option-btn" onclick="selectSimArea('back', this)">허리/체형 교정</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>3. 선호하는 이용 형태</label>
+            <div class="option-selector">
+              <button class="option-btn selected" onclick="selectSimType('bus', this)">1:1 버스 맞춤케어</button>
+              <button class="option-btn" onclick="selectSimType('group', this)">기관 출강 단체교실</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Display Card -->
+        <div class="sim-result-card" id="simResultCard">
+          <div>
+            <span class="result-badge" id="resBadge">추천 맞춤 코스</span>
+            <h3 id="resTitle" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 0.8rem;">어르신 1:1 목/경추 버스 전용 케어</h3>
+            <p id="resDesc" style="color: var(--text-muted); margin-bottom: 1.5rem;">
+              자가 재활 10년 노하우가 집약된 소형 버스 내 특수 견인 장비를 활용하여 집 앞에서 안전하게 받는 밀도 높은 1시간 맞춤 교정입니다.
+            </p>
+            <div id="resVisual" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid var(--border); text-align: center;">
+              <span style="font-size: 0.9rem; color: var(--primary); font-weight: bold;">[예상 구성] 시범 무료 케어 1회 + 1:1 관찰 상담</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="copyInquiryText()" style="margin-top: 1.5rem; width: 100%;">
+            📋 이 맞춤 구성으로 시범 참여 문의하기
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE MODULE B: Hotspot Map & Inspection -->
+  <section class="interactive-b-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Bus Interior Feature</span>
+        <h2 class="section-title">이동식 재활버스 내부 둘러보기</h2>
+        <p>핀을 클릭하시면 내부 장비와 맞춤 케어 공간의 세부 정보를 확인하실 수 있습니다.</p>
+      </div>
+
+      <div class="hotspot-container">
+        <!-- SVG Graphic of Bus Layout -->
+        <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+          <rect width="800" height="400" fill="#f1f5f9"/>
+          <!-- Bus Outline -->
+          <rect x="50" y="50" width="700" height="300" rx="30" fill="white" stroke="var(--primary)" stroke-width="4"/>
+          <!-- Driver Seat -->
+          <rect x="80" y="80" width="80" height="100" rx="8" fill="#cbd5e1"/>
+          <!-- Main Rehabilitation Zone -->
+          <rect x="220" y="80" width="300" height="240" rx="12" fill="#e2e8f0" stroke-dasharray="5,5" stroke="#94a3b8"/>
+          <text x="370" y="200" text-anchor="middle" fill="#64748b" font-weight="bold">1:1 맞춤 체형교정 & 견인 공간</text>
+          <!-- Consultation Area -->
+          <rect x="560" y="80" width="160" height="240" rx="12" fill="#fef3c7"/>
+          <text x="640" y="200" text-anchor="middle" fill="#d97706" font-weight="bold">상담 및 측정 존</text>
+        </svg>
+
+        <!-- Hotspot Pins -->
+        <div class="hotspot-pin" style="top: 35%; left: 42%;" onclick="showHotspot(1)">1</div>
+        <div class="hotspot-pin" style="top: 65%; left: 28%;" onclick="showHotspot(2)">2</div>
+        <div class="hotspot-pin" style="top: 45%; left: 78%;" onclick="showHotspot(3)">3</div>
+      </div>
+
+      <div class="hotspot-info-panel" id="hotspotPanel">
+        <h4 id="hotspotTitle" style="color: var(--primary); margin-bottom: 0.5rem;">핀을 클릭하여 세부 시설을 확인하세요.</h4>
+        <p id="hotspotDesc" style="color: var(--text-muted);">이동식 재활버스는 어르신 및 학부모·자녀의 편안하고 안전한 자세 관리를 위해 특수 설계되었습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">자주 묻는 질문</h2>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleFaq(this)">
+            <span>Q. 서비스 이용 비용과 지불 방식은 어떻게 되나요?</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-content">
+            <p>현재 시범 무료 체험 단계를 거쳐, 어르신 대상 지자체 건강 바우처 연계 및 기관 출강, 개인 맞춤 서비스 이용료 체계를 확립해 나갈 예정입니다. (※ 현재 정식 결제 시스템 이전 단계입니다)</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleFaq(this)">
+            <span>Q. 대정읍 영어교육도시 지역도 버스가 방문하나요?</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-content">
+            <p>네, 노인회관·복지관 출강뿐만 아니라 서귀포 대정읍 영어마을 내 자녀 체형교정 및 학부모 자세 관리를 위한 방문 서비스도 함께 준비 중입니다.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" onclick="toggleFaq(this)">
+            <span>Q. 버스 내부 장비의 안전성은 검증되었나요?</span>
+            <span>+</span>
+          </button>
+          <div class="accordion-content">
+            <p>10년 자가 재활 경험과 스포츠 지도 지식을 바탕으로 안전 기준을 최우선으로 검토하고 있으며, 시범 운영 기간 동안 안전 점검을 지속 진행합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 style="margin-bottom: 1rem;">제주 이동식 재활·체형교정 서비스 (가칭)</h3>
+          <p style="color: rgba(255,255,255,0.8); word-break: keep-all;">
+            본 서비스는 정식 오픈 전 시범 참여 및 수요 검증을 진행 중인 사업 아이디어 단계입니다. 어르신과 주민분들의 이동 불편을 없애는 최상의 케어를 준비하겠습니다.
+          </p>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 1rem;">주요 서비스 Area</h4>
+          <p style="color: rgba(255,255,255,0.8);">제주도 내 노인회관·복지관<br>서귀포시 대정읍 영어교육도시</p>
+        </div>
+        <div>
+          <h4 style="margin-bottom: 1rem;">대표자</h4>
+          <p style="color: rgba(255,255,255,0.8);">권혁민 (평생레저스포츠전공)</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 제주 이동식 재활 버스 프로젝트. All rights reserved. (입력하신 정보는 전송·저장되지 않습니다)</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT IMPLEMENTATION -->
+  <script>
+    // 1. Scroll Progress Bar Update
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+
+    // 2. Hero Motion Pause Control
+    let isMotionPaused = false;
+    document.getElementById('pauseMotionBtn').addEventListener('click', () => {
+      isMotionPaused = !isMotionPaused;
+      const bus = document.querySelector('.anim-bus');
+      const pulse = document.querySelectorAll('.anim-pulse');
+      const cloud = document.querySelector('.anim-cloud');
+      
+      if (isMotionPaused) {
+        bus.style.animationPlayState = 'paused';
+        pulse.forEach(p => p.style.animationPlayState = 'paused');
+        cloud.style.animationPlayState = 'paused';
+        document.getElementById('pauseBtnIcon').innerText = '▶';
+      } else {
+        bus.style.animationPlayState = 'running';
+        pulse.forEach(p => p.style.animationPlayState = 'running');
+        cloud.style.animationPlayState = 'running';
+        document.getElementById('pauseBtnIcon').innerText = '⏸';
+      }
+    });
+
+    // 3. Interactive Story Carousel (5s Auto Sequence)
+    const stories = [
+      {
+        title: "1. 이동의 불편함을 완벽 해소",
+        desc: "아픈 몸을 이끌고 버스를 타고 센터까지 찾아갈 필요가 없습니다. 전화 한 통으로 검증된 재활버스가 집 앞까지 찾아갑니다.",
+        badge: "이동 편의성"
+      },
+      {
+        title: "2. 10년 자가 재활 노하우의 1:1 맞춤 케어",
+        desc: "직접 목 견인 및 자세 교정으로 건강을 회복한 10년 경험을 담아, 미세한 신체 상태 변화까지 세심하게 관찰하고 코칭합니다.",
+        badge: "밀도 높은 코칭"
+      },
+      {
+        title: "3. 기관 순회 및 학부모/자녀 맞춤 확대",
+        desc: "복지관 단체 출강 강습은 물론, 대정읍 영어마을 학부모·자녀의 거북목 및 체형 불균형을 해결하는 전용 코스를 제공합니다.",
+        badge: "제주 전역 맞춤"
+      }
+    ];
+
+    let currentStory = 0;
+    let storyTimer = null;
+    let isStoryAuto = true;
+
+    function renderStory() {
+      const display = document.getElementById('storyDisplay');
+      const data = stories[currentStory];
+      display.innerHTML = `
+        <div>
+          <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 999px; font-size: 0.8rem; font-weight: bold;">${data.badge}</span>
+          <h3 style="font-size: 1.8rem; color: var(--primary); margin: 1rem 0;">${data.title}</h3>
+          <p style="color: var(--text-muted); font-size: 1.1rem; word-break: keep-all;">${data.desc}</p>
+        </div>
+        <div style="background: white; border-radius: 12px; padding: 2rem; border: 1px solid var(--border); text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🚐</div>
+          <p style="font-weight: bold; color: var(--primary);">장면 ${currentStory + 1} / 3 미리보기</p>
+        </div>
+      `;
+
+      // Update Indicators
+      const indicators = document.querySelectorAll('.indicator');
+      indicators.forEach((ind, idx) => {
+        if(idx === currentStory) ind.classList.add('active');
+        else ind.classList.remove('active');
+      });
+    }
+
+    function setStory(index) {
+      currentStory = index;
+      renderStory();
+      resetStoryTimer();
+    }
+
+    function nextStory() {
+      currentStory = (currentStory + 1) % stories.length;
+      renderStory();
+      resetStoryTimer();
+    }
+
+    function prevStory() {
+      currentStory = (currentStory - 1 + stories.length) % stories.length;
+      renderStory();
+      resetStoryTimer();
+    }
+
+    function startStoryAuto() {
+      storyTimer = setInterval(() => {
+        nextStory();
+      }, 5000);
+    }
+
+    function resetStoryTimer() {
+      if (isStoryAuto) {
+        clearInterval(storyTimer);
+        startStoryAuto();
+      }
+    }
+
+    function toggleStoryAuto() {
+      isStoryAuto = !isStoryAuto;
+      const btn = document.getElementById('storyPlayPause');
+      if (isStoryAuto) {
+        btn.innerText = '⏸';
+        startStoryAuto();
+      } else {
+        btn.innerText = '▶';
+        clearInterval(storyTimer);
+      }
+    }
+
+    // Initialize Story Carousel
+    renderStory();
+    startStoryAuto();
+
+    // 4. Interactive Simulation Logic
+    let simState = {
+      target: 'senior',
+      area: 'neck',
+      type: 'bus'
+    };
+
+    function updateSimResult() {
+      const badge = document.getElementById('resBadge');
+      const title = document.getElementById('resTitle');
+      const desc = document.getElementById('resDesc');
+
+      let targetText = simState.target === 'senior' ? '어르신' : '학부모·자녀';
+      let areaText = simState.area === 'neck' ? '목/경추 특수 견인' : '허리/체형 교정';
+      let typeText = simState.type === 'bus' ? '1:1 버스 맞춤케어' : '기관 출강 그룹교실';
+
+      badge.innerText = `${targetText} 맞춤 추천`;
+      title.innerText = `${targetText} ${areaText} (${typeText})`;
+      desc.innerText = `선택하신 [${targetText}] 대상에게 가장 효과적인 [${areaText}] 집중 프로그램입니다. ${typeText} 형태로 전문적이고 안전하게 제공됩니다.`;
+    }
+
+    function selectSimTarget(val, btn) {
+      simState.target = val;
+      btn.parentNode.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateSimResult();
+    }
+
+    function selectSimArea(val, btn) {
+      simState.area = val;
+      btn.parentNode.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateSimResult();
+    }
+
+    function selectSimType(val, btn) {
+      simState.type = val;
+      btn.parentNode.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      updateSimResult();
+    }
+
+    function copyInquiryText() {
+      const text = `[제주 이동재활 버스 시범 참여 문의]\n- 대상: ${simState.target}\n- 관심부위: ${simState.area}\n- 형태: ${simState.type}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("문의 내용이 클립보드에 복사되었습니다. (로컬 체험 완료)");
+      });
+    }
+
+    // 5. Hotspot Control Logic
+    const hotspotData = {
+      1: {
+        title: "1:1 특수 목/경추 견인 및 체형 교정 장비",
+        desc: "10년 자가 재활 노하우를 살려 설치된 이동식 맞춤 케어용 고정형 교정 시설입니다."
+      },
+      2: {
+        title: "안전 고정 및 보조 리프트 스페이스",
+        desc: "거동이 불편한 어르신도 안전하게 승하차하실 수 있도록 설계된 승하차 보조 구역입니다."
+      },
+      3: {
+        title: "1:1 소통 및 세심한 관찰 측정존",
+        desc: "케어 전후의 신체 가동범위 및 통증 정도를 세심하게 관찰하고 1:1 상담을 진행하는 공간입니다."
+      }
+    };
+
+    function showHotspot(id) {
+      const data = hotspotData[id];
+      document.getElementById('hotspotTitle').innerText = data.title;
+      document.getElementById('hotspotDesc').innerText = data.desc;
+    }
+
+    // 6. FAQ Accordion Toggle
+    function toggleFaq(btn) {
+      const item = btn.parentNode;
+      item.classList.toggle('open');
+      const sign = btn.querySelector('span:last-child');
+      sign.innerText = item.classList.contains('open') ? '-' : '+';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>찾아가는 어르신 손재주 만들기 & 소통 교실 (가청)</title>
+    <meta name="description" content="거동이 불편하신 어르신의 댁으로 직접 찾아가는 소규모 손재주 만들기 및 정서 소통 맞춤 복지 서비스입니다.">
+    
+    <!-- Design Tokens & CSS Styles -->
+    <style>
+        :root {
+            /* Warm Silver Care Color Palette */
+            --primary: #2D6A4F;        /* Deep Forest Sage */
+            --primary-light: #52B788;  /* Soft Leaf Green */
+            --primary-soft: #D8F3DC;   /* Mint Cream */
+            --accent: #E07A5F;         /* Warm Terracotta / Coral */
+            --accent-light: #F4A261;   /* Warm Sunset Amber */
+            --accent-soft: #FDE2E4;    /* Light Blush */
+            --bg-main: #FAEDCD;       /* Soft Parchment Cream */
+            --bg-card: #FFFFFF;       /* Crisp Warm White */
+            --bg-alt: #FEFAE0;        /* Pale Ivory */
+            --text-main: #1D3557;     /* Deep Navy Slate */
+            --text-muted: #4A5568;    /* Muted Slate Charcoal */
+            --border-soft: #E2E8F0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(45,106,79,0.12);
+            --shadow-lg: 0 16px 36px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark / High Contrast Accessibility Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-main: #121A17;
+                --bg-card: #1E2923;
+                --bg-alt: #18221D;
+                --text-main: #F1F5F9;
+                --text-muted: #CBD5E1;
+                --border-soft: #2E3E35;
+                --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+            }
+        }
+
+        /* Base Resets */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            word-break: keep-all;
+        }
+
+        /* Accessibility: Highlighting Focus */
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        /* Layout Utility */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        /* Header Navigation */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(254, 250, 224, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(45, 106, 79, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .site-header.scrolled {
+            box-shadow: var(--shadow-sm);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.125rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .header-cta {
+            background: var(--accent);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(224, 122, 95, 0.3);
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            background: #d0694e;
+            box-shadow: 0 6px 16px rgba(224, 122, 95, 0.4);
+        }
+
+        /* Mobile Nav Toggle */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+            padding: 0.5rem;
+        }
+
+        /* Buttons & Badges */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: #23533e;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(224, 122, 95, 0.3);
+        }
+
+        .btn-accent:hover {
+            background: #d0694e;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-soft);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.875rem;
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.25rem;
+            color: var(--text-main);
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 9rem;
+            padding-bottom: 5rem;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg-main) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.75rem;
+            font-weight: 900;
+            line-height: 1.25;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        /* Cinematic Hero Animation Container */
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            height: 440px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: #1B3B2B;
+            border: 4px solid var(--bg-card);
+        }
+
+        /* Continuous Cinematic Animation Layers (SVG / Keyframes) */
+        .animated-hero-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* SVG Keyframe Animation Elements */
+        @keyframes floatingHands {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(1.5deg); }
+        }
+
+        @keyframes craftGlow {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 0.9; transform: scale(1.03); }
+        }
+
+        @keyframes pathTravel {
+            0% { stroke-dashoffset: 400; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes pulseSmile {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .anim-hand {
+            animation: floatingHands 5s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .anim-glow {
+            animation: craftGlow 4s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        .anim-path {
+            stroke-dasharray: 400;
+            animation: pathTravel 8s linear infinite;
+        }
+
+        .anim-smile {
+            animation: pulseSmile 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+
+        /* Motion Toggle & Controls */
+        .motion-control-bar {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(6px);
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .motion-control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Automatic Story Carousel Section (Feature ②) */
+        .story-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            box-shadow: var(--shadow-md);
+            margin-top: -3rem;
+            position: relative;
+            z-index: 20;
+            border: 1px solid var(--border-soft);
+        }
+
+        .story-carousel {
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+        }
+
+        .story-slide {
+            display: none;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .story-slide.active {
+            display: grid;
+            opacity: 1;
+        }
+
+        .story-media {
+            width: 100%;
+            height: 240px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--primary-soft);
+        }
+
+        .story-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+        }
+
+        .story-info p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+        }
+
+        .story-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .story-indicators {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border-soft);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .indicator-dot.active {
+            background: var(--accent);
+            width: 28px;
+            border-radius: var(--radius-full);
+        }
+
+        .story-nav-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            background: var(--bg-card);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 1.1rem;
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-soft);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        /* 2nd Continuous Motion Showcase: Process Timeline (Feature ② / ⑤-C) */
+        .process-showcase {
+            background: var(--bg-alt);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 2rem;
+            margin-top: 3rem;
+        }
+
+        .timeline-svg-container {
+            width: 100%;
+            height: 220px;
+            position: relative;
+        }
+
+        /* Interactive Feature ①: Class Configurator & Craft Kit Preview */
+        .interactive-section {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 2.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-soft);
+            margin-top: 4rem;
+        }
+
+        .configurator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 0.625rem;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .option-card {
+            border: 2px solid var(--border-soft);
+            padding: 0.875rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition-smooth);
+            background: var(--bg-card);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-soft);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        /* Real-time Result Card Display */
+        .preview-card {
+            background: linear-gradient(135deg, #1B3B2B 0%, #2D6A4F 100%);
+            color: white;
+            border-radius: var(--radius-md);
+            padding: 2.25rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-card h4 {
+            font-size: 1.35rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-light);
+        }
+
+        .preview-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .preview-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1rem;
+            color: #E2E8F0;
+        }
+
+        .preview-visual-box {
+            width: 100%;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed rgba(255,255,255,0.3);
+        }
+
+        /* Interactive Feature ②: Hotspot / Before-After Craft Gallery */
+        .gallery-hotspot-section {
+            margin-top: 4rem;
+        }
+
+        .hotspot-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: #2D3748;
+            box-shadow: var(--shadow-md);
+        }
+
+        .hotspot-btn {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: var(--transition-smooth);
+            animation: pulseSmile 2s infinite;
+        }
+
+        .hotspot-btn:hover {
+            transform: scale(1.2);
+            background: var(--accent-light);
+        }
+
+        .hotspot-modal {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            color: var(--text-main);
+            border-left: 5px solid var(--accent);
+        }
+
+        .hotspot-modal.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* FAQ Accordion */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.25rem 1.5rem;
+            color: var(--text-muted);
+            display: none;
+            line-height: 1.6;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-icon {
+            transition: var(--transition-smooth);
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: #1B2A23;
+            color: #A0AEC0;
+            padding: 4rem 0 2rem 0;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* Reduced Motion Utility */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .hero-grid, .configurator-grid, .story-slide {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+            .story-slide {
+                grid-template-columns: 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-nav-toggle {
+                display: block;
+            }
+            .hero {
+                padding-top: 7rem;
+            }
+            .section-title h2 {
+                font-size: 1.75rem;
+            }
+            .hero-actions {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">손</div>
+                <span>찾아가는 어르신 손재주 교실 <small style="font-size:0.75rem; color:var(--accent); font-weight:normal;">(시범 운영 예정)</small></span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#about">프로그램 소개</a></li>
+                <li><a href="#story">어르신 변화 스토리</a></li>
+                <li><a href="#interactive">맞춤 수업 진단</a></li>
+                <li><a href="#gallery">작품 둘러보기</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+            </ul>
+
+            <button class="header-cta" onclick="scrollToInteractive()">맞춤 수업 체험하기</button>
+            <button class="mobile-nav-toggle" id="mobileNavBtn" aria-label="메뉴 열기">☰</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Continuous Cinematic Motion (Feature ①) -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="badge">
+                        <span>✨ 제주관광대 사회복지상담과 강인순의 맞춤 케어</span>
+                    </div>
+                    <h1>거동이 힘드신 어르신 댁으로 <span>따뜻한 손재주</span>가 찾아갑니다</h1>
+                    <p>복지관 차량을 이용하기 어려워 집에만 계셨나요? 10년 이상 노인 돌봄 경력의 전문가가 소수 정예로 직접 방문하여 성취감과 대화의 즐거움을 선물해 드립니다.</p>
+                    
+                    <div class="hero-actions">
+                        <button class="btn btn-accent" onclick="scrollToInteractive()">
+                            🎨 1분 맞춤 프로그램 미리보기
+                        </button>
+                        <button class="btn btn-outline" onclick="copySampleText()">
+                            📋 프로그램 문의 문구 복사하기
+                        </button>
+                    </div>
+
+                    <p style="font-size:0.85rem; color:var(--text-muted);">
+                        * 본 프로그램은 지자체 노인복지 공모사업 연계를 목표로 준비 중인 시범 프로젝트입니다.
+                    </p>
+                </div>
+
+                <!-- Continuous Cinematic SVG Motion Visual -->
+                <div class="hero-visual" aria-label="어르신과 함께하는 손재주 만들기 모션 그래픽">
+                    <svg class="animated-hero-svg" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#52B788" stop-opacity="0.4"/>
+                                <stop offset="100%" stop-color="#1B3B2B" stop-opacity="1"/>
+                            </radialGradient>
+                            <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="8" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Background Layer with Slow Breathing Glow -->
+                        <rect width="500" height="400" fill="url(#bgGlow)"/>
+                        <circle cx="250" cy="200" r="140" fill="#2D6A4F" class="anim-glow" />
+
+                        <!-- Animated Path / Craft Ribbon -->
+                        <path class="anim-path" d="M50 320 Q250 80 450 320" stroke="#F4A261" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+                        <!-- Center Illustration: Elders & Crafting Hands -->
+                        <!-- Elder Character Face Glow -->
+                        <g class="anim-smile" transform="translate(170, 110)">
+                            <circle cx="80" cy="60" r="50" fill="#FAEDCD"/>
+                            <!-- Warm Smile -->
+                            <path d="M 60 70 Q 80 90 100 70" stroke="#E07A5F" stroke-width="5" stroke-linecap="round" fill="none"/>
+                            <!-- Glasses -->
+                            <circle cx="65" cy="55" r="12" stroke="#1D3557" stroke-width="3" fill="none"/>
+                            <circle cx="95" cy="55" r="12" stroke="#1D3557" stroke-width="3" fill="none"/>
+                            <line x1="77" y1="55" x2="83" y2="55" stroke="#1D3557" stroke-width="3"/>
+                        </g>
+
+                        <!-- Floating Craft Elements (Clay / Flower / Folding) -->
+                        <g class="anim-hand">
+                            <!-- Craft Flower -->
+                            <path d="M 120 240 Q 140 200 160 240 T 200 240" fill="#E07A5F" opacity="0.9"/>
+                            <circle cx="140" cy="230" r="14" fill="#F4A261"/>
+                            <!-- Origami Heart -->
+                            <path d="M 330 220 C 330 200, 310 190, 295 205 C 280 190, 260 200, 260 220 C 260 240, 295 260, 295 260 C 295 260, 330 240, 330 220 Z" fill="#E07A5F" filter="url(#softGlow)"/>
+                        </g>
+
+                        <!-- Warm Heart Sparkles -->
+                        <circle cx="100" cy="120" r="6" fill="#FEFAE0" class="anim-glow"/>
+                        <circle cx="390" cy="140" r="8" fill="#F4A261" class="anim-glow"/>
+                        <circle cx="360" cy="280" r="5" fill="#D8F3DC" class="anim-glow"/>
+                    </svg>
+
+                    <!-- Motion Accessibility Control Overlay -->
+                    <div class="motion-control-bar">
+                        <button class="motion-control-btn" id="motionToggleBtn" onclick="toggleHeroMotion()">
+                            <span id="motionIcon">⏸️</span> <span id="motionText">모션 일시정지</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature ②: Auto-playing Story Sequence Carousel -->
+        <section class="container" id="story">
+            <div class="story-section">
+                <div style="text-align:center; margin-bottom: 1.5rem;">
+                    <span style="color:var(--accent); font-weight:800; font-size:0.9rem;">[어르신 변화 스토리]</span>
+                    <h2 style="font-size:1.6rem; color:var(--text-main); font-weight:800;">손재주 교실이 가져온 소중한 일상의 변화</h2>
+                </div>
+
+                <div class="story-carousel" id="storyCarousel">
+                    <!-- Slide 1 -->
+                    <div class="story-slide active" data-slide="0">
+                        <div class="story-media">
+                            <svg width="100%" height="100%" viewBox="0 0 400 240" fill="none">
+                                <rect width="400" height="240" fill="#D8F3DC"/>
+                                <circle cx="200" cy="120" r="70" fill="#52B788" opacity="0.3"/>
+                                <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#2D6A4F" font-weight="bold" font-size="20">1단계: 무료했던 일상의 해소</text>
+                                <text x="50%" y="62%" dominant-baseline="middle" text-anchor="middle" fill="#4A5568" font-size="14">"온종일 TV만 보던 유모 어르신(82세)의 미소"</text>
+                            </svg>
+                        </div>
+                        <div class="story-info">
+                            <h3>"집에 혼자 있을 땐 시간이 참 안 갔는데..."</h3>
+                            <p>거동이 불편해 외출이 어려웠던 어르신께서 매주 찾아오는 손재주 선생님을 기다리시며, 일상에 기다림의 설렘과 정서적 활력이 생겼습니다.</p>
+                            <span style="background:var(--primary-soft); color:var(--primary); padding:4px 12px; border-radius:12px; font-weight:700; font-size:0.85rem;">기대 효용: 우울감 감소 & 정서적 안정</span>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="story-slide" data-slide="1">
+                        <div class="story-media">
+                            <svg width="100%" height="100%" viewBox="0 0 400 240" fill="none">
+                                <rect width="400" height="240" fill="#FDE2E4"/>
+                                <circle cx="200" cy="120" r="70" fill="#E07A5F" opacity="0.3"/>
+                                <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#E07A5F" font-weight="bold" font-size="20">2단계: 손끝 완성의 성취감</text>
+                                <text x="50%" y="62%" dominant-baseline="middle" text-anchor="middle" fill="#4A5568" font-size="14">"나도 이렇게 예쁜 걸 만들어낼 수 있구나!"</text>
+                            </svg>
+                        </div>
+                        <div class="story-info">
+                            <h3>"내 손으로 만든 작품을 자녀들에게 자랑해요"</h3>
+                            <p>클레이 공예와 한지 접기를 통해 소근육을 자극하고 완제품을 직접 완성해내면서, '나도 할 수 있다'는 자신감을 찾아가십니다.</p>
+                            <span style="background:var(--accent-soft); color:var(--accent); padding:4px 12px; border-radius:12px; font-weight:700; font-size:0.85rem;">기대 효용: 자존감 회복 & 치매 예방</span>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="story-slide" data-slide="2">
+                        <div class="story-media">
+                            <svg width="100%" height="100%" viewBox="0 0 400 240" fill="none">
+                                <rect width="400" height="240" fill="#FEFAE0"/>
+                                <circle cx="200" cy="120" r="70" fill="#F4A261" opacity="0.4"/>
+                                <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="#1D3557" font-weight="bold" font-size="20">3단계: 정겨운 대화와 말벗</text>
+                                <text x="50%" y="62%" dominant-baseline="middle" text-anchor="middle" fill="#4A5568" font-size="14">"자식보다 더 편하게 이야기 나누는 시간"</text>
+                            </svg>
+                        </div>
+                        <div class="story-info">
+                            <h3>"만드는 동안 나누는 이야기가 약보다 낫지요"</h3>
+                            <p>10년 경력 사회복지 상담 전문가의 세심한 말벗 동행으로 어르신의 옛 추억 이야기와 고민을 자연스럽게 경청하고 위로합니다.</p>
+                            <span style="background:var(--primary-soft); color:var(--primary); padding:4px 12px; border-radius:12px; font-weight:700; font-size:0.85rem;">기대 효용: 정서 케어 & 말벗 지원</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="story-controls">
+                    <div class="story-indicators" id="storyIndicators">
+                        <button class="indicator-dot active" onclick="goToSlide(0)" aria-label="1번 슬라이드"></button>
+                        <button class="indicator-dot" onclick="goToSlide(1)" aria-label="2번 슬라이드"></button>
+                        <button class="indicator-dot" onclick="goToSlide(2)" aria-label="3번 슬라이드"></button>
+                    </div>
+
+                    <div class="story-nav-btns">
+                        <button class="icon-btn" onclick="prevSlide()" aria-label="이전 스토리">◀</button>
+                        <button class="icon-btn" id="carouselPlayBtn" onclick="toggleCarouselPlay()" aria-label="자동재생 정지">⏸️</button>
+                        <button class="icon-btn" onclick="nextSlide()" aria-label="다음 스토리">▶</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature ② (Second Motion Showcase): Animated Class Process Timeline -->
+        <section class="container" id="about">
+            <div class="process-showcase">
+                <div class="section-title">
+                    <h2>어떻게 진행되나요? 4단계 안심 프로세스</h2>
+                    <p>어르신의 건강 상태와 손놀림 수준에 맞추어 부담 없이 안전하게 진행됩니다.</p>
+                </div>
+
+                <div class="timeline-svg-container">
+                    <svg width="100%" height="100%" viewBox="0 0 800 180" fill="none">
+                        <!-- Connecting Animated Line -->
+                        <path class="anim-path" d="M 100 90 L 700 90" stroke="#2D6A4F" stroke-width="4" stroke-dasharray="8 8"/>
+
+                        <!-- Step 1 -->
+                        <g transform="translate(100, 90)">
+                            <circle cx="0" cy="0" r="32" fill="#2D6A4F" class="anim-glow"/>
+                            <text x="0" y="5" text-anchor="middle" fill="white" font-weight="bold" font-size="16">1</text>
+                            <text x="0" y="55" text-anchor="middle" fill="#1D3557" font-weight="bold" font-size="14">사전 안부 상담</text>
+                            <text x="0" y="75" text-anchor="middle" fill="#4A5568" font-size="12">건강 및 난이도 확인</text>
+                        </g>
+
+                        <!-- Step 2 -->
+                        <g transform="translate(300, 90)">
+                            <circle cx="0" cy="0" r="32" fill="#E07A5F" class="anim-glow"/>
+                            <text x="0" y="5" text-anchor="middle" fill="white" font-weight="bold" font-size="16">2</text>
+                            <text x="0" y="55" text-anchor="middle" fill="#1D3557" font-weight="bold" font-size="14">맞춤 키트 방문</text>
+                            <text x="0" y="75" text-anchor="middle" fill="#4A5568" font-size="12">안전 재료 지참 방문</text>
+                        </g>
+
+                        <!-- Step 3 -->
+                        <g transform="translate(500, 90)">
+                            <circle cx="0" cy="0" r="32" fill="#F4A261" class="anim-glow"/>
+                            <text x="0" y="5" text-anchor="middle" fill="white" font-weight="bold" font-size="16">3</text>
+                            <text x="0" y="55" text-anchor="middle" fill="#1D3557" font-weight="bold" font-size="14">손재주 & 소통</text>
+                            <text x="0" y="75" text-anchor="middle" fill="#4A5568" font-size="12">만들기 및 추억 정담</text>
+                        </g>
+
+                        <!-- Step 4 -->
+                        <g transform="translate(700, 90)">
+                            <circle cx="0" cy="0" r="32" fill="#52B788" class="anim-glow"/>
+                            <text x="0" y="5" text-anchor="middle" fill="white" font-weight="bold" font-size="16">4</text>
+                            <text x="0" y="55" text-anchor="middle" fill="#1D3557" font-weight="bold" font-size="14">완성 및 보호자 공유</text>
+                            <text x="0" y="75" text-anchor="middle" fill="#4A5568" font-size="12">작품 사진 및 안부 안내</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Feature ①: Interactive Craft Class Selector & Preview -->
+        <section class="container" id="interactive">
+            <div class="interactive-section">
+                <div class="section-title">
+                    <h2>🎯 우리 어르신 맞춤 수업 진단 & 미리보기</h2>
+                    <p>어르신의 상황을 선택하시면 가장 적합한 손재주 만들기 프로그램과 기대 효과를 즉시 보여드립니다.</p>
+                </div>
+
+                <div class="configurator-grid">
+                    <!-- Interactive Selection Form -->
+                    <div class="config-form">
+                        <div class="form-group">
+                            <label class="form-label">1. 어르신의 손놀림/거동 상태는 어떠신가요?</label>
+                            <div class="option-grid">
+                                <div class="option-card selected" onclick="selectOption('mobility', 'light', this)">
+                                    🖐️ 섬세한 활동 가능<br><small>(클레이/접기)</small>
+                                </div>
+                                <div class="option-card" onclick="selectOption('mobility', 'heavy', this)">
+                                    🤲 쉬운 잡기 위주<br><small>(원목/누름꽃)</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">2. 어르신께서 가장 선호하시는 주제는 무엇인가요?</label>
+                            <div class="option-grid">
+                                <div class="option-card selected" onclick="selectOption('theme', 'flower', this)">
+                                    🌸 화사한 꽃/자연
+                                </div>
+                                <div class="option-card" onclick="selectOption('theme', 'memory', this)">
+                                    🧵 전통/추억 소품
+                                </div>
+                                <div class="option-card" onclick="selectOption('theme', 'practical', this)">
+                                    ☕ 실용 생활용품
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">3. 모임 참여 희망 인원 형태</label>
+                            <div class="option-grid">
+                                <div class="option-card selected" onclick="selectOption('group', 'solo', this)">
+                                    🏠 1:1 개인 맞춤 방문
+                                </div>
+                                <div class="option-card" onclick="selectOption('group', 'small', this)">
+                                    👥 이웃 어르신 소모임(2~3인)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Real-Time Output Preview Card -->
+                    <div class="preview-card" id="previewCard">
+                        <span class="preview-badge" id="resBadge">추천 프로그램 구성 A</span>
+                        <h4 id="resTitle">🌸 '알록달록 한지 꽃병 & 추억 정담 교실'</h4>
+                        <div class="preview-content" id="resDesc">
+                            손가락 소근육을 부드럽게 자극하는 화사한 한지 접기와 꽃 구성 활동입니다. 화사한 색감을 통해 눈이 즐겁고 완성 후 방안을 밝게 꾸밀 수 있어 성취감이 뛰어납니다.
+                        </div>
+
+                        <!-- Dynamic SVG Preview visual that updates on choices -->
+                        <div class="preview-visual-box" id="resSvgContainer">
+                            <svg width="140" height="140" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="#F4A261" opacity="0.3"/>
+                                <path d="M 50 20 Q 65 40 50 80 Q 35 40 50 20 Z" fill="#E07A5F"/>
+                                <circle cx="50" cy="40" r="12" fill="#FEFAE0"/>
+                            </svg>
+                        </div>
+
+                        <div style="font-size:0.85rem; color:#CBD5E1; margin-bottom:1.25rem;">
+                            💡 **기대되는 가치**: 손가락 인지 자극 + 방 꾸미기 성취감 + 1:1 밀착 정서 케어
+                        </div>
+
+                        <button class="btn btn-accent" style="width:100%;" onclick="savePreviewPlan()">
+                            💾 이 프로그램 구성 저장 / 문의 문구 복사
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Feature ②: Craft Hotspot Gallery -->
+        <section class="container" id="gallery">
+            <div class="gallery-hotspot-section">
+                <div class="section-title">
+                    <h2>🔍 인기 어르신 만들기 작품 미리보기</h2>
+                    <p>작품 위 핫스팟 버튼(+)을 클릭해 세부 특징과 어르신들의 반응을 확인해 보세요.</p>
+                </div>
+
+                <div class="hotspot-wrapper">
+                    <svg width="100%" height="100%" viewBox="0 0 800 380" fill="none">
+                        <rect width="800" height="380" fill="#2D6A4F"/>
+                        <text x="400" y="190" text-anchor="middle" fill="#D8F3DC" font-size="22" font-weight="bold">
+                            어르신 맞춤 안심 작품 갤러리 (클릭하여 탐색)
+                        </text>
+                    </svg>
+
+                    <!-- Interactive Hotspot Buttons -->
+                    <button class="hotspot-btn" style="top:30%; left:25%;" onclick="openHotspot(1)">+</button>
+                    <button class="hotspot-btn" style="top:55%; left:50%;" onclick="openHotspot(2)">+</button>
+                    <button class="hotspot-btn" style="top:35%; left:75%;" onclick="openHotspot(3)">+</button>
+
+                    <!-- Hotspot Modal Display -->
+                    <div class="hotspot-modal" id="hotspotModal">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                            <strong id="hotspotTitle" style="color:var(--primary); font-size:1.1rem;">작품 세부 설명</strong>
+                            <button onclick="closeHotspot()" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">✕</button>
+                        </div>
+                        <p id="hotspotDesc" style="font-size:0.95rem; color:var(--text-muted);">핫스팟을 클릭하면 상세한 작품 특징이 나타납니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="container" id="faq">
+            <div class="section-title">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <p>시범 사업 신청 및 운영에 대해 궁금하신 점을 확인하세요.</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 거동이 많이 불편하신 어르신도 참여가 가능한가요?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        네, 가능합니다. 복지관이나 경로당 출입이 어려운 독거 어르신을 위해 댁으로 직접 찾아가는 서비스입니다. 어르신의 손놀림과 건강 상태에 맞춰 위험하지 않은 부드러운 안전 재료(한지, 클레이, 원목 등)로 진행됩니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 프로그램 비용은 어떻게 설정되나요?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        본 사업은 지자체 및 복지관의 노인복지 공모 사업 지원금 연계를 우선 목표로 기획되고 있습니다. 시범 운영 단계에서는 소정의 재료비 중심 또는 무료 체험 서비스로 안내될 예정입니다.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Q. 강사 선생님의 신원과 경력은 믿을 수 있나요?
+                        <span class="faq-icon">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        10년 이상의 노인 돌봄 및 치매안심센터 인지 검사 경력을 갖춘 전문가(제주관광대 사회복지상담과, 요양보호사 자격 보유)가 책임감을 가지고 따뜻하게 어르신을 찾아뵙습니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3>찾아가는 어르신 손재주 만들기 & 소통 교실</h3>
+                <p style="line-height:1.6; margin-bottom:1rem;">
+                    거동 불편 어르신의 정서적 고립을 해소하고, 손끝 성취감과 웃음을 되찾아 드리는 현장 밀착형 이동 복지 프로젝트입니다.
+                </p>
+                <p style="font-size:0.8rem; color:#718096;">
+                    * 본 웹사이트는 사업 아이디어 검증 및 예시 안내를 위한 파일럿 페이지입니다. (대표자: 강인순)
+                </p>
+            </div>
+
+            <div>
+                <h4 style="color:white; margin-bottom:1rem;">주요 서비스</h4>
+                <ul style="list-style:none; line-height:2;">
+                    <li>• 1:1 방문 손재주 만들기</li>
+                    <li>• 소규모(2~3인) 소통 소모임</li>
+                    <li>• 치매 예방 인지 놀이</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="color:white; margin-bottom:1rem;">빠른 문의</h4>
+                <button class="btn btn-accent" style="font-size:0.85rem; padding:0.6rem 1rem;" onclick="copySampleText()">
+                    📋 문의 문구 복사하기
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 찾아가는 어르신 손재주 교실 (가칭). All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic & Interactive Scripts -->
+    <script>
+        // 1. Header Scroll Shadow Effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('siteHeader');
+            if (window.scrollY > 30) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Hero Motion Toggle (Accessibility / Reduced Motion)
+        let isHeroMotionRunning = true;
+        function toggleHeroMotion() {
+            const svg = document.querySelector('.animated-hero-svg');
+            const icon = document.getElementById('motionIcon');
+            const text = document.getElementById('motionText');
+
+            if (isHeroMotionRunning) {
+                svg.style.animationPlayState = 'paused';
+                document.querySelectorAll('.anim-hand, .anim-glow, .anim-path, .anim-smile').forEach(el => {
+                    el.style.animationPlayState = 'paused';
+                });
+                icon.textContent = '▶️';
+                text.textContent = '모션 재생';
+                isHeroMotionRunning = false;
+            } else {
+                svg.style.animationPlayState = 'running';
+                document.querySelectorAll('.anim-hand, .anim-glow, .anim-path, .anim-smile').forEach(el => {
+                    el.style.animationPlayState = 'running';
+                });
+                icon.textContent = '⏸️';
+                text.textContent = '모션 일시정지';
+                isHeroMotionRunning = true;
+            }
+        }
+
+        // 3. Feature ②: Auto-Playing Story Carousel System (5-8 seconds sequence)
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let carouselInterval = null;
+        let isCarouselPlaying = true;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.story-slide');
+            const dots = document.querySelectorAll('.indicator-dot');
+
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                dots[i].classList.remove('active');
+            });
+
+            currentSlide = (index + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+            resetCarouselTimer();
+        }
+
+        function startCarousel() {
+            if (!carouselInterval) {
+                carouselInterval = setInterval(nextSlide, 6000); // 6 sec sequence
+            }
+        }
+
+        function stopCarousel() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
+        }
+
+        function resetCarouselTimer() {
+            if (isCarouselPlaying) {
+                stopCarousel();
+                startCarousel();
+            }
+        }
+
+        function toggleCarouselPlay() {
+            const playBtn = document.getElementById('carouselPlayBtn');
+            if (isCarouselPlaying) {
+                stopCarousel();
+                playBtn.textContent = '▶️';
+                isCarouselPlaying = false;
+            } else {
+                startCarousel();
+                playBtn.textContent = '⏸️';
+                isCarouselPlaying = true;
+            }
+        }
+
+        // Initialize Auto Carousel on load
+        startCarousel();
+
+        // 4. Interactive Feature ①: Class Configurator & Craft Kit Preview Logic
+        const selectedState = {
+            mobility: 'light',
+            theme: 'flower',
+            group: 'solo'
+        };
+
+        const presetDatabase = {
+            'light-flower-solo': {
+                badge: '추천 플랜 A (인기)',
+                title: '🌸 알록달록 한지 꽃병 & 추억 정담 교실',
+                desc: '한지를 정성스럽게 오리고 접어 예쁜 화병을 만드는 코스입니다. 소근육을 자극하며 만든 화병으로 방을 화사하게 꾸밀 수 있습니다.',
+                color: '#E07A5F',
+                svg: `<svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="#F4A261"/><path d="M50 15 L60 40 L85 50 L60 60 L50 85 L40 60 L15 50 L40 40 Z" fill="#E07A5F"/></svg>`
+            },
+            'heavy-flower-solo': {
+                badge: '추천 플랜 B (안심)',
+                title: '🌿 누름꽃(압화) 원목 액자 교실',
+                desc: '손놀림이 다소 무거우신 어르신도 쉽게 붙일 수 있는 누름꽃 원목 액자 활동입니다. 완성도가 높아 만족감이 매우 큽니다.',
+                color: '#52B788',
+                svg: `<svg width="100" height="100" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="8" fill="#52B788"/><circle cx="50" cy="50" r="18" fill="#FEFAE0"/></svg>`
+            },
+            'light-memory-small': {
+                badge: '추천 플랜 C (소모임)',
+                title: '🧵 이웃과 함께하는 전통 조각보 복주머니 소모임',
+                desc: '이웃 어르신 2~3분이 모여 조각보 원단을 활용해 소품을 만듭니다. 옛 추억 이야기를 나누며 소통의 즐거움을 느낍니다.',
+                color: '#F4A261',
+                svg: `<svg width="100" height="100" viewBox="0 0 100 100"><circle cx="35" cy="50" r="25" fill="#E07A5F"/><circle cx="65" cy="50" r="25" fill="#F4A261"/></svg>`
+            }
+        };
+
+        function selectOption(category, value, element) {
+            // Update UI selected state
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Update State
+            selectedState[category] = value;
+
+            // Update Result Card Display
+            updatePreviewResult();
+        }
+
+        function updatePreviewResult() {
+            const key = `${selectedState.mobility}-${selectedState.theme}-${selectedState.group}`;
+            const data = presetDatabase[key] || presetDatabase['light-flower-solo'];
+
+            document.getElementById('resBadge').textContent = data.badge;
+            document.getElementById('resTitle').textContent = data.title;
+            document.getElementById('resDesc').textContent = data.desc;
+            document.getElementById('resSvgContainer').innerHTML = data.svg;
+        }
+
+        function savePreviewPlan() {
+            const title = document.getElementById('resTitle').textContent;
+            const textToCopy = `[찾아가는 어르신 손재주 교실 문의]\n선택한 맞춤 프로그램: ${title}\n(이 문구를 사회복지 담당자 또는 기관에 공유할 수 있습니다)`;
+            
+            executeCopy(textToCopy, "선택하신 맞춤 프로그램 정보가 클립보드에 복사되었습니다!");
+        }
+
+        // 5. Interactive Feature ②: Hotspot Modal Gallery
+        const hotspotData = {
+            1: {
+                title: "🌸 1. 한지 공예 꽃병 세트",
+                desc: "어르신들이 가장 선호하시는 화사한 색감의 한지 재료입니다. 날카로운 도구 없이 안전하게 완성하실 수 있습니다."
+            },
+            2: {
+                title: "🪵 2. 손끝 원목 냄비받침",
+                desc: "실생활에서 자녀나 손주들에게 선물하기 좋은 실용성 100% 원목 소품 만들기입니다."
+            },
+            3: {
+                title: "🎨 3. 친환경 클레이 주물럭 인형",
+                desc: "손가락 악력 유지와 소근육 운동에 탁월한 손물림 클레이 공예입니다."
+            }
+        };
+
+        function openHotspot(id) {
+            const modal = document.getElementById('hotspotModal');
+            const data = hotspotData[id];
+            
+            document.getElementById('hotspotTitle').textContent = data.title;
+            document.getElementById('hotspotDesc').textContent = data.desc;
+            modal.classList.add('active');
+        }
+
+        function closeHotspot() {
+            document.getElementById('hotspotModal').classList.remove('active');
+        }
+
+        // 6. FAQ Accordion Logic
+        function toggleFaq(btnElement) {
+            const item = btnElement.parentElement;
+            item.classList.toggle('open');
+        }
+
+        // 7. Clipboard Utilities
+        function copySampleText() {
+            const sampleText = `안녕하세요, '찾아가는 어르신 손재주 만들기 & 소통 교실' 시범 운영 안내 문의드립니다. (거동 불편 어르신 방문 복지 프로그램)`;
+            executeCopy(sampleText, "문의 안내 문구가 클립보드에 복사되었습니다! 원하시는 곳에 붙여넣어 사용하세요.");
+        }
+
+        function executeCopy(text, successMsg) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert(successMsg);
+                }).catch(() => {
+                    fallbackCopy(text, successMsg);
+                });
+            } else {
+                fallbackCopy(text, successMsg);
+            }
+        }
+
+        function fallbackCopy(text, successMsg) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert(successMsg);
+            } catch (err) {
+                alert("복사 기능이 지원되지 않는 브라우저입니다.");
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function scrollToInteractive() {
+            document.getElementById('interactive').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

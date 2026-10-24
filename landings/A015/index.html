@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>제주 평생삶터 | 발달장애인 상생 유기농 방울토마토 & 평생 자립 마을 (가칭)</title>
+  <meta name="description" content="토지 기부와 공익 법인 기반으로 제주 유기농 방울토마토 정기배송과 발달장애인의 평생 일터·쉼터를 만드는 상생형 사회적 기업 프로젝트">
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --primary-light: #4CAF50;
+      --primary-dark: #1B5E20;
+      --accent: #E65100;
+      --accent-light: #FF9800;
+      --bg-main: #F4F7F4;
+      --bg-card: #FFFFFF;
+      --bg-gray: #F9FAFB;
+      --text-main: #1C2826;
+      --text-muted: #5A6B65;
+      --border-color: #E0E8E3;
+      --shadow-sm: 0 4px 12px rgba(46, 125, 50, 0.08);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 16px 32px rgba(27, 94, 32, 0.12);
+      --radius: 20px;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-family: var(--font-main); background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; }
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+    /* Accessibility */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    /* Header & Nav */
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); transition: all 0.3s ease; }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; height: 70px; }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--primary-dark); display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .logo-badge { background: var(--accent); color: white; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .btn-header { background: var(--primary); color: white !important; padding: 0.6rem 1.2rem; border-radius: 30px; transition: transform 0.2s, background-color 0.2s; }
+    .btn-header:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); padding: 0.5rem; }
+
+    /* Layout Containers */
+    section { padding: 6rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 1rem; word-break: keep-all; }
+    .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto 3rem auto; line-height: 1.8; word-break: keep-all; }
+
+    /* HERO SECTION */
+    .hero-section { min-height: 90vh; padding-top: 6rem; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3rem; align-items: center; position: relative; }
+    .hero-text h1 { font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 900; line-height: 1.3; color: var(--text-main); margin-bottom: 1.2rem; word-break: keep-all; letter-spacing: -0.02em; }
+    .hero-text h1 span { color: var(--primary); display: inline-block; }
+    .hero-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; word-break: keep-all; line-height: 1.8; }
+    .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    
+    /* Buttons */
+    .btn-main { background: var(--accent); color: white; padding: 1.1rem 2.2rem; border-radius: 40px; font-size: 1.1rem; font-weight: 700; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 8px 20px rgba(230, 81, 0, 0.25); transition: all 0.3s ease; }
+    .btn-main:hover { background: #CC4800; transform: translateY(-3px); box-shadow: 0 12px 24px rgba(230, 81, 0, 0.35); }
+    .btn-secondary { background: white; color: var(--text-main); padding: 1.1rem 2.2rem; border-radius: 40px; font-size: 1.1rem; font-weight: 700; border: 2px solid var(--border-color); cursor: pointer; text-decoration: none; transition: all 0.3s ease; }
+    .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+
+    /* Hero Image */
+    .hero-image-container { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); height: 600px; }
+    .hero-image-container img { width: 100%; height: 100%; display: block; object-fit: cover; }
+    .stats-badge { position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 1.5rem; border-radius: calc(var(--radius) - 4px); box-shadow: var(--shadow-md); display: flex; gap: 2rem; align-items: center; z-index: 10; }
+    .stat-item h4 { font-size: 1.5rem; color: var(--primary-dark); font-weight: 800; line-height: 1; margin-bottom: 0.3rem; }
+    .stat-item p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; margin: 0; }
+
+    /* BUSINESS MODEL SECTION (New) */
+    .business-model { background: var(--bg-card); border-radius: var(--radius); padding: 4rem 2rem; box-shadow: var(--shadow-sm); margin-top: -3rem; position: relative; z-index: 20; border: 1px solid var(--border-color); }
+    .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .model-step { text-align: center; position: relative; }
+    .model-step:not(:last-child)::after { content: '➔'; position: absolute; top: 30px; right: -25px; font-size: 2rem; color: var(--border-color); }
+    .step-icon { width: 80px; height: 80px; background: var(--bg-main); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2.2rem; color: var(--primary); box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); border: 2px solid var(--border-color); }
+    .model-step h3 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 0.8rem; font-weight: 700; }
+    .model-step p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; word-break: keep-all; }
+
+    /* PHOTO GALLERY (New) */
+    .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 250px; gap: 1rem; }
+    .gallery-item { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); group; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .gallery-item:hover img { transform: scale(1.08); }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); opacity: 0.9; transition: opacity 0.3s; }
+    .gallery-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white; transform: translateY(10px); transition: transform 0.3s; }
+    .gallery-item:hover .gallery-text { transform: translateY(0); }
+    .gallery-text h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .gallery-text p { font-size: 0.9rem; color: rgba(255,255,255,0.8); }
+    
+    /* Masonry style layout for gallery */
+    .item-1 { grid-column: span 8; grid-row: span 2; } /* Large main photo */
+    .item-2 { grid-column: span 4; grid-row: span 1; } /* Top right */
+    .item-3 { grid-column: span 4; grid-row: span 1; } /* Bottom right */
+
+    /* Product Section */
+    .product-section { background: var(--bg-gray); border-radius: var(--radius); margin-top: 2rem; padding: 5rem 2rem; border: 1px solid var(--border-color); }
+    .product-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1000px; margin: 0 auto; }
+    .product-image { position: relative; }
+    .product-image img { width: 100%; border-radius: var(--radius); object-fit: cover; box-shadow: var(--shadow-md); aspect-ratio: 1/1; }
+    .badge-organic { position: absolute; top: -15px; right: -15px; background: var(--primary); color: white; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; text-align: center; font-size: 0.9rem; box-shadow: var(--shadow-sm); transform: rotate(15deg); border: 3px solid white; }
+    .product-details h3 { font-size: 2.2rem; color: var(--primary-dark); margin-bottom: 1rem; word-break: keep-all; line-height: 1.3; }
+    .product-details > p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.7; word-break: keep-all; }
+    
+    .feature-list { list-style: none; margin-bottom: 2.5rem; background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); }
+    .feature-list li { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; font-size: 1.05rem; }
+    .feature-list li:last-child { margin-bottom: 0; }
+    .feature-list i { color: var(--primary); font-style: normal; font-size: 1.2rem; }
+
+    .price-box { background: white; padding: 2rem; border-radius: 16px; margin-bottom: 2rem; border: 2px solid var(--primary-light); text-align: center; }
+    .price-box .price { font-size: 2.5rem; font-weight: 900; color: var(--accent); margin-bottom: 0.5rem; display: flex; justify-content: center; align-items: baseline; gap: 0.5rem; }
+    .price-box .price-unit { font-size: 1.2rem; color: var(--text-muted); font-weight: 600; }
+    .price-desc { margin: 0; font-size: 0.95rem; color: var(--text-muted); background: var(--bg-main); display: inline-block; padding: 0.4rem 1rem; border-radius: 20px; }
+
+    /* Footer */
+    footer { background: var(--text-main); color: rgba(255,255,255,0.7); padding: 5rem 1.5rem 2rem; text-align: center; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; text-align: left; margin-bottom: 4rem; }
+    .footer-col h4 { color: white; font-size: 1.3rem; margin-bottom: 1.5rem; font-weight: 700; }
+    .footer-col p { font-size: 0.95rem; line-height: 1.8; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 1rem; }
+    .footer-col a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; font-size: 0.95rem; }
+    .footer-col a:hover { color: white; }
+    .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; font-size: 0.9rem; }
+
+    /* Mobile Responsive (Webview Optimized) */
+    @media (max-width: 1024px) {
+      .hero-image-container { height: 500px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+      .item-1 { grid-column: span 2; grid-row: span 2; }
+      .item-2, .item-3 { grid-column: span 1; grid-row: span 1; }
+      .model-step:not(:last-child)::after { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0; }
+      .nav-container { padding: 0.5rem 1rem; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: rgba(255,255,255,0.98); flex-direction: column; padding: 2rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-bottom: 1px solid var(--border-color); gap: 2rem; }
+      .nav-links.active { display: flex; }
+      .btn-header { width: 100%; text-align: center; padding: 1rem; }
+      
+      section { padding: 4rem 1rem; }
+      .hero-section { grid-template-columns: 1fr; padding-top: 6rem; text-align: center; min-height: auto; }
+      .hero-text h1 { font-size: 2.2rem; }
+      .hero-cta-group { justify-content: center; }
+      .hero-image-container { height: 400px; margin: 0 1rem; }
+      
+      .stats-badge { position: relative; bottom: auto; left: auto; margin: -30px auto 0; justify-content: center; max-width: 90%; }
+      
+      .business-model { padding: 3rem 1.5rem; margin-top: 2rem; }
+      .model-grid { grid-template-columns: 1fr; gap: 3rem; }
+      
+      .gallery-grid { display: flex; flex-direction: column; }
+      .gallery-item { height: 250px; }
+      
+      .product-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .product-section { padding: 3rem 1rem; }
+      
+      .footer-content { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">
+        제주 평생삶터 <span class="logo-badge">준비중</span>
+      </a>
+      <button class="menu-toggle" aria-label="메뉴 열기">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#business">비즈니스 모델</a></li>
+          <li><a href="#gallery">현장 갤러리</a></li>
+          <li><a href="#product">정기구독 서비스</a></li>
+          <li><a href="#subscribe" class="btn-header">사전 예약하기</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-text">
+        <h1>발달장애인과 함께 키우는<br><span>제주의 건강한 내일</span></h1>
+        <p>단순한 기부를 넘어, 지속 가능한 비즈니스로. 토지 기부를 바탕으로 조성된 농장에서 유기농 방울토마토를 생산하고, 그 수익으로 발달장애인의 평생 자립 마을을 짓습니다.</p>
+        <div class="hero-cta-group">
+          <a href="#product" class="btn-main">토마토 정기배송 예약 🍅</a>
+          <a href="#business" class="btn-secondary">비즈니스 모델 보기</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <!-- Using a reliable high-quality Unsplash image for farm landscape -->
+        <img src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?auto=format&fit=crop&w=800&q=80" alt="제주 유기농 농장 전경" onerror="this.src='https://placehold.co/800x600/4CAF50/FFFFFF?text=Jeju+Organic+Farm'">
+        <div class="stats-badge">
+          <div class="stat-item">
+            <h4>100%</h4>
+            <p>친환경 유기농</p>
+          </div>
+          <div class="stat-item">
+            <h4>전액</h4>
+            <p>자립 마을 재투자</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section id="business">
+      <div class="business-model">
+        <h2 class="section-title">소비가 곧 자립이 되는 선순환 구조</h2>
+        <p class="section-subtitle">부모의 부재 이후, 발달장애인의 삶은 어디로 가야 할까요? 우리는 건강한 비즈니스 모델에서 그 해답을 찾았습니다.</p>
+        
+        <div class="model-grid">
+          <div class="model-step">
+            <div class="step-icon">🌱</div>
+            <h3>1. 토지 기부 & 농장 조성</h3>
+            <p>선한 뜻을 가진 분들의 토지 기부와 공익 법인의 자본으로 제주의 깨끗한 자연 속에 안전한 농장을 조성합니다.</p>
+          </div>
+          <div class="model-step">
+            <div class="step-icon">🤝</div>
+            <h3>2. 장애인 맞춤형 일자리</h3>
+            <p>각자의 속도에 맞춘 직무를 개발하여 발달장애인들이 농장의 정규직 구성원으로서 당당하게 경제 활동을 합니다.</p>
+          </div>
+          <div class="model-step">
+            <div class="step-icon">📦</div>
+            <h3>3. 유기농 토마토 구독</h3>
+            <p>고객은 품질 높은 유기농 방울토마토를 정기배송 받고, 이 건강한 소비는 농장의 안정적인 운영 기반이 됩니다.</p>
+          </div>
+          <div class="model-step">
+            <div class="step-icon">🏡</div>
+            <h3>4. 평생 자립 마을 건립</h3>
+            <p>발생한 수익금 전액은 개인에게 배당되지 않고, 장애인과 비장애인이 함께 살아가는 '평생 자립 마을' 건립에 투자됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery">
+      <h2 class="section-title">현장의 생생한 모습</h2>
+      <p class="section-subtitle">제주의 맑은 바람과 햇살, 그리고 모두의 정성으로 키워가는 평생삶터의 오늘입니다.</p>
+      
+      <div class="gallery-grid">
+        <!-- Main Large Photo: Tomatoes on vine -->
+        <div class="gallery-item item-1">
+          <img src="https://images.unsplash.com/photo-1582284540020-8acbe03f4924?auto=format&fit=crop&w=1200&q=80" alt="탐스럽게 열린 유기농 방울토마토" onerror="this.src='https://placehold.co/800x600/E65100/FFFFFF?text=Organic+Tomatoes'">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-text">
+            <h4>당일 수확하는 신선함</h4>
+            <p>화학비료 없이 땀과 정성으로 길러낸 가장 안전한 먹거리입니다.</p>
+          </div>
+        </div>
+        <!-- Small Photo 1: Community/Farming -->
+        <div class="gallery-item item-2">
+          <img src="https://images.unsplash.com/photo-1505934333218-8fe3a2777176?auto=format&fit=crop&w=600&q=80" alt="함께 일하는 농장 식구들" onerror="this.src='https://placehold.co/600x400/2E7D32/FFFFFF?text=Community'">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-text">
+            <h4>우리의 소중한 일터</h4>
+            <p>서로를 돕고 의지하며 성장합니다.</p>
+          </div>
+        </div>
+        <!-- Small Photo 2: Jeju Nature -->
+        <div class="gallery-item item-3">
+          <img src="https://images.unsplash.com/photo-1518623380242-d992d3c57b37?auto=format&fit=crop&w=600&q=80" alt="제주 청정 자연" onerror="this.src='https://placehold.co/600x400/1B5E20/FFFFFF?text=Jeju+Nature'">
+          <div class="gallery-overlay"></div>
+          <div class="gallery-text">
+            <h4>제주의 맑은 자연</h4>
+            <p>자립 마을이 세워질 아름다운 터전입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Subscription Section -->
+    <section id="product" class="product-section">
+      <div class="product-content">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1596647285623-a55e1c411c50?auto=format&fit=crop&w=800&q=80" alt="포장된 유기농 방울토마토" onerror="this.src='https://placehold.co/600x600/E65100/FFFFFF?text=Premium+Package'">
+          <div class="badge-organic">무농약<br>인증</div>
+        </div>
+        <div class="product-details">
+          <h3>상생 유기농 방울토마토<br>정기배송 멤버십</h3>
+          <p>가장 맛있는 완숙 상태일 때 수확하여 당일 발송합니다. 여러분의 식탁 위에 오르는 건강한 방울토마토가 한 청년의 자립을 응원합니다.</p>
+          
+          <ul class="feature-list">
+            <li><i>✔️</i> <strong>무농약 / 유기농 인증</strong> (제주산 프리미엄)</li>
+            <li><i>✔️</i> <strong>당일 수확, 당일 직배송</strong>으로 극강의 신선도</li>
+            <li><i>✔️</i> <strong>수익금 100%</strong> 평생 자립 마을 건립 기금 편입</li>
+            <li><i>🎁</i> 첫 달 구독 시 친환경 보랭백 웰컴 패키지 증정</li>
+          </ul>
+
+          <div class="price-box">
+            <div class="price">29,000<span class="price-unit">원 / 월</span></div>
+            <p class="price-desc">매월 2kg 정기배송 (제주→내륙 배송비 포함)</p>
+          </div>
+
+          <a href="#" class="btn-main" style="width: 100%; justify-content: center; font-size: 1.2rem; padding: 1.2rem;">멤버십 사전 예약하기</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col" style="grid-column: 1 / span 1;">
+        <h4 style="display: flex; align-items: center; gap: 0.5rem;">제주 평생삶터 공익법인 <span class="logo-badge" style="font-size: 0.7rem;">가칭</span></h4>
+        <p>
+          제주특별자치도 제주시 (상세 주소 준비중)<br>
+          발달장애인과 가족, 그리고 지역사회가 함께 만드는 지속가능한 상생 커뮤니티입니다.
+        </p>
+        <p style="margin-top: 1rem; font-weight: bold;">
+          대표전화: 02-000-0000<br>
+          이메일: hello@jejulifelong.org
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>프로젝트 안내</h4>
+        <ul>
+          <li><a href="#">설립 취지문</a></li>
+          <li><a href="#">토지 기부 및 후원 안내</a></li>
+          <li><a href="#">정기배송 이용약관</a></li>
+          <li><a href="#">자원봉사 신청</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>투명한 경영</h4>
+        <ul>
+          <li><a href="#">사업 계획서 (PDF)</a></li>
+          <li><a href="#">재무 공시 (준비중)</a></li>
+          <li><a href="#">이사회 및 자문위 구성</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 제주 평생삶터 프로젝트. All rights reserved. <br>
+      본 웹사이트는 비즈니스 모델 검증 및 사전 예약을 위한 시범 운영(가칭) 페이지입니다.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle script for webview compatibility
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link (smooth scroll is handled by CSS)
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Prevent default action for dummy links
+    document.querySelectorAll('a[href="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('사전 예약 기능은 현재 준비 중입니다. 관심을 가져주셔서 감사합니다.');
+      });
+    });
+  </script>
+</body>
+</html>

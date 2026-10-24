@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제주 파크골프 & 바다 레저 통합 정보 가이드 (가칭)</title>
+  <meta name="description" content="제주도 파크골프장 예약, 이용 정보부터 바다수영, 해루질 금지 구역·기간까지 한눈에 확인하는 디지털 가이드 & MAP 서비스">
+  
+  <style>
+    /* --------------------------------------------------
+     * 1. DESIGN TOKENS & CSS VARIABLES
+     * -------------------------------------------------- */
+    :root {
+      --color-ocean-dark: #0F2537;
+      --color-ocean-main: #1D4ED8;
+      --color-ocean-light: #E0F2FE;
+      --color-emerald-deep: #065F46;
+      --color-emerald-main: #10B981;
+      --color-emerald-soft: #D1FAE5;
+      --color-sand-gold: #F59E0B;
+      --color-sand-light: #FEF3C7;
+      --color-slate-800: #1E293B;
+      --color-slate-600: #475569;
+      --color-slate-100: #F1F5F9;
+      --color-white: #FFFFFF;
+      --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --shadow-soft: 0 10px 30px rgba(15, 37, 55, 0.08);
+      --shadow-hover: 0 20px 40px rgba(15, 37, 55, 0.15);
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* --------------------------------------------------
+     * 2. BASE RESET & ACCESSIBILITY
+     * -------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      color: var(--color-slate-800);
+      background-color: #FAFAFC;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--color-sand-gold);
+      outline-offset: 3px;
+    }
+
+    /* Accessibility Reduced Motion Handling */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* --------------------------------------------------
+     * 3. LAYOUT & CONTAINERS
+     * -------------------------------------------------- */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    /* --------------------------------------------------
+     * 4. HEADER & NAVIGATION
+     * -------------------------------------------------- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 37, 55, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: var(--transition-smooth);
+    }
+
+    .header-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--color-white);
+    }
+
+    .logo-badge {
+      background: var(--color-emerald-main);
+      color: var(--color-white);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-sand-gold);
+    }
+
+    .nav-cta {
+      background: var(--color-emerald-main);
+      color: var(--color-white);
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .nav-cta:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      color: var(--color-white);
+      font-size: 1.5rem;
+    }
+
+    /* --------------------------------------------------
+     * 5. HERO SECTION & CINEMATIC ANIMATION
+     * -------------------------------------------------- */
+    .hero {
+      padding-top: 130px;
+      padding-bottom: 5rem;
+      background: linear-gradient(135deg, var(--color-ocean-dark) 0%, #1E3A8A 100%);
+      color: var(--color-white);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      color: var(--color-sand-gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      color: var(--color-emerald-main);
+    }
+
+    .hero-desc {
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2.25rem;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-emerald-main), #059669);
+      color: var(--color-white);
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+      transition: var(--transition-smooth);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: var(--color-white);
+      padding: 0.9rem 1.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* HERO STAGE (CINEMATIC SVG ANIMATION) */
+    .hero-visual {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      box-shadow: var(--shadow-hover);
+    }
+
+    .hero-svg-stage {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Keyframe Animations for Hero Stage */
+    @keyframes floatWave {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(0.5deg); }
+    }
+
+    @keyframes cloudMove {
+      0% { transform: translateX(-50px); }
+      50% { transform: translateX(50px); }
+      100% { transform: translateX(-50px); }
+    }
+
+    @keyframes routePulse {
+      0%, 100% { stroke-dashoffset: 0; opacity: 0.8; }
+      50% { stroke-dashoffset: 20; opacity: 1; }
+    }
+
+    @keyframes pinBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .anim-cloud { animation: cloudMove 20s infinite ease-in-out; }
+    .anim-wave-1 { animation: floatWave 6s infinite ease-in-out; }
+    .anim-wave-2 { animation: floatWave 8s infinite ease-in-out 1s; }
+    .anim-pin { animation: pinBounce 3s infinite ease-in-out; }
+
+    /* --------------------------------------------------
+     * 6. AUTO-PLAY STORY SEQUENCE SECTION (CINEMATIC B)
+     * -------------------------------------------------- */
+    .story-section {
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-slate-100);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-subtitle {
+      color: var(--color-emerald-main);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: var(--color-ocean-dark);
+      letter-spacing: -0.01em;
+    }
+
+    .story-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      background: var(--color-slate-100);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      position: relative;
+    }
+
+    .story-visual-wrap {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-white);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .story-visual-wrap svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .story-step-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--color-ocean-main);
+      color: var(--color-white);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .story-heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-ocean-dark);
+    }
+
+    .story-text {
+      color: var(--color-slate-600);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .story-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .story-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-white);
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--color-slate-800);
+      transition: var(--transition-smooth);
+    }
+
+    .story-btn:hover {
+      background: var(--color-ocean-main);
+      color: var(--color-white);
+      border-color: var(--color-ocean-main);
+    }
+
+    .story-indicators {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .indicator-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .indicator-dot.active {
+      width: 32px;
+      border-radius: 10px;
+      background: var(--color-ocean-main);
+    }
+
+    /* --------------------------------------------------
+     * 7. INTERACTIVE MODULE 1: PERSONALIZED SIMULATOR
+     * -------------------------------------------------- */
+    .interactive-section {
+      background: #F8FAFC;
+    }
+
+    .interactive-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .option-group {
+      margin-bottom: 2rem;
+    }
+
+    .option-label {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-ocean-dark);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .option-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .opt-btn {
+      padding: 1rem 1.25rem;
+      border: 2px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-weight: 600;
+      color: var(--color-slate-600);
+      background: var(--color-white);
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .opt-btn:hover {
+      border-color: var(--color-emerald-main);
+      background: var(--color-emerald-soft);
+    }
+
+    .opt-btn.active {
+      border-color: var(--color-emerald-main);
+      background: var(--color-emerald-soft);
+      color: var(--color-emerald-deep);
+    }
+
+    .opt-icon {
+      font-size: 1.25rem;
+    }
+
+    .result-display-box {
+      margin-top: 2.5rem;
+      background: linear-gradient(135deg, var(--color-ocean-dark), #1E293B);
+      color: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-sand-gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .result-desc {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-tag-list {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .result-tag {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .result-mockup-visual {
+      background: var(--color-white);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      color: var(--color-slate-800);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* --------------------------------------------------
+     * 8. INTERACTIVE MODULE 2: HOTSPOT MAP PREVIEW
+     * -------------------------------------------------- */
+    .map-section {
+      background: var(--color-white);
+    }
+
+    .map-container-box {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      background: #E2E8F0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid #CBD5E1;
+    }
+
+    .map-svg-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hotspot-pin {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-emerald-main);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: 3px solid var(--color-white);
+    }
+
+    .hotspot-pin:hover, .hotspot-pin.active {
+      transform: scale(1.25);
+      background: var(--color-sand-gold);
+      z-index: 10;
+    }
+
+    /* Position Hotspots on Map */
+    .pin-1 { top: 35%; left: 25%; }
+    .pin-2 { top: 25%; left: 55%; }
+    .pin-3 { top: 60%; left: 70%; }
+    .pin-4 { top: 70%; left: 40%; }
+
+    .map-info-panel {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .map-info-text h4 {
+      font-size: 1.2rem;
+      color: var(--color-ocean-dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .map-info-text p {
+      color: var(--color-slate-600);
+      font-size: 0.95rem;
+    }
+
+    /* --------------------------------------------------
+     * 9. SECOND CINEMATIC MOTION: PROCESS ANIMATION
+     * -------------------------------------------------- */
+    .process-section {
+      background: linear-gradient(180deg, #F8FAFC 0%, var(--color-ocean-dark) 100%);
+      color: var(--color-white);
+      padding-bottom: 6rem;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .process-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .process-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .process-num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--color-emerald-main);
+      opacity: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    /* --------------------------------------------------
+     * 10. CREATOR / TEAM (WHY ME)
+     * -------------------------------------------------- */
+    .creator-section {
+      background: var(--color-white);
+    }
+
+    .creator-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .creator-photo-box {
+      width: 100%;
+      height: 380px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .creator-photo-box svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .creator-bio h3 {
+      font-size: 2rem;
+      color: var(--color-ocean-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .creator-role {
+      color: var(--color-emerald-main);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .creator-quote {
+      font-style: italic;
+      color: var(--color-slate-600);
+      font-size: 1.1rem;
+      border-left: 4px solid var(--color-sand-gold);
+      padding-left: 1.25rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* --------------------------------------------------
+     * 11. PILOT PLAN & FAQ ACCORDION
+     * -------------------------------------------------- */
+    .faq-section {
+      background: #F8FAFC;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      border: 1px solid #E2E8F0;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--color-ocean-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--color-slate-600);
+      line-height: 1.6;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-icon {
+      transition: var(--transition-smooth);
+    }
+
+    /* --------------------------------------------------
+     * 12. FINAL CTA & FOOTER
+     * -------------------------------------------------- */
+    .final-cta {
+      background: linear-gradient(135deg, var(--color-ocean-dark) 0%, #0F172A 100%);
+      color: var(--color-white);
+      text-align: center;
+      padding: 6rem 0;
+    }
+
+    .final-cta h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+    }
+
+    .final-cta p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.15rem;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer {
+      background: #091E2E;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 2.5rem 0;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* --------------------------------------------------
+     * 13. RESPONSIVE MEDIA QUERIES
+     * -------------------------------------------------- */
+    @media (max-width: 992px) {
+      .hero-grid, .story-card, .result-display-box, .creator-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .creator-photo-box {
+        height: 280px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .map-info-panel {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .story-card, .interactive-card {
+        padding: 1.5rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .btn-primary, .btn-secondary {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      .header, .story-controls, .interactive-section, .map-section {
+        display: none !important;
+      }
+      body {
+        background: white;
+        color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================================================
+       HEADER & NAVIGATION
+       ================================================== -->
+  <header class="header">
+    <div class="container header-nav">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+        제주레저가이드 <span class="logo-badge">가칭</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#story">서비스 소개</a></li>
+        <li><a href="#interactive">맞춤 추천</a></li>
+        <li><a href="#map">지도 미리보기</a></li>
+        <li><a href="#creator">운영자 소개</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#interactive" class="nav-cta">시범 서비스 체험하기</a>
+      <button class="mobile-menu-btn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================================================
+         HERO SECTION (CINEMATIC AUTOMATIC MOTION A)
+         ================================================== -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span>✨</span> 제주도민 & 레저 관광객을 위한 통합 정보
+          </div>
+          <h1 class="hero-title">
+            막막했던 제주 파크골프 &<br>
+            바다 레저, <span>한눈에 확인하세요</span>
+          </h1>
+          <p class="hero-desc">
+            복잡한 파크골프장 예약부터 바다수영·해루질 금지 구역·기간까지. 헤매지 않고 안전하게 제주의 자연을 즐기는 통합 디지털 가이드북 & MAP
+          </p>
+          <div class="hero-actions">
+            <a href="#interactive" class="btn-primary">
+              나에게 맞는 정보 찾기
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#map" class="btn-secondary">지도 한눈에 보기</a>
+          </div>
+        </div>
+
+        <!-- Cinematic Dynamic SVG Visual Stage -->
+        <div class="hero-visual" aria-label="제주도 파크골프 및 바다 레저 활성화 모션 그래픽">
+          <svg class="hero-svg-stage" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Sky & Sun -->
+            <rect width="500" height="400" fill="url(#skyGrad)"/>
+            <circle cx="420" cy="80" r="40" fill="#FDE047" opacity="0.8"/>
+            
+            <!-- Animated Clouds -->
+            <g class="anim-cloud" opacity="0.6">
+              <path d="M50 80 Q65 60 85 80 Q105 70 120 85 Q130 100 110 110 H60 Z" fill="#FFFFFF"/>
+              <path d="M300 60 Q315 40 335 60 Q355 50 370 65 H310 Z" fill="#FFFFFF"/>
+            </g>
+
+            <!-- Jeju Island Mountain Silhouette -->
+            <path d="M100 280 Q250 140 400 280 Z" fill="#065F46" opacity="0.7"/>
+            <path d="M180 280 Q250 200 320 280 Z" fill="#047857"/>
+
+            <!-- Moving Waves -->
+            <path class="anim-wave-1" d="M0 320 Q125 300 250 320 T500 320 V400 H0 Z" fill="#1D4ED8" opacity="0.8"/>
+            <path class="anim-wave-2" d="M0 340 Q125 360 250 340 T500 340 V400 H0 Z" fill="#0284C7" opacity="0.9"/>
+
+            <!-- Park Golf Green & Animated Pin -->
+            <ellipse cx="120" cy="310" rx="70" ry="25" fill="#10B981"/>
+            <g class="anim-pin">
+              <line x1="120" y1="310" x2="120" y2="260" stroke="#FFFFFF" stroke-width="3"/>
+              <polygon points="120,260 150,270 120,280" fill="#EF4444"/>
+              <circle cx="120" cy="310" r="5" fill="#FFFFFF"/>
+            </g>
+
+            <!-- Sea Swimmer / Activity Visual Route -->
+            <path d="M280 340 Q340 320 420 350" stroke="#F59E0B" stroke-width="4" stroke-dasharray="8 8" class="anim-route"/>
+            <circle cx="420" cy="350" r="12" fill="#F59E0B" class="anim-pin"/>
+
+            <!-- Gradients -->
+            <defs>
+              <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#0F2537"/>
+                <stop offset="100%" stop-color="#1E3A8A"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         AUTO-PLAY STORY SEQUENCE SECTION (CINEMATIC B)
+         ================================================== -->
+    <section id="story" class="story-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">Story & Preview</div>
+          <h2 class="section-title">제주 레저 정보, 이렇게 달라집니다</h2>
+        </div>
+
+        <div class="story-card">
+          <div class="story-visual-wrap" id="storyVisual">
+            <!-- Dynamic Inline SVG Updated via JS -->
+          </div>
+          <div class="story-info">
+            <span class="story-step-badge" id="storyStepBadge">Step 01</span>
+            <h3 class="story-heading" id="storyHeading">산재된 정보 검색의 답답함</h3>
+            <p class="story-text" id="storyText">
+              파크골프장 이용시간, 휴무일, 바다수영/해루질 금지 구역 정보가 여기저기 흩어져 있어 찾아보기 어려우셨나요?
+            </p>
+            <div class="story-controls">
+              <button class="story-btn" id="prevStoryBtn" aria-label="이전 장면">←</button>
+              <button class="story-btn" id="toggleStoryBtn" aria-label="일시정지/재생">⏸</button>
+              <button class="story-btn" id="nextStoryBtn" aria-label="다음 장면">→</button>
+              <div class="story-indicators" id="storyIndicators">
+                <span class="indicator-dot active" data-index="0"></span>
+                <span class="indicator-dot" data-index="1"></span>
+                <span class="indicator-dot" data-index="2"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         INTERACTIVE MODULE 1: PERSONALIZED RECOMMENDATION
+         ================================================== -->
+    <section id="interactive" class="interactive-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">맞춤형 체험 미리보기</div>
+          <h2 class="section-title">나에게 필요한 제주 레저 가이드 찾기</h2>
+        </div>
+
+        <div class="interactive-card">
+          <!-- Selection Step 1 -->
+          <div class="option-group">
+            <label class="option-label">1. 주요 관심 레저 분야를 선택해 주세요</label>
+            <div class="option-buttons" id="activityOpts">
+              <button class="opt-btn active" data-value="golf">
+                <span class="opt-icon">⛳</span> 파크골프장 예약/정보
+              </button>
+              <button class="opt-btn" data-value="sea">
+                <span class="opt-icon">🏊‍♂️</span> 바다수영 & 해루질
+              </button>
+              <button class="opt-btn" data-value="both">
+                <span class="opt-icon">🏝️</span> 통합 레저 가이드
+              </button>
+            </div>
+          </div>
+
+          <!-- Selection Step 2 -->
+          <div class="option-group">
+            <label class="option-label">2. 방문 형태를 선택해 주세요</label>
+            <div class="option-buttons" id="userOpts">
+              <button class="opt-btn active" data-value="resident">
+                <span class="opt-icon">🏠</span> 제주 도민
+              </button>
+              <button class="opt-btn" data-value="tourist">
+                <span class="opt-icon">🧳</span> 레저 관광객
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Result Display Box -->
+          <div class="result-display-box">
+            <div>
+              <h4 class="result-title" id="resTitle">제주 도민 맞춤 파크골프 패키지 가이드</h4>
+              <p class="result-desc" id="resDesc">
+                도내 주요 파크골프장의 최신 휴무일, 예약 대행 안내 및 도민 우대 정보를 포함한 전용 디지털 맵을 제공합니다.
+              </p>
+              <div class="result-tag-list" id="resTags">
+                <span class="result-tag">#파크골프_예약</span>
+                <span class="result-tag">#도민_우대정보</span>
+              </div>
+            </div>
+            <div class="result-mockup-visual">
+              <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--color-ocean-main);">
+                📱 시범 가이드북 예시 화면
+              </div>
+              <div id="mockContent" style="font-size: 0.85rem; color: var(--color-slate-600); line-height: 1.5;">
+                • 회천 파크골프장: 매주 월요일 휴장<br>
+                • 강창학 파크골프장: 도민 할인 가능<br>
+                • 실시간 예약 현황 및 전화 연결
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         INTERACTIVE MODULE 2: MAP HOTSPOT PREVIEW
+         ================================================== -->
+    <section id="map" class="map-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">Interactive Map Preview</div>
+          <h2 class="section-title">제주 주요 레저 포인트 지도 탐색</h2>
+        </div>
+
+        <div class="map-container-box">
+          <!-- Jeju Map Vector Illustration -->
+          <svg class="map-svg-bg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="500" fill="#E0F2FE"/>
+            <!-- Jeju Main Outline -->
+            <path d="M150 250 Q200 150 400 160 Q650 170 700 270 Q680 380 450 390 Q200 400 150 250 Z" fill="#D1FAE5" stroke="#10B981" stroke-width="4"/>
+            <!-- Hallasan Peak -->
+            <path d="M380 270 Q410 230 440 270 Z" fill="#059669" opacity="0.6"/>
+          </svg>
+
+          <!-- Hotspot Pins -->
+          <button class="hotspot-pin pin-1 active" data-point="1" aria-label="제주시 파크골프장 정보">1</button>
+          <button class="hotspot-pin pin-2" data-point="2" aria-label="함덕 해루질/수영 구역">2</button>
+          <button class="hotspot-pin pin-3" data-point="3" aria-label="성산 바다 레저 구역">3</button>
+          <button class="hotspot-pin pin-4" data-point="4" aria-label="서귀포 파크골프장">4</button>
+
+          <!-- Map Info Panel -->
+          <div class="map-info-panel">
+            <div class="map-info-text">
+              <h4 id="pinTitle">1. 제주시권 주요 파크골프장</h4>
+              <p id="pinDesc">회천, 회천분구장 등 구장별 개장시간, 휴무일, 예약 대행 번호 통합 제공</p>
+            </div>
+            <a href="#interactive" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+              해당 구역 상세 보기
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         PROCESS & SECOND CINEMATIC SECTION
+         ================================================== -->
+    <section class="process-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle" style="color: var(--color-sand-gold);">Process</div>
+          <h2 class="section-title" style="color: var(--color-white);">서비스 이용 절차</h2>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-card">
+            <div class="process-num">01</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">관심 지역 선택</h3>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem;">제주 도내 원하시는 파크골프장 또는 바다 레저 구역을 선택합니다.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-num">02</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">실시간 정보 확인</h3>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem;">개장·폐장 시간, 휴무일, 수영/해루질 허용 구역을 한눈에 확인합니다.</p>
+          </div>
+          <div class="process-card">
+            <div class="process-num">03</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">안전하고 편안한 이용</h3>
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem;">예약 정보와 가이드라인을 바탕으로 착오 없이 제주의 여가를 즐깁니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         CREATOR / TEAM (WHY ME)
+         ================================================== -->
+    <section id="creator" class="creator-section">
+      <div class="container">
+        <div class="creator-grid">
+          <div class="creator-photo-box">
+            <!-- Inline SVG Graphic representing Founder's Experience -->
+            <svg viewBox="0 0 320 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="320" height="380" fill="#0F2537"/>
+              <circle cx="160" cy="140" r="60" fill="#10B981" opacity="0.3"/>
+              <path d="M100 300 Q160 220 220 300 Z" fill="#059669"/>
+              <text x="160" y="340" text-anchor="middle" fill="#FFFFFF" font-weight="700" font-size="16">제주 현지 기획자 한상호</text>
+            </svg>
+          </div>
+          <div class="creator-bio">
+            <div class="section-subtitle">Creator Story</div>
+            <h3>"직접 겪은 답답함에서 시작되었습니다"</h3>
+            <div class="creator-role">23년 교육 사업 노하우 & 제주 1년 살이 실전 레저 경험</div>
+            <p class="creator-quote">
+              "제주에서 바다수영과 해루질, 파크골프를 직접 즐기며 가장 아쉬웠던 점은 정보의 불균형이었습니다. 정확하고 신뢰할 수 있는 가이드북으로 제주를 찾는 모든 분들이 편안하게 여가를 즐기실 수 있도록 만들고 있습니다."
+            </p>
+            <p style="color: var(--color-slate-600); line-height: 1.7;">
+              학원 운영을 통해 얻은 고객 니즈 파악 역량과 제주 현지에서 체득한 레저 노하우를 바탕으로, 도민과 관광객 모두에게 꼭 필요한 실질적인 정보 안내 서비스를 시범 운영 준비 중입니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         PILOT PLAN & FAQ ACCORDION
+         ================================================== -->
+    <section id="faq" class="faq-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-subtitle">FAQ & Guide</div>
+          <h2 class="section-title">자주 묻는 질문</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item active">
+            <button class="faq-question">
+              Q. 서비스는 정식 오픈된 상태인가요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              현재 서비스는 시범 참여 및 정보 수집 단계에 있으며, 도민 커뮤니티 반응 검증과 디지털 가이드북 제작을 진행하고 있는 초기 준비 프로젝트입니다.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Q. 서비스 이용료는 얼마인가요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              초기 제공되는 기본 파크골프장 안내 및 바다 레저 허용 구역 정보 가이드북(PDF)은 무료 공유를 목표로 검증 중입니다. (추후 프리미엄 기능 가설 검토 예정)
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Q. 파크골프장 예약 대행도 포함되나요?
+              <span class="faq-icon">▼</span>
+            </button>
+            <div class="faq-answer">
+              주요 구장별 예약 방법 및 연락처 안내를 우선 제공하며, 향후 사용자 수요에 따라 예약 대행 서비스 연계를 검토할 계획입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================
+         FINAL CTA
+         ================================================== -->
+    <section class="final-cta">
+      <div class="container">
+        <h2>제주의 여가 생활, 더 이상 헤매지 마세요</h2>
+        <p>시범 가이드북 수령 및 레저 정보 모음글 안내를 가장 먼저 받아보실 수 있습니다.</p>
+        <button class="btn-primary" id="copyInfoBtn" style="margin: 0 auto;">
+          시범 참여 안내 문구 복사하기
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================================================
+       FOOTER
+       ================================================== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <strong>제주 파크골프 & 바다 레저 정보 안내 서비스 (가칭)</strong><br>
+        본 페이지는 서비스 검증 및 안내를 위한 시범 랜딩페이지입니다.
+      </div>
+      <div>
+        © 2026 Jeju Leisure Guide Project. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================================================
+       JAVASCRIPT LOGIC
+       ================================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      /* --------------------------------------------------
+       * 1. CINEMATIC B: AUTO-PLAY STORY SEQUENCE
+       * -------------------------------------------------- */
+      const storyData = [
+        {
+          badge: "Step 01",
+          heading: "산재된 정보 검색의 답답함",
+          text: "파크골프장 이용시간, 휴무일, 바다수영/해루질 금지 구역 정보가 여기저기 흩어져 있어 찾아보기 어려우셨나요?",
+          svg: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="400" height="300" fill="#FEF3C7"/>
+                  <circle cx="200" cy="130" r="50" fill="#F59E0B" opacity="0.2"/>
+                  <path d="M170 130 Q200 100 230 130" stroke="#D97706" stroke-width="4"/>
+                  <text x="200" y="220" text-anchor="middle" fill="#92400E" font-weight="700" font-size="18">찾기 힘든 제주 레저 정보</text>
+                </svg>`
+        },
+        {
+          badge: "Step 02",
+          heading: "한눈에 보는 디지털 가이드북 & MAP",
+          text: "제주 전역의 파크골프장 위치, 예약 방법과 바다 수영·해루질 안전 정보가 하나의 지도에 명확히 통합됩니다.",
+          svg: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="400" height="300" fill="#D1FAE5"/>
+                  <path d="M100 200 Q200 100 300 200" stroke="#10B981" stroke-width="6"/>
+                  <circle cx="200" cy="150" r="15" fill="#059669"/>
+                  <text x="200" y="240" text-anchor="middle" fill="#065F46" font-weight="700" font-size="18">통합 디지털 맵 제공</text>
+                </svg>`
+        },
+        {
+          badge: "Step 03",
+          heading: "안전하고 여유로운 제주 여가 완성",
+          text: "착오 없이 신속하게 확인하고, 제주의 자연 속에서 파크골프와 바다 레저를 안심하고 즐기실 수 있습니다.",
+          svg: `<svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="400" height="300" fill="#E0F2FE"/>
+                  <circle cx="200" cy="120" r="40" fill="#1D4ED8" opacity="0.3"/>
+                  <path d="M160 120 L190 150 L250 90" stroke="#1D4ED8" stroke-width="6" stroke-linecap="round"/>
+                  <text x="200" y="220" text-anchor="middle" fill="#1E40AF" font-weight="700" font-size="18">안심 레저 여가 완성</text>
+                </svg>`
+        }
+      ];
+
+      let currentStoryIndex = 0;
+      let storyTimer = null;
+      let isPlaying = true;
+
+      const storyVisual = document.getElementById('storyVisual');
+      const storyStepBadge = document.getElementById('storyStepBadge');
+      const storyHeading = document.getElementById('storyHeading');
+      const storyText = document.getElementById('storyText');
+      const toggleStoryBtn = document.getElementById('toggleStoryBtn');
+      const dots = document.querySelectorAll('.indicator-dot');
+
+      function updateStory(index) {
+        currentStoryIndex = index;
+        const data = storyData[index];
+        storyVisual.innerHTML = data.svg;
+        storyStepBadge.textContent = data.badge;
+        storyHeading.textContent = data.heading;
+        storyText.textContent = data.text;
+
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === index);
+        });
+      }
+
+      function startStoryTimer() {
+        if (storyTimer) clearInterval(storyTimer);
+        storyTimer = setInterval(() => {
+          if (isPlaying) {
+            let nextIdx = (currentStoryIndex + 1) % storyData.length;
+            updateStory(nextIdx);
+          }
+        }, 5000);
+      }
+
+      document.getElementById('nextStoryBtn').addEventListener('click', () => {
+        let nextIdx = (currentStoryIndex + 1) % storyData.length;
+        updateStory(nextIdx);
+      });
+
+      document.getElementById('prevStoryBtn').addEventListener('click', () => {
+        let prevIdx = (currentStoryIndex - 1 + storyData.length) % storyData.length;
+        updateStory(prevIdx);
+      });
+
+      toggleStoryBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        toggleStoryBtn.textContent = isPlaying ? '⏸' : '▶';
+      });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'));
+          updateStory(idx);
+        });
+      });
+
+      // Init Story
+      updateStory(0);
+      startStoryTimer();
+
+      /* --------------------------------------------------
+       * 2. INTERACTIVE MODULE 1: PERSONALIZED RECOMMENDATION
+       * -------------------------------------------------- */
+      let selectedActivity = 'golf';
+      let selectedUser = 'resident';
+
+      const activityBtns = document.querySelectorAll('#activityOpts .opt-btn');
+      const userBtns = document.querySelectorAll('#userOpts .opt-btn');
+
+      const resTitle = document.getElementById('resTitle');
+      const resDesc = document.getElementById('resDesc');
+      const resTags = document.getElementById('resTags');
+      const mockContent = document.getElementById('mockContent');
+
+      function updateRecommendation() {
+        if (selectedActivity === 'golf' && selectedUser === 'resident') {
+          resTitle.textContent = '제주 도민 맞춤 파크골프 패키지 가이드';
+          resDesc.textContent = '도내 주요 파크골프장의 최신 휴무일, 예약 대행 안내 및 도민 우대 정보를 포함한 전용 디지털 맵을 제공합니다.';
+          resTags.innerHTML = '<span class="result-tag">#파크골프_예약</span><span class="result-tag">#도민_우대정보</span>';
+          mockContent.innerHTML = '• 회천 파크골프장: 매주 월요일 휴장<br>• 강창학 파크골프장: 도민 할인 가능<br>• 실시간 예약 현황 및 전화 연결';
+        } else if (selectedActivity === 'sea' && selectedUser === 'tourist') {
+          resTitle.textContent = '제주 레저 관광객용 바다수영 & 해루질 안전 가이드';
+          resDesc.textContent = '관광 중 방문하기 좋은 바다수영 구역과 해루질 금지 구역·기간 정보를 한눈에 안전하게 확인하실 수 있습니다.';
+          resTags.innerHTML = '<span class="result-tag">#해루질_금지구역</span><span class="result-tag">#안전_수영포인트</span>';
+          mockContent.innerHTML = '• 함덕 해변: 해루질 금지 구역 지정 안내<br>• 성산 주변: 허용 기간 및 물때 시간표<br>• 안전 장비 대여처 연결';
+        } else {
+          resTitle.textContent = '제주 통합 파크골프 & 바다 레저 가이드 MAP';
+          resDesc.textContent = '파크골프장 위치 및 이용 시간부터 바다 레저 가능 지역까지 통합적으로 파악 가능한 시범 디지털 가이드입니다.';
+          resTags.innerHTML = '<span class="result-tag">#제주_통합레저</span><span class="result-tag">#디지털_MAP</span>';
+          mockContent.innerHTML = '• 서귀포 파크골프장 및 주변 수영 포인트<br>• 통합 레저 동선 및 추천 일정<br>• 실시간 정보 업데이트 서비스';
+        }
+      }
+
+      activityBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          activityBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedActivity = btn.getAttribute('data-value');
+          updateRecommendation();
+        });
+      });
+
+      userBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          userBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedUser = btn.getAttribute('data-value');
+          updateRecommendation();
+        });
+      });
+
+      /* --------------------------------------------------
+       * 3. INTERACTIVE MODULE 2: MAP HOTSPOT
+       * -------------------------------------------------- */
+      const mapPins = document.querySelectorAll('.hotspot-pin');
+      const pinTitle = document.getElementById('pinTitle');
+      const pinDesc = document.getElementById('pinDesc');
+
+      const pinData = {
+        '1': { title: '1. 제주시권 주요 파크골프장', desc: '회천, 회천분구장 등 구장별 개장시간, 휴무일, 예약 대행 번호 통합 제공' },
+        '2': { title: '2. 함덕 해변 및 해루질 구역', desc: '해루질 금지 구역 설정 현황 및 수영 안전 구역 표기' },
+        '3': { title: '3. 성산 바다 레저 포인트', desc: '해양 레저 가능 시간표 및 물때, 현지 해루질 허용 가이드 안내' },
+        '4': { title: '4. 서귀포 파크골프 구역', desc: '강창학, 남원 파크골프장 도민 할인 및 이용자 현황 가이드' }
+      };
+
+      mapPins.forEach(pin => {
+        pin.addEventListener('click', () => {
+          mapPins.forEach(p => p.classList.remove('active'));
+          pin.classList.add('active');
+          const point = pin.getAttribute('data-point');
+          pinTitle.textContent = pinData[point].title;
+          pinDesc.textContent = pinData[point].desc;
+        });
+      });
+
+      /* --------------------------------------------------
+       * 4. FAQ ACCORDION
+       * -------------------------------------------------- */
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(q => {
+        q.addEventListener('click', () => {
+          const item = q.parentElement;
+          item.classList.toggle('active');
+        });
+      });
+
+      /* --------------------------------------------------
+       * 5. COPY TO CLIPBOARD ACTION
+       * -------------------------------------------------- */
+      const copyBtn = document.getElementById('copyInfoBtn');
+      copyBtn.addEventListener('click', () => {
+        const textToCopy = "[제주 파크골프 & 바다 레저 통합 정보 가이드 시범 참여 안내]\n제주의 파크골프장 예약 정보와 바다수영/해루질 금지구역 정보를 한눈에 확인하는 디지털 가이드북 안내입니다.";
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          alert('시범 참여 안내 문구가 클립보드에 복사되었습니다.');
+        }).catch(() => {
+          alert('복사에 실패했습니다. 문구를 직접 선택해 주세요.');
+        });
+      });
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마음 편한 안내자 | 시설 친화적 안내 및 소통 서포터</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #eff6ff;
+            --accent: #f59e0b;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.03);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-main);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-sm);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-main);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            line-height: 1.3;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+
+        .hero-content p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Fixed Cinematic Hero Visual Simulation */
+        .hero-visual {
+            position: relative;
+            height: 420px;
+            background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .motion-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+            animation: pulseGlow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        .hero-visual-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 360px;
+            align-items: center;
+        }
+
+        .visual-card {
+            background: var(--white);
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            width: 100%;
+            animation: floatCard 4s ease-in-out infinite;
+        }
+
+        .visual-card.primary-card {
+            background: var(--primary);
+            color: white;
+            border: none;
+            animation-delay: 1.5s;
+        }
+
+        .visual-main-icon {
+            text-align: center;
+            padding: 12px;
+            background: rgba(37, 99, 235, 0.08);
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            animation: floatCard 3s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Interactive Auto-play Storyboard Section */
+        .story-section {
+            padding: 80px 0;
+            background-color: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 56px;
+        }
+
+        .section-header span {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .story-container {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .story-visual-pane {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 100%);
+            padding: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 320px;
+        }
+
+        .story-content-pane {
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .story-steps {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .story-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--border);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .story-dot.active {
+            width: 24px;
+            background: var(--primary);
+        }
+
+        .story-text-block h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .story-text-block p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .story-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Empathy / Problem Section */
+        .empathy-section {
+            padding: 80px 0;
+        }
+
+        .empathy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .empathy-card {
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .empathy-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            background: var(--white);
+        }
+
+        .empathy-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .empathy-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .empathy-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Live Interactive Experience Section */
+        .interactive-section {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--white) 0%, var(--bg-light) 100%);
+        }
+
+        .simulator-box {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .simulator-header {
+            background: var(--primary-light);
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .simulator-header h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .simulator-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .simulator-body {
+            padding: 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .simulator-options h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .option-btn {
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .simulator-result {
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .result-card-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .result-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .result-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        /* Process / How it works */
+        .process-section {
+            padding: 80px 0;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+
+        .process-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: var(--radius-lg);
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .process-step-num {
+            position: absolute;
+            top: -16px;
+            left: 32px;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 12px 0 10px;
+        }
+
+        .process-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Founder Section */
+        .founder-section {
+            padding: 80px 0;
+            background-color: var(--bg-light);
+        }
+
+        .founder-box {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .founder-avatar {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .founder-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .founder-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .founder-info p {
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .badge-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .badge {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: var(--white);
+            transition: var(--transition);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 20px 24px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 24px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 24px;
+        }
+
+        /* Footer CTA */
+        .cta-footer {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-footer h2 {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-footer p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-light:hover {
+            background: var(--bg-light);
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 48px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 968px) {
+            .hero-grid,
+            .story-container,
+            .simulator-body,
+            .founder-box {
+                grid-template-columns: 1fr;
+            }
+            .empathy-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Mobile Menu Panel */
+        .mobile-menu {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">본문 바로가기</a>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                마음 편한 안내자
+            </a>
+            <ul class="nav-links">
+                <li><a href="#empathy">고민 해결</a></li>
+                <li><a href="#story">진행 과정</a></li>
+                <li><a href="#simulator">맞춤 체험</a></li>
+                <li><a href="#founder">소개</a></li>
+                <li><a href="#faq">자주 묻는 질문</a></li>
+                <li><a href="#simulator" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">시범 신청</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#empathy" class="mobile-link">고민 해결</a>
+        <a href="#story" class="mobile-link">진행 과정</a>
+        <a href="#simulator" class="mobile-link">맞춤 체험</a>
+        <a href="#founder" class="mobile-link">소개</a>
+        <a href="#faq" class="mobile-link">자주 묻는 질문</a>
+        <a href="#simulator" class="btn btn-primary">시범 신청하기</a>
+    </div>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1>처음 방문한 시설이 <span>낯설고 긴장될 때</span>,<br>따뜻한 온기를 전합니다</h1>
+                    <p>도서관과 복지 시설을 찾는 방문객과 시니어 분들이 사소한 질문도 편하게 건넬 수 있도록, 환한 미소와 친근한 대화로 마음의 문을 열어드리는 시설 친화적 안내 및 소통 서포터 서비스입니다.</p>
+                    <div class="hero-cta">
+                        <a href="#simulator" class="btn btn-primary">맞춤 안내 체험하기</a>
+                        <a href="#story" class="btn btn-outline">서비스 알아보기</a>
+                    </div>
+                </div>
+                <!-- Cleaned Up & Fixed Hero Visual -->
+                <div class="hero-visual">
+                    <div class="motion-bg"></div>
+                    <div class="hero-visual-inner">
+                        <div class="visual-card">
+                            <span style="color: var(--accent); font-size: 1.25rem;">📍</span>
+                            <span>"어디로 가야 할지 헤매지 않아요"</span>
+                        </div>
+                        <div class="visual-main-icon">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div style="text-align: center;">
+                            <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 2px;">따뜻한 공감 소통</h3>
+                            <p style="font-size: 0.85rem; color: var(--text-muted);">부담 없는 친근한 동반자</p>
+                        </div>
+                        <div class="visual-card primary-card">
+                            <span style="font-size: 1.1rem;">✨</span>
+                            <span>"처음 왔는데 편안해졌어요"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Empathy Section -->
+        <section id="empathy" class="empathy-section">
+            <div class="container">
+                <div class="section-header">
+                    <span>이런 고민이 있으신가요?</span>
+                    <h2>방문객들이 겪는 작은 불편함</h2>
+                    <p>공공시설과 복지 공간은 누구에게나 열려 있지만, 막상 들어서면 사소한 부분에서 망설여지곤 합니다.</p>
+                </div>
+                <div class="empathy-grid">
+                    <div class="empathy-card">
+                        <div class="empathy-icon">🧭</div>
+                        <h3>낯선 환경과 긴장감</h3>
+                        <p>처음 방문하는 도서관이나 시설에서 입구를 찾거나 안내 표지판을 읽어도 어디로 향해야 할지 막막할 때가 많습니다.</p>
+                    </div>
+                    <div class="empathy-card">
+                        <div class="empathy-icon">💬</div>
+                        <h3>물어보기 주저되는 질문</h3>
+                        <p>직원분들이 바빠 보여 사소한 절차나 이용 방법을 물어보기가 송구스럽고 망설여져 혼자 고민하게 됩니다.</p>
+                    </div>
+                    <div class="empathy-card">
+                        <div class="empathy-icon">☕</div>
+                        <h3>마음을 기댈 온기 부족</h3>
+                        <p>차가운 키오스크와 기계적인 안내 속에서 편안하게 이야기를 들어주는 따뜻한 소통 창구가 아쉽습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auto-play Story Sequence Section -->
+        <section id="story" class="story-section">
+            <div class="container">
+                <div class="section-header">
+                    <span>해결 솔루션 시퀀스</span>
+                    <h2>마음이 편안해지는 안내 과정</h2>
+                    <p>자동으로 재생되는 순서를 통해 시설 친화적 소통 서포터가 어떻게 방문객을 맞이하는지 확인해 보세요.</p>
+                </div>
+
+                <div class="story-container">
+                    <div class="story-visual-pane">
+                        <div id="storyVisualContent" style="text-align: center;">
+                            <svg id="storySvg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.5s ease; margin: 0 auto; display: block;">
+                                <circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path>
+                            </svg>
+                            <div id="storySvgLabel" style="margin-top: 16px; font-weight: 600; color: var(--primary-dark);">1단계: 환한 미소로 맞이</div>
+                        </div>
+                    </div>
+                    <div class="story-content-pane">
+                        <div class="story-steps" id="storyDots">
+                            <span class="story-dot active" data-index="0"></span>
+                            <span class="story-dot" data-index="1"></span>
+                            <span class="story-dot" data-index="2"></span>
+                        </div>
+                        <div class="story-text-block" id="storyTextBlock">
+                            <h3 id="storyTitle">입구에서부터 느껴지는 따뜻한 환대</h3>
+                            <p id="storyDesc">방문하시는 분이 문을 열고 들어서는 순간, 과하지 않고 편안한 미소와 인상으로 긴장감을 부드럽게 녹여드립니다.</p>
+                        </div>
+                        <div class="story-controls">
+                            <button class="control-btn" id="prevStory" aria-label="이전 장면">←</button>
+                            <button class="control-btn" id="pauseStory" aria-label="일시정지/재생">❚❚</button>
+                            <button class="control-btn" id="nextStory" aria-label="다음 장면">→</button>
+                            <span id="storyStateIndicator" style="font-size: 0.85rem; color: var(--text-muted); margin-left: 8px;">자동 재생 중</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Interactive Experience Section -->
+        <section id="simulator" class="interactive-section">
+            <div class="container">
+                <div class="section-header">
+                    <span>참여형 실시간 체험</span>
+                    <h2>방문 상황별 맞춤 안내 미리보기</h2>
+                    <p>아래에서 방문객의 상황이나 필요한 도움을 선택해 보세요. 즉시 가장 알맞은 소통 지원 방식이 안내됩니다.</p>
+                </div>
+
+                <div class="simulator-box">
+                    <div class="simulator-header">
+                        <h3>시설 안내 & 소통 서포트 시뮬레이터</h3>
+                        <p>선택하신 조건에 따라 방문객이 느끼는 변화를 직접 확인하실 수 있습니다.</p>
+                    </div>
+                    <div class="simulator-body">
+                        <div class="simulator-options">
+                            <h4>방문객의 상황 선택</h4>
+                            <div class="option-group" id="simOptions">
+                                <button class="option-btn selected" data-value="0">📚 처음 방문한 도서관에서 책 위치가 낯설 때</button>
+                                <button class="option-btn" data-value="1">❓ 복지 시설에서 복잡한 이용 절차가 궁금할 때</button>
+                                <button class="option-btn" data-value="2">💬 삭막한 공간에서 다정한 대화와 말벗이 필요할 때</button>
+                            </div>
+                        </div>
+                        <div class="simulator-result" id="simResultPane">
+                            <div class="result-card-header" id="simCategory">도서관 이용 안내</div>
+                            <div class="result-title" id="simTitle">"처음 와서 낯설고 긴장했던 마음이 편안해집니다"</div>
+                            <div class="result-desc" id="simDesc">가장 가까운 자료실 위치를 친절히 함께 걸어가며 안내하고, 찾으시는 도서 검색법을 부담 없이 도와드립니다.</div>
+                            <div>
+                                <span class="result-badge" id="simBadge">#친근한동행 #긴장해소</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process / How it works -->
+        <section class="process-section">
+            <div class="container">
+                <div class="section-header">
+                    <span>서비스 운영 단계</span>
+                    <h2>어떻게 진행되나요?</h2>
+                    <p>체계적이면서도 인간적인 따뜻함을 잃지 않는 소통 서포트 진행 흐름입니다.</p>
+                </div>
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="process-step-num">1</div>
+                        <h3>눈높이에 맞춘 경청</h3>
+                        <p>방문객의 속도와 눈높이에 맞추어 불편함이나 궁금증을 서두르지 않고 차분하게 귀담아듣습니다.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step-num">2</div>
+                        <h3>부담 없는 맞춤 안내</h3>
+                        <p>딱딱한 서류나 복잡한 절차 대신, 옆에서 다정하게 동행하며 쉽게 이해할 수 있도록 설명해 드립니다.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="process-step-num">3</div>
+                        <h3>편안한 여운과 활력</h3>
+                        <p>시설을 나서는 발걸음이 가벼워지고, 다음에 다시 찾고 싶어지는 긍정적인 기억과 온기를 남겨드립니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Founder / Why Me Section -->
+        <section id="founder" class="founder-section">
+            <div class="container">
+                <div class="founder-box">
+                    <div class="founder-avatar">
+                        <span>김민정</span>
+                    </div>
+                    <div class="founder-info">
+                        <h3>김민정 서포터</h3>
+                        <span class="founder-role">사회복지상담전공 / 치매실버인지지도사</span>
+                        <p>다년간의 풍부한 대면 서비스 경험과 도서관 근무(5개월)를 통해 사람들의 마음을 열고 소통하는 따뜻한 공감 능력을 길러왔습니다.</p>
+                        <p>사회복지상담 학업과 전문 자격 취득을 바탕으로, 낯선 시설을 찾는 분들이 가장 먼저 기댈 수 있는 든든하고 다정한 안내자가 되어 드리겠습니다.</p>
+                        <div class="badge-list">
+                            <span class="badge">치매실버인지지도사</span>
+                            <span class="badge">대화기법 자격 보유</span>

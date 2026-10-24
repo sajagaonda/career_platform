@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>산-책 Mate | 제주 4~5km 어르신 맞춤 산책 &amp; 완주 굿즈 대화 서비스</title>
+  <meta name="description" content="제주 8년 안내사의 안전한 4~5km 맞춤 산책 코스 동행과 따뜻한 대화, 완주 스탬프 패스포트 굿즈로 시니어의 외로움을 해소하고 일상 활력을 선물합니다.">
+  <style>
+    /* CSS Design Tokens & Reset */
+    :root {
+      --primary: #1b4d3e;
+      --primary-light: #2c6e59;
+      --primary-soft: #e8f3ee;
+      --secondary: #d97736;
+      --secondary-light: #f4a261;
+      --secondary-soft: #fdf0e6;
+      --accent: #e76f51;
+      --bg-main: #faf8f5;
+      --bg-card: #ffffff;
+      --text-main: #2b2d42;
+      --text-sub: #5c677d;
+      --text-light: #8d99ae;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(27, 77, 62, 0.06);
+      --shadow-md: 0 8px 24px rgba(27, 77, 62, 0.1);
+      --shadow-lg: 0 16px 36px rgba(27, 77, 62, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Accessibility Focus Styles */
+    :focus-visible {
+      outline: 3px solid var(--secondary);
+      outline-offset: 3px;
+    }
+
+    /* Layout Components */
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 5rem 0; position: relative; }
+    .text-center { text-align: center; }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 { color: var(--primary); font-weight: 800; line-height: 1.25; }
+    h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+    h2 { font-size: clamp(1.75rem, 4vw, 2.35rem); margin-bottom: 1rem; }
+    h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); }
+    p { color: var(--text-sub); margin-bottom: 1rem; font-size: clamp(1rem, 2vw, 1.125rem); }
+
+    /* Button System */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+      min-height: 48px;
+    }
+    .btn-primary {
+      background-color: var(--secondary);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(217, 119, 54, 0.35);
+    }
+    .btn-primary:hover {
+      background-color: #c46427;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(217, 119, 54, 0.45);
+    }
+    .btn-outline {
+      border-color: var(--primary);
+      color: var(--primary);
+      background-color: transparent;
+    }
+    .btn-outline:hover {
+      background-color: var(--primary-soft);
+      transform: translateY(-2px);
+    }
+
+    /* Header & Navigation */
+    .header {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo-tag {
+      font-size: 0.75rem;
+      background: var(--secondary);
+      color: white;
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--secondary); }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 72px; left: 0;
+      height: 3px;
+      background: var(--secondary);
+      width: 0%;
+      z-index: 999;
+      transition: width 0.1s ease-out;
+    }
+
+    /* 1. HERO SECTION (Cinematic SVG Layers) */
+    .hero {
+      padding-top: 130px;
+      padding-bottom: 4rem;
+      background: linear-gradient(180deg, #faf8f5 0%, #eaf4f0 100%);
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-text-content h1 { margin-bottom: 1.25rem; }
+    .hero-text-content p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+    /* Cinematic SVG Motion Graphic Container */
+    .cinematic-stage {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 3px solid #ffffff;
+    }
+    .cinematic-svg { width: 100%; height: 100%; display: block; }
+    .cinematic-controls {
+      position: absolute;
+      bottom: 15px; right: 15px;
+      display: flex; gap: 8px;
+      background: rgba(255,255,255,0.85);
+      padding: 6px 12px;
+      border-radius: 30px;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+    }
+    .ctrl-btn {
+      background: none; border: none;
+      cursor: pointer; font-size: 0.9rem;
+      color: var(--primary); font-weight: bold;
+    }
+
+    /* Continuous CSS Keyframe Animations for Hero Scene */
+    @keyframes cloudMove {
+      0% { transform: translateX(-50px); }
+      50% { transform: translateX(30px); }
+      100% { transform: translateX(-50px); }
+    }
+    @keyframes waveFlow {
+      0% { transform: translateY(0px) scaleY(1); }
+      50% { transform: translateY(4px) scaleY(1.05); }
+      100% { transform: translateY(0px) scaleY(1); }
+    }
+    @keyframes walkerStep {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(40px, -8px); }
+      50% { transform: translate(80px, 0px); }
+      75% { transform: translate(120px, -8px); }
+      100% { transform: translate(160px, 0); }
+    }
+    @keyframes stampPulse {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.12); opacity: 1; }
+    }
+
+    .animated-cloud { animation: cloudMove 18s ease-in-out infinite; }
+    .animated-wave { animation: waveFlow 4s ease-in-out infinite; }
+    .animated-walker { animation: walkerStep 12s linear infinite; }
+    .animated-stamp { animation: stampPulse 3s ease-in-out infinite; transform-origin: center; }
+
+    /* 2. AUTO-PLAYING STORY SEQUENCE */
+    .story-section { background: var(--bg-card); }
+    .story-card {
+      background: var(--bg-main);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .story-visual {
+      height: 280px;
+      border-radius: var(--radius-md);
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+    }
+    .story-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+    .story-dots { display: flex; gap: 8px; }
+    .dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--border-color);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active { background: var(--secondary); width: 28px; border-radius: 10px; }
+
+    /* 3. INTERACTIVE SIMULATOR (PRIMARY INTERACTION) */
+    .interactive-section { background: var(--primary-soft); }
+    .sim-container {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2.5rem;
+    }
+    .sim-options { display: flex; flex-direction: column; gap: 1.25rem; }
+    .sim-group-title { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+    .sim-btn-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .sim-chip {
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      border: 1.5px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .sim-chip:hover, .sim-chip.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .sim-result-box {
+      background: var(--bg-main);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      border: 2px dashed var(--primary-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .sim-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .sim-badge { background: var(--secondary); color: white; padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.85rem; font-weight: bold; }
+    .sim-output-svg { width: 100%; height: 180px; margin: 1rem 0; border-radius: var(--radius-sm); background: #ffffff; }
+
+    /* 4. SECONDARY INTERACTION (INTERACTIVE HOTSPOT MAP) */
+    .map-section { background: #ffffff; }
+    .hotspot-stage {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #f0f7f4;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid var(--primary-soft);
+    }
+    .hotspot-pin {
+      position: absolute;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--secondary);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 5;
+    }
+    .hotspot-pin:hover, .hotspot-pin.active {
+      transform: scale(1.25);
+      background: var(--primary);
+    }
+    .map-info-panel {
+      position: absolute;
+      bottom: 20px; left: 20px; right: 20px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    /* 5. LIVE ANIMATED DEMO (WALKING ROUTE CANVAS/SVG) */
+    .route-demo-section { background: var(--bg-main); }
+    .route-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+
+    /* 6. TRUST & FOUNDER STORY */
+    .founder-section { background: #ffffff; }
+    .founder-card {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3rem;
+      align-items: center;
+      background: var(--bg-main);
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+    }
+    .founder-img-box {
+      width: 100%; height: 320px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* 7. FAQ ACCORDION */
+    .faq-section { background: var(--bg-main); }
+    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+    }
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .faq-answer {
+      padding: 0 1.5rem 1.25rem 1.5rem;
+      display: none;
+      color: var(--text-sub);
+    }
+    .faq-item.active .faq-answer { display: block; }
+    .faq-item.active .faq-icon { transform: rotate(180deg); }
+    .faq-icon { transition: transform 0.3s; font-size: 0.9rem; }
+
+    /* 8. FINAL CTA & FOOTER */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, #0d2c23 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 5rem 0;
+    }
+    .cta-section h2, .cta-section p { color: #ffffff; }
+    .footer {
+      background: #111827;
+      color: #9ca3af;
+      padding: 2.5rem 0;
+      font-size: 0.9rem;
+      border-top: 1px solid #1f2937;
+    }
+
+    /* Reduced Motion Preference for Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .hero-grid, .story-card, .sim-container, .route-grid, .founder-card {
+        grid-template-columns: 1fr;
+      }
+      .founder-img-box { height: 240px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px; left: 0; width: 100%;
+        background: #ffffff;
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+      .cinematic-stage { height: 300px; }
+      .hotspot-stage { height: 320px; }
+      .map-info-panel { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header class="header">
+    <div class="container header-nav">
+      <a href="#" class="logo">
+        산-책 Mate <span class="logo-tag">제주 시니어</span>
+      </a>
+      <button class="mobile-menu-btn" id="menuToggle" aria-label="메뉴 열기">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#story">서비스 소개</a></li>
+        <li><a href="#simulator">맞춤 코스 찾기</a></li>
+        <li><a href="#map">추천 산책 지도</a></li>
+        <li><a href="#founder">안내사 소개</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
+      <a href="#simulator" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.9rem;">시범 참여 체험</a>
+    </div>
+  </header>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- 1. Hero Section (Autoplay Cinematic SVG Scene) -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text-content">
+        <span class="badge">제주 올레 8년 경력 x 사회복지상담</span>
+        <h1>어르신의 걸음에<br>따뜻한 대화를 더합니다</h1>
+        <p>혼자 걷기엔 외롭고 무리가 될까 두려우신가요? 8년 경험의 전문 안내사가 선별한 안전한 4~5km 제주 산책길을 함께 걸으며 삶의 대화를 나누고 완주 스탬프 굿즈의 기쁨을 선사합니다.</p>
+        <div class="hero-buttons">
+          <a href="#simulator" class="btn btn-primary">내 맞춤 코스 진단하기</a>
+          <button onclick="copyInquiryText()" class="btn btn-outline" id="copyBtn">📋 문의 문구 복사</button>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-light);">* 현재 시범 참여자를 모시는 단계로 개인정보는 저장되지 않습니다.</p>
+      </div>
+
+      <!-- Hero Visual: Cinematic SVG Layers with Independent Motion -->
+      <div class="cinematic-stage" id="heroStage">
+        <svg class="cinematic-svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="제주 올레길 산책과 완주 스탬프 모션 일러스트">
+          <!-- Sky & Sun -->
+          <rect width="600" height="400" fill="#EBF6F0"/>
+          <circle cx="500" cy="80" r="40" fill="#F4A261" opacity="0.85"/>
+          
+          <!-- Animated Clouds -->
+          <g class="animated-cloud">
+            <path d="M 50 100 Q 65 80 85 80 Q 105 80 115 100 Q 130 100 130 115 Q 130 130 110 130 L 50 130 Z" fill="#FFFFFF" opacity="0.9"/>
+            <path d="M 320 60 Q 335 45 350 45 Q 370 45 380 60 Q 395 60 395 75 Q 395 90 375 90 L 310 90 Z" fill="#FFFFFF" opacity="0.8"/>
+          </g>
+
+          <!-- Hallasan & Distant Mountains -->
+          <path d="M 100 280 L 300 130 L 500 280 Z" fill="#2C6E59" opacity="0.25"/>
+          <path d="M 0 300 Q 180 200 360 280 T 600 260 L 600 400 L 0 400 Z" fill="#1B4D3E" opacity="0.45"/>
+
+          <!-- Animated Coastal Waves -->
+          <path class="animated-wave" d="M 0 320 Q 150 310 300 325 T 600 315 L 600 400 L 0 400 Z" fill="#2A9D8F" opacity="0.3"/>
+
+          <!-- Walking Path Layer -->
+          <path d="M -20 380 Q 150 350 300 360 T 620 340" fill="none" stroke="#E76F51" stroke-width="24" stroke-linecap="round"/>
+          <path d="M -20 380 Q 150 350 300 360 T 620 340" fill="none" stroke="#F4A261" stroke-width="4" stroke-dasharray="8 8"/>
+
+          <!-- Walking Companion Figures Group (Animated Movement) -->
+          <g class="animated-walker">
+            <!-- Guide Figure -->
+            <circle cx="100" cy="310" r="10" fill="#1B4D3E"/>
+            <path d="M 100 320 L 100 345 M 95 328 L 105 328 M 96 345 L 92 360 M 104 345 L 108 360" stroke="#1B4D3E" stroke-width="4" stroke-linecap="round"/>
+            <!-- Senior Figure -->
+            <circle cx="80" cy="315" r="9" fill="#D97736"/>
+            <path d="M 80 324 L 80 346 M 76 330 L 84 330 M 77 346 L 74 358 M 83 346 L 86 358" stroke="#D97736" stroke-width="4" stroke-linecap="round"/>
+            <line x1="72" y1="335" x2="68" y2="358" stroke="#5C677D" stroke-width="2.5"/> <!-- Walking Stick -->
+          </g>
+
+          <!-- Interactive Stamp Goods Overlay badge -->
+          <g class="animated-stamp" transform="translate(480, 280)">
+            <circle cx="0" cy="0" r="42" fill="#FFFFFF" stroke="#D97736" stroke-width="4"/>
+            <circle cx="0" cy="0" r="36" fill="none" stroke="#D97736" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text x="0" y="-6" text-anchor="middle" fill="#1B4D3E" font-size="11" font-weight="bold">제주 4.5km</text>
+            <text x="0" y="12" text-anchor="middle" fill="#D97736" font-size="13" font-weight="900">완주 인증</text>
+          </g>
+        </svg>
+
+        <div class="cinematic-controls">
+          <button class="ctrl-btn" id="heroMotionPauseBtn" onclick="toggleHeroMotion()">❚❚ 일시정지</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Auto-playing Story Sequence -->
+  <section class="section story-section" id="story">
+    <div class="container">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto 3rem auto;">
+        <span class="badge">어르신의 하루가 바뀌는 과정</span>
+        <h2>혼자 걷던 외로운 길에서<br>이야기가 피어나는 산책길로</h2>
+        <p>산-책 Mate가 제공하는 신뢰의 3단계 맞춤 케어를 미리 확인해 보세요.</p>
+      </div>
+
+      <div class="story-card">
+        <div class="story-text-box">
+          <span id="storyStepBadge" style="color: var(--secondary); font-weight: 800; font-size: 0.9rem;">STEP 01</span>
+          <h3 id="storyTitle" style="margin: 0.5rem 0 1rem 0;">1. 어르신 체력 맞춤 4~5km 코스 설계</h3>
+          <p id="storyDesc">경사도가 완만하고 벤치 쉼터가 충분한 제주 안전 산책로를 선별합니다. 무릎 부담 없이 편안하게 걸으실 수 있습니다.</p>
+        </div>
+
+        <div class="story-visual" id="storyVisual">
+          <!-- Dynamically swapped SVG graphic based on active slide -->
+          <svg id="storySvg" width="100%" height="100%" viewBox="0 0 400 220">
+            <!-- Default Slide 1 Graphics -->
+            <rect width="400" height="220" fill="#E8F3EE"/>
+            <path d="M 30 180 Q 120 80 220 130 T 370 60" fill="none" stroke="#1B4D3E" stroke-width="6" stroke-dasharray="6 6"/>
+            <circle cx="220" cy="130" r="12" fill="#D97736"/>
+            <text x="220" y="135" text-anchor="middle" fill="white" font-size="10" font-weight="bold">쉼터</text>
+            <text x="200" y="190" fill="#1B4D3E" font-weight="bold" font-size="14">완만한 평지 위주 코스 구성</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="story-nav-bar">
+        <div class="story-dots" id="storyDots">
+          <div class="dot active" onclick="goStory(0)"></div>
+          <div class="dot" onclick="goStory(1)"></div>
+          <div class="dot" onclick="goStory(2)"></div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="prevStory()">이전</button>
+          <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" id="storyAutoBtn" onclick="toggleStoryAuto()">❚❚ 정지</button>
+          <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="nextStory()">다음</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Primary Interaction: Interactive Simulator -->
+  <section class="section interactive-section" id="simulator">
+    <div class="container">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto 3rem auto;">
+        <span class="badge">실시간 맞춤 체험</span>
+        <h2>어르신에게 꼭 맞는<br>산책 &amp; 대화 매칭 진단</h2>
+        <p>상황과 선호도를 선택해 보세요. 그에 맞는 코스 가이드와 완주 스탬프 굿즈 구성을 미리 보여드립니다.</p>
+      </div>
+
+      <div class="sim-container">
+        <div class="sim-options">
+          <div>
+            <div class="sim-group-title">1. 어르신의 현재 보행 체력 수준</div>
+            <div class="sim-btn-group">
+              <button class="sim-chip active" onclick="setSim('fit', 'light', this)">천천히 2~3km 가능</button>
+              <button class="sim-chip" onclick="setSim('fit', 'moderate', this)">보통 걸음 4~5km 가능</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="sim-group-title">2. 원하시는 산책길 분위기</div>
+            <div class="sim-btn-group">
+              <button class="sim-chip active" onclick="setSim('env', 'sea', this)">🌊 제주 바다 해안길</button>
+              <button class="sim-chip" onclick="setSim('env', 'forest', this)">🌲 숲길 &amp; 곶자왈</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="sim-group-title">3. 가장 나누고 싶은 대화 주제</div>
+            <div class="sim-btn-group">
+              <button class="sim-chip active" onclick="setSim('topic', 'life', this)">일상 경청 &amp; 마음 수용</button>
+              <button class="sim-chip" onclick="setSim('topic', 'jeju', this)">제주 문화 &amp; 옛 추억</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Display -->
+        <div class="sim-result-box" id="simResultBox">
+          <div>
+            <div class="sim-result-header">
+              <span class="sim-badge" id="simResultBadge">추천 산책 구성</span>
+              <span style="font-size: 0.85rem; color: var(--text-light);">예상 소요시간: 약 70분</span>
+            </div>
+            <h3 id="simResultTitle" style="color: var(--primary);">시원한 바다 바람과 함께하는 3.5km 해안 산책</h3>
+            <p id="simResultDesc" style="font-size: 0.95rem; margin-top: 0.5rem;">평지 위주의 바닷길을 함께 걸으며 어르신의 지나온 이야기에 다정하게 귀 기울입니다.</p>
+          </div>
+
+          <!-- Dynamic SVG Visual based on choices -->
+          <svg class="sim-output-svg" viewBox="0 0 350 140" id="simSvg">
+            <rect width="350" height="140" fill="#FAFAFA" rx="8"/>
+            <path d="M 20 100 Q 100 40 180 80 T 330 50" fill="none" stroke="#2A9D8F" stroke-width="4"/>
+            <circle cx="180" cy="80" r="8" fill="#E76F51"/>
+            <text x="180" y="110" text-anchor="middle" fill="#1B4D3E" font-size="12" font-weight="bold">완주 기념 스탬프 지급</text>
+          </svg>
+
+          <div style="display: flex; gap: 0.5rem; align-items: center; justify-content: space-between;">
+            <span style="font-size: 0.9rem; font-weight: bold; color: var(--secondary);" id="simGoodsText">🎁 제공 굿즈: 바다 해안 완주 스탬프 패스포트</span>
+            <a href="#cta" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">이 구성으로 상담하기</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Secondary Interaction: Interactive Hotspot Map -->
+  <section class="section map-section" id="map">
+    <div class="container">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto 3rem auto;">
+        <span class="badge">8년 경험 안내사의 추천</span>
+        <h2>어르신 전용 제주 4~5km<br>안심 산책거점 지도</h2>
+        <p>지도 위의 핀을 클릭하셔서 각 구간별 안전 요소와 대화 스팟을 확인해 보세요.</p>
+      </div>
+
+      <div class="hotspot-stage">
+        <!-- Interactive Map Background SVG -->
+        <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+          <rect width="800" height="400" fill="#E8F4F0"/>
+          <!-- Island Outline Shape -->
+          <path d="M 100 200 Q 200 80 400 100 T 700 220 Q 650 320 400 300 T 100 200 Z" fill="#D0E7DE" stroke="#2C6E59" stroke-width="3"/>
+          <path d="M 180 180 Q 300 150 450 210 T 620 190" fill="none" stroke="#E76F51" stroke-width="5" stroke-dasharray="6 4"/>
+        </svg>
+
+        <!-- Hotspot Pin 1 -->
+        <div class="hotspot-pin active" style="top: 38%; left: 24%;" onclick="selectPin(1, this)" tabindex="0" role="button" aria-label="1번 거점: 삼양 해안길">1</div>
+        <!-- Hotspot Pin 2 -->
+        <div class="hotspot-pin" style="top: 32%; left: 52%;" onclick="selectPin(2, this)" tabindex="0" role="button" aria-label="2번 거점: 조천 숲그늘길">2</div>
+        <!-- Hotspot Pin 3 -->
+        <div class="hotspot-pin" style="top: 48%; left: 74%;" onclick="selectPin(3, this)" tabindex="0" role="button" aria-label="3번 거점: 성산 평지길">3</div>
+
+        <!-- Information Panel Overlay -->
+        <div class="map-info-panel">
+          <div>
+            <h4 id="pinTitle" style="color: var(--primary);">1번 거점: 삼양 검은모래 해안 3.8km 코스</h4>
+            <p id="pinDesc" style="margin: 0; font-size: 0.9rem;">턱이 없는 가공 평지길로 무릎 관절 부담이 적으며 500m마다 바다 전망 벤치가 구비되어 있습니다.</p>
+          </div>
+          <span class="badge" style="margin: 0; background: var(--secondary-soft); color: var(--secondary);" id="pinTag">안전도 ★★★★★</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Continuous Animated Service Route Preview -->
+  <section class="section route-demo-section">
+    <div class="container route-grid">
+      <div>
+        <span class="badge">동행 및 완주 인증 프로세스</span>
+        <h2>손에 잡히는 성취감,<br>완주 스탬프 패스포트 굿즈</h2>
+        <p>단순히 걷는 것에 그치지 않습니다. 걷기 완료 후 전달해 드리는 완주 스탬프 굿즈는 어르신의 일상에 커다란 활력과 자랑거리가 됩니다.</p>
+        <ul style="list-style: none; margin-top: 1.5rem;">
+          <li style="margin-bottom: 0.8rem; display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--secondary); font-weight: bold;">✓</span> 4~5km 무리 없는 거리 설정으로 완주 성공 경험 제공
+          </li>
+          <li style="margin-bottom: 0.8rem; display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--secondary); font-weight: bold;">✓</span> 도장 하나하나 쌓여가는 정성스러운 전용 패스포트
+          </li>
+          <li style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="color: var(--secondary); font-weight: bold;">✓</span> 자녀분들에게도 전해지는 오늘의 활력 산책 기록
+          </li>
+        </ul>
+      </div>
+
+      <!-- Live Route SVG Motion Graphic -->
+      <div style="background: #ffffff; padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+        <svg width="100%" height="240" viewBox="0 0 400 240">
+          <rect width="400" height="240" fill="#FAF8F5" rx="12"/>
+          <!-- Path Drawing -->
+          <path id="animRoute" d="M 50 180 C 120 180, 100 60, 200 70 C 300 80, 280 180, 350 180" fill="none" stroke="#D97736" stroke-width="6" stroke-dasharray="8 6"/>
+          <!-- Moving Pin on Route -->
+          <circle cx="50" cy="180" r="10" fill="#1B4D3E">
+            <animateMotion path="M 50 180 C 120 180, 100 60, 200 70 C 300 80, 280 180, 350 180" dur="8s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Finish Stamp Badge -->
+          <g transform="translate(350, 180)">
+            <circle cx="0" cy="0" r="22" fill="#E76F51"/>
+            <text x="0" y="5" text-anchor="middle" fill="white" font-size="10" font-weight="bold">완주</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Trust & Founder Story Section -->
+  <section class="section founder-section" id="founder">
+    <div class="container">
+      <div class="founder-card">
+        <div class="founder-img-box">
+          <!-- Stand-in Accessible SVG Visual for Founder -->
+          <svg width="100%" height="100%" viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice">
+            <rect width="300" height="320" fill="#1B4D3E"/>
+            <circle cx="150" cy="120" r="50" fill="#E8F3EE"/>
+            <path d="M 70 270 Q 150 190 230 270 Z" fill="#E8F3EE"/>
+            <text x="150" y="295" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="bold">제주올레 8년 안내사 현영선</text>
+          </svg>
+        </div>
+
+        <div>
+          <span class="badge">안내사 &amp; 상담사 소개</span>
+          <h2>"어르신의 이야기에 다정하게<br>귀 기울이는 길동무가 되겠습니다"</h2>
+          <p>8년간 제주올레 안내사로 활동하며 31명 동료와 스탬프박스를 기증하고, 4년간 주 3회 마라톤을 실천해왔습니다. 2025년 사회복지상담 공부를 시작하며 어르신들의 외로움을 채워드릴 따뜻한 산책 서비스를 준비하고 있습니다.</p>
+          <div style="display: flex; gap: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+            <div>
+              <strong style="font-size: 1.2rem; color: var(--primary);">8년+</strong>
+              <p style="font-size: 0.85rem; margin: 0;">제주올레길 안내 경력</p>
+            </div>
+            <div>
+              <strong style="font-size: 1.2rem; color: var(--primary);">4년 / 10년</strong>
+              <p style="font-size: 0.85rem; margin: 0;">마라톤 &amp; 요가 체력 관리</p>
+            </div>
+            <div>
+              <strong style="font-size: 1.2rem; color: var(--primary);">사회복지상담</strong>
+              <p style="font-size: 0.85rem; margin: 0;">전공 이수 중</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ Accordion -->
+  <section class="section faq-section" id="faq">
+    <div class="container">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto 3rem auto;">
+        <span class="badge">궁금한 점을 확인하세요</span>
+        <h2>자주 묻는 질문</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Q. 어르신 무릎이 불편하신데 4~5km 산책이 부담스럽지 않을까요?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            네, 어르신의 보행 상태에 따라 2~3km 평지 코스로 맞춤 조율이 가능합니다. 중간중간 벤치 쉼터에서 휴식을 취하며 천천히 걸어가므로 무리 없이 참여하실 수 있습니다.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Q. 완주 굿즈 패스포트는 어떻게 지급되나요?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            첫 산책 참여 시 어르신의 성함이 적힌 전용 산책 패스포트를 전달해 드리며, 산책을 마칠 때마다 해당 코스의 특색이 담긴 스탬프를 찍어 드립니다.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Q. 자녀가 타지에 있어 부모님 신청을 대신해 드릴 수 있나요?
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            네, 가능합니다. 타지에 계신 자녀분들께서 부모님의 정서 케어와 건강한 일상을 위해 대리 신청 및 상담을 진행하시는 경우가 많습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Final CTA & Footer -->
+  <section class="cta-section" id="cta">
+    <div class="container">
+      <h2>어르신에게 건강한 웃음과<br>따뜻한 산책길을 선물하세요</h2>
+      <p style="margin-bottom: 2rem;">현재 시범 참여 및 안내 문의를 접수 중입니다. 편하게 상담 문구를 복사해 문의해 보세요.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button onclick="copyInquiryText()" class="btn btn-primary" style="background: var(--secondary);">📋 상담 문의 문구 복사하기</button>
+        <a href="#simulator" class="btn btn-outline" style="border-color: white; color: white;">맞춤 코스 다시 진단하기</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container text-center">
+      <p>산-책 Mate (가칭) | 제주 시니어 맞춤 산책 &amp; 완주 굿즈 대화 서비스</p>
+      <p style="font-size: 0.8rem; color: #6b7280; margin-top: 0.5rem;">본 사이트는 사업 가설 검증 및 시범 참여 안내를 위한 원페이지 랜딩페이지입니다.</p>
+    </div>
+  </footer>
+
+  <!-- Embedded Vanilla JavaScript -->
+  <script>
+    // 1. Navigation & Scroll Progress Bar
+    window.addEventListener('scroll', function() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // 2. Hero Motion Toggle (Pause/Play)
+    let isHeroMotionRunning = true;
+    function toggleHeroMotion() {
+      const stage = document.getElementById('heroStage');
+      const btn = document.getElementById('heroMotionPauseBtn');
+      if (isHeroMotionRunning) {
+        stage.querySelectorAll('*').forEach(el => el.style.animationPlayState = 'paused');
+        btn.textContent = '▶ 재생';
+      } else {
+        stage.querySelectorAll('*').forEach(el => el.style.animationPlayState = 'running');
+        btn.textContent = '❚❚ 일시정지';
+      }
+      isHeroMotionRunning = !isHeroMotionRunning;
+    }
+
+    // 3. Auto-playing Story Sequence Logic
+    const storyData = [
+      {
+        step: "STEP 01",
+        title: "1. 어르신 체력 맞춤 4~5km 코스 설계",
+        desc: "경사도가 완만하고 벤치 쉼터가 충분한 제주 안전 산책로를 선별합니다. 무릎 부담 없이 편안하게 걸으실 수 있습니다.",
+        svg: `<rect width="400" height="220" fill="#E8F3EE"/><path d="M 30 180 Q 120 80 220 130 T 370 60" fill="none" stroke="#1B4D3E" stroke-width="6" stroke-dasharray="6 6"/><circle cx="220" cy="130" r="12" fill="#D97736"/><text x="220" y="135" text-anchor="middle" fill="white" font-size="10" font-weight="bold">쉼터</text><text x="200" y="190" fill="#1B4D3E" font-weight="bold" font-size="14">완만한 평지 위주 코스 구성</text>`
+      },
+      {
+        step: "STEP 02",
+        title: "2. 8년 안내사의 다정한 경청 &amp; 산책 동행",
+        desc: "제주올레 8년 경력의 전문 안내사가 발걸음을 맞추며 걸어갑니다. 어르신의 옛 추억과 삶의 이야기에 깊이 공감합니다.",
+        svg: `<rect width="400" height="220" fill="#FDF0E6"/><circle cx="150" cy="110" r="20" fill="#1B4D3E"/><circle cx="230" cy="115" r="18" fill="#D97736"/><path d="M 170 110 Q 190 100 210 115" stroke="#E76F51" stroke-width="4" fill="none"/><text x="200" y="180" text-anchor="middle" fill="#D97736" font-weight="bold" font-size="14">다정한 일상 대화 &amp; 공감</text>`
+      },
+      {
+        step: "STEP 03",
+        title: "3. 완주 스탬프 굿즈 지급 &amp; 성취감 선물",
+        desc: "산책을 마친 후 어르신 전용 패스포트에 기념 스탬프를 찍어드립니다. 일상의 커다란 자랑거리와 활력이 됩니다.",
+        svg: `<rect width="400" height="220" fill="#E8F3EE"/><circle cx="200" cy="100" r="45" fill="#FFFFFF" stroke="#D97736" stroke-width="4"/><text x="200" y="95" text-anchor="middle" fill="#1B4D3E" font-size="12" font-weight="bold">완주 인증</text><text x="200" y="115" text-anchor="middle" fill="#D97736" font-size="14" font-weight="900">STAMP</text><text x="200" y="185" text-anchor="middle" fill="#1B4D3E" font-weight="bold" font-size="14">기억에 남는 완성 굿즈 제공</text>`
+      }
+    ];
+
+    let currentStory = 0;
+    let storyTimer = null;
+    let isStoryAuto = true;
+
+    function renderStory(index) {
+      currentStory = index;
+      document.getElementById('storyStepBadge').textContent = storyData[index].step;
+      document.getElementById('storyTitle').innerHTML = storyData[index].title;
+      document.getElementById('storyDesc').textContent = storyData[index].desc;
+      document.getElementById('storySvg').innerHTML = storyData[index].svg;
+
+      const dots = document.querySelectorAll('#storyDots .dot');
+      dots.forEach((dot, i) => {
+        if(i === index) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    function nextStory() {
+      let next = (currentStory + 1) % storyData.length;
+      renderStory(next);
+    }
+    function prevStory() {
+      let prev = (currentStory - 1 + storyData.length) % storyData.length;
+      renderStory(prev);
+    }
+    function goStory(index) {
+      renderStory(index);
+    }
+
+    function startStoryTimer() {
+      storyTimer = setInterval(() => {
+        if(isStoryAuto) nextStory();
+      }, 6000);
+    }
+
+    function toggleStoryAuto() {
+      const btn = document.getElementById('storyAutoBtn');
+      isStoryAuto = !isStoryAuto;
+      if(isStoryAuto) {
+        btn.textContent = '❚❚ 정지';
+      } else {
+        btn.textContent = '▶ 재생';
+      }
+    }
+    startStoryTimer();
+
+    // 4. Primary Interaction: Simulator Selection State & Logic
+    const simState = {
+      fit: 'light',
+      env: 'sea',
+      topic: 'life'
+    };
+
+    function setSim(category, value, el) {
+      simState[category] = value;
+      const siblings = el.parentElement.querySelectorAll('.sim-chip');
+      siblings.forEach(chip => chip.classList.remove('active'));
+      el.classList.add('active');
+      updateSimOutput();
+    }
+
+    function updateSimOutput() {
+      const title = document.getElementById('simResultTitle');
+      const desc = document.getElementById('simResultDesc');
+      const goods = document.getElementById('simGoodsText');
+      const svg = document.getElementById('simSvg');
+
+      if (simState.env === 'sea') {
+        title.textContent = simState.fit === 'light' ? "시원한 바닷바람 2.5km 삼양 해안길" : "제주 해안도로 4.5km 안심 코스";
+        desc.textContent = "평지 위주의 확 트인 바닷길을 걸으며 어르신의 마음 속 이야기를 나눕니다.";
+        goods.textContent = "🎁 제공 굿즈: 제주 바다 완주 스탬프 패스포트";
+        svg.innerHTML = `<rect width="350" height="140" fill="#EBF6F0" rx="8"/><path d="M 10 110 Q 100 50 200 90 T 340 60" fill="none" stroke="#2A9D8F" stroke-width="4"/><circle cx="200" cy="90" r="8" fill="#E76F51"/><text x="175" y="125" fill="#1B4D3E" font-size="12" font-weight="bold">바다 해안 스탬프 코스</text>`;
+      } else {
+        title.textContent = simState.fit === 'light' ? "상쾌한 삼나무 숲길 2.5km 휴식 코스" : "곶자왈 안심 숲길 4.2km 코스";
+        desc.textContent = "따스한 햇살과 숲 그늘 아래서 어르신의 일상 이야기를 다정하게 경청합니다.";
+        goods.textContent = "🎁 제공 굿즈: 제주 숲길 완주 스탬프 패스포트";
+        svg.innerHTML = `<rect width="350" height="140" fill="#E8F3EE" rx="8"/><path d="M 20 120 Q 120 40 220 100 T 330 70" fill="none" stroke="#2C6E59" stroke-width="4"/><circle cx="220" cy="100" r="8" fill="#D97736"/><text x="175" y="125" fill="#1B4D3E" font-size="12" font-weight="bold">상쾌한 숲길 스탬프 코스</text>`;
+      }
+    }
+
+    // 5. Secondary Interaction: Hotspot Map Logic
+    const pinDetails = {
+      1: {
+        title: "1번 거점: 삼양 검은모래 해안 3.8km 코스",
+        desc: "턱이 없는 가공 평지길로 무릎 관절 부담이 적으며 500m마다 바다 전망 벤치가 구비되어 있습니다.",
+        tag: "안전도 ★★★★★"
+      },
+      2: {
+        title: "2번 거점: 조천 숲그늘 4.2km 코스",
+        desc: "시원한 나무 그늘 아래 흙길과 데크가 섞여 있어 어르신들이 쾌적하게 이야기 나누기 좋습니다.",
+        tag: "경치 ★★★★★"
+      },
+      3: {
+        title: "3번 거점: 성산 평지길 4.5km 코스",
+        desc: "성산일출봉이 한눈에 보이는 완만한 들판 산책로로 탁 트인 개방감을 줍니다.",
+        tag: "만족도 ★★★★★"
+      }
+    };
+
+    function selectPin(id, el) {
+      document.querySelectorAll('.hotspot-pin').forEach(pin => pin.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('pinTitle').textContent = pinDetails[id].title;
+      document.getElementById('pinDesc').textContent = pinDetails[id].desc;
+      document.getElementById('pinTag').textContent = pinDetails[id].tag;
+    }
+
+    // 6. FAQ Accordion Logic
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      item.classList.toggle('active');
+    }
+
+    // 7. Clipboard Copy Functionality
+    function copyInquiryText() {
+      const textToCopy = "[산-책 Mate 시범 참여 문의]\n안녕하세요, 어르신 맞춤 산책 및 대화 서비스에 대해 문의드립니다.\n- 신청 대상: 어르신\n- 희망 지역: 제주도\n상세한 안내를 부탁드립니다.";
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const originalText = btn.textContent;
+        btn.textContent = "✓ 복사 완료!";
+        btn.style.backgroundColor = "var(--primary-soft)";
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.backgroundColor = "transparent";
+        }, 2500);
+      }).catch(err => {
+        alert("문구 복사에 실패했습니다. 직접 선택해 복사해 주세요.");
+      });
+    }
+  </script>
+</body>
+</html>

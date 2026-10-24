@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>해피 바이러스 초보 목공/보수 안전 실습 교실 (가칭)</title>
+  <meta name="description" content="20년 경력의 내장목수 노하우로 초보 보수자의 안전사고를 예방하고 올바른 정돈 습관을 길러주는 1:1 맞춤형 소규모 안전 실습 교실">
+  <style>
+    /* CSS 디자인 토큰 및 변수 설정 */
+    :root {
+      --primary: #d96b27;
+      --primary-hover: #b85419;
+      --primary-light: #fdf2eb;
+      --secondary: #2c4c3b;
+      --secondary-light: #eaf2ed;
+      --accent: #f4a261;
+      --dark: #1e2421;
+      --gray-dark: #4a5568;
+      --gray-light: #f7faf8;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* 기본 스타일 리셋 */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-main);
+      color: var(--dark);
+      background-color: #fbfdfc;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Layout & Utility */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-padding {
+      padding: 5rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    .badge-secondary {
+      background-color: var(--secondary-light);
+      color: var(--secondary);
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: var(--gray-dark);
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.75rem;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+      min-height: 48px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(217, 107, 39, 0.35);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--secondary);
+      color: var(--white);
+    }
+
+    /* Header & Navigation */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: all var(--transition-fast);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+
+    /* Progress Bar */
+    .scroll-progress {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      height: 3px;
+      background-color: var(--primary);
+      width: 0%;
+      z-index: 1001;
+      transition: width 0.1s ease-out;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding-top: 130px;
+      padding-bottom: 5rem;
+      background: linear-gradient(180deg, #fffaf6 0%, #ffffff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-text h1 span {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-sub {
+      font-size: 1.125rem;
+      color: var(--gray-dark);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* HERO CINEMATIC ANIMATION CANVAS/SVG */
+    .hero-visual-wrapper {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #1e2e26;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cinematic-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Keyframes for Hero Autonomous Motion */
+    @keyframes woodMove {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(15px); }
+      100% { transform: translateX(0); }
+    }
+
+    @keyframes sawMotion {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-8px, -4px) rotate(-2deg); }
+      50% { transform: translate(8px, 4px) rotate(2deg); }
+      75% { transform: translate(-4px, 2px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    @keyframes sparkFloat {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+      50% { opacity: 1; transform: translate(20px, -20px) scale(1.2); }
+      100% { opacity: 0; transform: translate(40px, -40px) scale(0.2); }
+    }
+
+    @keyframes dustSweep {
+      0% { transform: translateX(-50px); opacity: 0.2; }
+      50% { transform: translateX(50px); opacity: 0.8; }
+      100% { transform: translateX(-50px); opacity: 0.2; }
+    }
+
+    .anim-saw { animation: sawMotion 2.5s infinite ease-in-out; transform-origin: center; }
+    .anim-spark1 { animation: sparkFloat 1.8s infinite ease-out; }
+    .anim-spark2 { animation: sparkFloat 2.2s infinite 0.6s ease-out; }
+    .anim-dust { animation: dustSweep 6s infinite ease-in-out; }
+
+    /* Scene Auto Carousel Controls */
+    .story-controls {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(5px);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      z-index: 10;
+    }
+
+    .story-btn {
+      color: var(--white);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      transition: background 0.2s;
+    }
+
+    .story-btn:hover { background: var(--primary); }
+
+    .story-indicators {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      transition: all 0.3s;
+    }
+
+    .dot.active {
+      width: 20px;
+      border-radius: 10px;
+      background: var(--primary);
+    }
+
+    .story-caption {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      transition: opacity 0.5s;
+    }
+
+    /* SECTION 2: EMPATHY & PROBLEM */
+    .problem-section {
+      background-color: var(--gray-light);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .problem-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .problem-card {
+      background: var(--white);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 4px solid #e53e3e;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .problem-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #c53030;
+    }
+
+    .problem-card p {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+    }
+
+    /* SECTION 3: SECOND AUTONOMOUS MOTION (Process Flow) */
+    .process-section {
+      background: var(--white);
+    }
+
+    .process-visual-box {
+      width: 100%;
+      height: 320px;
+      background: #f0f7f3;
+      border-radius: 16px;
+      border: 1px dashed var(--secondary);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    @keyframes routeFlow {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pulseNode {
+      0%, 100% { transform: scale(1); fill: var(--secondary); }
+      50% { transform: scale(1.3); fill: var(--primary); }
+    }
+
+    .flow-line {
+      stroke-dasharray: 10, 10;
+      animation: routeFlow 20s linear infinite;
+    }
+
+    .node-1 { animation: pulseNode 3s infinite ease-in-out; transform-origin: 150px 160px; }
+    .node-2 { animation: pulseNode 3s infinite 1s ease-in-out; transform-origin: 400px 160px; }
+    .node-3 { animation: pulseNode 3s infinite 2s ease-in-out; transform-origin: 650px 160px; }
+
+    /* SECTION 4: INTERACTIVE EXPERIENCE A (Custom Diagnostic) */
+    .interactive-section {
+      background: var(--secondary-light);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .interactive-box {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .option-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .option-btn {
+      padding: 1.25rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      text-align: left;
+      transition: all var(--transition-fast);
+      background: var(--white);
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .option-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .option-btn h4 {
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 0.25rem;
+    }
+
+    .option-btn p {
+      font-size: 0.85rem;
+      color: var(--gray-dark);
+    }
+
+    .result-display {
+      background: #fcf8f5;
+      border: 1px solid #f2d6c1;
+      padding: 2rem;
+      border-radius: 12px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .result-graphic {
+      width: 100%;
+      height: 100px;
+      background: var(--white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .result-info h3 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-info p {
+      font-size: 0.95rem;
+      color: var(--dark);
+      margin-bottom: 0.75rem;
+    }
+
+    .result-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      background: var(--secondary);
+      color: white;
+      border-radius: 4px;
+    }
+
+    /* SECTION 5: INTERACTIVE EXPERIENCE B (Before/After Slider) */
+    .slider-section {
+      background: var(--white);
+    }
+
+    .comparison-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      user-select: none;
+    }
+
+    .img-before, .img-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .img-before {
+      background: #3a2e2b;
+      z-index: 1;
+    }
+
+    .img-after {
+      background: #1e382b;
+      z-index: 2;
+      width: 50%;
+      overflow: hidden;
+      border-right: 3px solid var(--white);
+    }
+
+    .comparison-slider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 40px;
+      margin-left: -20px;
+      z-index: 10;
+      cursor: ew-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-handle {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    /* SECTION 6: INSTRUCTOR & TEAM */
+    .team-section {
+      background: var(--gray-light);
+    }
+
+    .instructor-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 2.5rem;
+      box-shadow: var(--shadow-sm);
+      align-items: center;
+    }
+
+    .instructor-img-box {
+      width: 100%;
+      height: 280px;
+      background: #d8e3dd;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .instructor-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .instructor-title {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .career-list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .career-list li {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.25rem;
+    }
+
+    .career-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    /* SECTION 7: FAQ */
+    .faq-section {
+      background: var(--white);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .faq-toggle {
+      width: 100%;
+      padding: 1.25rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--dark);
+    }
+
+    .faq-toggle:hover {
+      background: var(--gray-light);
+    }
+
+    .faq-content {
+      padding: 0 1.25rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease-out;
+      background: #fafcfb;
+    }
+
+    .faq-item.active .faq-content {
+      padding: 1.25rem;
+      max-height: 200px;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-icon {
+      transition: transform 0.3s;
+    }
+
+    /* SECTION 8: FINAL CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--secondary) 0%, #1a3025 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 0;
+    }
+
+    .cta-box {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .cta-box p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .cta-notice {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-top: 1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: #8a9990;
+      padding: 2.5rem 0;
+      font-size: 0.875rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Mobile Responsive Rules */
+    @media (max-width: 900px) {
+      .hero-grid, .problem-grid, .instructor-card {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .result-display {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-container {
+        height: 280px;
+      }
+    }
+
+    /* Reduced Motion Preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .anim-saw, .anim-spark1, .anim-spark2, .anim-dust, .flow-line, .node-1, .node-2, .node-3 {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+        해피바이러스 <span>목공교실</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#problem" class="nav-link">문제인식</a></li>
+        <li><a href="#process" class="nav-link">교육과정</a></li>
+        <li><a href="#interactive" class="nav-link">맞춤진단</a></li>
+        <li><a href="#before-after" class="nav-link">비포&애프터</a></li>
+        <li><a href="#instructor" class="nav-link">강사소개</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+      <a href="#cta" class="btn btn-primary" style="padding: 0.5rem 1.25rem; min-height: 40px; font-size: 0.9rem;">참여 안내받기</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <span class="badge">시범 운영 준비 중 · 1:1 맞춤형 안전 코칭</span>
+        <h1>서툴러도 괜찮아요,<br><span>다치지 않고 깔끔하게</span><br>집 고치는 즐거움</h1>
+        <p class="hero-sub">
+          20년 경력 내장목수의 노하우로 배웁니다.<br>
+          위험한 톱질과 불안한 마감 대신, 올바른 도구 사용법과 현장 정돈 습관으로 안전한 셀프 보수에 도전하세요.
+        </p>
+        <div class="hero-actions">
+          <a href="#interactive" class="btn btn-primary">나에게 맞는 클래스 찾기</a>
+          <button id="copyPromptBtn" class="btn btn-outline" onclick="copyInquiryText()">문의 문구 복사하기</button>
+        </div>
+      </div>
+
+      <!-- HERO CINEMATIC AUTONOMOUS ANIMATION SECTION -->
+      <div class="hero-visual-wrapper">
+        <div class="story-caption" id="storyCaption">장면 1: 올바른 도구 핸들링 및 자재 절단 안전 실습</div>
+        
+        <!-- Inline Vector Cinematic Animation -->
+        <svg class="cinematic-svg" viewBox="0 0 500 350" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1c2d24" />
+              <stop offset="100%" stop-color="#0e1712" />
+            </linearGradient>
+            <linearGradient id="woodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#a86d43" />
+              <stop offset="50%" stop-color="#c68a5c" />
+              <stop offset="100%" stop-color="#8e5831" />
+            </linearGradient>
+          </defs>
+
+          <!-- Dynamic Layer 1: Background Grid & Workshop Wall -->
+          <rect width="500" height="350" fill="url(#bgGrad)" />
+          <path d="M0 100 L500 100 M0 200 L500 200 M0 300 L500 300" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+          <path d="M100 0 L100 350 M200 0 L200 350 M300 0 L300 350 M400 0 L400 350" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+
+          <!-- Dynamic Layer 2: Workbench Table -->
+          <rect x="40" y="220" width="420" height="20" fill="#4a3525" rx="4" />
+          <rect x="70" y="240" width="30" height="90" fill="#2d2016" />
+          <rect x="400" y="240" width="30" height="90" fill="#2d2016" />
+
+          <!-- Dynamic Layer 3: Wood Piece (Autonomous Motion) -->
+          <g id="sceneWoodGroup">
+            <rect x="120" y="195" width="260" height="25" fill="url(#woodGrad)" rx="2" class="anim-wood" />
+            <!-- Wood Grain lines -->
+            <path d="M130 205 Q200 203 370 205" stroke="rgba(0,0,0,0.15)" stroke-width="2" fill="none" />
+          </g>
+
+          <!-- Dynamic Layer 4: Saw & Hands (Autonomous Cutting Motion) -->
+          <g class="anim-saw" id="sceneSawGroup">
+            <!-- Saw Blade -->
+            <path d="M220 120 L280 120 L270 200 L230 200 Z" fill="#d0d7de" />
+            <!-- Saw Teeth -->
+            <path d="M230 200 L235 205 L240 200 L245 205 L250 200 L255 205 L260 200 L265 205 L270 200" stroke="#8c959f" stroke-width="2" fill="none" />
+            <!-- Handle -->
+            <rect x="235" y="90" width="30" height="35" fill="#d96b27" rx="5" />
+          </g>
+
+          <!-- Dynamic Layer 5: Safety Sparks & Sawdust Layer -->
+          <circle cx="250" cy="195" r="3" fill="#f4a261" class="anim-spark1" />
+          <circle cx="255" cy="190" r="2" fill="#ffd166" class="anim-spark2" />
+          <path d="M180 220 Q250 215 320 220" stroke="rgba(244, 162, 97, 0.4)" stroke-width="6" fill="none" class="anim-dust" />
+
+          <!-- Dynamic Overlay: Safety Guide Line -->
+          <line x1="250" y1="50" x2="250" y2="220" stroke="#2c4c3b" stroke-width="2" stroke-dasharray="4,4" />
+          <circle cx="250" cy="50" r="12" fill="#2c4c3b" />
+          <text x="250" y="54" fill="white" font-size="10" text-anchor="middle" font-weight="bold">안전</text>
+        </svg>
+
+        <!-- Carousel Story Controls -->
+        <div class="story-controls">
+          <button class="story-btn" id="prevStoryBtn" aria-label="이전 장면">◀</button>
+          <button class="story-btn" id="pauseStoryBtn" aria-label="일시정지/재생">❚❚</button>
+          <div class="story-indicators">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+          </div>
+          <button class="story-btn" id="nextStoryBtn" aria-label="다음 장면">▶</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROBLEM -->
+  <section class="section-padding problem-section" id="problem">
+    <div class="container">
+      <div class="problem-grid">
+        <div>
+          <span class="badge">초보 보수자의 현실</span>
+          <h2 class="section-title">유튜브만 보고 따라 하기,<br>왜 마음처럼 안 될까요?</h2>
+          <p class="section-desc">
+            영상 속 전문가들은 쉽게 척척 해내지만, 막상 집에서 직접 도구를 잡으면 뜻대로 되지 않고 마감마저 지저분해지기 십상입니다.
+          </p>
+          <div class="problem-card-list">
+            <div class="problem-card">
+              <h3>⚠️ 안전사고의 불안감</h3>
+              <p>톱이나 전동 드라이버를 올바르게 잡는 법을 몰라 작업할 때마다 다칠까 봐 손이 떨립니다.</p>
+            </div>
+            <div class="problem-card">
+              <h3>🛠️ 매끄럽지 않은 마감 품질</h3>
+              <p>열심히 고쳤지만 들뜨는 실리콘, 삐뚤어진 수평 등 마감이 엉망이라 오히려 안 고친 만 못해집니다.</p>
+            </div>
+            <div class="problem-card">
+              <h3>🧹 지저분해지는 작업 현장</h3>
+              <p>정돈되지 않은 자재와 톱밥 때문에 집안이 엉망이 되고 물건을 찾느라 시간이 배로 걸립니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem Illustration Inline SVG -->
+        <div style="width:100%; height:380px; background:#fff; border-radius:16px; padding:1.5rem; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; justify-content:center; align-items:center;">
+          <svg width="280" height="220" viewBox="0 0 280 220" fill="none">
+            <rect x="20" y="140" width="240" height="60" rx="6" fill="#e2e8f0" />
+            <path d="M50 140 L90 80 L130 140 Z" fill="#f4a261" opacity="0.6" />
+            <circle cx="180" cy="110" r="25" fill="#e53e3e" opacity="0.2" />
+            <path d="M175 100 L185 120 M185 100 L175 120" stroke="#c53030" stroke-width="3" />
+            <path d="M40 170 Q140 190 240 165" stroke="#a0aec0" stroke-width="4" stroke-dasharray="6,6" />
+            <text x="140" y="40" fill="#4a5568" font-size="14" font-weight="bold" text-anchor="middle">혼자 할 때 느끼는 답답함과 한계</text>
+          </svg>
+          <p style="font-size:0.9rem; color:var(--gray-dark); text-align:center; margin-top:1rem;">
+            "누군가 옆에서 제대로 된 자세와 팁을 한 번만 알려주면 좋을 텐데..."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: PROCESS & SECOND AUTONOMOUS MOTION -->
+  <section class="section-padding process-section" id="process">
+    <div class="container">
+      <div style="text-align:center; margin-0 auto; max-width:700px;">
+        <span class="badge badge-secondary">단계별 학습 로드맵</span>
+        <h2 class="section-title">기초부터 정돈까지,<br>체계적으로 다져지는 실습 커리큘럼</h2>
+        <p class="section-desc" style="margin: 0 auto 2.5rem auto;">
+          단순히 만드는 것에 그치지 않고, 작업 전 준비부터 안전한 시공, 완벽한 현장 마감 정돈까지의 순서를 자율 모션으로 미리 확인하세요.
+        </p>
+      </div>
+
+      <!-- Autonomous Motion 2: Process Flow Simulation -->
+      <div class="process-visual-box">
+        <svg width="100%" height="100%" viewBox="0 0 800 320" preserveAspectRatio="xMidYMid meet">
+          <!-- Flow Path Line -->
+          <path d="M 150 160 L 400 160 L 650 160" stroke="#cbd5e1" stroke-width="6" fill="none" />
+          <path d="M 150 160 L 400 160 L 650 160" stroke="var(--primary)" stroke-width="6" fill="none" class="flow-line" />
+
+          <!-- Node 1 -->
+          <g>
+            <circle cx="150" cy="160" r="24" fill="var(--secondary)" class="node-1" />
+            <text x="150" y="165" fill="white" font-size="14" text-anchor="middle" font-weight="bold">1</text>
+            <text x="150" y="210" fill="var(--dark)" font-size="15" font-weight="bold" text-anchor="middle">안전 & 도구 이해</text>
+            <text x="150" y="235" fill="var(--gray-dark)" font-size="12" text-anchor="middle">올바른 자세 / 보호구 착용</text>
+          </g>
+
+          <!-- Node 2 -->
+          <g>
+            <circle cx="400" cy="160" r="24" fill="var(--secondary)" class="node-2" />
+            <text x="400" y="165" fill="white" font-size="14" text-anchor="middle" font-weight="bold">2</text>
+            <text x="400" y="210" fill="var(--dark)" font-size="15" font-weight="bold" text-anchor="middle">정밀 절단 & 재단</text>
+            <text x="400" y="235" fill="var(--gray-dark)" font-size="12" text-anchor="middle">수평 맞추기 / 1:1 보수 실습</text>
+          </g>
+
+          <!-- Node 3 -->
+          <g>
+            <circle cx="650" cy="160" r="24" fill="var(--secondary)" class="node-3" />
+            <text x="650" y="165" fill="white" font-size="14" text-anchor="middle" font-weight="bold">3</text>
+            <text x="650" y="210" fill="var(--dark)" font-size="15" font-weight="bold" text-anchor="middle">마감 & 현장 정돈</text>
+            <text x="650" y="235" fill="var(--gray-dark)" font-size="12" text-anchor="middle">깔끔한 청소 / 잔여 자재 정리</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: INTERACTIVE EXPERIENCE A (Diagnostic Tool) -->
+  <section class="section-padding interactive-section" id="interactive">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem auto;">
+        <span class="badge">참여형 맞춤 추천</span>
+        <h2 class="section-title">나에게 꼭 필요한 실습 코스 찾기</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          현재 고민 중인 셀프 보수 상황을 선택하시면, 최적화된 실습 안내와 예상 학습 내용을 즉시 시뮬레이션해 드립니다.
+        </p>
+      </div>
+
+      <div class="interactive-box">
+        <h3 style="font-size:1.1rem; margin-bottom:1rem; color:var(--secondary);">Q. 현재 가장 고치거나 배우고 싶은 부분은 무엇인가요?</h3>
+        
+        <div class="option-group" id="diagnosticOptions">
+          <button class="option-btn active" data-type="typeA">
+            <h4>🚪 문 / 가구 수리</h4>
+            <p>삐걱거리는 경첩, 안 닫히는 방문 보수</p>
+          </button>
+          <button class="option-btn" data-type="typeB">
+            <h4>🪵 소형 원목 소품 제작</h4>
+            <p>선반, 협탁 등 내 손으로 기초 목공</p>
+          </button>
+          <button class="option-btn" data-type="typeC">
+            <h4>🔨 실리콘 & 마감 보수</h4>
+            <p>욕실/창틀 실리콘 재시공 및 정돈</p>
+          </button>
+        </div>
+
+        <!-- Result Display Box -->
+        <div class="result-display" id="resultDisplay">
+          <div class="result-graphic" id="resultGraphic">
+            <!-- Dynamic SVG Graphics inserted via JS -->
+          </div>
+          <div class="result-info">
+            <h3 id="resultTitle">문 & 가구 수리 기초 실습 코스</h3>
+            <p id="resultDesc">경첩 교체부터 수평 맞추기, 안전한 드릴 사용법을 집중 연습하여 방문이나 가구 삐걱거림을 완벽히 해결합니다.</p>
+            <div class="result-tags" id="resultTags">
+              <span class="tag">소요시간: 2시간</span>
+              <span class="tag">난이도: 초급</span>
+              <span class="tag">인원: 1~3명 소수</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: INTERACTIVE EXPERIENCE B (Before / After Slider) -->
+  <section class="section-padding slider-section" id="before-after">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem auto;">
+        <span class="badge badge-secondary">시각적 변화 확인</span>
+        <h2 class="section-title">올바른 정돈과 마감의 차이</h2>
+        <p class="section-desc" style="margin: 0 auto;">
+          슬라이더를 좌우로 드래그하여 지저분했던 보수 현장이 정돈 교육 후 어떻게 변하는지 직관적으로 비교해 보세요.
+        </p>
+      </div>
+
+      <div class="comparison-container" id="comparisonContainer">
+        <!-- Before View (Dirty / Unorganized) -->
+        <div class="img-before">
+          <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+            <rect width="800" height="400" fill="#2d2421" />
+            <!-- Scattered Tools -->
+            <path d="M100 300 L200 250 M150 280 L120 320" stroke="#8a7568" stroke-width="8" stroke-linecap="round" />
+            <circle cx="300" cy="280" r="40" fill="#e53e3e" opacity="0.3" />
+            <text x="400" y="180" fill="white" font-size="28" font-weight="bold" text-anchor="middle" opacity="0.8">BEFORE: 무질서하고 위험한 현장</text>
+            <text x="400" y="220" fill="#cbd5e1" font-size="16" text-anchor="middle">톱밥 방치 · 도구 널브러짐 · 사고 위험</text>
+          </svg>
+        </div>
+
+        <!-- After View (Clean / Organized) -->
+        <div class="img-after" id="imgAfter">
+          <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+            <rect width="800" height="400" fill="#1b3326" />
+            <!-- Neatly Arranged Tools -->
+            <rect x="100" y="80" width="600" height="240" fill="none" stroke="#2c4c3b" stroke-width="4" rx="12" />
+            <text x="400" y="180" fill="#ffd166" font-size="28" font-weight="bold" text-anchor="middle">AFTER: 완벽히 정돈된 안전 공간</text>
+            <text x="400" y="220" fill="#e2e8f0" font-size="16" text-anchor="middle">도구 거치 완료 · 깔끔한 마감 · 안전 확보</text>
+          </svg>
+        </div>
+
+        <!-- Handle Slider Controls -->
+        <div class="comparison-slider" id="comparisonSlider">
+          <div class="slider-handle">◀ ▶</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: INSTRUCTOR & TEAM -->
+  <section class="section-padding team-section" id="instructor">
+    <div class="container">
+      <div class="instructor-card">
+        <div class="instructor-img-box">
+          <svg width="100%" height="100%" viewBox="0 0 240 280" preserveAspectRatio="xMidYMid slice">
+            <rect width="240" height="280" fill="#2c4c3b" />
+            <circle cx="120" cy="110" r="50" fill="#f4a261" />
+            <path d="M40 250 C40 180 80 170 120 170 C160 170 200 180 200 250 Z" fill="#d96b27" />
+            <text x="120" y="260" fill="white" font-size="14" text-anchor="middle" font-weight="bold">김철수 강사</text>
+          </svg>
+        </div>
+        <div class="instructor-info">
+          <span class="badge">대표 강사 소개</span>
+          <h3>김철수 (20년+ 경력 내장목수)</h3>
+          <p class="instructor-title">"손재주가 없어도 괜찮습니다. 안전과 기본만 지키면 누구든 할 수 있습니다."</p>
+          <ul class="career-list">
+            <li>(주)공간 내장목수 근무 (1994년 ~ 2004년)</li>
+            <li>아파트 및 주택 리모델링 현장 시공 20년 이상 경력</li>
+            <li>제주관광대학교 사회복지상담과 재학 중 (긍정 소통 역량)</li>
+            <li>전기 자격증 필기 합격 및 안전 관리 노하우 보유</li>
+          </ul>
+          <p style="font-size: 0.9rem; color: var(--gray-dark); line-height: 1.6;">
+            오랜 현장 경험을 통해 얻은 가장 큰 진리는 '안전과 정돈이 곧 최상의 마감'이라는 점입니다. 따뜻하고 친근한 해피 바이러스 기운으로 여러분의 첫 셀프 보수를 안전하게 도와드리겠습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: FAQ -->
+  <section class="section-padding faq-section" id="faq">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem auto;">
+        <span class="badge badge-secondary">자주 묻는 질문</span>
+        <h2 class="section-title">궁금한 점을 확인하세요</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-toggle">
+            <span>Q. 목공이나 도구 사용 경험이 전혀 없는 왕초보도 가능한가요?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-content">
+            <p>네, 당연합니다! 본 클래스는 도구를 한 번도 잡아보지 않은 입문자를 위해 설계되었습니다. 1:1 맞춤형으로 아주 기초적인 도구 명칭과 잡는 자세부터 차근차근 알려드립니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-toggle">
+            <span>Q. 준비물이나 개인 실습 장비가 필요한가요?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-content">
+            <p>실습에 필요한 안전 장구(장갑, 보호안경) 및 각종 전동 도구와 자재는 수업 현장에 모두 준비되어 있습니다. 편안한 복장으로 오시면 됩니다.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-toggle">
+            <span>Q. 수강 인원은 몇 명으로 진행되나요?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-content">
+            <p>안전사고 예방과 밀착 코칭을 위해 회당 1명에서 최대 3명 이하의 소규모 프리미엄 인원으로만 운영됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: FINAL CTA -->
+  <section class="cta-section" id="cta">
+    <div class="container cta-box">
+      <h2>안전하고 즐거운 셀프 보수,<br>지금 첫걸음을 내딛어보세요!</h2>
+      <p>당근마켓 및 지역 커뮤니티를 통해 시범 수강생을 모집할 예정입니다. 안내 문의 문구를 복사하여 미리 준비해 두세요.</p>
+      
+      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
+        <button onclick="copyInquiryText()" class="btn btn-primary" style="background:var(--white); color:var(--primary);">
+          📋 문의 문구 복사하기
+        </button>
+        <a href="#hero" class="btn btn-outline" style="border-color:var(--white); color:var(--white);">맨 위로 이동</a>
+      </div>
+
+      <p class="cta-notice">※ 본 페이지는 사업 검증을 위한 랜딩페이지 예시이며, 실제 수강 신청은 시범 모집 확정 후 진행됩니다.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div>
+        <p><strong>해피 바이러스 초보 목공/보수 안전 실습 교실 (가칭)</strong></p>
+        <p>대표: 김철수 | 문의: 당근마켓/지역 커뮤니티 시범 채널 준비 중</p>
+      </div>
+      <div>
+        <p>© 2026 Happy Virus DIY Class. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT CODE -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // 1. Scroll Progress Bar Update
+      window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById('scrollProgress').style.width = scrolled + '%';
+      });
+
+      // 2. HERO STORY CAROUSEL (Autonomous Scene Switcher)
+      const storyCaptions = [
+        "장면 1: 올바른 도구 핸들링 및 자재 절단 안전 실습",
+        "장면 2: 레이저 수평기와 전동 드릴 정밀 타공 실습",
+        "장면 3: 깔끔한 현장 청소 및 자재 정돈 마감 습관"
+      ];
+
+      let currentStoryIndex = 0;
+      let storyTimer = null;
+      let isStoryPlaying = true;
+
+      const storyCaptionEl = document.getElementById('storyCaption');
+      const dots = document.querySelectorAll('.story-indicators .dot');
+      const pauseBtn = document.getElementById('pauseStoryBtn');
+
+      function updateStoryScene(index) {
+        currentStoryIndex = index;
+        storyCaptionEl.style.opacity = '0';
+        setTimeout(() => {
+          storyCaptionEl.textContent = storyCaptions[currentStoryIndex];
+          storyCaptionEl.style.opacity = '1';
+        }, 200);
+
+        dots.forEach((dot, idx) => {
+          if(idx === currentStoryIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      function startStoryTimer() {
+        storyTimer = setInterval(() => {
+          let nextIdx = (currentStoryIndex + 1) % storyCaptions.length;
+          updateStoryScene(nextIdx);
+        }, 6000);
+      }
+
+      function stopStoryTimer() {
+        clearInterval(storyTimer);
+      }
+
+      startStoryTimer();
+
+      pauseBtn.addEventListener('click', function() {
+        if(isStoryPlaying) {
+          stopStoryTimer();
+          pauseBtn.textContent = '▶';
+          isStoryPlaying = false;
+        } else {
+          startStoryTimer();
+          pauseBtn.textContent = '❚❚';
+          isStoryPlaying = true;
+        }
+      });
+
+      document.getElementById('prevStoryBtn').addEventListener('click', function() {
+        let prevIdx = (currentStoryIndex - 1 + storyCaptions.length) % storyCaptions.length;
+        updateStoryScene(prevIdx);
+      });
+
+      document.getElementById('nextStoryBtn').addEventListener('click', function() {
+        let nextIdx = (currentStoryIndex + 1) % storyCaptions.length;
+        updateStoryScene(nextIdx);
+      });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          let idx = parseInt(this.getAttribute('data-index'));
+          updateStoryScene(idx);
+        });
+      });
+
+      // 3. INTERACTIVE DIAGNOSTIC TOOL (Option Selection)
+      const optionBtns = document.querySelectorAll('.option-btn');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultDesc = document.getElementById('resultDesc');
+      const resultGraphic = document.getElementById('resultGraphic');
+
+      const courseData = {
+        typeA: {
+          title: "문 & 가구 수리 기초 실습 코스",
+          desc: "경첩 교체부터 수평 맞추기, 안전한 드릴 사용법을 집중 연습하여 방문이나 가구 삐걱거림을 완벽히 해결합니다.",
+          graphic: `<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M3 21h18M3 3h18v18H3zM9 14h2v2H9z"/></svg>`
+        },
+        typeB: {
+          title: "소형 원목 소품 DIY 안전 코스",
+          desc: "원목 선반이나 협탁을 가공하며 대형/소형 톱 안전 사용법과 샌딩, 바니시 마감 기법을 배웁니다.",
+          graphic: `<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0l2 4H2l2-4"/></svg>`
+        },
+        typeC: {
+          title: "실리콘 마감 & 현장 정돈 코스",
+          desc: "욕실, 창틀 실리콘 쏘기의 정석 기술과 작업 후 흔적 없는 완벽한 현장 정돈 노하우를 전수받습니다.",
+          graphic: `<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`
+        }
+      };
+
+      // Set default graphic
+      resultGraphic.innerHTML = courseData.typeA.graphic;
+
+      optionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          optionBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          const type = this.getAttribute('data-type');
+          const data = courseData[type];
+
+          resultTitle.textContent = data.title;
+          resultDesc.textContent = data.desc;
+          resultGraphic.innerHTML = data.graphic;
+        });
+      });
+
+      // 4. BEFORE / AFTER COMPARISON SLIDER
+      const container = document.getElementById('comparisonContainer');
+      const imgAfter = document.getElementById('imgAfter');
+      const slider = document.getElementById('comparisonSlider');
+      let isDragging = false;
+
+      function setSliderPosition(x) {
+        const rect = container.getBoundingClientRect();
+        let posX = x - rect.left;
+        if (posX < 0) posX = 0;
+        if (posX > rect.width) posX = rect.width;
+
+        const percentage = (posX / rect.width) * 100;
+        imgAfter.style.width = percentage + '%';
+        slider.style.left = percentage + '%';
+      }
+
+      slider.addEventListener('mousedown', function(e) {
+        isDragging = true;
+      });
+
+      window.addEventListener('mouseup', function() {
+        isDragging = false;
+      });
+
+      window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        setSliderPosition(e.clientX);
+      });
+
+      // Touch Support for Mobile
+      slider.addEventListener('touchstart', function() {
+        isDragging = true;
+      });
+
+      window.addEventListener('touchend', function() {
+        isDragging = false;
+      });
+
+      window.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        setSliderPosition(e.touches[0].clientX);
+      });
+
+      // 5. FAQ ACCORDION
+      const faqToggles = document.querySelectorAll('.faq-toggle');
+      faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const item = this.parentElement;
+          item.classList.toggle('active');
+        });
+      });
+
+    });
+
+    // Copy Inquiry Text Function
+    function copyInquiryText() {
+      const textToCopy = "[해피 바이러스 초보 목공/보수 안전 실습 교실 문의]\n안녕하세요! 셀프 보수 안전 실습 클래스 시범 운영 일정 및 참여 방법에 대해 안내받고 싶습니다.";
+      navigator.clipboard.writeText(textToCopy).then(function() {
+        alert('문의 안내 문구가 클립보드에 복사되었습니다!\n원하시는 커뮤니티나 채널에 붙여넣어 문의하세요.');
+      }, function(err) {
+        alert('복사에 실패했습니다. 수동으로 입력해 주세요.');
+      });
+    }
+  </script>
+</body>
+</html>

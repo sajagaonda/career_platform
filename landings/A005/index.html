@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="시골 부모님의 병원 동행과 차량 승하차를 전문 요양보호사와 안전 보조장비로 돕는 안심 모빌리티 케어 서비스 (가칭)">
+  <title>시골 부모님 안심 병원동행 &amp; SAFE 이동 케어 (가칭)</title>
+  
+  <style>
+    /* ==========================================
+       1. DESIGN TOKENS & CSS VARIABLES
+       ========================================== */
+    :root {
+      --primary: #1e5631;       /* 숲과 안전을 상징하는 시니어 딥 그린 */
+      --primary-light: #4c9a66;
+      --primary-soft: #eaf4ed;
+      --accent: #d97724;        /* 자녀의 따뜻한 마음과 경고/안전을 뜻하는 웜 오렌지 */
+      --accent-soft: #fdf2e9;
+      --neutral-dark: #1f2937;  /* 가독성 높은 텍스트 딥 그레이 */
+      --neutral-mid: #4b5563;
+      --neutral-light: #f3f4f6;
+      --bg-white: #ffffff;
+      --bg-warm: #faf9f5;       /* 안락함을 주는 베이지 톤 배경 */
+      
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans KR", sans-serif;
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    /* ==========================================
+       2. BASE & RESET
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-warm);
+      color: var(--neutral-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+      word-break: keep-all;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    /* Badge */
+    .badge-pilot {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       3. HEADER & NAVIGATION
+       ========================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: var(--transition-normal);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      fill: var(--primary);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--neutral-mid);
+      transition: var(--transition-normal);
+    }
+
+    .nav-link:hover, .nav-link:focus {
+      color: var(--primary);
+    }
+
+    .btn-cta-nav {
+      padding: 0.6rem 1.2rem;
+      background-color: var(--primary);
+      color: var(--bg-white);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: var(--transition-normal);
+    }
+
+    .btn-cta-nav:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 30px;
+      height: 24px;
+      justify-content: center;
+    }
+
+    .mobile-menu-btn span {
+      width: 100%;
+      height: 3px;
+      background-color: var(--neutral-dark);
+      border-radius: 2px;
+      transition: var(--transition-normal);
+    }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background-color: var(--accent);
+      width: 0%;
+      transition: width 0.1s ease-out;
+    }
+
+    /* ==========================================
+       4. HERO SECTION (CINEMATIC CONTINUOUS MOTION)
+       ========================================== */
+    .hero-section {
+      padding-top: 120px;
+      padding-bottom: 80px;
+      background: linear-gradient(180deg, var(--bg-warm) 0%, var(--primary-soft) 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--neutral-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title .highlight {
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--neutral-mid);
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+      padding: 0.9rem 1.8rem;
+      background-color: var(--primary);
+      color: var(--bg-white);
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-normal);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      padding: 0.9rem 1.8rem;
+      background-color: var(--bg-white);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      transition: var(--transition-normal);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--primary-soft);
+      transform: translateY(-3px);
+    }
+
+    /* Hero Visual Container (Continuous Animation) */
+    .hero-visual-container {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .hero-svg-viewport {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* SVG Autonomous Animations */
+    @keyframes moveCar {
+      0% { transform: translateX(-20px) translateY(0px); }
+      50% { transform: translateX(20px) translateY(-3px); }
+      100% { transform: translateX(-20px) translateY(0px); }
+    }
+
+    @keyframes pulsePulseRing {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 0.3; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    @keyframes floatClouds {
+      0% { transform: translateX(-50px); }
+      100% { transform: translateX(100px); }
+    }
+
+    @keyframes rotateWheel {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes slideSafetyBelt {
+      0% { stroke-dashoffset: 200; }
+      50% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 200; }
+    }
+
+    .animated-car {
+      animation: moveCar 6s ease-in-out infinite;
+    }
+
+    .animated-pulse {
+      animation: pulsePulseRing 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    .animated-cloud {
+      animation: floatClouds 20s linear infinite alternate;
+    }
+
+    .animated-wheel {
+      animation: rotateWheel 4s linear infinite;
+      transform-origin: center;
+    }
+
+    /* Story Control Bar */
+    .hero-story-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-md);
+      z-index: 10;
+    }
+
+    .story-btn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      border: 1px solid var(--primary-light);
+      border-radius: 999px;
+      transition: var(--transition-normal);
+    }
+
+    .story-btn:hover {
+      background-color: var(--primary);
+      color: var(--bg-white);
+    }
+
+    .story-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .story-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #d1d5db;
+      cursor: pointer;
+      transition: var(--transition-normal);
+    }
+
+    .story-dot.active {
+      background-color: var(--primary);
+      width: 24px;
+      border-radius: 5px;
+    }
+
+    /* ==========================================
+       5. AUTOMATIC STORY SCENARIO SECTION
+       ========================================== */
+    .story-section {
+      padding: 80px 0;
+      background-color: var(--bg-white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 3rem auto;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      font-weight: 800;
+      margin-top: 0.5rem;
+      color: var(--neutral-dark);
+    }
+
+    .section-desc {
+      font-size: 1.1rem;
+      color: var(--neutral-mid);
+      margin-top: 0.75rem;
+    }
+
+    /* Story Card Display */
+    .story-carousel-container {
+      background-color: var(--bg-warm);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .story-scene-graphic {
+      width: 100%;
+      height: 280px;
+      background-color: var(--bg-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .story-content-box {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .story-step-num {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .story-step-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--neutral-dark);
+    }
+
+    .story-step-text {
+      font-size: 1.05rem;
+      color: var(--neutral-mid);
+      line-height: 1.7;
+    }
+
+    /* ==========================================
+       6. SECOND MOTION: LIVE DEMO PROCESS
+       ========================================== */
+    .live-demo-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, var(--bg-white) 0%, var(--primary-soft) 100%);
+    }
+
+    .demo-track-container {
+      background: var(--bg-white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .demo-svg-canvas {
+      width: 100%;
+      height: 220px;
+    }
+
+    /* Dash array animation along SVG route */
+    @keyframes dashTravel {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .path-animated {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dashTravel 8s linear infinite;
+    }
+
+    /* ==========================================
+       7. MAIN INTERACTIVE EXPERIENCE (MODULE A)
+       ========================================== */
+    .interactive-section {
+      padding: 80px 0;
+      background-color: var(--bg-white);
+    }
+
+    .interactive-card {
+      background: var(--bg-warm);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 2px solid var(--primary-soft);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .option-btn {
+      padding: 1.25rem;
+      background: var(--bg-white);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      text-align: left;
+      transition: var(--transition-normal);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-soft);
+      box-shadow: var(--shadow-md);
+    }
+
+    .option-title {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--neutral-dark);
+    }
+
+    .option-desc {
+      font-size: 0.9rem;
+      color: var(--neutral-mid);
+    }
+
+    /* Dynamic Result Display Box */
+    .interactive-result-box {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--bg-white);
+      border-radius: var(--radius-md);
+      border-left: 6px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-normal);
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    /* ==========================================
+       8. SECONDARY INTERACTION (MODULE B: BEFORE/AFTER SLIDER)
+       ========================================== */
+    .comparison-section {
+      padding: 80px 0;
+      background-color: var(--bg-warm);
+    }
+
+    .comparison-slider-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      user-select: none;
+    }
+
+    .comparison-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .layer-before {
+      background-color: #fee2e2;
+      color: #991b1b;
+      z-index: 1;
+    }
+
+    .layer-after {
+      background-color: var(--primary-soft);
+      color: var(--primary);
+      z-index: 2;
+      width: 50%; /* JS controlled */
+      overflow: hidden;
+      border-right: 4px solid var(--primary);
+    }
+
+    .slider-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 40px;
+      margin-left: -20px;
+      z-index: 3;
+      cursor: ew-resize;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .handle-circle {
+      width: 40px;
+      height: 40px;
+      background-color: var(--bg-white);
+      border: 3px solid var(--primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    /* ==========================================
+       9. PSST & CREATOR EXPERIENCE (TEAM)
+       ========================================== */
+    .team-section {
+      padding: 80px 0;
+      background-color: var(--bg-white);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .team-card {
+      background-color: var(--bg-warm);
+      padding: 2rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .team-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    /* ==========================================
+       10. FAQ ACCORDION
+       ========================================== */
+    .faq-section {
+      padding: 80px 0;
+      background-color: var(--bg-warm);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--bg-white);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .faq-header {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      text-align: left;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--neutral-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-icon {
+      width: 20px;
+      height: 20px;
+      transition: var(--transition-normal);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 1.5rem;
+      transition: var(--transition-normal);
+      color: var(--neutral-mid);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-body {
+      max-height: 200px;
+      padding: 0 1.5rem 1.25rem 1.5rem;
+    }
+
+    /* ==========================================
+       11. FINAL CTA & FOOTER
+       ========================================== */
+    .final-cta-section {
+      padding: 90px 0;
+      background: linear-gradient(135deg, var(--primary) 0%, #12381f 100%);
+      color: var(--bg-white);
+      text-align: center;
+    }
+
+    .final-cta-content {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer {
+      padding: 2rem 0;
+      background-color: var(--neutral-dark);
+      color: #9ca3af;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* Modal Accessibility */
+    .modal-overlay {
+      position: fixed;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-white);
+      padding: 2.5rem;
+      border-radius: var(--radius-lg);
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+    }
+
+    /* Reduced Motion Fallback */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .animated-car, .animated-pulse, .animated-cloud, .animated-wheel, .path-animated {
+        animation: none !important;
+      }
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .hero-grid, .story-carousel-container, .result-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual-container {
+        height: 360px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none; /* Can be toggled */
+      }
+      .mobile-menu-btn {
+        display: flex;
+      }
+      .comparison-slider-container {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#" class="logo" aria-label="홈으로 이동">
+        <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 14c1.49 0 2.87-.47 4-1.26V17c0 1.1-.9 2-2 2h-1c0 1.66-1.34 3-3 3s-3-1.34-3-3H10c0 1.66-1.34 3-3 3s-3-1.34-3-3H3c-1.1 0-2-.9-2-2v-5c0-1.71 1.02-3.17 2.47-3.83C4.12 6.01 6.81 4 10 4h4c2.86 0 5.3 1.64 6.47 4.03C21.28 8.01 22.15 8 23 8c.34 0 .67.03 1 .08V11c-1.13-.79-2.51-1.26-4-1.26-3.87 0-7 3.13-7 7s3.13 7 7 7z"/>
+        </svg>
+        <span>안심이동 케어</span>
+      </a>
+
+      <nav aria-label="메인 메뉴">
+        <ul class="nav-menu">
+          <li><a href="#service" class="nav-link">서비스 특징</a></li>
+          <li><a href="#demo" class="nav-link">안전 동행 과정</a></li>
+          <li><a href="#interactive" class="nav-link">맞춤 진단</a></li>
+          <li><a href="#team" class="nav-link">전문 요양보호사</a></li>
+          <li><a href="#faq" class="nav-link">자주 묻는 질문</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <span class="badge-pilot">시범 참여 모집 중</span>
+        <a href="#interactive" class="btn-cta-nav">미리보기 신청</a>
+        <button class="mobile-menu-btn" aria-label="메뉴 열기" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO SECTION (CINEMATIC AUTOMATIC MOTION)
+         ========================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div style="display: inline-flex;">
+            <span class="badge-pilot">농촌 어르신 &amp; 타지 자녀 안심 프로젝트</span>
+          </div>
+          <h1 class="hero-title">
+            시골 부모님 병원 모시는 길,<br>
+            <span class="highlight">부상 걱정 없는 SAFE 이동</span>으로 함께합니다
+          </h1>
+          <p class="hero-subtitle">
+            어르신의 차량 승하차 부상 위험을 안전 보조장비로 막고,<br>
+            우수 요양보호사의 전문 케어로 진료 수속부터 약 수령까지 안전하게 동행합니다.
+          </p>
+          <div class="hero-actions">
+            <a href="#interactive" class="btn-primary">
+              <span>우리 부모님 안심 진단하기</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#demo" class="btn-secondary">동행 과정 모션 보기</a>
+          </div>
+        </div>
+
+        <!-- HERO VISUAL: 3-Layer Continuous Autonomous Animation (Inline SVG) -->
+        <div class="hero-visual-container" aria-label="안전 승하차 차량 서비스 모션 일러스트">
+          <svg class="hero-svg-viewport" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid slice" role="img">
+            <!-- Background Layer: Sky & Moving Clouds -->
+            <rect width="500" height="400" fill="#f0fdf4"/>
+            <g class="animated-cloud">
+              <path d="M 30,60 Q 45,45 60,60 Q 75,45 90,60 L 90,75 L 30,75 Z" fill="#ffffff" opacity="0.9"/>
+              <path d="M 230,40 Q 245,25 260,40 Q 275,25 290,40 L 290,55 L 230,55 Z" fill="#ffffff" opacity="0.8"/>
+            </g>
+
+            <!-- Midground: Peaceful Countryside Hills & Hospital Route -->
+            <path d="M 0,260 Q 150,210 300,250 T 500,220 L 500,400 L 0,400 Z" fill="#dcfce7"/>
+            <path d="M 0,310 Q 200,280 500,320 L 500,400 L 0,400 Z" fill="#bbf7d0"/>
+            
+            <!-- Safe Transport Vehicle & Pulse Rings -->
+            <g class="animated-car">
+              <!-- Safety Pulse Aura -->
+              <circle cx="250" cy="270" r="80" fill="#1e5631" opacity="0.15" class="animated-pulse"/>
+              
+              <!-- Vehicle Body -->
+              <rect x="170" y="220" width="160" height="80" rx="16" fill="#1e5631"/>
+              <path d="M 200,220 L 230,180 L 290,180 L 310,220 Z" fill="#2d7a46"/>
+              <!-- Windows -->
+              <polygon points="205,215 232,185 260,185 260,215" fill="#e0f2fe"/>
+              <polygon points="265,215 265,185 288,185 303,215" fill="#e0f2fe"/>
+              
+              <!-- Wheels -->
+              <g class="animated-wheel" style="transform-origin: 205px 300px;">
+                <circle cx="205" cy="300" r="18" fill="#374151"/>
+                <circle cx="205" cy="300" r="8" fill="#9ca3af"/>
+              </g>
+              <g class="animated-wheel" style="transform-origin: 295px 300px;">
+                <circle cx="295" cy="300" r="18" fill="#374151"/>
+                <circle cx="295" cy="300" r="8" fill="#9ca3af"/>
+              </g>
+              
+              <!-- Safety Swivel Seat Visual (Rotating/Extending Slide) -->
+              <rect x="230" y="250" width="45" height="10" rx="3" fill="#d97724">
+                <animate attributeName="x" values="230;210;230" dur="4s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+
+            <!-- Foreground: Elderly Caregiver Warm Interaction Iconography -->
+            <g transform="translate(360, 240)">
+              <circle cx="30" cy="30" r="28" fill="#ffffff" stroke="#1e5631" stroke-width="3"/>
+              <!-- Heart & Shield SVG -->
+              <path d="M 22,25 C 22,20 30,16 30,24 C 30,16 38,20 38,25 C 38,32 30,36 30,38 C 30,36 22,32 22,25 Z" fill="#d97724"/>
+            </g>
+          </svg>
+
+          <!-- Interactive Control Overlay -->
+          <div class="hero-story-bar">
+            <button class="story-btn" id="heroPauseBtn" aria-label="애니메이션 일시정지">일시정지</button>
+            <div class="story-dots" aria-label="장면 선택">
+              <span class="story-dot active" data-index="0" title="1장면: 안전 이동"></span>
+              <span class="story-dot" data-index="1" title="2장면: 승하차 케어"></span>
+              <span class="story-dot" data-index="2" title="3장면: 진료 수속 동행"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         AUTOMATIC STORY SCENARIO SECTION (5-8s CYCLE)
+         ========================================== -->
+    <section class="story-section" id="service">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">안심 동행 시나리오</span>
+          <h2 class="section-title">왜 ‘안심 병원동행’이 필요할까요?</h2>
+          <p class="section-desc">자녀분의 염려와 어르신의 이동 불편을 동시에 해결하는 3단계 과정입니다.</p>
+        </div>
+
+        <div class="story-carousel-container" id="storyCarousel">
+          <div class="story-scene-graphic" id="storyGraphicBox">
+            <!-- Dynamically populated SVG scene -->
+            <svg viewBox="0 0 300 200" width="100%" height="100%">
+              <rect width="300" height="200" fill="#eaf4ed"/>
+              <circle cx="150" cy="100" r="50" fill="#4c9a66" opacity="0.3"/>
+              <text x="150" y="105" text-anchor="middle" fill="#1e5631" font-weight="bold" font-size="16">안전 승하차 보조장비</text>
+            </svg>
+          </div>
+
+          <div class="story-content-box">
+            <span class="story-step-num" id="storyStepNum">STEP 01</span>
+            <h3 class="story-step-title" id="storyStepTitle">차량 승하차 시 근골격계 부상 완정 예방</h3>
+            <p class="story-step-text" id="storyStepText">
+              몸을 잡아끌거나 억지로 일으키지 않습니다. 회전 슬라이딩 시트와 전용 안전벨트를 사용하여 힘을 들이지 않고 편안하게 차량에 모십니다.
+            </p>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <button class="story-btn" id="prevStoryBtn">&lt; 이전</button>
+              <button class="story-btn" id="nextStoryBtn">다음 &gt;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECOND MOTION: LIVE SERVICE DEMO ROUTE
+         ========================================== -->
+    <section class="live-demo-section" id="demo">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">실시간 프로세스 모션</span>
+          <h2 class="section-title">출발부터 귀가까지, 끊김 없는 SAFE 케어</h2>
+          <p class="section-desc">어르신의 하루를 안전하게 지키는 동행 동선 미리보기</p>
+        </div>
+
+        <div class="demo-track-container">
+          <svg class="demo-svg-canvas" viewBox="0 0 800 180">
+            <!-- Route Path -->
+            <path d="M 50,90 Q 200,20 400,90 T 750,90" fill="none" stroke="#e5e7eb" stroke-width="8" stroke-linecap="round"/>
+            <path d="M 50,90 Q 200,20 400,90 T 750,90" fill="none" stroke="#1e5631" stroke-width="8" stroke-linecap="round" class="path-animated"/>
+
+            <!-- Node 1: 자택 픽업 -->
+            <g transform="translate(50, 90)">
+              <circle cx="0" cy="0" r="16" fill="#1e5631"/>
+              <text x="0" y="5" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">1</text>
+              <text x="0" y="38" text-anchor="middle" fill="#1f2937" font-weight="bold" font-size="14">자택 안심 픽업</text>
+            </g>
+
+            <!-- Node 2: 안전 이동 -->
+            <g transform="translate(280, 55)">
+              <circle cx="0" cy="0" r="16" fill="#1e5631"/>
+              <text x="0" y="5" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">2</text>
+              <text x="0" y="38" text-anchor="middle" fill="#1f2937" font-weight="bold" font-size="14">승하차 &amp; 차량이동</text>
+            </g>
+
+            <!-- Node 3: 병원 동행 -->
+            <g transform="translate(520, 125)">
+              <circle cx="0" cy="0" r="16" fill="#1e5631"/>
+              <text x="0" y="5" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">3</text>
+              <text x="0" y="38" text-anchor="middle" fill="#1f2937" font-weight="bold" font-size="14">진료/약수령 동행</text>
+            </g>
+
+            <!-- Node 4: 안심 귀가 -->
+            <g transform="translate(750, 90)">
+              <circle cx="0" cy="0" r="16" fill="#d97724"/>
+              <text x="0" y="5" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">4</text>
+              <text x="0" y="38" text-anchor="middle" fill="#1f2937" font-weight="bold" font-size="14">귀가 &amp; 자녀 피드백</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MAIN INTERACTIVE EXPERIENCE (MODULE A)
+         ========================================== -->
+    <section class="interactive-section" id="interactive">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">맞춤 체험 인터랙션</span>
+          <h2 class="section-title">우리 부모님께 꼭 맞는 안심 동행 미리보기</h2>
+          <p class="section-desc">부모님의 거동 상태와 필요 항목을 선택하시면 예상 서비스 구성과 케어 방식을 바로 확인하실 수 있습니다.</p>
+        </div>
+
+        <div class="interactive-card">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--primary);">Q. 부모님의 현재 가장 도움이 필요한 부분은 무엇인가요?</h3>
+          
+          <div class="options-grid" role="radiogroup" aria-label="부모님 상황 선택">
+            <button class="option-btn selected" data-value="mobility" role="radio" aria-checked="true">
+              <span class="option-title">1. 승하차 및 거동 불편</span>
+              <span class="option-desc">차에 타고 내리실 때 힘이 없어 요양보호사를 잡으시거나 부상 위험이 큼</span>
+            </button>
+            <button class="option-btn" data-value="dementia" role="radio" aria-checked="false">
+              <span class="option-title">2. 치매 경계심 &amp; 낯가림</span>
+              <span class="option-desc">낯선 사람에 대해 문을 열어주지 않거나 이동 시 불안해하심</span>
+            </button>
+            <button class="option-btn" data-value="busy" role="radio" aria-checked="false">
+              <span class="option-title">3. 타지 거주 자녀의 일정 우려</span>
+              <span class="option-desc">갑작스러운 병원 방문이나 수속 상황에 자녀가 함께 가기 어려움</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Result Output Box -->
+          <div class="interactive-result-box" id="resultBox">
+            <div class="result-grid">
+              <div>
+                <span class="badge-pilot" id="resultBadge">맞춤 솔루션 A</span>
+                <h4 style="font-size: 1.4rem; font-weight: 800; margin: 0.5rem 0;" id="resultTitle">승하차 보조장비 집중 동행 케어</h4>
+                <p style="color: var(--neutral-mid); line-height: 1.6;" id="resultDesc">
+                  회전 슬라이딩 시트와 승하차 안심 벨트를 장착한 전용 차량이 방문합니다. 어르신의 몸에 무리가 가지 않도록 안전하게 모십니다.
+                </p>
+                <div style="margin-top: 1rem;">
+                  <strong>주요 포함 내역:</strong>
+                  <ul style="margin-left: 1.25rem; margin-top: 0.5rem; color: var(--neutral-mid);" id="resultList">
+                    <li>자택 안심 픽업 &amp; 안전 보조장비 승하차 지원</li>
+                    <li>병원 진료 수속 및 약 수령 전 과정 밀착 동행</li>
+                    <li>유류비 절감 및 케어 요양보호사 부상 예방 구조</li>
+                  </ul>
+                </div>
+              </div>
+              <div style="background: var(--primary-soft); padding: 1.5rem; border-radius: var(--radius-md); text-align: center;">
+                <svg viewBox="0 0 200 120" width="100%" height="120">
+                  <rect x="20" y="20" width="160" height="80" rx="10" fill="#ffffff" stroke="#1e5631" stroke-width="2"/>
+                  <text x="100" y="55" text-anchor="middle" fill="#1e5631" font-weight="bold" font-size="14">시범 이용 시뮬레이션</text>
+                  <text x="100" y="80" text-anchor="middle" fill="#d97724" font-weight="bold" font-size="12">1회 건당 서비스 맞춤 적용</text>
+                </svg>
+                <button class="btn-primary" style="width: 100%; margin-top: 1rem; justify-content: center;" id="btnCopyRequest">
+                  이 내용으로 서비스 문의 복사하기
+                </button>
+              </div>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--neutral-mid); margin-top: 1rem; text-align: right;">
+            ※ 위 선택 시뮬레이션은 서비스 이해를 돕기 위한 예시이며, 실제 예약은 시범 운영 상담 후 진행됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECONDARY INTERACTION (MODULE B: BEFORE/AFTER SLIDER)
+         ========================================== -->
+    <section class="comparison-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">비교 인터랙션</span>
+          <h2 class="section-title">일반 자차 이동 vs SAFE 안심 동행 비교</h2>
+          <p class="section-desc">슬라이더를 좌우로 움직여 차량 승하차 환경의 변화를 직접 비교해보세요.</p>
+        </div>
+
+        <div class="comparison-slider-container" id="comparisonSlider">
+          <!-- Layer BEFORE -->
+          <div class="comparison-layer layer-before">
+            <div style="text-align: center; padding: 2rem;">
+              <h3 style="font-size: 1.8rem; font-weight: 900;">기존 일반 자차 동행</h3>
+              <p style="font-size: 1.1rem; margin-top: 0.5rem;">어르신이 요양보호사를 꽉 잡아 부상 위험 증가<br>체력 소모 심함 &amp; 승하차 시 불안함</p>
+            </div>
+          </div>
+
+          <!-- Layer AFTER -->
+          <div class="comparison-layer layer-after" id="afterLayer">
+            <div style="text-align: center; padding: 2rem; width: 800px;">
+              <h3 style="font-size: 1.8rem; font-weight: 900; color: var(--primary);">SAFE 보조장비 안심 동행</h3>
+              <p style="font-size: 1.1rem; margin-top: 0.5rem; color: var(--primary);">슬라이딩 시트로 부드럽게 승하차<br>보호자와 요양보호사 모두 안전함 &amp; 에너지를 비축</p>
+            </div>
+          </div>
+
+          <!-- Handle -->
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-circle">&harr;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PSST & CREATOR EXPERIENCE (TEAM SECTION)
+         ========================================== -->
+    <section class="team-section" id="team">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">전문성과 진정성</span>
+          <h2 class="section-title">현장을 가장 잘 아는 우수 요양보호사가 만듭니다</h2>
+          <p class="section-desc">요양보호사 우수직원 선정 경험과 사회복지상담 전공 전문성을 바탕으로 더욱 안전하게 모십니다.</p>
+        </div>
+
+        <div class="team-grid">
+          <div class="team-card">
+            <h3>우수한 노인 케어 전문성</h3>
+            <p>가족재활복지센터 근무 시 어르신의 비언어적 표정과 요구를 세심히 살펴 **우수직원으로 선정**된 실제 노하우를 살립니다.</p>
+          </div>
+          <div class="team-card">
+            <h3>전문 복지 지식 습득</h3>
+            <p>제주관광대학교 사회복지상담과에 재학하며 체계적인 노인 상담 및 복지 케어 이론을 지속적으로 연마하고 있습니다.</p>
+          </div>
+          <div class="team-card">
+            <h3>가족 협력 안전 네트워크</h3>
+            <p>인테리어/시설 보수 노하우를 가진 남편과의 협력으로 차량 승하차 보조장비 설치 및 이동 안전성을 철저히 보강합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FAQ ACCORDION
+         ========================================== -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="badge-pilot">궁금한 점 해소</span>
+          <h2 class="section-title">자주 묻는 질문</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-header" aria-expanded="false">
+              <span>Q. 정식 서비스 이용 요금은 어떻게 되나요?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-body">
+              현재 본 서비스는 시범 참여 검증 단계입니다. 건당 적정 수가는 1회 이동 거리와 소요 시간을 기반으로 타지 자녀분들의 부담을 줄이는 정직한 가설 수가로 시범 적용 중입니다.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-header" aria-expanded="false">
+              <span>Q. 치매 어르신이 문을 안 열어주실 때는 어떻게 하나요?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-body">
+              전문 요양보호사의 사전 라포 형성 방문 및 익숙한 안심 인사 방식으로 어르신의 경계심을 낮추어 안전하게 이동을 도와드립니다.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-header" aria-expanded="false">
+              <span>Q. 갑자기 병원 진료 일정이 취소되면 어떻게 되나요?</span>
+              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="faq-body">
+              1회 건당 동행 서비스 구조를 취하고 있어, 급작스러운 취소 시에도 자녀분과 요양보호사 모두에게 합리적인 조율 가이드라인을 제공합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FINAL CTA
+         ========================================== -->
+    <section class="final-cta-section">
+      <div class="container final-cta-content">
+        <span class="badge-pilot" style="background: rgba(255,255,255,0.2); color: #fff; border-color: #fff;">시범 운영 참여 안내</span>
+        <h2 style="font-size: 2.2rem; font-weight: 900;">시골에 계신 부모님의 안전한 병원길,<br>지금 안심 동행 서비스로 준비하세요</h2>
+        <p style="font-size: 1.1rem; opacity: 0.9;">
+          타지에서도 마음 놓으실 수 있도록 어르신의 표정과 진료 결과를 친절히 안내해 드립니다.
+        </p>
+        <button class="btn-primary" style="background-color: var(--accent); border: none;" id="btnFinalCTA">
+          <span>시범 동행 서비스 문의문구 복사하기</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>시골 부모님 안심 병원동행 &amp; SAFE 이동 케어 (가칭) | 리더: 김명희</p>
+      <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">
+        본 랜딩페이지는 검증용 사업 아이디어 시뮬레이션 페이지이며, 실제 개인정보를 실서버로 수집하지 않습니다.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal Accessibility Component -->
+  <div class="modal-overlay" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <h3 id="modalTitle" style="font-size: 1.4rem; color: var(--primary); font-weight: bold;">안내문구가 복사되었습니다!</h3>
+      <p style="margin: 1rem 0; color: var(--neutral-mid);" id="modalBody">
+        클립보드에 문의 문구가 복사되었습니다. 카카오톡이나 문자메시지에 붙여넣어 문의해 주세요.
+      </p>
+      <button class="btn-primary" id="closeModalBtn" style="width: 100%; justify-content: center;">확인</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       JAVASCRIPT (SINGLE-FILE INTEGRATED)
+       ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // 1. SCROLL PROGRESS BAR & HEADER EFFECT
+      const scrollProgress = document.getElementById('scrollProgress');
+      const siteHeader = document.getElementById('siteHeader');
+
+      window.addEventListener('scroll', function() {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        scrollProgress.style.width = progress + '%';
+
+        if (window.scrollY > 50) {
+          siteHeader.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+        } else {
+          siteHeader.style.boxShadow = 'none';
+        }
+      });
+
+      // 2. HERO PAUSE/PLAY TOGGLE
+      const heroPauseBtn = document.getElementById('heroPauseBtn');
+      let isHeroPaused = false;
+
+      heroPauseBtn.addEventListener('click', function() {
+        isHeroPaused = !isHeroPaused;
+        const animatedElements = document.querySelectorAll('.animated-car, .animated-pulse, .animated-cloud, .animated-wheel');
+        
+        animatedElements.forEach(el => {
+          el.style.animationPlayState = isHeroPaused ? 'paused' : 'running';
+        });
+
+        heroPauseBtn.textContent = isHeroPaused ? '재생' : '일시정지';
+      });
+
+      // 3. STORY CAROUSEL AUTOPLAY (5-8초 자동 순환)
+      const storyData = [
+        {
+          step: "STEP 01",
+          title: "차량 승하차 시 근골격계 부상 완정 예방",
+          desc: "몸을 잡아끌거나 억지로 일으키지 않습니다. 회전 슬라이딩 시트와 전용 안전벨트를 사용하여 힘을 들이지 않고 편안하게 차량에 모십니다.",
+          color: "#eaf4ed",
+          text: "안전 승하차 보조장비"
+        },
+        {
+          step: "STEP 02",
+          title: "친근한 라포 형성 및 치매 어르신 안심 케어",
+          desc: "낯가림이나 경계심이 심한 어르신께 우수 요양보호사의 섬세한 관찰력과 친화력으로 문을 열어주실 수 있도록 정성껏 다가갑니다.",
+          color: "#fdf2e9",
+          text: "전문 케어 라포 형성"
+        },
+        {
+          step: "STEP 03",
+          title: "진료 수속, 약 수령 & 자녀 안심 피드백",
+          desc: "복잡한 병원 수속부터 약 복용법 확인까지 꼼꼼히 챙기며, 타지에 계신 자녀분께 어르신의 상태와 진료 결과를 안심 보고해 드립니다.",
+          color: "#e0f2fe",
+          text: "진료 동행 & 자녀 보고"
+        }
+      ];
+
+      let currentStoryIndex = 0;
+      let storyTimer = null;
+
+      const storyStepNum = document.getElementById('storyStepNum');
+      const storyStepTitle = document.getElementById('storyStepTitle');
+      const storyStepText = document.getElementById('storyStepText');
+      const storyGraphicBox = document.getElementById('storyGraphicBox');
+      const storyDots = document.querySelectorAll('.story-dot');
+
+      function updateStory(index) {
+        currentStoryIndex = index;
+        const data = storyData[index];
+
+        storyStepNum.textContent = data.step;
+        storyStepTitle.textContent = data.title;
+        storyStepText.textContent = data.desc;
+
+        storyGraphicBox.innerHTML = `
+          <svg viewBox="0 0 300 200" width="100%" height="100%">
+            <rect width="300" height="200" fill="${data.color}"/>
+            <circle cx="150" cy="100" r="50" fill="#1e5631" opacity="0.2"/>
+            <text x="150" y="105" text-anchor="middle" fill="#1e5631" font-weight="bold" font-size="16">${data.text}</text>
+          </svg>
+        `;
+
+        storyDots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === index);
+        });
+      }
+
+      function startStoryTimer() {
+        clearInterval(storyTimer);
+        storyTimer = setInterval(function() {
+          let nextIdx = (currentStoryIndex + 1) % storyData.length;
+          updateStory(nextIdx);
+        }, 6000); // 6초마다 자동 전환
+      }
+
+      document.getElementById('prevStoryBtn').addEventListener('click', function() {
+        let prevIdx = (currentStoryIndex - 1 + storyData.length) % storyData.length;
+        updateStory(prevIdx);
+        startStoryTimer();
+      });
+
+      document.getElementById('nextStoryBtn').addEventListener('click', function() {
+        let nextIdx = (currentStoryIndex + 1) % storyData.length;
+        updateStory(nextIdx);
+        startStoryTimer();
+      });
+
+      storyDots.forEach(dot => {
+        dot.addEventListener('click', function() {
+          const idx = parseInt(this.getAttribute('data-index'));
+          updateStory(idx);
+          startStoryTimer();
+        });
+      });
+
+      startStoryTimer();
+
+      // 4. MAIN INTERACTIVE EXPERIENCE (MODULE A)
+      const optionBtns = document.querySelectorAll('.option-btn');
+      const resultBadge = document.getElementById('resultBadge');
+      const resultTitle = document.getElementById('resultTitle');
+      const resultDesc = document.getElementById('resultDesc');
+      const resultList = document.getElementById('resultList');
+
+      const optionResults = {
+        mobility: {
+          badge: "맞춤 솔루션 A",
+          title: "승하차 보조장비 집중 동행 케어",
+          desc: "회전 슬라이딩 시트와 승하차 안심 벨트를 장착한 전용 차량이 방문합니다. 어르신의 몸에 무리가 가지 않도록 안전하게 모십니다.",
+          items: [
+            "자택 안심 픽업 & 안전 보조장비 승하차 지원",
+            "병원 진료 수속 및 약 수령 전 과정 밀착 동행",
+            "유류비 절감 및 케어 요양보호사 부상 예방 구조"
+          ]
+        },
+        dementia: {
+          badge: "맞춤 솔루션 B",
+          title: "치매 어르신 안심 라포 동행 케어",
+          desc: "경계심이 높은 치매 어르신을 위해 사전 인사를 통한 라포 형성 후 정성껏 안내해 드립니다.",
+          items: [
+            "우수 요양보호사의 비언어적 관찰 및 친화적 안심 방문",
+            "병원 이동 중 자극을 줄이는 편안한 케어 환경 유지",
+            "보호자 및 자녀 대상 당일 컨디션 안심 보고서 전달"
+          ]
+        },
+        busy: {
+          badge: "맞춤 솔루션 C",
+          title: "타지 자녀 안심 보고형 원스톱 동행",
+          desc: "타지에 계신 자녀분을 대신하여 진료 동행 후 어르신의 상태와 진료 결과를 종합하여 피드백해 드립니다.",
+          items: [
+            "자택-병원-약국-자택 전 일정 안심 동행 수속",
+            "담당 의사 전달사항 및 약 복용법 자녀 피드백",
+            "건당 정액 요금으로 일정 취소 시에도 안정적 서비스"
+          ]
+        }
+      };
+
+      optionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          optionBtns.forEach(b => {
+            b.classList.remove('selected');
+            b.setAttribute('aria-checked', 'false');
+          });
+          this.classList.add('selected');
+          this.setAttribute('aria-checked', 'true');
+
+          const val = this.getAttribute('data-value');
+          const data = optionResults[val];
+
+          resultBadge.textContent = data.badge;
+          resultTitle.textContent = data.title;
+          resultDesc.textContent = data.desc;
+
+          resultList.innerHTML = data.items.map(item => `<li>${item}</li>`).join('');
+        });
+      });
+
+      // 5. SECONDARY INTERACTION (MODULE B: BEFORE/AFTER SLIDER)
+      const sliderContainer = document.getElementById('comparisonSlider');
+      const afterLayer = document.getElementById('afterLayer');
+      const sliderHandle = document.getElementById('sliderHandle');
+      let isDragging = false;
+
+      function setSliderPosition(x) {
+        const rect = sliderContainer.getBoundingClientRect();
+        let offsetX = x - rect.left;
+        if (offsetX < 0) offsetX = 0;
+        if (offsetX > rect.width) offsetX = rect.width;
+
+        const percentage = (offsetX / rect.width) * 100;
+        afterLayer.style.width = percentage + '%';
+        sliderHandle.style.left = percentage + '%';
+      }
+
+      sliderHandle.addEventListener('mousedown', () => isDragging = true);
+      window.addEventListener('mouseup', () => isDragging = false);
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        setSliderPosition(e.clientX);
+      });
+
+      // Touch events for mobile
+      sliderHandle.addEventListener('touchstart', () => isDragging = true);
+      window.addEventListener('touchend', () => isDragging = false);
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        setSliderPosition(e.touches[0].clientX);
+      });
+
+      // 6. FAQ ACCORDION TOGGLE
+      const faqHeaders = document.querySelectorAll('.faq-header');
+
+      faqHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          const item = this.parentElement;
+          const isActive = item.classList.contains('active');
+
+          document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+          if (!isActive) {
+            item.classList.add('active');
+            this.setAttribute('aria-expanded', 'true');
+          } else {
+            this.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // 7. MODAL & CLIPBOARD ACTIONS
+      const modal = document.getElementById('infoModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const btnCopyRequest = document.getElementById('btnCopyRequest');
+      const btnFinalCTA = document.getElementById('btnFinalCTA');
+
+      function triggerCopyAction() {
+        const textToCopy = "[시골 부모님 안심 병원동행 서비스 문의]\n어르신의 안전한 병원 이동 및 승하차 케어 시범 서비스 문의드립니다.";
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          modal.classList.add('active');
+        }).catch(() => {
+          alert('안내문구가 복사되었습니다: ' + textToCopy);
+        });
+      }
+
+      btnCopyRequest.addEventListener('click', triggerCopyAction);
+      btnFinalCTA.addEventListener('click', triggerCopyAction);
+
+      closeModalBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+      });
+
+    });
+  </script>
+</body>
+</html>
